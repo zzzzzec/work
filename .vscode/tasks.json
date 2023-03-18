@@ -1,0 +1,24 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: cpp.exe build active file",
+			"command": "D:\\mingw32\\bin\\g++.exe",
+			"args": [
+				"-g",
+				"${workspaceFolder}\\main.cpp",
+				"-o",
+				"${workspaceFolder}\\main.exe",
+				"-static"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+		}
+	]
+}

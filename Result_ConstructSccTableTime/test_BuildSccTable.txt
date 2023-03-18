@@ -1,0 +1,2 @@
+Build SCC-Table Time is: 0.073s.
+Build IndexGraph Time is: 0.013s.
