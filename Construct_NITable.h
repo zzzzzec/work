@@ -60,38 +60,30 @@ vector<int> exToNode(vector<int> con) {
     return inNodeVector;
 }
 //SCC图就是一个DAG，evolvingGraphSequence包含了所有DAG图的信息
+//在timespan时间戳下，从evergingGraphSequence中获取NITable
+//NITable其实就是对于DAG的描述，每一个表项都有自己指向和指向自己的节点集合
 NodeInfoTable GetNITable(NodeInfoTable &nodeInfoTable, vector<vector<int>> &evolvingGraphSequence, int timeStamp) {
     int curDAG_ID = timeStamp - 1;          //DAG快照编号应从0开始
-
     vector<int> curDAG_edges = evolvingGraphSequence[curDAG_ID];
-
     vector<int> sourceNodeVector = exFromNode(curDAG_edges);
     vector<int> targetNodeVector = exToNode(curDAG_edges);
-
     //当前DAG快照中边数量
     int numOfItems = targetNodeVector.size();
-
     printf("=============== Getting NI-Table... ===============\n");
 
     //逐边处理
     for (int i = 0; i < numOfItems; ++i) {
-
-        printf("\t\tProcessing the %dth / %d edges in DAG-Edges...\n", i, numOfItems);
-
         //该边源节点
         int curSourceNode = sourceNodeVector[i];
         //该边目的节点
         int curTargetNode = targetNodeVector[i];
-
         //对源节点:
         //判断当前NITable中是否存在该源节点的记录
-
         auto sourcePos = find_if(nodeInfoTable.begin(), nodeInfoTable.end(), RecordItem(curSourceNode));
         if (sourcePos != nodeInfoTable.end()) {
             //当前NITable中存在该源节点记录
             //判断该源节点记录Out项中是否有目的节点信息
             auto targetItemPos = find_if((*sourcePos).Out.begin(), (*sourcePos).Out.end(), Item(curTargetNode));
-
             if (targetItemPos != (*sourcePos).Out.end()) {
                 //Out项中含有该目的节点信息，只需更新其生存期
                 (*targetItemPos).lifespan.set(timeStamp);
@@ -101,13 +93,11 @@ NodeInfoTable GetNITable(NodeInfoTable &nodeInfoTable, vector<vector<int>> &evol
                 Item item;
                 item.vertexID = curTargetNode;
                 item.lifespan.set(timeStamp);
-
                 (*sourcePos).Out.push_back(item);
             }
         } else {
             //当前NITable中不存在该源节点记录
             //在表中增加新的节点记录条目(curSourceNode,In,Out)，并在其Out项中加入该边
-
             //构建新的记录
             RecordItem recordItem;
             recordItem.node = curSourceNode;

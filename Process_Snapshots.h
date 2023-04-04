@@ -34,69 +34,33 @@ vector<int> BuildCurDAGEdgesDataSequenceFromIndex(Graph graph, SccTable &st, map
 
 map<int, int> BuildIndexOfCurSccTable(SccTable &st, int &timeStamp);
 
+
 //----------------------------
 //问题：不同时间的 SCCID 是如何分配的？
-SccTable GetSCCTable(int timeIntervalLength, string fileAddressHead, vector<vector<int>> &evolvingGraphSequence,
+SccTable GetSCCTable(int timeIntervalLength, Graph* originGraph, vector<vector<int>> &evolvingGraphSequence,
                      double &buildSccTableTime) {
     //st 变量是全局时间有效的，对于每一个时间戳都有效
     SccTable st;
     int sccId = 0;
 
-    for (int timeStamp = 1; timeStamp < timeIntervalLength + 1; ++timeStamp) {
-
-        vector<int> dataVector = GetFileData(fileAddressHead, timeStamp);
-
-        //=================构建图快照=================
-        Graph graph;
-
-        auto ne = dataVector.size();
-
-        int num_edges = ne / 2;
-
-        int e = 0;
-        for (int i = 0; i < ne; i = i + 2) {
-            e++;
-
-            if (e % 1000 == 0) {
-                printf("Inserting the %dth / %d---------In the %dth Snapshot.\n", e, num_edges, timeStamp);
-            }
-            graph.InsertEdge(dataVector[i], dataVector[i + 1]);
-
-            /*
-            if (i % 100 == 0 || (i + 1) % 100 == 0) {
-                printf("Inserting the %dth / %d---------In the %dth Snapshot.\n", i + 1, num_edges, timeStamp);
-            }
-            graph.InsertEdge(dataVector[i + 1], dataVector[i]);
-            */
-        }
-
+    for (int timeStamp = 1; timeStamp < timeIntervalLength + 1; ++timeStamp) { 
         //计算图中SCC
-        printf("Computing the %dth file's SCC...\n", timeStamp);
-
-        graph.CalculateConnection();
-
-        printf("Integrating the %dth file's SCC...\n", timeStamp);
-        graph.SumScc();
-        int numOfSCC = graph.GetConnectedCount();
-        printf("The number of SCC is %d in %dth snapshot.\n", numOfSCC, timeStamp);
-
-        map<int, int> v2s = graph.GetMapV2S();
+        originGraph[timeStamp - 1].CalculateConnection();
+        originGraph[timeStamp - 1].SumScc();
+        int numOfSCC = originGraph[timeStamp - 1].GetConnectedCount();
+        map<int, int> v2s = originGraph[timeStamp - 1].GetMapV2S();
 
         //更新SCC-Table
         clock_t buildSCCT_startTime, buildSCCT_endTime;
         buildSCCT_startTime = clock();
-
         UpdateSccTable(numOfSCC, v2s, st, timeStamp, sccId);
-
         buildSCCT_endTime = clock();
-
         double updateTime = (double) (buildSCCT_endTime - buildSCCT_startTime);
         buildSccTableTime += updateTime;
 
         //构建SCC-Table的索引
-        printf("===========================================\n");
 
-        int numOfV = graph.GetVexNum();
+        int numOfV = originGraph[timeStamp - 1].GetVexNum();
 
         printf("Start building the index of SCC-Table------the %dth snapshot\n", timeStamp);
         map<int, int> index_curST = BuildIndexOfCurSccTable(st, timeStamp);
@@ -106,13 +70,7 @@ SccTable GetSCCTable(int timeIntervalLength, string fileAddressHead, vector<vect
         if (index_curST.size() == numOfV) {
             complete = 1;
         }
-
-        printf("Finish building the index of SCC-Table------the %dth snapshot------Complete: %d\n", timeStamp,
-               complete);
-        printf("===========================================\n");
-
-//        vector<int> cur_DAG_Edges = BuildCurDAGEdgesDataSequence(graph, st, timeStamp);
-        vector<int> cur_DAG_Edges = BuildCurDAGEdgesDataSequenceFromIndex(graph, st, index_curST, timeStamp);
+        vector<int> cur_DAG_Edges = BuildCurDAGEdgesDataSequenceFromIndex(originGraph[timeStamp - 1], st, index_curST, timeStamp);
         //cur_DAG_Edges: SCC图中所有边的集合，两行表示一个边，第一行为边的起点，第二行为边的终点
         evolvingGraphSequence.push_back(cur_DAG_Edges);
     }

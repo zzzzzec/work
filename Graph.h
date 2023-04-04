@@ -31,7 +31,7 @@ typedef struct ArcNode {
 typedef struct VerNode {
     int souID;                      //源节点ID
     int sccOfIG;                    //标识源节点位于IG中哪个SCC
-    ArcNode *firstArc;            //该节点第一条出边
+    ArcNode *firstArc;              //该节点第一条出边
 
     VerNode() {
         sccOfIG = 0;
@@ -52,15 +52,13 @@ typedef struct NodeinG {
     int ID;
     int Pos;
 } NodeinG;
-
+ 
 class Graph {
 private:
     AdjList_Graph vertices;             //邻接表
     int vexnum, edgenum;                //节点数&边数
-
     int connectedCount;                 //强连通分量个数
     stack<NodeinG> reversePost;         //图中各顶点逆后序
-
     map<int, int> map_ver2scc;          //统计各节点对应的sccID
 
 private:
@@ -71,45 +69,28 @@ private:
 
 public:
     Graph();
-
     ~Graph();
-
-    Graph Reverse();                           //求反向图
-
-    AdjList_Graph GetVertices();                      //获取图的邻接表
-
-    int GetVexNum();                            //获取图的节点数
-
-    int GetConnectedCount();                    //获取SCC数量
-
-    map<int, vector<NodeinG>> GetSccOfIGraph(); //获取IGraph中的SCC及其对应ID
-
-    stack<NodeinG> GetReversePost();           //返回顶点的逆后序序列
-
-    void ClearReversePost();                    //清空栈reversePost中的记录
-
-    void CalReversePost();                      //通过递归调用DFSForReversePost求得逆后序
-
-    void CalculateConnection();                 //求图的强连通分量
-
+    Graph Reverse();                                    //求反向图
+    AdjList_Graph GetVertices();                        //获取图的邻接表
+    int GetVexNum();                                    //获取图的节点数
+    int GetConnectedCount();                            //获取SCC数量
+    map<int, vector<NodeinG>> GetSccOfIGraph();         //获取IGraph中的SCC及其对应ID
+    stack<NodeinG> GetReversePost();                    //返回顶点的逆后序序列
+    void ClearReversePost();                            //清空栈reversePost中的记录
+    void CalReversePost();                              //通过递归调用DFSForReversePost求得逆后序
+    void CalculateConnection();                         //求图的强连通分量
     void SumScc();
 
     map<int, int> GetMapV2S();
-
     bool NodeIsExists(int nodeID);
-
     int VerPos(int nodeID);
-
     void AddOutToSourceNode(int souPos, int tarID);
-
     void InsertEdge(int souID, int tarID);
-
     void DeleteEdge(int souID, int tarID);
-
     void DFSTraverse();
-
     void CreateVertex(int ID);
-
+    bool AddSingleNode(int ID);
+    int findSCCIDFromNodeId(int nodeID);
 };
 
 Graph::Graph() {
@@ -231,7 +212,6 @@ void Graph::ClearReversePost() {
 
 void Graph::CalReversePost() {
     ClearReversePost();
-
     bool *visited = new bool[vexnum];
     for (int i = 0; i < vexnum; ++i) {
         visited[i] = false;
@@ -241,7 +221,6 @@ void Graph::CalReversePost() {
             DFSForReversePost(j, visited);
         }
     }
-
     delete[] visited;
 }
 
@@ -266,23 +245,19 @@ void Graph::DFSForReversePost(int vPos, bool *visited) {
 
 void Graph::CalculateConnection() {
     connectedCount = 0;
-
     bool *visited = new bool[vexnum];
     for (int i = 0; i < vexnum; ++i) {
         vertices[i].sccOfIG = 0;
         visited[i] = false;
     }
-
     //根据本图的反向图的顶点逆后序序列来进行DFS
     //所有在同一个递归DFS调用中被访问到的顶点都在同一个强连通分量中
     Graph R = this->Reverse();
     R.CalReversePost();
     //获取逆后序
     stack<NodeinG> topostack = R.GetReversePost();
-
     while (!topostack.empty()) {
         int tarID = topostack.top().ID;
-
         int j = VerPos(tarID);
         topostack.pop();
         if (!visited[j]) {
@@ -392,6 +367,19 @@ void Graph::CreateVertex(int ID) {
     vexnum++;
 }
 
+bool Graph::AddSingleNode(int ID){
+    for (auto it = vertices.begin(); it != vertices.end(); it++){
+        if (it->souID == ID) {
+            return false;
+        }
+    }
+    VerNode newVerNode(ID);
+    vertices.push_back(newVerNode);
+    vexnum++;
+    connectedCount ++;
+    return true;
+}
+
 void Graph::DFSForConnection(int vPos, bool *visited) {
     visited[vPos] = true;
     vertices[vPos].sccOfIG = connectedCount - 1;
@@ -416,6 +404,15 @@ void Graph::SumScc() {
 
 map<int, int> Graph::GetMapV2S() {
     return map_ver2scc;
+}
+
+int Graph::findSCCIDFromNodeId(int nodeID) {
+    for(auto it = vertices.begin(); it != vertices.end(); it++){
+        if (it->souID == nodeID){
+            return it->sccOfIG;
+        }
+    }
+    return -1;
 }
 
 #endif //IG_NOOP_5_GRAPH_H

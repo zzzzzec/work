@@ -15,7 +15,7 @@
 
 using namespace std;
 
-//typedef bitset<MNS> Lifespan;
+typedef bitset<MNS> Lifespan;
 
 bitset<MNS> LifespanJoin(bitset<MNS> &l1, bitset<MNS> &l2);
 

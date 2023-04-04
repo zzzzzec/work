@@ -4,6 +4,12 @@
         "xtree": "cpp",
         "bitset": "cpp",
         "xstring": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "utility": "cpp",
+        "deque": "cpp",
+        "initializer_list": "cpp",
+        "map": "cpp",
+        "xlocale": "cpp",
+        "stack": "cpp"
     }
 }
