@@ -32,6 +32,8 @@ bool SortSccInNode(SccID_Life &a, SccID_Life &b) {
 }
 
 //SccTable:<{节点集合}，{{SCC ID+SCC 生存期}}>
+//[std::set with 1 element = {[0] = 2}] = 
+//{life_time = std::bitset = {[1] = 1}, scc_id = 3}
 typedef map<set<int>, SccID_Life> SccTable;
 
 typedef map<int, vector<SccID_Life>> OpSccTable;
@@ -188,6 +190,17 @@ void StoreConstructTime(string storeAddress, double buildSCCTableTime, double bu
     }
     outfile.close();
 
+}
+
+int newSCCID(SccTable st){
+    int maxSCCID = 0;
+    for(auto it = st.begin(); it != st.end(); it++){
+        int curSCCID = (*it).second.scc_id;
+        if(curSCCID > maxSCCID){
+            maxSCCID = curSCCID;
+        }
+    }
+    return maxSCCID + 1;
 }
 
 #endif //IG_NOOP_5_SCC_TABLE_H

@@ -70,6 +70,7 @@ public:
     int getaNewSCCID();
     bool addSCCnode(int nodeID, int newSCCID, Lifespan lifespan);
     bool addSCCedge(int srcNodeID, int dstNodeID, Lifespan lifespan);
+    bool reconstructEvolvingGraphSequence(SCCGraph &sccGraph, int timestamp);
     vector<SCCnode> findCycle();
 };
 
@@ -187,6 +188,11 @@ bool HRindex::addSCCnode(int nodeID, int newSCCID, Lifespan lifespan){
     return true;
 }
 
+bool HRindex::reconstructEvolvingGraphSequence(SCCGraph &sccGraph, int timestamp){
+    
+    return true;
+}
+
 
 bool HRindex::singleStepUpdate(){
     for (int i = 0; i < updateRecordVector.size(); ++i) {
@@ -206,20 +212,24 @@ bool HRindex::singleStepUpdate(){
             newRefineRecordItem.node = newSCCID;
             refineNITable.push_back(newRefineRecordItem);
         }
-        else if(ur.type == 2){
+        else if(ur.type == 3){
             //加入一条边u->v
-            originGraph[ur.timestamp].InsertEdge(ur.u, ur.v);
-            int uSCCID = originGraph[ur.timestamp].findSCCIDFromNodeId(ur.u);
-            int vSCCID = originGraph[ur.timestamp].findSCCIDFromNodeId(ur.v);
-            if(uSCCID == vSCCID){
-                //do nothing
-            }
-            else{
-
-
+            originGraph[ur.timestamp - 1].InsertEdge(ur.u, ur.v);
+            int uSCCID = originGraph[ur.timestamp - 1].findSCCIDFromNodeId(ur.u);
+            int vSCCID = originGraph[ur.timestamp - 1].findSCCIDFromNodeId(ur.v);
+            if(uSCCID != vSCCID){
+                //循环检测环，直到没有环为止
+                sccGraph.addEdge(uSCCID, vSCCID, ur.timestamp);
+                vector<SCCnode> cycle = sccGraph.findCycle(uSCCID, ur.timestamp);
+                while(cycle.size() != 0){
+                    int reusedID = sccGraph.merge(cycle, ur.timestamp, sccTable);
+                    cycle = sccGraph.findCycle(reusedID, ur.timestamp);
+                }
+                //重建evolvingGraphSequence
+                
             }
         }
-        else if(ur.type == 3){
+        else if(ur.type == 2){
         }
         else if(ur.type == 4){
         }
@@ -230,7 +240,5 @@ bool HRindex::singleStepUpdate(){
     }
     return true;
 }
-
-
 
 #endif
