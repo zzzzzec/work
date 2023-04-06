@@ -49,5 +49,4 @@ bool readUpdateRecords(vector<updateRecord> &updateRecordVector, string updateFi
 
 }
 
-
 #endif

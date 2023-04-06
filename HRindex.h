@@ -248,12 +248,35 @@ bool HRindex::singleStepUpdate(){
                 int id;
                 auto exist = [&id](RecordItem &ri){return ri.node == id;};
                 for (   auto sccGraphit = sccGraph.sccGraphs[ur.timestamp - 1].second.begin(); 
-                        sccGraphit != sccGraph.sccGraphs[ur.timestamp - 1].second.end(); ++sccGraphit)
-                {
+                        sccGraphit != sccGraph.sccGraphs[ur.timestamp - 1].second.end(); ++sccGraphit){
                     id = sccGraphit->SCCID;
+                    vector<int> INlist;
+                    vector<int> OUTlist;
+                    //遍历整个图来找到这个SCCID的入边
+                    for (   auto INlistit = sccGraph.sccGraphs[ur.timestamp - 1].second.begin(); 
+                            INlistit != sccGraph.sccGraphs[ur.timestamp - 1].second.end(); ++INlistit){
+                        if(INlistit->SCCID == id) continue;
+                        else{
+                            for (auto arcit = INlistit->firstArc; arcit != NULL; arcit = arcit->next)
+                            {
+                                if(arcit->dstID == id){
+                                    INlist.push_back(INlistit->SCCID);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    //找到这个SCCID的出边
+                    for (auto outArcit = sccGraphit->firstArc; outArcit != NULL; outArcit = outArcit->next)
+                    {
+                        OUTlist.push_back(outArcit->dstID);
+                    }
+
                     auto record = find_if(nodeInfoTable.begin(), nodeInfoTable.end(), exist);
+                    //先把timeStamp时刻的记录全部删掉
                     for (auto INit = record->In.begin(); INit != record->In.end(); ++INit)
                     {
+                        
                     }
                     for (auto OUTit = record->Out.begin(); OUTit != record->Out.end(); ++OUTit)
                     {
