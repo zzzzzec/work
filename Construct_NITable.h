@@ -228,4 +228,6 @@ RefineNITable GetRefineNITable(NodeInfoTable nodeInfoTable) {
     return refineNITable;
 }
 
+int deleteNIT
+
 #endif //IG_NOOP_5_CONSTRUCT_NITABLE_H
