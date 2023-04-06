@@ -1,15 +1,7 @@
-//
-// Created by MoCuishle on 2019/11/29.
-//
+#ifndef IG_NOOP_5_NIT_H
+#define IG_NOOP_5_NIT_H
 
-#ifndef IG_NOOP_5_NI_TABLE_H
-#define IG_NOOP_5_NI_TABLE_H
-
-#include <set>
-#include <map>
-#include <bitset>
-#include <vector>
-#include <fstream>
+#include "common.h"
 #include "Lifespan.h"
 
 using namespace std;
@@ -19,7 +11,6 @@ class Item {
 public:
     int vertexID;
     bitset<MNS> lifespan;
-
     /*partLab标签用于标识该记录被细化后所属的部分：
      * 0：该记录暂未被细化
      * 1：该记录属于Instant-Part——有入边
@@ -60,10 +51,27 @@ public:
     }
 };
 
+class NIT {
+public:
+    vector<RecordItem> NITable;
+    vector<RefineRecordItem> RefineNITable;
+
+}
+
+
+NIT::NIT(){}
+NIT::NIT(){
+    
+}
+
+NIT::~NIT(){}
+
 typedef struct vector<RecordItem> NodeInfoTable;
 typedef struct vector<RefineRecordItem> RefineNITable;
 void StoreRefineNITable(string storeRefineNIT, RefineNITable refineNITable);
 RefineNITable ReadRefineNITable(string storeRefineNIT);
+
+
 
 void StoreRefineNITable(string storeRefineNIT, RefineNITable refineNITable) {
     ofstream outfile(storeRefineNIT);
@@ -154,4 +162,4 @@ RefineNITable ReadRefineNITable(string storeRefineNIT) {
 
 
 
-#endif //IG_NOOP_5_NI_TABLE_H
+#endif

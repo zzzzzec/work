@@ -52,9 +52,7 @@ SccTable GetSCCTable(int timeIntervalLength, Graph* originGraph, vector<vector<i
         buildSccTableTime += updateTime;
 
         //构建SCC-Table的索引
-
         int numOfV = originGraph[timeStamp - 1].GetVexNum();
-
         printf("Start building the index of SCC-Table------the %dth snapshot\n", timeStamp);
         map<int, int> index_curST = BuildIndexOfCurSccTable(st, timeStamp);
         //index_curST: key:节点的编号 value:该节点所在的SCC的编号
@@ -67,9 +65,19 @@ SccTable GetSCCTable(int timeIntervalLength, Graph* originGraph, vector<vector<i
         //cur_DAG_Edges: SCC图中所有边的集合，两行表示一个边，第一行为边的起点，第二行为边的终点
         evolvingGraphSequence.push_back(cur_DAG_Edges);
     }
-
     return st;
+}
 
+SccTable getSCCTableFromOneGraph(Graph* G){
+    SccTable st;
+    int id = 0; //not use
+    int timeStamp = 0; //not use
+    G->CalculateConnection();
+    G->SumScc();
+    int numOfSCC = G->GetConnectedCount();
+    map<int, int> v2s = G->GetMapV2S();
+    UpdateSccTable(numOfSCC, v2s, st, timeStamp, id, G);
+    return st;
 }
 
 int getSccId(int vertexId, int timestamp, SccTable sccTable) {

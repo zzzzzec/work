@@ -1,18 +1,9 @@
-//
-// Created by MoCuishle on 2019/11/29.
-//
-
 #ifndef IG_NOOP_5_CONSTRUCT_NITABLE_H
 #define IG_NOOP_5_CONSTRUCT_NITABLE_H
 
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <bitset>
+#include "common.h"
 #include "Lifespan.h"
-#include "NI_Table.h"
+#include "NIT.h"
 
 using namespace std;
 
@@ -158,7 +149,7 @@ RefineNITable GetRefineNITable(NodeInfoTable nodeInfoTable) {
         if (!(*record).In.empty()) {
             auto numOfInEdge = (*record).In.size();
             auto numOfOutEdge = (*record).Out.size();
-
+            //有入边的时间集合
             bitset<MNS> unionOfIn;
             for (int i = 0; i < numOfInEdge; ++i) {
                 bitset<MNS> cur_in = (*record).In[i].lifespan;
@@ -228,6 +219,76 @@ RefineNITable GetRefineNITable(NodeInfoTable nodeInfoTable) {
     return refineNITable;
 }
 
-int deleteNIT
+//这个函数用于删除NIT中在timestamp时刻的IN和OUT中的记录
+void deleteNIT(NodeInfoTable &table, int timeStamp)
+{
+    for (auto record = table.begin(); record != table.end(); record++)
+    {
+        auto INit = record->In.begin();
+        while (INit != record->In.end())
+        {
+            if (INit->lifespan.test(timeStamp))
+            {
+                INit->lifespan.set(timeStamp, false);
+            }
+            if (INit->lifespan.count() == 0)
+            {
+                INit = record->In.erase(INit);
+            }
+            else
+            {
+                ++INit;
+            }
+        }
+        // 同理删掉out
+        auto OUTit = record->Out.begin();
+        while (OUTit != record->Out.end())
+        {
+            if (OUTit->lifespan.test(timeStamp))
+            {
+                OUTit->lifespan.set(timeStamp, false);
+            }
+
+            if (OUTit->lifespan.count() == 0)
+            {
+                OUTit = record->Out.erase(OUTit);
+            }
+            else
+            {
+                ++OUTit;
+            }
+        }
+    }
+}
+
+void insertNITin(RecordItem & record, int id ,int timeStamp){
+    for (auto it = record.In.begin(); it != record.In.end(); it++)
+    {
+        if(it->vertexID == id){
+            it->lifespan.set(timeStamp);
+            return;
+        }
+    }
+    Item item;
+    item.vertexID = id;
+    item.lifespan.set(timeStamp);
+    record.In.push_back(item);
+    return;
+}
+
+void insertNITout(RecordItem & record, int id ,int timeStamp){
+    for (auto it = record.Out.begin(); it != record.Out.end(); it++)
+    {
+        if(it->vertexID == id){
+            it->lifespan.set(timeStamp);
+            return;
+        }
+    }
+    Item item;
+    item.vertexID = id;
+    item.lifespan.set(timeStamp);
+    record.Out.push_back(item);
+    return;
+}
 
 #endif //IG_NOOP_5_CONSTRUCT_NITABLE_H

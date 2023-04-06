@@ -11,7 +11,7 @@
 #include <bitset>
 #include <algorithm>
 #include "IndexGraph.h"
-#include "SCC_Table.h"
+#include "SCCTable.h"
 #include "Lifespan.h"
 
 using namespace std;

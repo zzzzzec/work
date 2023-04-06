@@ -12,6 +12,8 @@
         "xlocale": "cpp",
         "stack": "cpp",
         "algorithm": "cpp",
-        "xiosbase": "cpp"
+        "xiosbase": "cpp",
+        "set": "cpp",
+        "iostream": "cpp"
     }
 }

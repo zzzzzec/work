@@ -1,15 +1,7 @@
-//
-// Created by MoCuishle on 2019/11/29.
-//
-
 #ifndef IG_NOOP_5_GRAPH_H
 #define IG_NOOP_5_GRAPH_H
 
-#include <iostream>
-#include <vector>
-#include <set>
-#include <map>
-#include <stack>
+#include "common.h"
 #include "Lifespan.h"
 
 using namespace std;
@@ -92,6 +84,7 @@ public:
     bool AddSingleNode(int ID);
     int findSCCIDFromNodeId(int nodeID);
     int SCCIDremap(set<int> nodes, int sccID);
+    VerNode& findNodeRefByID(int nodeID);
 };
 
 Graph::Graph() {
@@ -425,5 +418,13 @@ int Graph::SCCIDremap(set<int> nodes, int sccID){
     return 1;
 }
 
+VerNode& Graph::findNodeRefByID(int nodeID){
+    for (auto it = this->vertices.begin(); it != this->vertices.end(); it++){
+        if (it->souID == nodeID){
+            return *it;
+        }
+    }
+    throw "No such node!";
+}
 
 #endif //IG_NOOP_5_GRAPH_H

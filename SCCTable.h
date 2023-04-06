@@ -1,18 +1,8 @@
-//
-// Created by MoCuishle on 2019/11/29.
-//
-
 #ifndef IG_NOOP_5_SCC_TABLE_H
 #define IG_NOOP_5_SCC_TABLE_H
 
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include <set>
-#include <map>
-#include <iomanip>
-#include <time.h>
-#include "NI_Table.h"
+#include "common.h"
+#include "NIT.h"
 #include "Lifespan.h"
 
 using namespace std;

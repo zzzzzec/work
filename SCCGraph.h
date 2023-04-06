@@ -3,7 +3,7 @@
 #include "common.h"
 #include "Lifespan.h"
 #include "Graph.h"
-#include "SCC_Table.h"
+#include "SCCTable.h"
 #include "Process_Snapshots.h"
 #include "Construct_NITable.h"
 #include "IndexGraph.h"
@@ -33,6 +33,7 @@ public:
     SCCGraph(vector<vector<int>> &evolvingGraphSequence, SccTable &sccTable);
     int IDexist(int SCCID, int timestamp);
     int addEdge(int srcID, int dstID, int timestamp);
+    int deleteEdge(int srcID, int dstID, int timestamp);
     void SCCGraphInsertArc(int srcID, int dstID, int timestamp, vector<SCCnode>& thisGraph);
     vector<SCCnode> findCycle(int SCCIDu, int timestamp);
     SCCnode findSCCnodeFromID(int SCCID, int timestamp);
@@ -123,6 +124,29 @@ int SCCGraph::addEdge(int srcID, int dstID, int timestamp){
     }
     else
         return 0;
+}
+
+int SCCGraph::deleteEdge(int srcID, int dstID, int timestamp){
+    for (auto it = sccGraphs[timestamp - 1].second.begin(); it != sccGraphs[timestamp - 1].second.end(); it++) {
+        if (it->SCCID == srcID) {
+            arc *tmp = it->firstArc;
+            arc *pre = NULL;
+            while (tmp != NULL) {
+                if (tmp->dstID == dstID) {
+                    if (pre == NULL) {
+                        it->firstArc = tmp->next;
+                    } else {
+                        pre->next = tmp->next;
+                    }
+                    delete tmp;
+                    return 1;
+                }
+                pre = tmp;
+                tmp = tmp->next;
+            }
+            printf("delete edge error\n");
+        }
+    }
 }
 
 vector<SCCnode> SCCGraph::findCycle(int SCCIDu, int timestamp){

@@ -1,11 +1,7 @@
-//
-// Created by MoCuishle on 2019/11/29.
-//
-
 #ifndef IG_NOOP_5_INDEXGRAPH_H
 #define IG_NOOP_5_INDEXGRAPH_H
 
-#include "NI_Table.h"
+#include "NIT.h"
 #include "Construct_NITable.h"
 #include "Lifespan.h"
 #include <iostream>
