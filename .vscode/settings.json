@@ -10,6 +10,8 @@
         "initializer_list": "cpp",
         "map": "cpp",
         "xlocale": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "algorithm": "cpp",
+        "xiosbase": "cpp"
     }
 }

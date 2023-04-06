@@ -27,9 +27,8 @@ typedef struct {
 
 class SCCGraph
 {
-private:
-    vector<pair<int, vector<SCCnode>>> sccGraphs;
 public:
+    vector<pair<int, vector<SCCnode>>> sccGraphs;
     SCCGraph();
     SCCGraph(vector<vector<int>> &evolvingGraphSequence, SccTable &sccTable);
     int IDexist(int SCCID, int timestamp);
@@ -37,6 +36,7 @@ public:
     void SCCGraphInsertArc(int srcID, int dstID, int timestamp, vector<SCCnode>& thisGraph);
     vector<SCCnode> findCycle(int SCCIDu, int timestamp);
     SCCnode findSCCnodeFromID(int SCCID, int timestamp);
+    bool SCCIDexist(int SCCID, int timestamp);
     int merge(vector<SCCnode> &cycle, int timestamp, SccTable &sccTable);
     ~SCCGraph();
 };
@@ -96,6 +96,15 @@ SCCnode SCCGraph::findSCCnodeFromID(int SCCID, int timestamp){
         }
     }
     return *it;
+}
+
+bool SCCGraph::SCCIDexist(int SCCID, int timestamp){
+    for(auto it = sccGraphs[timestamp-1].second.begin(); it != sccGraphs[timestamp-1].second.end(); it++){
+        if(it->SCCID == SCCID){
+            return true;
+        }
+    }
+    return false;
 }
 
 int SCCGraph::addEdge(int srcID, int dstID, int timestamp){

@@ -7,8 +7,8 @@ using namespace std;
 int main() {
 
     int timeIntervalLength = 16;
-    //string graphDatafileAddHead = "./GraphData_DBLP/graph";
-    string graphDatafileAddHead = "./testdata/graph";
+    string graphDatafileAddHead = "./GraphData_DBLP/graph";
+    //string graphDatafileAddHead = "./testdata/graph";
     string storeIndexGraphAddress = "./Result_IG2Grail/test_IG2GRail.txt";
     string storeFull_IG_Address = "./Result_Full_IG/test_FULL_IG.txt";
     string storeSccTableAddress = "./Result_SccTable/test_SccTable.txt";

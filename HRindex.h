@@ -189,7 +189,25 @@ bool HRindex::addSCCnode(int nodeID, int newSCCID, Lifespan lifespan){
 }
 
 bool HRindex::reconstructEvolvingGraphSequence(SCCGraph &sccGraph, int timestamp){
-    
+    vector<int> tmp;
+    for (auto it = sccGraph.sccGraphs.begin(); it != sccGraph.sccGraphs.end(); ++it)
+    {
+        if(it->first == timestamp){
+            for (auto it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+            {
+                int id = it2->SCCID;
+                arc* a = it2->firstArc;
+                while (a != NULL)
+                {
+                    tmp.push_back(id);
+                    tmp.push_back(a->dstID);
+                    a = a->next;
+                }
+            }
+            break;
+        }
+    }
+    evolvingGraphSequence[timestamp - 1] = tmp;
     return true;
 }
 
@@ -225,11 +243,26 @@ bool HRindex::singleStepUpdate(){
                     int reusedID = sccGraph.merge(cycle, ur.timestamp, sccTable);
                     cycle = sccGraph.findCycle(reusedID, ur.timestamp);
                 }
-                //重建evolvingGraphSequence
-                
+                reconstructEvolvingGraphSequence(sccGraph, ur.timestamp);
+
+                int id;
+                auto exist = [&id](RecordItem &ri){return ri.node == id;};
+                for (   auto sccGraphit = sccGraph.sccGraphs[ur.timestamp - 1].second.begin(); 
+                        sccGraphit != sccGraph.sccGraphs[ur.timestamp - 1].second.end(); ++sccGraphit)
+                {
+                    id = sccGraphit->SCCID;
+                    auto record = find_if(nodeInfoTable.begin(), nodeInfoTable.end(), exist);
+                    for (auto INit = record->In.begin(); INit != record->In.end(); ++INit)
+                    {
+                    }
+                    for (auto OUTit = record->Out.begin(); OUTit != record->Out.end(); ++OUTit)
+                    {
+                    }
+                }
             }
         }
         else if(ur.type == 2){
+
         }
         else if(ur.type == 4){
         }

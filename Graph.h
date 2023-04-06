@@ -91,6 +91,7 @@ public:
     void CreateVertex(int ID);
     bool AddSingleNode(int ID);
     int findSCCIDFromNodeId(int nodeID);
+    int SCCIDremap(set<int> nodes, int sccID);
 };
 
 Graph::Graph() {
@@ -414,5 +415,15 @@ int Graph::findSCCIDFromNodeId(int nodeID) {
     }
     return -1;
 }
+
+int Graph::SCCIDremap(set<int> nodes, int sccID){
+    for (auto it = this->vertices.begin(); it != this->vertices.end(); it++){
+        if (nodes.find(it->souID) != nodes.end()){
+            it->sccOfIG = sccID;
+        }
+    }
+    return 1;
+}
+
 
 #endif //IG_NOOP_5_GRAPH_H

@@ -28,9 +28,7 @@ public:
     int partLab;
 public:
     Item() : vertexID(), lifespan(), partLab() {}
-
     Item(int id) : vertexID(id), partLab(0) {}
-
     bool operator()(const Item &cur) {
         return vertexID == cur.vertexID;
     }
@@ -44,9 +42,7 @@ public:
     vector<Item> Out;
 public:
     RecordItem() : node(), In(), Out() {}
-
     RecordItem(int id) : node(id) {}
-
     bool operator()(const RecordItem &cur) {
         return node == cur.node;
     }
@@ -58,22 +54,15 @@ public:
     vector<Item> Out;
 public:
     RefineRecordItem() : node(), Out() {}
-
     RefineRecordItem(int id) : node(id) {}
-
     bool operator()(const RefineRecordItem &cur) {
         return node == cur.node;
     }
 };
 
-//定义NI-Table
 typedef struct vector<RecordItem> NodeInfoTable;
-
-//定义Refine_NI-Table
 typedef struct vector<RefineRecordItem> RefineNITable;
-
 void StoreRefineNITable(string storeRefineNIT, RefineNITable refineNITable);
-
 RefineNITable ReadRefineNITable(string storeRefineNIT);
 
 void StoreRefineNITable(string storeRefineNIT, RefineNITable refineNITable) {
@@ -162,5 +151,7 @@ RefineNITable ReadRefineNITable(string storeRefineNIT) {
 
     return refineNITable;
 }
+
+
 
 #endif //IG_NOOP_5_NI_TABLE_H

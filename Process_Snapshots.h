@@ -21,19 +21,12 @@
 
 SccTable GetSCCTable(int timeIntervalLength, string fileAddressHead, vector<vector<int>> &evolvingGraphSequence,
                      double &buildSccTableTime);
-
 vector<int> GetFileData(string fileAddressHead, int timeStamp);
-
 int getSccId(int vertexId, int timestamp, SccTable sccTable);
-
-void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId);
-
+void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId, Graph* originGraph);
 vector<int> BuildCurDAGEdgesDataSequence(Graph graph, SccTable &st, int &timeStamp);
-
 vector<int> BuildCurDAGEdgesDataSequenceFromIndex(Graph graph, SccTable &st, map<int, int> &index_ST, int &timeStamp);
-
 map<int, int> BuildIndexOfCurSccTable(SccTable &st, int &timeStamp);
-
 
 //----------------------------
 //问题：不同时间的 SCCID 是如何分配的？
@@ -53,7 +46,7 @@ SccTable GetSCCTable(int timeIntervalLength, Graph* originGraph, vector<vector<i
         //更新SCC-Table
         clock_t buildSCCT_startTime, buildSCCT_endTime;
         buildSCCT_startTime = clock();
-        UpdateSccTable(numOfSCC, v2s, st, timeStamp, sccId);
+        UpdateSccTable(numOfSCC, v2s, st, timeStamp, sccId, originGraph);
         buildSCCT_endTime = clock();
         double updateTime = (double) (buildSCCT_endTime - buildSCCT_startTime);
         buildSccTableTime += updateTime;
@@ -124,7 +117,7 @@ vector<int> GetFileData(string fileAddressHead, int timeStamp) {
     return dataVector;
 }
 
-void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId) {
+void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId, Graph* originGraph) {
 
     set<int> sccSet[numOfSCC];
 
@@ -133,13 +126,13 @@ void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeSta
     for (auto it = v2s.begin(); it != v2s.end(); it++) {
         int curV = (*it).first;
         int curS = (*it).second;
-
         sccSet[curS].insert(curV);
     }
 
     printf("Updating the SCC-Table...\n");
     for (int m = 0; m < numOfSCC; ++m) {
-        auto findScc = st.find(sccSet[m]);
+        set <int> thisSet = sccSet[m];
+        auto findScc = st.find(thisSet);
         if (findScc != st.end()) {
             //sccTable中存在该scc记录,更新该记录的生存期
 
@@ -149,14 +142,14 @@ void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeSta
             //更新该SCC生存期
             //bitset<MNS> sccLifeSpan = (*findScc).second.life_time.set(timeStamp);
             (*findScc).second.life_time.set(timeStamp);
-
+            originGraph[timeStamp - 1].SCCIDremap(thisSet, findScc->second.scc_id);
         } else {
             //sccTable中不存在该scc记录，增加该记录，并更新id
             SccID_Life lifeId;
             lifeId.life_time.set(timeStamp);
             lifeId.scc_id = sccId;
-
             st.insert(pair<set<int>, SccID_Life>(sccSet[m], lifeId));
+            originGraph[timeStamp - 1].SCCIDremap(thisSet, sccId);
             sccId++;
         }
     }
