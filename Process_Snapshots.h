@@ -17,21 +17,20 @@
 
 #include "Lifespan.h"
 #include "Graph.h"
-#include "SCC_Table.h"
+#include "SCCTable.h"
 
 SccTable GetSCCTable(int timeIntervalLength, string fileAddressHead, vector<vector<int>> &evolvingGraphSequence,
                      double &buildSccTableTime);
 vector<int> GetFileData(string fileAddressHead, int timeStamp);
 int getSccId(int vertexId, int timestamp, SccTable sccTable);
 void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId, Graph* originGraph);
-vector<int> BuildCurDAGEdgesDataSequence(Graph graph, SccTable &st, int &timeStamp);
-vector<int> BuildCurDAGEdgesDataSequenceFromIndex(Graph graph, SccTable &st, map<int, int> &index_ST, int &timeStamp);
+vector<map<int, int>> BuildCurDAGEdgesDataSequenceFromIndex(Graph graph, SccTable &st, map<int, int> &index_ST, int &timeStamp);
 map<int, int> BuildIndexOfCurSccTable(SccTable &st, int &timeStamp);
 
 //----------------------------
 //问题：不同时间的 SCCID 是如何分配的？
 SccTable GetSCCTable(int timeIntervalLength, Graph* originGraph, vector<vector<int>> &evolvingGraphSequence,
-                     double &buildSccTableTime) {
+                     vector<vector<map<int, int>>>& SCCEdgeMap, double &buildSccTableTime) {
     //st 变量是全局时间有效的，对于每一个时间戳都有效
     SccTable st;
     int sccId = 0;
@@ -56,14 +55,13 @@ SccTable GetSCCTable(int timeIntervalLength, Graph* originGraph, vector<vector<i
         printf("Start building the index of SCC-Table------the %dth snapshot\n", timeStamp);
         map<int, int> index_curST = BuildIndexOfCurSccTable(st, timeStamp);
         //index_curST: key:节点的编号 value:该节点所在的SCC的编号
-        int complete = 0;
-        // 每一个节点都有对应的SCC编号
-        if (index_curST.size() == numOfV) {
-            complete = 1;
+        vector<map<int,int>> cur_DAG_Edges = BuildCurDAGEdgesDataSequenceFromIndex(originGraph[timeStamp - 1], st, index_curST, timeStamp);
+        vector<int> DAGEdges;
+        for (auto it = cur_DAG_Edges.begin(); it != cur_DAG_Edges.end(); it++) {
+            auto it2 = (*it).begin();
+            DAGEdges.push_back((*it2).first);
         }
-        vector<int> cur_DAG_Edges = BuildCurDAGEdgesDataSequenceFromIndex(originGraph[timeStamp - 1], st, index_curST, timeStamp);
-        //cur_DAG_Edges: SCC图中所有边的集合，两行表示一个边，第一行为边的起点，第二行为边的终点
-        evolvingGraphSequence.push_back(cur_DAG_Edges);
+        evolvingGraphSequence.push_back(DAGEdges);
     }
     return st;
 }
@@ -126,9 +124,7 @@ vector<int> GetFileData(string fileAddressHead, int timeStamp) {
 }
 
 void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId, Graph* originGraph) {
-
     set<int> sccSet[numOfSCC];
-
     printf("Analysing SCCs of the %dth snapshot ...\n", timeStamp);
     //sccset: key:SCC的编号 value:该SCC中所有节点的集合
     for (auto it = v2s.begin(); it != v2s.end(); it++) {
@@ -136,19 +132,11 @@ void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeSta
         int curS = (*it).second;
         sccSet[curS].insert(curV);
     }
-
     printf("Updating the SCC-Table...\n");
     for (int m = 0; m < numOfSCC; ++m) {
         set <int> thisSet = sccSet[m];
         auto findScc = st.find(thisSet);
         if (findScc != st.end()) {
-            //sccTable中存在该scc记录,更新该记录的生存期
-
-            //获取当前sccId
-            //int curSccId = (*findScc).second.scc_id;
-
-            //更新该SCC生存期
-            //bitset<MNS> sccLifeSpan = (*findScc).second.life_time.set(timeStamp);
             (*findScc).second.life_time.set(timeStamp);
             originGraph[timeStamp - 1].SCCIDremap(thisSet, findScc->second.scc_id);
         } else {
@@ -161,91 +149,6 @@ void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeSta
             sccId++;
         }
     }
-}
-
-vector<int>
-BuildCurDAGEdgesDataSequence(Graph graph, SccTable &st, int &timeStamp) {
-
-    //获取当前图快照的领接表以及节点数量
-    AdjList_Graph graph_vertices = graph.GetVertices();
-    int numOfV = graph.GetVexNum();
-
-    //初始化存储容器
-    set<SE> sse;
-    vector<int> cur_DAG_Edges;
-    map<int, int> curN2S_Map;
-    curN2S_Map.clear();
-
-    for (int i = 0; i < numOfV; ++i) {
-
-        //获取当前节点SCC_ID
-        printf("\t Processing the %dth (/ %d ) vertex in the %dth snapshot...\n", i, numOfV, timeStamp);
-
-        int curSouNodeID = graph_vertices[i].souID;
-        int sourceSccId = -1;
-
-        auto souPos = curN2S_Map.find(curSouNodeID);
-        if (souPos != curN2S_Map.end()) {
-            sourceSccId = (*souPos).second;
-        } else {
-            sourceSccId = getSccId(curSouNodeID, timeStamp, st);
-            curN2S_Map.insert(pair<int, int>(curSouNodeID, sourceSccId));
-        }
-
-        printf("\t The %dth (/ %d ) vertex in the %dth snapshot has been located\n", i, numOfV, timeStamp);
-
-        //以此获取当前节点的出边邻居的SCC_ID
-        ArcNode *p = graph_vertices[i].firstArc;
-        int c = 0;
-        while (p) {
-            SE se;
-            c++;
-
-            printf("\t\t Processing the %dth (/ %d ) vertex's %dth Out-neighbor vertex in the %dth snapshot...\n", i,
-                   numOfV, c, timeStamp);
-
-            int curTarNodeID = p->tarID;
-            int targetSccId = -1;
-
-            auto tarPos = curN2S_Map.find(curTarNodeID);
-            if (tarPos != curN2S_Map.end()) {
-                targetSccId = (*tarPos).second;
-            } else {
-                targetSccId = getSccId(curTarNodeID, timeStamp, st);
-                curN2S_Map.insert(pair<int, int>(curTarNodeID, targetSccId));
-            }
-
-            printf("\t\t The %dth (/ %d ) vertex's %dth Out-neighbor in the %dth snapshot has been located\n", i,
-                   numOfV, c, timeStamp);
-
-            if (sourceSccId != -1 && targetSccId != -1 && sourceSccId != targetSccId) {
-                se.sScc = sourceSccId;
-                se.tScc = targetSccId;
-
-                sse.insert(se);
-            }
-
-            printf("\n");
-
-            p = p->nextarc;
-        }
-        printf("----------------------------------\n");
-
-    }
-
-    printf("======================All vertices in the %dth snapshot has been processed======================\n",
-           timeStamp);
-    printf("Building edges data sequence of the %dth snapshot...\n", timeStamp);
-
-    for (auto it = sse.begin(); it != sse.end(); it++) {
-        int curS = (*it).sScc;
-        int curT = (*it).tScc;
-
-        cur_DAG_Edges.push_back(curS);
-        cur_DAG_Edges.push_back(curT);
-    }
-
-    return cur_DAG_Edges;
 }
 
 map<int, int> BuildIndexOfCurSccTable(SccTable &st, int &timeStamp) {
@@ -263,40 +166,34 @@ map<int, int> BuildIndexOfCurSccTable(SccTable &st, int &timeStamp) {
     return index_ST;
 }
 
-vector<int> BuildCurDAGEdgesDataSequenceFromIndex(Graph graph, SccTable &st, map<int, int> &index_ST, int &timeStamp) {
-    vector<int> cur_DAG_Edges;
+vector<map<int, int>> BuildCurDAGEdgesDataSequenceFromIndex(Graph graph, SccTable &st, map<int, int> &index_ST, int &timeStamp) {
+    vector<map<int, int>> cur_DAG_Edges;
     set<SE> sse;
-
     int numOfV = graph.GetVexNum();
     AdjList_Graph graph_vertices = graph.GetVertices();
 
     for (int i = 0; i < numOfV; ++i) {
-        //获取当前节点SCC_ID
         printf("\t Processing the %dth (/ %d ) vertex in the %dth snapshot...\n", i, numOfV, timeStamp);
-
         int curSouNodeID = graph_vertices[i].souID;
         int sourceSccId = -1;
-        //map<int,int>.find : return the iterator of the key
         auto souPos = index_ST.find(curSouNodeID);
 
+        assert(false);
         if (souPos != index_ST.end()) {
             sourceSccId = (*souPos).second;
-        } else {
+        }
+        else {
+            //这里不会执行
+            
             sourceSccId = getSccId(curSouNodeID, timeStamp, st);
             index_ST.insert(pair<int, int>(curSouNodeID, sourceSccId));
         }
-
-        //printf("\t The %dth (/ %d ) vertex in the %dth snapshot has been located\n", i, numOfV, timeStamp);
-
         //以此获取当前节点的出边邻居的SCC_ID
         ArcNode *p = graph_vertices[i].firstArc;
         int c = 0;
         while (p) {
             SE se; //SE: SCC Edge
             c++;
-
-            //printf("\t\t Processing the %dth (/ %d ) vertex's %dth Out-neighbor vertex in the %dth snapshot...\n", i, numOfV, c, timeStamp);
-
             int curTarNodeID = p->tarID;
             int targetSccId = -1;
 
@@ -307,21 +204,16 @@ vector<int> BuildCurDAGEdgesDataSequenceFromIndex(Graph graph, SccTable &st, map
                 targetSccId = getSccId(curTarNodeID, timeStamp, st);
                 index_ST.insert(pair<int, int>(curTarNodeID, targetSccId));
             }
-
-            //printf("\t\t The %dth (/ %d ) vertex's %dth Out-neighbor in the %dth snapshot has been located\n", i, numOfV, c, timeStamp);
             // 不在同一个SCC中
             if (sourceSccId != -1 && targetSccId != -1 && sourceSccId != targetSccId) {
                 se.sScc = sourceSccId;
                 se.tScc = targetSccId;
-
+                se.sNode = curSouNodeID;
+                se.tNode = curTarNodeID;
                 sse.insert(se);
             }
-
-            //printf("\n");
-
             p = p->nextarc;
         }
-        //printf("----------------------------------\n");
     }
 
     printf("======================All vertices in the %dth snapshot has been processed======================\n",
@@ -329,11 +221,12 @@ vector<int> BuildCurDAGEdgesDataSequenceFromIndex(Graph graph, SccTable &st, map
     printf("Building edges data sequence of the %dth snapshot...\n", timeStamp);
     //sse:存储SSC图的边
     for (auto it = sse.begin(); it != sse.end(); it++) {
-        int curS = (*it).sScc;
-        int curT = (*it).tScc;
-
-        cur_DAG_Edges.push_back(curS);
-        cur_DAG_Edges.push_back(curT);
+        map<int, int> tmp1;
+        map<int, int> tmp2;
+        tmp1.insert(make_pair(it->sScc, it->sNode));
+        tmp2.insert(make_pair(it->tScc, it->tNode));
+        cur_DAG_Edges.push_back(tmp1);
+        cur_DAG_Edges.push_back(tmp2);
     }
 
     return cur_DAG_Edges;

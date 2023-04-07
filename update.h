@@ -4,7 +4,7 @@
 #include "common.h"
 #include "Lifespan.h"
 #include "Graph.h"
-#include "SCC_Table.h"
+#include "SCCTable.h"
 #include "Process_Snapshots.h"
 #include "Construct_NITable.h"
 #include "IndexGraph.h"
@@ -12,6 +12,7 @@
 #include "update.h"
 #include "HRindex.h"
 #include "SCCGraph.h"
+#include "NIT.h"
 
 /* updatefile structure:
     type: 

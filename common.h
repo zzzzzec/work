@@ -14,6 +14,8 @@
 #include <direct.h>
 #include <sstream>
 #include <assert.h>
+#include <stack>
+#include <map>
 
 #define DEBUG_LEVEL 2
 

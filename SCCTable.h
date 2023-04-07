@@ -31,8 +31,10 @@ typedef map<int, vector<SccID_Life>> OpSccTable;
 typedef struct sccEdge {
     int sScc;
     int tScc;
-
-    bool operator<(const sccEdge &a) const {
+    int sNode;
+    int tNode;
+    
+    bool operator<(const sccEdge& a) const {
         if (a.sScc != sScc) {
             return a.sScc > sScc;
         } else {
@@ -65,11 +67,8 @@ void StoreSccTable(string storeAddress, SccTable sccTable) {
             }
             //存储SccTable中的Scc的Lifespan信息
             outfile << " # ";
-
             outfile << (*item).second.scc_id;
-
             outfile << " - ";
-
             for (int i = 0; i < MNS; ++i) {
                 outfile << (*item).second.life_time[i] << " ";
             }

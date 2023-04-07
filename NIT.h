@@ -51,27 +51,10 @@ public:
     }
 };
 
-class NIT {
-public:
-    vector<RecordItem> NITable;
-    vector<RefineRecordItem> RefineNITable;
-
-}
-
-
-NIT::NIT(){}
-NIT::NIT(){
-    
-}
-
-NIT::~NIT(){}
-
 typedef struct vector<RecordItem> NodeInfoTable;
 typedef struct vector<RefineRecordItem> RefineNITable;
 void StoreRefineNITable(string storeRefineNIT, RefineNITable refineNITable);
 RefineNITable ReadRefineNITable(string storeRefineNIT);
-
-
 
 void StoreRefineNITable(string storeRefineNIT, RefineNITable refineNITable) {
     ofstream outfile(storeRefineNIT);

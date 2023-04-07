@@ -10,6 +10,7 @@
 #include "Process_Query.h"
 #include "update.h"
 #include "HRindex.h"
+#include "NIT.h"
 
 using namespace std;
 
@@ -147,6 +148,7 @@ int SCCGraph::deleteEdge(int srcID, int dstID, int timestamp){
             printf("delete edge error\n");
         }
     }
+    return 1;
 }
 
 vector<SCCnode> SCCGraph::findCycle(int SCCIDu, int timestamp){
