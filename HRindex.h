@@ -35,7 +35,7 @@ public:
     SCCGraph sccGraph;
 
     vector<vector<int>> evolvingGraphSequence;
-    vector<vector<map<int, int>>> SCCEdgeMap;
+    SCCEdgeInfoSequence sccEdgeInfoSequence;
     SccTable sccTable;
 
     double buildSccTableTime;
@@ -97,7 +97,7 @@ bool HRindex::buildOriginGraph() {
 
 bool HRindex::getSCCTable()
 {
-    this->sccTable = GetSCCTable(timeIntervalLength, originGraph, evolvingGraphSequence, SCCEdgeMap, buildSccTableTime);
+    this->sccTable = GetSCCTable(timeIntervalLength, originGraph, evolvingGraphSequence, sccEdgeInfoSequence, buildSccTableTime);
     buildSCCGraph();
     return true;
 

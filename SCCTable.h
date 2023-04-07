@@ -25,24 +25,32 @@ bool SortSccInNode(SccID_Life &a, SccID_Life &b) {
 //[std::set with 1 element = {[0] = 2}] = 
 //{life_time = std::bitset = {[1] = 1}, scc_id = 3}
 typedef map<set<int>, SccID_Life> SccTable;
-
 typedef map<int, vector<SccID_Life>> OpSccTable;
+
+typedef struct NodeEdge{
+    int src;
+    int dst;
+    bool operator<(const NodeEdge& a) const{
+        if (a.src != src) {
+            return a.src > src;
+        }
+        else {
+            return a.dst > dst;
+        }
+    }
+}NodeEdge;
 
 typedef struct sccEdge {
     int sScc;
     int tScc;
-    int sNode;
-    int tNode;
-    
     bool operator<(const sccEdge& a) const {
         if (a.sScc != sScc) {
             return a.sScc > sScc;
         } else {
             return a.tScc > tScc;
         }
-
     }
-} SE;
+}SCCEdge;
 
 void StoreSccTable(string storeAddress, SccTable sccTable);
 
