@@ -70,27 +70,70 @@ SccTable GetSCCTable(int timeIntervalLength, Graph* originGraph, vector<vector<i
     return st;
 }
 
-SccTable getSCCTableFromOneGraph(Graph* G){
+SccTable GetSCCTableFromOneGraph(int timeStamp, Graph* originGraph, vector<int>& evolvingGraph,
+    SCCEdgeInfo& sccEdgeInfo) {
     SccTable st;
-    int id = 0; //not use
-    int timeStamp = 0; //not use
-    G->CalculateConnection();
-    G->SumScc();
-    int numOfSCC = G->GetConnectedCount();
-    map<int, int> v2s = G->GetMapV2S();
-    UpdateSccTable(numOfSCC, v2s, st, timeStamp, id, G);
+    int sccId = 0;
+    originGraph->CalculateConnection();
+    originGraph->SumScc();
+    int numOfSCC = originGraph->GetConnectedCount();
+    map<int, int> v2s = originGraph->GetMapV2S();
+
+    //更新SCC-Table
+    map<int, set<int>> sccSet;
+    for (auto it = v2s.begin(); it != v2s.end(); it++) {
+        int curV = (*it).first;
+        int curS = (*it).second;
+        if (sccSet.find(curS) == sccSet.end()) {
+            set<int> tmp;
+            tmp.insert(curV);
+            sccSet[curS] = tmp;
+        }
+        else {
+            sccSet[curS].insert(curV);
+        }
+    }
+    for (int m = 0; m < numOfSCC; ++m) {
+        set <int> thisSet = sccSet[m];
+        auto findScc = find_if(st.begin(), st.end(), [&thisSet](const SCCTableItem& p) {return thisSet == p.nodeGroup;});
+        if (findScc != st.end()) {
+            (*findScc).sccID_Life.life_time.set(timeStamp);
+            originGraph->SCCIDremap(thisSet, findScc->sccID_Life.scc_id);
+        }
+        else {
+            //sccTable中不存在该scc记录，增加该记录，并更新id
+            SccID_Life lifeId;
+            lifeId.life_time.set(timeStamp);
+            lifeId.scc_id = sccId;
+            SCCTableItem item;
+            item.sccID_Life = lifeId;
+            item.nodeGroup = sccSet[m];
+            auto res = st.insert(item);
+            if (!res.second) assert(false);
+            originGraph->SCCIDremap(thisSet, sccId);
+            sccId++;
+        }
+    }
+    //构建SCC-Table的索引
+    int numOfV = originGraph->GetVexNum();
+    map<int, int> index_curST = BuildIndexOfCurSccTable(st, timeStamp);
+    sccEdgeInfo = BuildCurDAGEdgesDataSequenceFromIndex(*originGraph, st, index_curST, timeStamp);
+    for (auto it = sccEdgeInfo.begin(); it != sccEdgeInfo.end(); it++) {
+        evolvingGraph.push_back(it->first.sScc);
+        evolvingGraph.push_back(it->first.tScc);
+    }
     return st;
 }
 
 int getSccId(int vertexId, int timestamp, SccTable sccTable) {
     //在SccTable中找到源节点对应的SCC_id
     for (auto record = sccTable.begin(); record != sccTable.end(); record++) {
-        if ((*record).second.life_time.test(timestamp)) {
+        if ((*record).sccID_Life.life_time.test(timestamp)) {
             //在该行记录的SCC部分查找是否包含该节点
-            auto findVertex = (*record).first.find(vertexId);
-            if (findVertex != (*record).first.end()) {
+            auto findVertex = (*record).nodeGroup.find(vertexId);
+            if (findVertex != (*record).nodeGroup.end()) {
                 //该行包含该节点
-                int SccID = (*record).second.scc_id;
+                int SccID = (*record).sccID_Life.scc_id;
                 return SccID;
             } else {
                 //该行不含该节点,继续查询后续记录
@@ -122,27 +165,38 @@ vector<int> GetFileData(string fileAddressHead, int timeStamp) {
 }
 
 void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId, Graph* originGraph) {
-    set<int> sccSet[numOfSCC];
+    map<int, set<int>> sccSet;
     printf("Analysing SCCs of the %dth snapshot ...\n", timeStamp);
     //sccset: key:SCC的编号 value:该SCC中所有节点的集合
     for (auto it = v2s.begin(); it != v2s.end(); it++) {
         int curV = (*it).first;
         int curS = (*it).second;
-        sccSet[curS].insert(curV);
+        if (sccSet.find(curS) == sccSet.end()) {
+            set<int> tmp;
+            tmp.insert(curV);
+            sccSet[curS] = tmp;
+        }
+        else {
+            sccSet[curS].insert(curV);
+        }
     }
     printf("Updating the SCC-Table...\n");
     for (int m = 0; m < numOfSCC; ++m) {
         set <int> thisSet = sccSet[m];
-        auto findScc = st.find(thisSet);
+        auto findScc = find_if(st.begin(), st.end(), [&thisSet](const SCCTableItem &p) {return thisSet == p.nodeGroup;});
         if (findScc != st.end()) {
-            (*findScc).second.life_time.set(timeStamp);
-            originGraph[timeStamp - 1].SCCIDremap(thisSet, findScc->second.scc_id);
+            (*findScc).sccID_Life.life_time.set(timeStamp);
+            originGraph[timeStamp - 1].SCCIDremap(thisSet, findScc->sccID_Life.scc_id);
         } else {
             //sccTable中不存在该scc记录，增加该记录，并更新id
             SccID_Life lifeId;
             lifeId.life_time.set(timeStamp);
             lifeId.scc_id = sccId;
-            st.insert(pair<set<int>, SccID_Life>(sccSet[m], lifeId));
+            SCCTableItem item;
+            item.sccID_Life = lifeId;
+            item.nodeGroup = sccSet[m];
+            auto res = st.insert(item);
+            if (!res.second) assert(false);
             originGraph[timeStamp - 1].SCCIDremap(thisSet, sccId);
             sccId++;
         }
@@ -153,9 +207,9 @@ map<int, int> BuildIndexOfCurSccTable(SccTable &st, int &timeStamp) {
     map<int, int> index_ST;
     //first : key second : value 
     for (auto it_st = st.begin(); it_st != st.end(); it_st++) {
-        if ((*it_st).second.life_time.test(timeStamp)) {
-            int curSccId = (*it_st).second.scc_id;
-            for (auto it_vset = (*it_st).first.begin(); it_vset != (*it_st).first.end(); it_vset++) {
+        if ((*it_st).sccID_Life.life_time.test(timeStamp)) {
+            int curSccId = (*it_st).sccID_Life.scc_id;
+            for (auto it_vset = (*it_st).nodeGroup.begin(); it_vset != (*it_st).nodeGroup.end(); it_vset++) {
                 int curVerId = (*it_vset);
                 index_ST.insert(pair<int, int>(curVerId, curSccId));
             }

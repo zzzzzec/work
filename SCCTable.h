@@ -7,8 +7,6 @@
 
 using namespace std;
 
-
-
 typedef struct SccID_Life {
     bitset<MNS> life_time;
     int scc_id;
@@ -24,7 +22,23 @@ bool SortSccInNode(SccID_Life &a, SccID_Life &b) {
 //SccTable:<{节点集合}，{{SCC ID+SCC 生存期}}>
 //[std::set with 1 element = {[0] = 2}] = 
 //{life_time = std::bitset = {[1] = 1}, scc_id = 3}
-typedef map<set<int>, SccID_Life> SccTable;
+typedef set<int> NodeGroup;
+typedef struct SCCTableItem {
+    NodeGroup nodeGroup;
+    mutable int SCCID;
+    mutable bitset<MNS> lifeSpan;
+    mutable SccID_Life sccID_Life;
+    bool operator<(const SCCTableItem& a) const {
+        if (a.nodeGroup == nodeGroup) {
+            return false;
+        }
+        else {
+            return nodeGroup.size() <= a.nodeGroup.size();
+        }
+    }
+}SCCTableItem;
+
+typedef set<SCCTableItem> SccTable;
 typedef map<int, vector<SccID_Life>> OpSccTable;
 
 typedef struct NodeEdge{
@@ -64,21 +78,22 @@ void StoreConstructTime(string storeAddress, double buildSCCTableTime, double bu
 
 int ReadBuildTime();
 
+
 void StoreSccTable(string storeAddress, SccTable sccTable) {
     ofstream outfile(storeAddress);
     if (outfile) {
         printf("Storeing the SCC-Table......\n");
         for (auto item = sccTable.begin(); item != sccTable.end(); item++) {
             //存储SccTable中的vertices集合
-            for (auto ver = (*item).first.begin(); ver != (*item).first.end(); ver++) {
+            for (auto ver = (*item).nodeGroup.begin(); ver != (*item).nodeGroup.end(); ver++) {
                 outfile << (*ver) << " ";
             }
             //存储SccTable中的Scc的Lifespan信息
             outfile << " # ";
-            outfile << (*item).second.scc_id;
+            outfile << (*item).SCCID;
             outfile << " - ";
             for (int i = 0; i < MNS; ++i) {
-                outfile << (*item).second.life_time[i] << " ";
+                outfile << (*item).lifeSpan[i] << " ";
             }
             outfile << "| " << endl;
         }
@@ -126,12 +141,11 @@ SccTable ReadSccTable(string storeAddress) {
                     }
                 }
 
-                SccID_Life sccIDLife;
-                sccIDLife.scc_id = sccID;
-                sccIDLife.life_time = lifetime;
-
-                sccTable.insert(pair<set<int>, SccID_Life>(verticesSet, sccIDLife));
-
+                SCCTableItem item;
+                item.nodeGroup = verticesSet;
+                item.SCCID = sccID;
+                item.lifeSpan = lifetime;
+                sccTable.insert(item);
                 sccID = -1;
                 lifetime.reset();
                 verticesSet.clear();
@@ -155,13 +169,10 @@ void StoreBuildSccTableTime(string storeAddress, double buildTime) {
 
 OpSccTable BuildOpSccTable(SccTable sccTable) {
     OpSccTable opSccTable;
-
     for (auto stIter = sccTable.begin(); stIter != sccTable.end(); stIter++) {
-        set<int> nodeSet = (*stIter).first;
-        SccID_Life sccID_life = (*stIter).second;
-
+        set<int> nodeSet = (*stIter).nodeGroup;
+        SccID_Life sccID_life = (*stIter).sccID_Life;
         int sccId = sccID_life.scc_id;
-
         for (auto nsIter = nodeSet.begin(); nsIter != nodeSet.end(); nsIter++) {
             int curNode = (*nsIter);
             auto siIter = opSccTable.find(curNode);
@@ -192,7 +203,7 @@ void StoreConstructTime(string storeAddress, double buildSCCTableTime, double bu
 int newSCCID(SccTable st){
     int maxSCCID = 0;
     for(auto it = st.begin(); it != st.end(); it++){
-        int curSCCID = (*it).second.scc_id;
+        int curSCCID = (*it).sccID_Life.scc_id;
         if(curSCCID > maxSCCID){
             maxSCCID = curSCCID;
         }

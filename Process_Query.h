@@ -687,16 +687,16 @@ Node2Scc FindSccsOfNode(SccTable &sccTable, int nodeId, bitset<MNS> queryLife) {
     bitset<MNS> haveFound;
     haveFound.reset();
     for (auto sccTableIter = sccTable.begin(); sccTableIter != sccTable.end(); sccTableIter++) {
-        auto nodePos = (*sccTableIter).first.find(nodeId);
-        if (nodePos != (*sccTableIter).first.end()) {
+        auto nodePos = (*sccTableIter).nodeGroup.find(nodeId);
+        if (nodePos != (*sccTableIter).nodeGroup.end()) {
             //该行记录的SCC含有此节点，判断其生存期是否有交集:
-            bitset<MNS> sccLife = (*sccTableIter).second.life_time;
+            bitset<MNS> sccLife = (*sccTableIter).sccID_Life.life_time;
             bitset<MNS> interLife;
             interLife = LifespanJoin(queryLife, sccLife);
 
             if (interLife.any()) {
                 SccID_Life sccID_life;
-                sccID_life.scc_id = (*sccTableIter).second.scc_id;
+                sccID_life.scc_id = (*sccTableIter).sccID_Life.scc_id;
                 sccID_life.life_time = interLife;
 
                 node2Scc.vectorOfSccs.push_back(sccID_life);

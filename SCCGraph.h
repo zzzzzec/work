@@ -33,8 +33,12 @@ public:
     SCCGraph();
     SCCGraph(vector<vector<int>> &evolvingGraphSequence, SccTable &sccTable);
     int IDexist(int SCCID, int timestamp);
+    int addNode(int SCCID, int timestamp, set<int> originNodeSet);
+    int deleteNode(int SCCID, int timestamp);
     int addEdge(int srcID, int dstID, int timestamp);
     int deleteEdge(int srcID, int dstID, int timestamp);
+    bool edgeExist(int srcID, int dstID, int timestamp);
+    int findSCCIDNodeFromOriginNodeID(int originNodeID, int timestamp);
     void SCCGraphInsertArc(int srcID, int dstID, int timestamp, vector<SCCnode>& thisGraph);
     vector<SCCnode> findCycle(int SCCIDu, int timestamp);
     SCCnode findSCCnodeFromID(int SCCID, int timestamp);
@@ -53,9 +57,9 @@ SCCGraph::SCCGraph(vector<vector<int>> &evolvingGraphSequence, SccTable &sccTabl
         //先吧SCC节点加入进来
         for(auto sccit = sccTable.begin(); sccit != sccTable.end(); sccit++){
             SCCnode newNode;
-            if(sccit->second.life_time.test(timeStamp)){
-                newNode.originNodeSet = sccit->first;
-                newNode.SCCID = sccit->second.scc_id;
+            if(sccit->sccID_Life.life_time.test(timeStamp)){
+                newNode.originNodeSet = sccit->nodeGroup;
+                newNode.SCCID = sccit->sccID_Life.scc_id;
                 newNode.firstArc = NULL;
                 thisGraph.push_back(newNode);
             }
@@ -100,7 +104,16 @@ SCCnode SCCGraph::findSCCnodeFromID(int SCCID, int timestamp){
     return *it;
 }
 
-bool SCCGraph::SCCIDexist(int SCCID, int timestamp){
+int SCCGraph::findSCCIDNodeFromOriginNodeID(int originNodeID, int timestamp){
+    for(auto it = sccGraphs[timestamp-1].second.begin(); it != sccGraphs[timestamp-1].second.end(); it++){
+        if (it->originNodeSet.find(originNodeID) != it->originNodeSet.end()) {
+            return it->SCCID;
+        }
+    }
+    return -1;
+}
+
+bool SCCGraph::SCCIDexist(int SCCID, int timestamp) {
     for(auto it = sccGraphs[timestamp-1].second.begin(); it != sccGraphs[timestamp-1].second.end(); it++){
         if(it->SCCID == SCCID){
             return true;
@@ -109,8 +122,40 @@ bool SCCGraph::SCCIDexist(int SCCID, int timestamp){
     return false;
 }
 
-int SCCGraph::addEdge(int srcID, int dstID, int timestamp){
-    if(this->IDexist(srcID, timestamp) && this->IDexist(dstID, timestamp)){
+bool SCCGraph::edgeExist(int srcID, int dstID, int timestamp){
+    for(auto it = sccGraphs[timestamp-1].second.begin(); it != sccGraphs[timestamp-1].second.end(); it++){
+        if(it->SCCID == srcID){
+            arc *tmp = it->firstArc;
+            while(tmp != NULL){
+                if(tmp->dstID == dstID){
+                    return true;
+                }
+                tmp = tmp->next;
+            }
+        }
+    }
+    return false;
+}
+
+int SCCGraph::addNode(int SCCID, int timestamp, set<int> originNodeSet) {
+    if(this->IDexist(SCCID, timestamp)){
+        return 0;
+    }
+    else{
+        SCCnode newNode;
+        newNode.SCCID = SCCID;
+        newNode.firstArc = NULL;
+        newNode.originNodeSet = originNodeSet;
+        sccGraphs[timestamp - 1].second.push_back(newNode);
+        return 1;
+    }
+}
+
+int SCCGraph::addEdge(int srcID, int dstID, int timestamp) {
+    if(this->edgeExist(srcID, dstID, timestamp)){
+            return 0;
+    }
+    if (this->IDexist(srcID, timestamp) && this->IDexist(dstID, timestamp)) {
         arc* newArc = new arc;
         newArc->dstID = dstID;
         //优化一下
@@ -127,7 +172,7 @@ int SCCGraph::addEdge(int srcID, int dstID, int timestamp){
         return 0;
 }
 
-int SCCGraph::deleteEdge(int srcID, int dstID, int timestamp){
+int SCCGraph::deleteEdge(int srcID, int dstID, int timestamp) {
     for (auto it = sccGraphs[timestamp - 1].second.begin(); it != sccGraphs[timestamp - 1].second.end(); it++) {
         if (it->SCCID == srcID) {
             arc *tmp = it->firstArc;
@@ -151,7 +196,37 @@ int SCCGraph::deleteEdge(int srcID, int dstID, int timestamp){
     return 1;
 }
 
-vector<SCCnode> SCCGraph::findCycle(int SCCIDu, int timestamp){
+int SCCGraph::deleteNode(int SCCID, int timestamp) {
+    if(!this->IDexist(SCCID, timestamp)){
+        return 0;
+    }
+    for (auto it = sccGraphs[timestamp - 1].second.begin(); it != sccGraphs[timestamp - 1].second.end(); it++) {
+        if(it->SCCID == SCCID){
+            sccGraphs[timestamp - 1].second.erase(it);
+            return 1;
+        }
+        else {
+            arc *tmp = it->firstArc;
+            arc *pre = NULL;
+            while (tmp != NULL) {
+                if (tmp->dstID == SCCID) {
+                    if (pre == NULL) {
+                        it->firstArc = tmp->next;
+                    } else {
+                        pre->next = tmp->next;
+                    }
+                    delete tmp;
+                    break;
+                }
+                pre = tmp;
+                tmp = tmp->next;
+            }
+        }
+    }
+    return 1;
+}
+
+vector<SCCnode> SCCGraph::findCycle(int SCCIDu, int timestamp) {
     //这里检测环，然后把检测到的环都按照第一个的ID合并，因为时SRC->DST，所以如果有环，那么一定包含这两个节点
     vector<SCCnode> cycle;
     map<int, bool> visited;
@@ -245,22 +320,30 @@ int SCCGraph::merge(vector<SCCnode> &cycle, int timestamp, SccTable &sccTable){
 
     //更新sccTable
     auto sccTableit = sccTable.begin();
+    //删除合并前的SCC集合cycle
     while (sccTableit != sccTable.end())
     {
-        if (sccTableit->second.life_time.test(timestamp) && sccIncycle(sccTableit->second.scc_id, cycle)) {
-            sccTableit->second.life_time.set(timestamp, false);
-            sccTableit = sccTableit->second.life_time.none() ? sccTable.erase(sccTableit) : sccTableit++;
+        if (sccTableit->sccID_Life.life_time.test(timestamp) && sccIncycle(sccTableit->sccID_Life.scc_id, cycle)) {
+            sccTableit->sccID_Life.life_time.set(timestamp, false);
+            sccTableit = sccTableit->sccID_Life.life_time.none() ? sccTable.erase(sccTableit) : sccTableit++;
         }
         else{
             sccTableit++;
         }
     }
-    SccID_Life newlife;
-    newlife.scc_id = newNode.SCCID;
-    bitset<MNS> newlifespan;
-    newlife.life_time = LifespanBuild(newlifespan, timestamp, timestamp);
-    sccTable.insert(make_pair(newNode.originNodeSet, newlife));
-
+    SCCTableItem newitem;
+    newitem.nodeGroup = newNode.originNodeSet;
+    auto res = sccTable.insert(newitem);
+    if(!res.second){
+        res.first->sccID_Life.life_time.set(timestamp, true);
+    }
+    else {
+        SccID_Life newlife;
+        newlife.scc_id = newNode.SCCID;
+        bitset<MNS> newlifespan;
+        newlife.life_time = LifespanBuild(newlifespan, timestamp, timestamp);
+        res.first->sccID_Life = newlife;
+    }
     return newNode.SCCID;
 }
 

@@ -165,11 +165,11 @@ bool HRindex::update() {
 }
 
 int HRindex::getaNewSCCID() {
-    int maxSccid = sccTable.begin()->second.scc_id;
+    int maxSccid = sccTable.begin()->sccID_Life.scc_id;
     // trasverse the sccTable to find the new sccid
     for (auto it = sccTable.begin(); it != sccTable.end(); ++it) {
-        if (it->second.scc_id > maxSccid) {
-            maxSccid = it->second.scc_id;
+        if (it->sccID_Life.scc_id > maxSccid) {
+            maxSccid = it->sccID_Life.scc_id;
         }
     }
     return maxSccid + 1;
@@ -179,7 +179,10 @@ bool HRindex::addSCCnode(int nodeID, int newSCCID, Lifespan lifespan) {
     SccID_Life newSccID_Life;
     newSccID_Life.scc_id = newSCCID;
     newSccID_Life.life_time = lifespan;
-    sccTable.insert(pair<set<int>, SccID_Life>(set<int>{nodeID}, newSccID_Life));
+    SCCTableItem item;
+    item.nodeGroup = set<int>{ nodeID };
+    item.sccID_Life = newSccID_Life;
+    sccTable.insert(item);
     return true;
 }
 
@@ -238,6 +241,7 @@ bool HRindex::singleStepUpdate() {
                 sccGraph.addEdge(uSCCID, vSCCID, ur.timestamp);
                 vector<SCCnode> cycle = sccGraph.findCycle(uSCCID, ur.timestamp);
                 while (cycle.size() != 0) {
+                    //考虑合并后的SCC与其他SCC相同
                     int reusedID = sccGraph.merge(cycle, ur.timestamp, sccTable);
                     cycle = sccGraph.findCycle(reusedID, ur.timestamp);
                 }
@@ -340,6 +344,29 @@ bool HRindex::singleStepUpdate() {
                 auto findResult = find_if(sccGraph.sccGraphs[ur.timestamp - 1].second.begin(), sccGraph.sccGraphs[ur.timestamp - 1].second.end(),
                     [&uSCCID](SCCnode& sccnode) { return sccnode.SCCID == uSCCID; });
                 set<int> nodeSet = findResult->originNodeSet;
+                
+                vector<SCCEdge> in;
+                vector<SCCEdge> out;
+                for (auto it = sccGraph.sccGraphs[ur.timestamp - 1].second.begin(); it != sccGraph.sccGraphs[ur.timestamp - 1].second.end(); ++it) {
+                    if (it ->SCCID == uSCCID) {
+                        for (auto arcit = it->firstArc; arcit != NULL; arcit = arcit->next) {
+                            SCCEdge newEdge;
+                            newEdge.sScc = uSCCID;
+                            newEdge.tScc = arcit->dstID;
+                            out.push_back(newEdge);
+                        }
+                    }
+                    else {
+                        for (auto arcit = it->firstArc; arcit != NULL; arcit = arcit->next) {
+                            if (arcit->dstID == uSCCID) {
+                                SCCEdge newEdge;
+                                newEdge.sScc = it->SCCID;
+                                newEdge.tScc = uSCCID;
+                                in.push_back(newEdge);
+                            }
+                        }
+                    }
+                }
                 //从SCC中的节点重新构建出一个图
                 Graph newGraph;
                 for (auto nodeit = nodeSet.begin(); nodeit != nodeSet.end(); ++nodeit) {
@@ -351,8 +378,55 @@ bool HRindex::singleStepUpdate() {
                     }
                 }
                 //重新分割SCC
-                SccTable newSccTable = getSCCTableFromOneGraph(&newGraph);
+                SccTable newSCCTable;
+                vector<int> newEvolvingGraph;
+                SCCEdgeInfo newSCCEdgeInfo;
+                newSCCTable = GetSCCTableFromOneGraph(ur.timestamp, &newGraph, newEvolvingGraph, newSCCEdgeInfo);
+                auto findRes = find_if(sccTable.begin(), sccTable.end(), [&uSCCID](auto mapItem) { return mapItem.sccID_Life.scc_id == uSCCID; });
+                if (findRes != sccTable.end()) {
+                    findRes->sccID_Life.life_time.set(ur.timestamp, false);
+                    if (findRes->sccID_Life.life_time.none()) sccTable.erase(findRes);
+                }
+                else assert(false);
+                map<int, int> SCCIDmap;
+                sccGraph.deleteNode(uSCCID, ur.timestamp);
+                for (auto it = newSCCTable.begin(); it != newSCCTable.end(); ++it) {
+                    auto res = sccTable.insert(*it);
+                    if (!res.second) {
+                        SCCIDmap[it->sccID_Life.scc_id] = res.first->sccID_Life.scc_id;
+                        res.first->sccID_Life.life_time.set(ur.timestamp, true);
+                    }
+                    else {
+                        int newid = newSCCID(this->sccTable);
+                        res.first->sccID_Life.scc_id = newid;
+                        sccGraph.addNode(newid, ur.timestamp, res.first->nodeGroup);
+                        SCCIDmap[it->sccID_Life.scc_id] = newid;
+                    }
+                }
+                //先加入内部的边
+                for (auto it = newSCCEdgeInfo.begin(); it != newSCCEdgeInfo.end(); ++it) {
+                    sccGraph.addEdge(SCCIDmap[it->first.sScc], SCCIDmap[it->first.tScc], ur.timestamp);
+                }
                 //将SCC的节点与外部相连
+                for(auto it = in.begin(); it != in.end(); ++it) {
+                    //todo
+                }
+                for (auto it = out.begin(); it != out.end(); ++it) {
+                    auto dstSCCID = it->tScc;
+                    auto srcSCCID = it->sScc;
+                    auto sccEdgeInfo = sccEdgeInfoSequence[ur.timestamp - 1];
+                    auto findResult = find_if(sccEdgeInfo.begin(), sccEdgeInfo.end(), [&](SCCEdgeInfoItem& item) {return item.first.sScc == srcSCCID && item.first.tScc == dstSCCID; });
+                    if (findResult != sccEdgeInfo.end()) {
+                        for (auto edgeit = findResult->second.begin(); edgeit != findResult->second.end(); ++edgeit) {
+                            auto res = sccGraph.findSCCIDNodeFromOriginNodeID(edgeit->src, ur.timestamp);
+                            assert(res != -1);
+                            int newSCCSrcID = res;
+                            //此边为newSCCSrcID->dstSCCID的边
+                            sccGraph.addEdge(newSCCSrcID, dstSCCID, ur.timestamp);
+                        }
+                    }
+                    else assert(false);
+                }
             }
             break;
         }
