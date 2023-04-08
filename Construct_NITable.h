@@ -9,20 +9,12 @@ using namespace std;
 
 //定义排序：对Out项按照生存期长度降序排列
 bool outItemSort(Item item1, Item item2);
-
 //从读入的信息中提取出节点
 vector<int> exFromNode(vector<int> con);
-
 //从读入的信息中提取入节点
 vector<int> exToNode(vector<int> con);
-
-//获取NI-Table
 NodeInfoTable GetNITable(NodeInfoTable &nodeInfoTable, vector<vector<int>> &evolvingGraphSequence, int timeStamp);
-
-//对NITable出边记录进行细化
 RefineNITable GetRefineNITable(NodeInfoTable nodeInfoTable);
-
-//-------------------------------------------------------
 
 bool outItemSort(Item item1, Item item2) {
     return item1.lifespan.count() > item2.lifespan.count();
@@ -30,7 +22,6 @@ bool outItemSort(Item item1, Item item2) {
 
 vector<int> exFromNode(vector<int> con) {
     vector<int> outNodeVector;
-
     for (int i = 0; i < con.size(); i++) {
         if (i % 2 == 0) {
             outNodeVector.push_back(con[i]);
@@ -47,7 +38,6 @@ vector<int> exToNode(vector<int> con) {
             inNodeVector.push_back(con[i]);
         }
     }
-
     return inNodeVector;
 }
 //SCC图就是一个DAG，evolvingGraphSequence包含了所有DAG图的信息
@@ -133,7 +123,6 @@ NodeInfoTable GetNITable(NodeInfoTable &nodeInfoTable, vector<vector<int>> &evol
             nodeInfoTable.push_back(recordItem);
         }
     }
-
     return nodeInfoTable;
 }
 

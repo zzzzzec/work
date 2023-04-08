@@ -100,7 +100,6 @@ bool HRindex::getSCCTable()
     this->sccTable = GetSCCTable(timeIntervalLength, originGraph, evolvingGraphSequence, sccEdgeInfoSequence, buildSccTableTime);
     buildSCCGraph();
     return true;
-
 }
 
 bool HRindex::buildSCCGraph()
@@ -304,6 +303,8 @@ bool HRindex::singleStepUpdate() {
             break;
         }
         case(2): {
+            //删除一个节点u
+            
             break;
         }
         case(4): {
@@ -340,7 +341,7 @@ bool HRindex::singleStepUpdate() {
                 this->IG = BuildIndexGraph(this->refineNITable);
             }
             else {
-                //在同一个SCC内部，先把SCC内部重新分割
+                //在同一个SCC内部，先把SCC内部重新分割【
                 auto findResult = find_if(sccGraph.sccGraphs[ur.timestamp - 1].second.begin(), sccGraph.sccGraphs[ur.timestamp - 1].second.end(),
                     [&uSCCID](SCCnode& sccnode) { return sccnode.SCCID == uSCCID; });
                 set<int> nodeSet = findResult->originNodeSet;

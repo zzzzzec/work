@@ -18,42 +18,28 @@ using namespace std;
 typedef bitset<MNS> Lifespan;
 
 bitset<MNS> LifespanJoin(bitset<MNS> &l1, bitset<MNS> &l2);
-
 bitset<MNS> LifespanUnion(bitset<MNS> &l1, bitset<MNS> &l2);
-
 bitset<MNS> LifespanBuild(bitset<MNS> &b, int i, int j);
-
 bool LifespanisSub(bitset<MNS> &L, bitset<MNS> &l);
-
 bool LifespanisProSub(bitset<MNS> &L, bitset<MNS> &l);
-
 int GetFirst1Pos(bitset<MNS> &b);
-
 bitset<MNS> LifespanDifference(bitset<MNS> &L, bitset<MNS> &l);
-
 vector<int> GetLifespanTruePos(bitset<MNS> &l);
-
 int LifespanTrue_MaxPos(bitset<MNS> &l);
-
 int LifespanTrue_MinPos(bitset<MNS> &l);
-
 vector<string> split(const string &s, const string &seperator);
-
 bitset<MNS> StringToLifespan(string str);
-//-----------------------------------------------
+
 bitset<MNS> LifespanJoin(bitset<MNS> &l1, bitset<MNS> &l2) {
     bitset<MNS> result;
-
     result = l1 & l2;
     return result;
 }
 
 bitset<MNS> LifespanUnion(bitset<MNS> &l1, bitset<MNS> &l2) {
     bitset<MNS> result;
-
     result = l1 | l2;
     return result;
-
 }
 
 bitset<MNS> LifespanBuild(bitset<MNS> &b, int i, int j) {
@@ -177,15 +163,12 @@ vector<string> split(const string &s, const string &seperator) {
 
 bitset<MNS> StringToLifespan(string str) {
     bitset<MNS> lifespan;
-
     reverse(str.begin(),str.end());
-
     for (int i = 0; i < str.size(); ++i) {
         if (str[i]=='1'){
             lifespan.set(i);
         }
     }
-
     return lifespan;
 }
 
