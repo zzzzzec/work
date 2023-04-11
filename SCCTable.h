@@ -101,6 +101,19 @@ void StoreSccTable(string storeAddress, SccTable sccTable) {
     outfile.close();
 }
 
+//删除在timeStamp时刻的SCC表中的SccID项
+void DeleteSccTableByID(SccTable& sccTable, int sccID, int timeStamp) {
+    for (auto item = sccTable.begin(); item != sccTable.end(); item++) {
+        if ((*item).SCCID == sccID) {
+            (*item).sccID_Life.life_time.set(timeStamp, false);
+            if((*item).sccID_Life.life_time.none()){
+                sccTable.erase(item);
+            }
+            break;
+        }
+    }
+}
+
 SccTable ReadSccTable(string storeAddress) {
     SccTable sccTable;
 

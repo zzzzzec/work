@@ -81,60 +81,43 @@ typedef struct Node2Scc {
 
 
 vector<QueryResult> ReadQuery(string queryFileAddress);
-
 vector<ToGrail>
 QueryReachabilityonIG(IGraph &IG, SccTable &sccTable, vector<QueryResult> &queryRecords, double &queryTime);
-
 vector<ToGrail>
 QueryReachabilityonIG2(IGraph &IG, OpSccTable &opSccTable, vector<QueryResult> &queryRecords, double &queryTime);
-
 vector<QueryOnIG>
 ProcessEGSDisQuery(IGraph &IG, SccTable &sccTable, int souNode, int tarNode, bitset<MNS> queryLife, double &recordQT);
-
 vector<QueryOnIG>
 ProcessEGSConQuery(IGraph &IG, SccTable &sccTable, int souNode, int tarNode, bitset<MNS> queryLife, double &recordQT);
-
 Node2Scc FindSccsOfNode(SccTable &sccTable, int nodeId, bitset<MNS> queryLife);
-
 Node2Scc FindSccsOfNode2(OpSccTable &opSccTable, int nodeId, bitset<MNS> queryLife);
-
 void StoreQueryRecords2Grail(string &resultFileAddress, vector<ToGrail> &toGrail, double &queryTime);
-
 vector<QueryOnIG>
 ProcessEGSDisQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode, bitset<MNS> queryLife,
                     double &recordQT);
-
 vector<QueryOnIG>
 ProcessEGSConQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode, bitset<MNS> queryLife,
                     double &recordQT);
-//---------------------------------------------------------------
 
 vector<QueryResult> ReadQuery(string queryFileAddress) {
     vector<QueryResult> queryRecords;
-
     ifstream fin(queryFileAddress);
     if (fin) {
         string str;
         while (getline(fin, str)) {
             int souID, tarID, query_begin, query_end, type, reachability;
-
             char *ch = (char *) str.c_str();
-
             sscanf(ch, "%d\t%d\t%d\t%d\t%d\t%d", &souID, &tarID, &query_begin, &query_end, &type, &reachability);
-
             QueryResult qr(souID, tarID, query_begin, query_end, type, reachability);
             queryRecords.push_back(qr);
         }
     }
-
     return queryRecords;
-
 }
 
 vector<ToGrail>
 QueryReachabilityonIG(IGraph &IG, SccTable &sccTable, vector<QueryResult> &queryRecords, double &queryTime) {
     vector<ToGrail> toGrail;
-
     for (int recordItem = 0; recordItem < queryRecords.size(); ++recordItem) {
         int souNode = queryRecords[recordItem].souID;
         int tarNode = queryRecords[recordItem].tarID;

@@ -16,8 +16,6 @@ using namespace std;
 
 class HRindex
 {
-private:
-
 public:
     int timeIntervalLength;
     string graphDatafileAddHead;
@@ -72,6 +70,12 @@ public:
     bool addSCCedge(int srcNodeID, int dstNodeID, Lifespan lifespan);
     bool reconstructEvolvingGraphSequence(SCCGraph& sccGraph, int timestamp);
     vector<SCCnode> findCycle();
+
+private:
+    void singleStepUpdateAddNode(int u, int timestamp);
+    void singleStepUpdateAddEdge(int u, int v, int timestamp);
+    void singleStepUpdateDeleteNode(int u, int timestamp);
+    void singleStepUpdateDeleteEdge(int u, int v, int timestamp);
 };
 
 HRindex::HRindex() {}
@@ -208,56 +212,79 @@ bool HRindex::reconstructEvolvingGraphSequence(SCCGraph& sccGraph, int timestamp
     return true;
 }
 
-
 bool HRindex::singleStepUpdate() {
     for (int i = 0; i < updateRecordVector.size(); ++i) {
         updateRecord ur = updateRecordVector[i];
         switch (ur.type)
         {
         case(1): {
-            //添加一个节点u，这个节点没有与任何其他边相连，因此是孤立的SCC
-            originGraph[ur.timestamp].AddSingleNode(ur.u);
-            Lifespan newLifespan;
-            int newSCCID = getaNewSCCID();
-            addSCCnode(ur.u, newSCCID, LifespanBuild(newLifespan, ur.timestamp, ur.timestamp));
-            //加入一个新的ONTable的表项
-            RecordItem newNITableRecordItem;
-            newNITableRecordItem.node = newSCCID;
-            nodeInfoTable.push_back(newNITableRecordItem);
-            //加入一个新的RefineNITable的表项
-            RefineRecordItem newRefineRecordItem;
-            newRefineRecordItem.node = newSCCID;
-            refineNITable.push_back(newRefineRecordItem);
+            singleStepUpdateAddNode(ur.u, ur.timestamp);
             break;
         }
         case(3): {
-            //加入一条边u->v
-            originGraph[ur.timestamp - 1].InsertEdge(ur.u, ur.v);
-            int uSCCID = originGraph[ur.timestamp - 1].findSCCIDFromNodeId(ur.u);
-            int vSCCID = originGraph[ur.timestamp - 1].findSCCIDFromNodeId(ur.v);
+            singleStepUpdateAddEdge(ur.u, ur.v, ur.timestamp);
+            break;
+        }
+        case(2): {
+            singleStepUpdateDeleteEdge(ur.u, ur.v, ur.timestamp);
+            break;
+        }
+        case(4): {
+            singleStepUpdateDeleteNode(ur.u, ur.timestamp);
+            break;
+        }
+        default: {
+            printf("Error: update type error!\n");
+            return false;
+        }
+        }
+    }
+    return true;
+}
+
+void HRindex::singleStepUpdateAddNode(int u, int timestamp) {
+    //添加一个节点u，这个节点没有与任何其他边相连，因此是孤立的SCC
+    originGraph[timestamp].AddNode(u);
+    Lifespan newLifespan;
+    int newSCCID = getaNewSCCID();
+    addSCCnode(u, newSCCID, LifespanBuild(newLifespan, timestamp, timestamp));
+    //加入一个新的ONTable的表项
+    RecordItem newNITableRecordItem;
+    newNITableRecordItem.node = newSCCID;
+    nodeInfoTable.push_back(newNITableRecordItem);
+    //加入一个新的RefineNITable的表项
+    RefineRecordItem newRefineRecordItem;
+    newRefineRecordItem.node = newSCCID;
+    refineNITable.push_back(newRefineRecordItem);
+}
+
+void HRindex::singleStepUpdateAddEdge(int u, int v, int timestamp) {
+     originGraph[timestamp - 1].InsertEdge(u, v);
+            int uSCCID = originGraph[timestamp - 1].findSCCIDFromNodeId(u);
+            int vSCCID = originGraph[timestamp - 1].findSCCIDFromNodeId(v);
             if (uSCCID != vSCCID) {
                 //循环检测环，直到没有环为止
-                sccGraph.addEdge(uSCCID, vSCCID, ur.timestamp);
-                vector<SCCnode> cycle = sccGraph.findCycle(uSCCID, ur.timestamp);
+                sccGraph.addEdge(uSCCID, vSCCID, timestamp);
+                vector<SCCnode> cycle = sccGraph.findCycle(uSCCID, timestamp);
                 while (cycle.size() != 0) {
                     //考虑合并后的SCC与其他SCC相同
-                    int reusedID = sccGraph.merge(cycle, ur.timestamp, sccTable);
-                    cycle = sccGraph.findCycle(reusedID, ur.timestamp);
+                    int reusedID = sccGraph.merge(cycle, timestamp, sccTable);
+                    cycle = sccGraph.findCycle(reusedID, timestamp);
                 }
-                reconstructEvolvingGraphSequence(sccGraph, ur.timestamp);
+                reconstructEvolvingGraphSequence(sccGraph, timestamp);
 
                 int id;
                 auto exist = [&id](RecordItem& ri) {return ri.node == id;};
                 //整个删除在timeStamp时刻的NIT中的内容，然后重建
-                deleteNIT(nodeInfoTable, ur.timestamp);
-                for (auto sccGraphit = sccGraph.sccGraphs[ur.timestamp - 1].second.begin();
-                    sccGraphit != sccGraph.sccGraphs[ur.timestamp - 1].second.end(); ++sccGraphit) {
+                deleteNIT(nodeInfoTable, timestamp);
+                for (auto sccGraphit = sccGraph.sccGraphs[timestamp - 1].second.begin();
+                    sccGraphit != sccGraph.sccGraphs[timestamp - 1].second.end(); ++sccGraphit) {
                     id = sccGraphit->SCCID;
                     vector<int> INlist;
                     vector<int> OUTlist;
                     //遍历整个图来找到这个SCCID的入边
-                    for (auto INlistit = sccGraph.sccGraphs[ur.timestamp - 1].second.begin();
-                        INlistit != sccGraph.sccGraphs[ur.timestamp - 1].second.end(); ++INlistit) {
+                    for (auto INlistit = sccGraph.sccGraphs[timestamp - 1].second.begin();
+                        INlistit != sccGraph.sccGraphs[timestamp - 1].second.end(); ++INlistit) {
                         if (INlistit->SCCID == id) continue;
                         else {
                             for (auto arcit = INlistit->firstArc; arcit != NULL; arcit = arcit->next)
@@ -273,24 +300,23 @@ bool HRindex::singleStepUpdate() {
                     for (auto outArcit = sccGraphit->firstArc; outArcit != NULL; outArcit = outArcit->next) {
                         OUTlist.push_back(outArcit->dstID);
                     }
-
                     auto record = find_if(nodeInfoTable.begin(), nodeInfoTable.end(), exist);
                     if (record != nodeInfoTable.end()) {
                         for (auto inID = INlist.begin(); inID != INlist.end(); ++inID) {
-                            insertNITin(*record, *inID, ur.timestamp);
+                            insertNITin(*record, *inID, timestamp);
                         }
                         for (auto outID = OUTlist.begin(); outID != OUTlist.end(); ++outID) {
-                            insertNITout(*record, *outID, ur.timestamp);
+                            insertNITout(*record, *outID, timestamp);
                         }
                     }
                     else {
                         RecordItem newNITableRecordItem;
                         newNITableRecordItem.node = id;
                         for (auto inID = INlist.begin(); inID != INlist.end(); ++inID) {
-                            insertNITin(newNITableRecordItem, *inID, ur.timestamp);
+                            insertNITin(newNITableRecordItem, *inID, timestamp);
                         }
                         for (auto outID = OUTlist.begin(); outID != OUTlist.end(); ++outID) {
-                            insertNITout(newNITableRecordItem, *outID, ur.timestamp);
+                            insertNITout(newNITableRecordItem, *outID, timestamp);
                         }
                         nodeInfoTable.push_back(newNITableRecordItem);
                     }
@@ -300,22 +326,17 @@ bool HRindex::singleStepUpdate() {
                 this->refineNITable = GetRefineNITable(nodeInfoTable);
                 this->IG = BuildIndexGraph(this->refineNITable);
             }
-            break;
-        }
-        case(2): {
-            //删除一个节点u
-            
-            break;
-        }
-        case(4): {
-            //删除一条边u->v
-            originGraph[ur.timestamp - 1].DeleteEdge(ur.u, ur.v);
-            int uSCCID = originGraph[ur.timestamp - 1].findSCCIDFromNodeId(ur.u);
-            int vSCCID = originGraph[ur.timestamp - 1].findSCCIDFromNodeId(ur.v);
+}
+
+void HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
+                //删除一条边u->v
+            originGraph[timestamp - 1].DeleteEdge(u, v);
+            int uSCCID = originGraph[timestamp - 1].findSCCIDFromNodeId(u);
+            int vSCCID = originGraph[timestamp - 1].findSCCIDFromNodeId(v);
             if (uSCCID != vSCCID) {
                 //不在一个SCC内，所以对SCC内部没有影响,并且SCC的节点是没有变化的
-                sccGraph.deleteEdge(uSCCID, vSCCID, ur.timestamp);
-                reconstructEvolvingGraphSequence(sccGraph, ur.timestamp);
+                sccGraph.deleteEdge(uSCCID, vSCCID, timestamp);
+                reconstructEvolvingGraphSequence(sccGraph, timestamp);
                 //删除u->v,要更改u的出边，v的入边
                 auto uexist = [&uSCCID](RecordItem& ri) {return ri.node == uSCCID;};
                 auto vexist = [&vSCCID](RecordItem& ri) {return ri.node == vSCCID;};
@@ -323,7 +344,7 @@ bool HRindex::singleStepUpdate() {
                 auto vrecord = find_if(nodeInfoTable.begin(), nodeInfoTable.end(), vexist);
                 for (auto uOutit = urecord->Out.begin(); uOutit != urecord->Out.end(); ++uOutit) {
                     if (uOutit->vertexID == vSCCID) {
-                        uOutit->lifespan.set(ur.timestamp, false);
+                        uOutit->lifespan.set(timestamp, false);
                         if (uOutit->lifespan.none()) {
                             urecord->Out.erase(uOutit);
                         }
@@ -331,7 +352,7 @@ bool HRindex::singleStepUpdate() {
                 }
                 for (auto vInit = vrecord->In.begin(); vInit != vrecord->In.end(); ++vInit) {
                     if (vInit->vertexID == uSCCID) {
-                        vInit->lifespan.set(ur.timestamp, false);
+                        vInit->lifespan.set(timestamp, false);
                         if (vInit->lifespan.none()) {
                             vrecord->In.erase(vInit);
                         }
@@ -342,13 +363,13 @@ bool HRindex::singleStepUpdate() {
             }
             else {
                 //在同一个SCC内部，先把SCC内部重新分割【
-                auto findResult = find_if(sccGraph.sccGraphs[ur.timestamp - 1].second.begin(), sccGraph.sccGraphs[ur.timestamp - 1].second.end(),
+                auto findResult = find_if(sccGraph.sccGraphs[timestamp - 1].second.begin(), sccGraph.sccGraphs[timestamp - 1].second.end(),
                     [&uSCCID](SCCnode& sccnode) { return sccnode.SCCID == uSCCID; });
                 set<int> nodeSet = findResult->originNodeSet;
                 
                 vector<SCCEdge> in;
                 vector<SCCEdge> out;
-                for (auto it = sccGraph.sccGraphs[ur.timestamp - 1].second.begin(); it != sccGraph.sccGraphs[ur.timestamp - 1].second.end(); ++it) {
+                for (auto it = sccGraph.sccGraphs[timestamp - 1].second.begin(); it != sccGraph.sccGraphs[timestamp - 1].second.end(); ++it) {
                     if (it ->SCCID == uSCCID) {
                         for (auto arcit = it->firstArc; arcit != NULL; arcit = arcit->next) {
                             SCCEdge newEdge;
@@ -371,7 +392,7 @@ bool HRindex::singleStepUpdate() {
                 //从SCC中的节点重新构建出一个图
                 Graph newGraph;
                 for (auto nodeit = nodeSet.begin(); nodeit != nodeSet.end(); ++nodeit) {
-                    VerNode& findRes = originGraph[ur.timestamp - 1].findNodeRefByID(*nodeit);
+                    VerNode& findRes = originGraph[timestamp - 1].findNodeRefByID(*nodeit);
                     for (auto arcit = findRes.firstArc; arcit != NULL; arcit = arcit->nextarc) {
                         if (nodeSet.find(arcit->tarID) != nodeSet.end()) {
                             newGraph.InsertEdge(*nodeit, arcit->tarID);
@@ -382,31 +403,31 @@ bool HRindex::singleStepUpdate() {
                 SccTable newSCCTable;
                 vector<int> newEvolvingGraph;
                 SCCEdgeInfo newSCCEdgeInfo;
-                newSCCTable = GetSCCTableFromOneGraph(ur.timestamp, &newGraph, newEvolvingGraph, newSCCEdgeInfo);
+                newSCCTable = GetSCCTableFromOneGraph(timestamp, &newGraph, newEvolvingGraph, newSCCEdgeInfo);
                 auto findRes = find_if(sccTable.begin(), sccTable.end(), [&uSCCID](auto mapItem) { return mapItem.sccID_Life.scc_id == uSCCID; });
                 if (findRes != sccTable.end()) {
-                    findRes->sccID_Life.life_time.set(ur.timestamp, false);
+                    findRes->sccID_Life.life_time.set(timestamp, false);
                     if (findRes->sccID_Life.life_time.none()) sccTable.erase(findRes);
                 }
                 else assert(false);
                 map<int, int> SCCIDmap;
-                sccGraph.deleteNode(uSCCID, ur.timestamp);
+                sccGraph.deleteNode(uSCCID, timestamp);
                 for (auto it = newSCCTable.begin(); it != newSCCTable.end(); ++it) {
                     auto res = sccTable.insert(*it);
                     if (!res.second) {
                         SCCIDmap[it->sccID_Life.scc_id] = res.first->sccID_Life.scc_id;
-                        res.first->sccID_Life.life_time.set(ur.timestamp, true);
+                        res.first->sccID_Life.life_time.set(timestamp, true);
                     }
                     else {
                         int newid = newSCCID(this->sccTable);
                         res.first->sccID_Life.scc_id = newid;
-                        sccGraph.addNode(newid, ur.timestamp, res.first->nodeGroup);
+                        sccGraph.addNode(newid, timestamp, res.first->nodeGroup);
                         SCCIDmap[it->sccID_Life.scc_id] = newid;
                     }
                 }
                 //先加入内部的边
                 for (auto it = newSCCEdgeInfo.begin(); it != newSCCEdgeInfo.end(); ++it) {
-                    sccGraph.addEdge(SCCIDmap[it->first.sScc], SCCIDmap[it->first.tScc], ur.timestamp);
+                    sccGraph.addEdge(SCCIDmap[it->first.sScc], SCCIDmap[it->first.tScc], timestamp);
                 }
                 //将SCC的节点与外部相连
                 for(auto it = in.begin(); it != in.end(); ++it) {
@@ -415,29 +436,55 @@ bool HRindex::singleStepUpdate() {
                 for (auto it = out.begin(); it != out.end(); ++it) {
                     auto dstSCCID = it->tScc;
                     auto srcSCCID = it->sScc;
-                    auto sccEdgeInfo = sccEdgeInfoSequence[ur.timestamp - 1];
+                    auto sccEdgeInfo = sccEdgeInfoSequence[timestamp - 1];
                     auto findResult = find_if(sccEdgeInfo.begin(), sccEdgeInfo.end(), [&](SCCEdgeInfoItem& item) {return item.first.sScc == srcSCCID && item.first.tScc == dstSCCID; });
                     if (findResult != sccEdgeInfo.end()) {
                         for (auto edgeit = findResult->second.begin(); edgeit != findResult->second.end(); ++edgeit) {
-                            auto res = sccGraph.findSCCIDNodeFromOriginNodeID(edgeit->src, ur.timestamp);
+                            auto res = sccGraph.findSCCIDNodeFromOriginNodeID(edgeit->src, timestamp);
                             assert(res != -1);
                             int newSCCSrcID = res;
                             //此边为newSCCSrcID->dstSCCID的边
-                            sccGraph.addEdge(newSCCSrcID, dstSCCID, ur.timestamp);
+                            sccGraph.addEdge(newSCCSrcID, dstSCCID, timestamp);
                         }
                     }
                     else assert(false);
                 }
+
+                reconstructEvolvingGraphSequence(sccGraph, timestamp);
             }
-            break;
-        }
-        default: {
-            printf("Error: update type error!\n");
-            return false;
-        }
+}
+
+void HRindex::singleStepUpdateDeleteNode(int u, int timestamp) {
+    vector<int> outList;
+    vector<int> inList;
+    outList = originGraph[timestamp - 1].findOutArcList(u);
+    inList = originGraph[timestamp - 1].findInArcList(u);
+
+    for (auto v = outList.begin(); v != outList.end(); ++v) {
+        singleStepUpdateDeleteEdge(u, *v, timestamp);
+    }
+    for (auto v = inList.begin(); v != inList.end(); ++v) {
+        singleStepUpdateDeleteEdge(*v, u, timestamp);
+    }
+    
+    int uSCCID = originGraph[timestamp - 1].findSCCIDFromNodeId(u); 
+    originGraph[timestamp - 1].DeleteNode(u);
+    sccGraph.deleteNode(u, timestamp);
+    DeleteSccTableByID(sccTable, uSCCID, timestamp);
+    reconstructEvolvingGraphSequence(sccGraph, timestamp);
+
+    for (auto it = nodeInfoTable.begin(); it != nodeInfoTable.end(); ++it) {
+        if (it->node == uSCCID) {
+            nodeInfoTable.erase(it);
         }
     }
-    return true;
+    for (auto it = refineNITable.begin(); it != refineNITable.end(); ++it) {
+        if(it->node == uSCCID) {
+            refineNITable.erase(it);
+        }
+    }
+
+    buildIndexGraph();
 }
 
 #endif

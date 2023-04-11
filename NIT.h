@@ -62,19 +62,15 @@ void StoreRefineNITable(string storeRefineNIT, RefineNITable refineNITable) {
         printf("Storeing the Refine_NI_Table......\n");
         for (auto item = refineNITable.begin(); item != refineNITable.end(); item++) {
             outfile << (*item).node << " # ";
-
             for (auto outIt = (*item).Out.begin(); outIt != (*item).Out.end(); outIt++) {
                 outfile << (*outIt).vertexID << " - ";
-
                 for (int i = 0; i < MNS; ++i) {
                     outfile << (*outIt).lifespan[i] << " ";
                 }
-
                 outfile << "@ " << (*outIt).partLab << " | ";
             }
             outfile << " /" << endl;
         }
-
     }
     outfile.close();
 }
@@ -88,13 +84,10 @@ RefineNITable ReadRefineNITable(string storeRefineNIT) {
     int type = -1;
     bitset<MNS> lifetime;
     vector<Item> out;
-
     ifstream fin(storeRefineNIT);
-
     if (fin) {
         string str;
         printf("Reading the Refine NI-Table......\n");
-
         while (fin >> str) {
             if (str != "#" & str != "-" & str != "@" & str != "|" & str != "/") {
                 int data = stoi(str);
@@ -107,13 +100,11 @@ RefineNITable ReadRefineNITable(string storeRefineNIT) {
                 tmpVector.clear();
             } else if (str == "@") {
                 lifetime.reset();
-
                 for (int i = 0; i < tmpVector.size(); ++i) {
                     if (tmpVector[i] == 1) {
                         lifetime.set(i);
                     }
                 }
-
                 tmpVector.clear();
             } else if (str == "|") {
                 type = tmpVector[0];

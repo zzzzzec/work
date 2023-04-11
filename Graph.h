@@ -10,9 +10,7 @@ using namespace std;
 typedef struct ArcNode {
     int tarID;                      //目的节点ID
     ArcNode *nextarc;             //指向下一条弧的指针
-
     ArcNode() { nextarc = NULL; }
-
     ArcNode(int v) {
         tarID = v;
         nextarc = NULL;
@@ -24,12 +22,10 @@ typedef struct VerNode {
     int souID;                      //源节点ID
     int sccOfIG;                    //标识源节点位于IG中哪个SCC
     ArcNode *firstArc;              //该节点第一条出边
-
     VerNode() {
         sccOfIG = 0;
         firstArc = NULL;
     }
-
     VerNode(int u) {
         souID = u;
         sccOfIG = 0;
@@ -55,7 +51,6 @@ private:
 
 private:
     void DFS(int vPos, bool *visited);
-
     void DFSForReversePost(int vPos, bool *visited);            //DFS思想求逆后续
     void DFSForConnection(int vPos, bool *visited);             //用DFS思想来求强连通分量
 
@@ -77,14 +72,17 @@ public:
     bool NodeIsExists(int nodeID);
     int VerPos(int nodeID);
     void AddOutToSourceNode(int souPos, int tarID);
+    bool AddNode(int ID);
     void InsertEdge(int souID, int tarID);
     void DeleteEdge(int souID, int tarID);
+    void DeleteNode(int nodeID);
     void DFSTraverse();
     void CreateVertex(int ID);
-    bool AddSingleNode(int ID);
     int findSCCIDFromNodeId(int nodeID);
     int SCCIDremap(set<int> nodes, int sccID);
     VerNode& findNodeRefByID(int nodeID);
+    vector<int> findOutArcList(int nodeID);
+    vector<int> findInArcList(int nodeID);
 };
 
 Graph::Graph() {
@@ -361,7 +359,7 @@ void Graph::CreateVertex(int ID) {
     vexnum++;
 }
 
-bool Graph::AddSingleNode(int ID){
+bool Graph::AddNode(int ID){
     for (auto it = vertices.begin(); it != vertices.end(); it++){
         if (it->souID == ID) {
             return false;
@@ -374,7 +372,17 @@ bool Graph::AddSingleNode(int ID){
     return true;
 }
 
-void Graph::DFSForConnection(int vPos, bool *visited) {
+void Graph::DeleteNode(int ID) {
+    int pos = VerPos(ID);
+    if (pos == -1) {
+        cout << "Don't exist this node!" << endl;
+    } else {
+        vertices.erase(vertices.begin() + pos);
+        vexnum--;
+    }
+}
+
+void Graph::DFSForConnection(int vPos, bool* visited) {
     visited[vPos] = true;
     vertices[vPos].sccOfIG = connectedCount - 1;
 
@@ -425,6 +433,27 @@ VerNode& Graph::findNodeRefByID(int nodeID){
         }
     }
     throw "No such node!";
+}
+
+vector<int> Graph::findOutArcList(int nodeID) {
+    vector<int> outArcList;
+    auto node = findNodeRefByID(nodeID);
+    for (auto it = node.firstArc; it != NULL; it = it->nextarc){
+        outArcList.push_back(it->tarID);
+    }
+    return outArcList;
+}
+
+vector<int> Graph::findInArcList(int nodeID) {
+    vector<int> inArcList;
+    for (auto it = this->vertices.begin(); it != this->vertices.end(); it++){
+        for (auto it2 = it->firstArc; it2 != NULL; it2 = it2->nextarc){
+            if (it2->tarID == nodeID){
+                inArcList.push_back(it->souID);
+            }
+        }
+    }
+    return inArcList;
 }
 
 #endif //IG_NOOP_5_GRAPH_H
