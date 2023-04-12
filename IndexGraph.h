@@ -15,7 +15,6 @@ using namespace std;
 typedef struct DAG_IG_Edge {
     int souSCC;
     int tarSCC;
-
 } DIE;
 
 typedef struct CopyNode {
@@ -46,10 +45,8 @@ typedef struct IGNode {
 typedef struct IGArcNode {
     int tarID;                          //目的节点ID
     bitset<MNS> tarLifespan;            //目的节点Lifespan
-    IGArcNode *nextarc;                 //指向下一条弧的指针
-
+    IGArcNode* nextarc;                 //指向下一条弧的指针
     IGArcNode() { nextarc = NULL; }
-
     IGArcNode(int v, bitset<MNS> t) {
         tarID = v;
         tarLifespan = t;
@@ -59,17 +56,14 @@ typedef struct IGArcNode {
 
 //定义索引图顶点结构
 typedef struct IGVerNode {
+    int uuid;
     int souID;                          //源节点ID
     bitset<MNS> souLifespan;            //源节点Lifespan
     int sccOfIG;                        //标识源节点位于IG中哪个SCC
     IGArcNode *firstArc;                //该节点第一条出边
 
-    IGVerNode() {
-        sccOfIG = 0;
-        firstArc = NULL;
-    }
-
-    IGVerNode(int u, bitset<MNS> t) {
+    IGVerNode(int id, int u, bitset<MNS> t) {
+        uuid = id;
         souID = u;
         souLifespan = t;
         sccOfIG = 0;
@@ -86,7 +80,6 @@ bool IsRecordExists(vector<DIE> vectorOfDIE, DIE r1) {
             return true;
         }
     }
-
     return false;
 }
 
@@ -95,82 +88,65 @@ bool copyNodeSort(CopyNode copyNode1, CopyNode copyNode2) {
     return copyNode1.lifespan.count() < copyNode2.lifespan.count();
 }
 
-//--------------------------------------------------------------
-
 class IGraph {
 private:
     AdjList vertices;                   //邻接表
     int vexnum, edgenum;                //节点数&边数
-
     int connectedCount;                 //强连通分量个数
     stack<CopyNode> reversePost;        //图中各顶点
 
 public:
     IGraph();
-
     ~IGraph();
-
     int GetVexNum();                            //获取图的节点数
-
     int GetEdgeNum();                           //获取图的边数
-
     int VerPos(int nodeID, bitset<MNS> verLife);
-
+    int Newuuid();
     void AddOutToSourceNode(int souPos, int tarID, bitset<MNS> tarLife);
-
     void InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
-
     void DeleteEdge1(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
-
     void DeleteEdge2(int souPos, int tarPos);
-
     void DeleteVertex(int nodePos);
-
     void CreateVertex(int ID, bitset<MNS> t);
-
     vector<CopyNode> FindAllCopyNodes(int souID);
-
     bool HaveSuperLifespan(vector<CopyNode> &copyNodes, bitset<MNS> t);
-
     void ProcessEdge(int souID, int tarID, bitset<MNS> t);
-
     void ProTarget(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
-
     void MaintainRelationship(int verID, bitset<MNS> verLifespan);
-
     void WriteEdgeFormIG2(string writeFileAddress);                    //将IG存储为GRAIL图数据格式
-
     void StoreFullIndexGraph(string storeFull_IG_Address);
-
     void ConstructOutEdge(int souID, int tarID, bitset<MNS> t, int label, bitset<MNS> intervalUnion);
-
     int FindIDonIG(int sccID, bitset<MNS> lifespan);           //根据SCC的id及其生存期，确定其在索引图上的ID
-
     void OptimizeIntervalVertex();
 
     bitset<MNS> GetSubVertexUnionLife(int verPos);
-
     vector<int> GetSouVerticesPos(int tarID, bitset<MNS> tarLife);
-
     vector<int> GetSubVerticesPos(int tarPos);
+    
+    bool isReachable(int u, int v) {
+        map<int, bool> visited;
+        return isReachableUtil(u, v, visited);
+    }
+
+private:
+    bool isReachableUtil(const int u, const int v, map<int, bool>& visited) {
+        if (u == v) return true;
+        visited[vertices[u].uuid] = true;
+        for (IGArcNode* arc = vertices[u].firstArc; arc != NULL; arc = arc->nextarc) {
+            int arcPos = VerPos(arc->tarID, arc->tarLifespan);
+            if (!visited[vertices[arcPos].uuid] && isReachableUtil(arcPos, v, visited)) return true;
+        }
+        return false;
+    }
 };
 
 IGraph::IGraph() {
     vexnum = 0;
     edgenum = 0;
     connectedCount = 0;
-
-    for (int i = 0; i < vexnum; ++i) {
-        vertices[i].souID = -1;
-        vertices[i].souLifespan = {};
-        vertices[i].sccOfIG = -1;
-        vertices[i].firstArc = NULL;
-    }
 }
 
-IGraph::~IGraph() {
-
-}
+IGraph::~IGraph() {}
 
 int IGraph::GetVexNum() {
     int temp = vexnum;
@@ -189,6 +165,16 @@ int IGraph::VerPos(int nodeID, bitset<MNS> verLife) {
         }
     }
     return -1;
+}
+
+int IGraph::Newuuid() {
+    int id = 0;
+    for (int i = 0; i < vertices.size(); ++i) {
+        if (vertices[i].uuid > id) {
+            id = vertices[i].uuid;
+        }
+    }
+    return id + 1;
 }
 
 void IGraph::AddOutToSourceNode(int souPos, int tarID, bitset<MNS> tarLife) {
@@ -220,7 +206,8 @@ void IGraph::InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> t
         AddOutToSourceNode(souPos, tarID, tarLife);
     } else {
         //当前不存在节点(souID,souLife)，需创建该节点
-        IGVerNode newSouNode(souID, souLife);
+        int newid = Newuuid();
+        IGVerNode newSouNode(newid, souID, souLife);
         vertices.push_back(newSouNode);
         vexnum++;
         souPos = vertices.size() - 1;
@@ -228,7 +215,8 @@ void IGraph::InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> t
     }
 
     if (tarPos == -1) {
-        IGVerNode newTarNode(tarID, tarLife);
+        int newid = Newuuid();
+        IGVerNode newTarNode(newid, tarID, tarLife);
         vertices.push_back(newTarNode);
         vexnum++;
     }
@@ -320,16 +308,12 @@ void IGraph::DeleteEdge2(int souPos, int tarPos) {
 void IGraph::DeleteVertex(int nodePos) {
     int curID = vertices[nodePos].souID;
     IGArcNode *p = vertices[nodePos].firstArc;
-
     int numE_delete = 0;
 
     while (p) {
         numE_delete++;
-
         p = p->nextarc;
     }
-
-
     vertices.erase(vertices.begin() + nodePos);
     vexnum--;
     edgenum = edgenum - numE_delete;
@@ -337,7 +321,8 @@ void IGraph::DeleteVertex(int nodePos) {
 }
 
 void IGraph::CreateVertex(int ID, bitset<MNS> t) {
-    IGVerNode newVerNode(ID, t);
+    int newid = Newuuid();
+    IGVerNode newVerNode(newid, ID, t);
     vertices.push_back(newVerNode);
     vexnum++;
 }
@@ -614,7 +599,6 @@ void IGraph::ConstructOutEdge(int souID, int tarID, bitset<MNS> t, int label, bi
     if (label == 1) {
         //该记录属于Instant-Part
         int souPos = VerPos(souID, t);
-
         if (souPos != -1) {
             //存在(u,t)节点,以其为源节点构建
             ProTarget(souID, t, tarID, t);
@@ -654,7 +638,7 @@ int IGraph::FindIDonIG(int sccID, bitset<MNS> lifespan) {
             }
         }
     }
-
+    //找到生命周期最小的一个
     if (!copyNodes.empty()) {
         CopyNode minSup = copyNodes[0];
         for (auto iter = copyNodes.begin(); iter != copyNodes.end(); iter++) {
@@ -674,14 +658,11 @@ int IGraph::FindIDonIG(int sccID, bitset<MNS> lifespan) {
 
 void IGraph::OptimizeIntervalVertex() {
     vector<IGNode> deleteVertexVector;
-
     //查找满足优化条件的节点
     for (int i = 0; i < vertices.size(); ++i) {
         bitset<MNS> curLife = vertices[i].souLifespan;
         int curID = vertices[i].souID;
-
         int curLife_count = curLife.count();
-
         //若当前节点为IntervalVertex
         if (curLife_count > 1) {
             //查找当前节点连接的同ID节点生存期
@@ -695,32 +676,24 @@ void IGraph::OptimizeIntervalVertex() {
                 igNode.nodeLife = curLife;
 
                 deleteVertexVector.push_back(igNode);
-
                 //查找指向该节点的源节点
                 vector<int> souPosVector = GetSouVerticesPos(curID, curLife);
                 //查找该节点指向的子节点
                 vector<int> subPosVector = GetSubVerticesPos(i);
-
                 for (int j = 0; j < souPosVector.size(); ++j) {
                     int souPos = souPosVector[j];
                     for (int k = 0; k < subPosVector.size(); ++k) {
                         int tarPos = subPosVector[k];
-
                         int tarID = vertices[tarPos].souID;
                         bitset<MNS> tarLife = vertices[tarPos].souLifespan;
-
                         AddOutToSourceNode(souPos, tarID, tarLife);
                     }
-
                     DeleteEdge2(souPos, i);
                 }
-
-
             }
         }
 
     }
-
     //删除冗余节点
     for (int l = 0; l < deleteVertexVector.size(); ++l) {
         int nodeID_delete = deleteVertexVector[l].nodeID;
@@ -731,28 +704,22 @@ void IGraph::OptimizeIntervalVertex() {
             DeleteVertex(nodePos_delete);
         }
     }
-
 }
 
 bitset<MNS> IGraph::GetSubVertexUnionLife(int verPos) {
     bitset<MNS> subVertexUnionLife;
     subVertexUnionLife.reset();
-
     int curID = vertices[verPos].souID;
     IGArcNode *p = vertices[verPos].firstArc;
 
     while (p) {
-
         int curTarID = p->tarID;
-
         if (curTarID == curID) {
             bitset<MNS> subVertexLife = p->tarLifespan;
             subVertexUnionLife = LifespanUnion(subVertexUnionLife, subVertexLife);
         }
-
         p = p->nextarc;
     }
-
     return subVertexUnionLife;
 }
 
@@ -764,14 +731,11 @@ vector<int> IGraph::GetSouVerticesPos(int tarID, bitset<MNS> tarLife) {
         IGArcNode *p = vertices[curPos].firstArc;
 
         while (p) {
-
             int curTarID = p->tarID;
             bitset<MNS> curTarLife = p->tarLifespan;
-
             if (curTarID == tarID && curTarLife == tarLife) {
                 souPosVector.push_back(curPos);
             }
-
             p = p->nextarc;
         }
     }
@@ -781,13 +745,11 @@ vector<int> IGraph::GetSouVerticesPos(int tarID, bitset<MNS> tarLife) {
 
 vector<int> IGraph::GetSubVerticesPos(int tarPos) {
     vector<int> subPosVector;
-
     int curID = vertices[tarPos].souID;
     IGArcNode *p = vertices[tarPos].firstArc;
 
     while (p) {
         int curTarID = p->tarID;
-
         if (curTarID == curID) {
             bitset<MNS> curTarLife = p->tarLifespan;
             int curTarPos = VerPos(curTarID, curTarLife);
@@ -796,35 +758,25 @@ vector<int> IGraph::GetSubVerticesPos(int tarPos) {
                 subPosVector.push_back(curTarPos);
             }
         }
-
         p = p->nextarc;
     }
-
     return subPosVector;
 }
 
 
-//--------------------------------------------------------------
-
 IGraph BuildIndexGraph(RefineNITable refineNITable);
-
 IGraph ReadIndexGraph(string storeFull_IG_Address);
-
 IGraph BuildIndexGraph(RefineNITable refineNITable) {
-
     IGraph IG;
-
     int c = 0;
     int sizeOfreNIT = refineNITable.size();
     //一个元素代表ONTable里的一个表项(SCC)
     for (auto recordOfNIT = refineNITable.begin(); recordOfNIT != refineNITable.end(); recordOfNIT++) {
         c++;
-        printf("\t Building the %dth / %d records in RefineNI-Table...\n", c, sizeOfreNIT);
-
         int souID = (*recordOfNIT).node;
-
         bitset<MNS> intervalUnion;
         intervalUnion.reset(); //处理所有node节点的出边
+        
         for (int i = 0; i < (*recordOfNIT).Out.size(); ++i) {
             if ((*recordOfNIT).Out[i].partLab == 2) { //如果这个node节点的这个出边是没有入边的 A->B 类型
                 bitset<MNS> cur_life = (*recordOfNIT).Out[i].lifespan;
@@ -834,8 +786,6 @@ IGraph BuildIndexGraph(RefineNITable refineNITable) {
 
         int sizeOfOut = (*recordOfNIT).Out.size();
         for (int j = 0; j < (*recordOfNIT).Out.size(); ++j) {
-            printf("\t\t Processing the %dth / %d Outgoing-Edges...\n", j, sizeOfOut);
-
             int tarID = (*recordOfNIT).Out[j].vertexID;
             int label = (*recordOfNIT).Out[j].partLab;
             bitset<MNS> edgeLife = (*recordOfNIT).Out[j].lifespan;
@@ -843,7 +793,6 @@ IGraph BuildIndexGraph(RefineNITable refineNITable) {
             IG.ConstructOutEdge(souID, tarID, edgeLife, label, intervalUnion);
         }
     }
-
     return IG;
 }
 

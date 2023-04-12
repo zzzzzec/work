@@ -55,7 +55,6 @@ SccTable GetSCCTable(int timeIntervalLength, Graph* originGraph, vector<vector<i
 
         //构建SCC-Table的索引
         int numOfV = originGraph[timeStamp - 1].GetVexNum();
-        printf("Start building the index of SCC-Table------the %dth snapshot\n", timeStamp);
         map<int, int> index_curST = BuildIndexOfCurSccTable(st, timeStamp);
         //index_curST: key:节点的编号 value:该节点所在的SCC的编号
         SCCEdgeInfo sccEdges = BuildCurDAGEdgesDataSequenceFromIndex(originGraph[timeStamp - 1], st, index_curST, timeStamp);
@@ -155,7 +154,6 @@ vector<int> GetFileData(string fileAddressHead, int timeStamp) {
     ifstream fin;
     fin.open(fileAddress);
     if (fin) {
-        printf("Reading the %dth file...\n", timeStamp);
         while (fin >> data) {
             dataVector.push_back(data);
         }
@@ -166,7 +164,6 @@ vector<int> GetFileData(string fileAddressHead, int timeStamp) {
 
 void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId, Graph* originGraph) {
     map<int, set<int>> sccSet;
-    printf("Analysing SCCs of the %dth snapshot ...\n", timeStamp);
     //sccset: key:SCC的编号 value:该SCC中所有节点的集合
     for (auto it = v2s.begin(); it != v2s.end(); it++) {
         int curV = (*it).first;
@@ -180,7 +177,6 @@ void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeSta
             sccSet[curS].insert(curV);
         }
     }
-    printf("Updating the SCC-Table...\n");
     for (int m = 0; m < numOfSCC; ++m) {
         set <int> thisSet = sccSet[m];
         auto findScc = find_if(st.begin(), st.end(), [&thisSet](const SCCTableItem &p) {return thisSet == p.nodeGroup;});

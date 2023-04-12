@@ -67,7 +67,7 @@ int GetFirst1Pos(bitset<MNS> &b) {
 
     return -1;
 }
-
+//是真子集
 bool LifespanisProSub(bitset<MNS> &L, bitset<MNS> &l) {
     if (LifespanisSub(L, l) && L.count() != l.count()) {
         return true;

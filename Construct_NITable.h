@@ -50,7 +50,6 @@ NodeInfoTable GetNITable(NodeInfoTable &nodeInfoTable, vector<vector<int>> &evol
     vector<int> targetNodeVector = exToNode(curDAG_edges);
     //当前DAG快照中边数量
     int numOfItems = targetNodeVector.size();
-    printf("=============== Getting NI-Table... ===============\n");
 
     //逐边处理
     for (int i = 0; i < numOfItems; ++i) {

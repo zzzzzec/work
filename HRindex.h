@@ -87,12 +87,7 @@ bool HRindex::buildOriginGraph() {
         vector<int> dataVector = GetFileData(graphDatafileAddHead, timeStamp);
         auto ne = dataVector.size();
         int num_edges = ne / 2;
-        int e = 0;
         for (int i = 0; i < ne; i = i + 2) {
-            e++;
-            if (e % 1000 == 0) {
-                printf("Inserting the %dth / %d---------In the %dth Snapshot.\n", e, num_edges, timeStamp);
-            }
             originGraph[timeStamp - 1].InsertEdge(dataVector[i], dataVector[i + 1]);
         }
     }
@@ -123,12 +118,10 @@ bool HRindex::getNITable() {
     int timestamp;
     for (int i = 1; i <= timeIntervalLength; ++i) {
         timestamp = i;
-        printf("\t Getting NITable at the %dth / %d snapshot...\n", timestamp, timeIntervalLength);
         nodeInfoTable = GetNITable(nodeInfoTable, evolvingGraphSequence, timestamp);
     }
     buildNIT_endTime = clock();
     buildNIT_time = (double)(buildNIT_endTime - buildNIT_startTime) / CLOCKS_PER_SEC;
-    printf("build NITable time: %f\n", buildNIT_time);
     return true;
 }
 
@@ -137,7 +130,6 @@ bool HRindex::getRefineNITable() {
     refineNITable = GetRefineNITable(nodeInfoTable);
     buildRefineNIT_endTime = clock();
     buildRefineNIT_time = (double)(buildRefineNIT_endTime - buildRefineNIT_startTime) / CLOCKS_PER_SEC;
-    printf("build RefineNITable time: %f\n", buildRefineNIT_time);
     return true;
 }
 
@@ -151,7 +143,6 @@ bool HRindex::buildIndexGraph() {
     IG = BuildIndexGraph(refineNITable);
     buildIG_endTime = clock();
     buildIG_time = (double)(buildIG_endTime - buildIG_startTime) / CLOCKS_PER_SEC;
-    printf("build IndexGraph time: %f\n", buildIG_time);
     return true;
 }
 
