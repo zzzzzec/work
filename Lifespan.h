@@ -64,7 +64,6 @@ int GetFirst1Pos(bitset<MNS> &b) {
             return i;
         }
     }
-
     return -1;
 }
 //是真子集

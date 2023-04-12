@@ -631,7 +631,6 @@ int IGraph::FindIDonIG(int sccID, bitset<MNS> lifespan) {
         if (vertices[i].souID == sccID) {
             bitset<MNS> curLife = vertices[i].souLifespan;
             bitset<MNS> interLife = LifespanJoin(lifespan, curLife);
-
             if (interLife.any()) {
                 CopyNode copyNode(sccID, i, vertices[i].souLifespan);
                 copyNodes.push_back(copyNode);

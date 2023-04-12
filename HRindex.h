@@ -22,7 +22,6 @@ public:
     string recordConstructTime;
     string queryFileAddress;
     string resultFileAddress;
-    string updateFileAddress;
 
     string storeIndexGraphAddress;
     string storeFull_IG_Address;
@@ -49,8 +48,7 @@ public:
     clock_t buildIG_startTime, buildIG_endTime;
     IGraph IG;
     double buildIG_time;
-
-    vector<updateRecord> updateRecordVector;
+    
     HRindex();
     ~HRindex();
     bool buildOriginGraph();
@@ -63,8 +61,9 @@ public:
     bool buildIndexGraph();
     bool stroreIndexGraph();
 
-    bool update();
-    bool singleStepUpdate();
+    bool updateFromFile(string updateFileAddress);
+    bool updateFromRecords(vector<updateRecord>& updateRecordVector);
+    
     int getaNewSCCID();
     bool addSCCnode(int nodeID, int newSCCID, Lifespan lifespan);
     bool addSCCedge(int srcNodeID, int dstNodeID, Lifespan lifespan);
@@ -72,6 +71,7 @@ public:
     vector<SCCnode> findCycle();
 
 private:
+    bool singleStepUpdate(updateRecord& ur);
     void singleStepUpdateAddNode(int u, int timestamp);
     void singleStepUpdateAddEdge(int u, int v, int timestamp);
     void singleStepUpdateDeleteNode(int u, int timestamp);
@@ -152,9 +152,19 @@ bool HRindex::stroreIndexGraph() {
 }
 
 
-bool HRindex::update() {
+bool HRindex::updateFromFile(string updateFileAddress) {
+    vector<updateRecord> updateRecordVector;
     readUpdateRecords(updateRecordVector, updateFileAddress);
-    singleStepUpdate();
+    for (int i = 0; i < updateRecordVector.size(); ++i) {
+        singleStepUpdate(updateRecordVector[i]);
+    }
+    return true;
+}
+
+bool HRindex::updateFromRecords(vector<updateRecord>& updateRecordVector) {
+    for (int i = 0; i < updateRecordVector.size(); ++i) {
+        singleStepUpdate(updateRecordVector[i]);
+    }
     return true;
 }
 
@@ -203,32 +213,29 @@ bool HRindex::reconstructEvolvingGraphSequence(SCCGraph& sccGraph, int timestamp
     return true;
 }
 
-bool HRindex::singleStepUpdate() {
-    for (int i = 0; i < updateRecordVector.size(); ++i) {
-        updateRecord ur = updateRecordVector[i];
-        switch (ur.type)
-        {
-        case(1): {
-            singleStepUpdateAddNode(ur.u, ur.timestamp);
-            break;
-        }
-        case(3): {
-            singleStepUpdateAddEdge(ur.u, ur.v, ur.timestamp);
-            break;
-        }
-        case(2): {
-            singleStepUpdateDeleteEdge(ur.u, ur.v, ur.timestamp);
-            break;
-        }
-        case(4): {
-            singleStepUpdateDeleteNode(ur.u, ur.timestamp);
-            break;
-        }
-        default: {
-            printf("Error: update type error!\n");
-            return false;
-        }
-        }
+bool HRindex::singleStepUpdate(updateRecord& ur) {
+    switch (ur.type)
+    {
+    case(1): {
+        singleStepUpdateAddNode(ur.u, ur.timestamp);
+        break;
+    }
+    case(3): {
+        singleStepUpdateAddEdge(ur.u, ur.v, ur.timestamp);
+        break;
+    }
+    case(2): {
+        singleStepUpdateDeleteEdge(ur.u, ur.v, ur.timestamp);
+        break;
+    }
+    case(4): {
+        singleStepUpdateDeleteNode(ur.u, ur.timestamp);
+        break;
+    }
+    default: {
+        printf("Error: update type error!\n");
+        return false;
+    }
     }
     return true;
 }
@@ -474,7 +481,6 @@ void HRindex::singleStepUpdateDeleteNode(int u, int timestamp) {
             refineNITable.erase(it);
         }
     }
-
     buildIndexGraph();
 }
 

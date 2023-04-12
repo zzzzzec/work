@@ -56,6 +56,13 @@ typedef struct QueryOnIG {
     }
 } QueryOnIG;
 
+/*
+    nodeID - 1 | SCCID - life|
+           - 2 | SCCID - life|
+           - 3 | SCCID - life|
+           ...
+    nodeID是原始图中的节点的ID，在一段时间内，可能会对应多个SCC
+*/
 typedef struct Node2Scc {
     int nodeID;
     vector<SccID_Life> vectorOfSccs;
@@ -64,6 +71,7 @@ typedef struct Node2Scc {
 
 
 vector<QueryResult> ReadQuery(string queryFileAddress);
+//1和2的实现一致，区别在于1使用了SCCTable，2使用了OpSccTable
 vector<ToGrail>
 QueryReachabilityonIG(IGraph &IG, SccTable &sccTable, vector<QueryResult> &queryRecords, double &queryTime);
 vector<ToGrail>
@@ -112,11 +120,8 @@ QueryReachabilityonIG(IGraph &IG, SccTable &sccTable, vector<QueryResult> &query
         queryInterval = LifespanBuild(queryInterval, qBegin, qEnd);
         //非连续查询
         if (type == 1) {
-            vector<QueryOnIG> disjunctiveQuery = ProcessEGSDisQuery(IG, sccTable, souNode, tarNode, queryInterval,
-                                                                    recordQueryTime);
-            if (disjunctiveQuery.empty()) {
-                printf("Result Set is empty\n");
-            }
+            vector<QueryOnIG> disjunctiveQuery = ProcessEGSDisQuery(IG, sccTable, souNode, tarNode, queryInterval, recordQueryTime);
+            if (disjunctiveQuery.empty()) printf("Result Set is empty\n");
             int flag = 1;
             for (auto record = disjunctiveQuery.begin(); record != disjunctiveQuery.end(); record++) {
                 if ((*record).souSccId == -1 && (*record).tarSccId == -1) {
@@ -125,22 +130,18 @@ QueryReachabilityonIG(IGraph &IG, SccTable &sccTable, vector<QueryResult> &query
                     flag = 0;
                 }
             }
-
             if (flag == 1) {
                 for (auto record = disjunctiveQuery.begin(); record != disjunctiveQuery.end(); record++) {
                     ToGrail record2Grail;
                     record2Grail.souID = (*record).souSccId;
                     record2Grail.tarID = (*record).tarSccId;
                     record2Grail.reachability = 1;
-
                     toGrail.push_back(record2Grail);
                 }
             }
         } else {
             //连续查询
-            vector<QueryOnIG> conjunctiveQuery = ProcessEGSConQuery(IG, sccTable, souNode, tarNode, queryInterval,
-                                                                    recordQueryTime);
-
+            vector<QueryOnIG> conjunctiveQuery = ProcessEGSConQuery(IG, sccTable, souNode, tarNode, queryInterval, recordQueryTime);
             int flag = 1;
             for (auto record = conjunctiveQuery.begin(); record != conjunctiveQuery.end(); record++) {
                 if ((*record).souSccId == -1 && (*record).tarSccId == -1) {
@@ -149,7 +150,6 @@ QueryReachabilityonIG(IGraph &IG, SccTable &sccTable, vector<QueryResult> &query
                     flag = 0;
                 }
             }
-
             if (flag == 1) {
                 for (auto record = conjunctiveQuery.begin(); record != conjunctiveQuery.end(); record++) {
                     ToGrail record2Grail;
@@ -168,16 +168,13 @@ QueryReachabilityonIG(IGraph &IG, SccTable &sccTable, vector<QueryResult> &query
 vector<ToGrail>
 QueryReachabilityonIG2(IGraph &IG, OpSccTable &opSccTable, vector<QueryResult> &queryRecords, double &queryTime) {
     vector<ToGrail> toGrail;
-
     for (int recordItem = 0; recordItem < queryRecords.size(); ++recordItem) {
         int souNode = queryRecords[recordItem].souID;
         int tarNode = queryRecords[recordItem].tarID;
         int qBegin = queryRecords[recordItem].query_b;
         int qEnd = queryRecords[recordItem].query_e;
         int type = queryRecords[recordItem].type;
-
         double recordQueryTime = 0;
-
         bitset<MNS> queryInterval;
         queryInterval = LifespanBuild(queryInterval, qBegin, qEnd);
 
@@ -185,10 +182,7 @@ QueryReachabilityonIG2(IGraph &IG, OpSccTable &opSccTable, vector<QueryResult> &
             //非连续查询
             vector<QueryOnIG> disjunctiveQuery = ProcessEGSDisQuery2(IG, opSccTable, souNode, tarNode, queryInterval,
                                                                      recordQueryTime);
-
-            if (disjunctiveQuery.empty()) {
-                printf("Result Set is empty\n");
-            }
+            if (disjunctiveQuery.empty()) printf("Result Set is empty\n");
             //QueryOnIG中存放的是下标
             int flag = 1;
             for (auto record = disjunctiveQuery.begin(); record != disjunctiveQuery.end(); record++) {
@@ -198,14 +192,12 @@ QueryReachabilityonIG2(IGraph &IG, OpSccTable &opSccTable, vector<QueryResult> &
                     flag = 0;
                 }
             }
-
             if (flag == 1) {
                 for (auto record = disjunctiveQuery.begin(); record != disjunctiveQuery.end(); record++) {
                     ToGrail record2Grail;
                     record2Grail.souID = (*record).souSccId;
                     record2Grail.tarID = (*record).tarSccId;
                     record2Grail.reachability = 1;
-
                     toGrail.push_back(record2Grail);
                 }
             }
@@ -213,7 +205,6 @@ QueryReachabilityonIG2(IGraph &IG, OpSccTable &opSccTable, vector<QueryResult> &
             //连续查询
             vector<QueryOnIG> conjunctiveQuery = ProcessEGSConQuery2(IG, opSccTable, souNode, tarNode, queryInterval,
                                                                      recordQueryTime);
-
             int flag = 1;
             for (auto record = conjunctiveQuery.begin(); record != conjunctiveQuery.end(); record++) {
                 if ((*record).souSccId == -1 && (*record).tarSccId == -1) {
@@ -222,14 +213,12 @@ QueryReachabilityonIG2(IGraph &IG, OpSccTable &opSccTable, vector<QueryResult> &
                     flag = 0;
                 }
             }
-
             if (flag == 1) {
                 for (auto record = conjunctiveQuery.begin(); record != conjunctiveQuery.end(); record++) {
                     ToGrail record2Grail;
                     record2Grail.souID = (*record).souSccId;
                     record2Grail.tarID = (*record).tarSccId;
                     record2Grail.reachability = 1;
-
                     toGrail.push_back(record2Grail);
                 }
             }
@@ -256,14 +245,12 @@ ProcessEGSDisQuery(IGraph &IG, SccTable &sccTable, int souNode, int tarNode, bit
         for (auto souIter = source.vectorOfSccs.begin(); souIter != source.vectorOfSccs.end(); souIter++) {
             for (auto tarIter = target.vectorOfSccs.begin(); tarIter != target.vectorOfSccs.end(); tarIter++) {
                 bitset<MNS> interLife = LifespanJoin((*souIter).life_time, (*tarIter).life_time);
-
                 if (interLife.any()) {
                     if ((*souIter).scc_id == (*tarIter).scc_id) {
                         //重叠时间段内位于同一SCC，非连续区间查询完成查询：Yes
                         //非连续查询记录中若存在(-1,-1)，可直接返回true
                         QueryOnIG record(-1, -1);
                         queryOnIG.push_back(record);
-
                         return queryOnIG;
                     } else {
                         //重叠时间段内位于不同SCC，记录souSCC与tarSCC及其区间
@@ -283,11 +270,9 @@ ProcessEGSDisQuery(IGraph &IG, SccTable &sccTable, int souNode, int tarNode, bit
                             for (int i = 0; i < interLifeTruePos.size(); ++i) {
                                 bitset<MNS> cur;
                                 cur.set(interLifeTruePos[i]);
-
                                 try {
                                     int ID_sou = IG.FindIDonIG((*souIter).scc_id, cur);
                                     int ID_tar = IG.FindIDonIG((*tarIter).scc_id, cur);
-
                                     QueryOnIG record(ID_sou, ID_tar);
                                     queryOnIG.push_back(record);
                                 } catch (...) {
@@ -306,10 +291,8 @@ ProcessEGSDisQuery(IGraph &IG, SccTable &sccTable, int souNode, int tarNode, bit
         QueryOnIG record(-2, -2);
         queryOnIG.push_back(record);
     }
-
     query_endTime = clock();
     recordQT = (double) (query_endTime - query_startTime);
-
     return queryOnIG;
 }
 // 处理disjunctive query
@@ -331,7 +314,6 @@ ProcessEGSDisQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode
         for (auto souIter = source.vectorOfSccs.begin(); souIter != source.vectorOfSccs.end(); souIter++) {
             for (auto tarIter = target.vectorOfSccs.begin(); tarIter != target.vectorOfSccs.end(); tarIter++) {
                 bitset<MNS> interLife = LifespanJoin((*souIter).life_time, (*tarIter).life_time);
-
                 if (interLife.any()) {
                     if ((*souIter).scc_id == (*tarIter).scc_id) {
                         //重叠时间段内位于同一SCC，非连续区间查询完成查询：Yes
@@ -379,10 +361,8 @@ ProcessEGSDisQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode
         QueryOnIG record(-2, -2);
         queryOnIG.push_back(record);
     }
-
     query_endTime = clock();
     recordQT = (double) (query_endTime - query_startTime);
-
     return queryOnIG;
 }
 
@@ -578,7 +558,6 @@ ProcessEGSConQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode
 Node2Scc FindSccsOfNode(SccTable &sccTable, int nodeId, bitset<MNS> queryLife) {
     Node2Scc node2Scc;
     node2Scc.nodeID = nodeId;
-
     bitset<MNS> haveFound;
     haveFound.reset();
     for (auto sccTableIter = sccTable.begin(); sccTableIter != sccTable.end(); sccTableIter++) {
@@ -588,24 +567,18 @@ Node2Scc FindSccsOfNode(SccTable &sccTable, int nodeId, bitset<MNS> queryLife) {
             bitset<MNS> sccLife = (*sccTableIter).sccID_Life.life_time;
             bitset<MNS> interLife;
             interLife = LifespanJoin(queryLife, sccLife);
-
             if (interLife.any()) {
                 SccID_Life sccID_life;
                 sccID_life.scc_id = (*sccTableIter).sccID_Life.scc_id;
                 sccID_life.life_time = interLife;
-
                 node2Scc.vectorOfSccs.push_back(sccID_life);
-
                 haveFound = LifespanUnion(haveFound, interLife);
             }
         }
     }
+    //这里比较节点在查询周期内的存在情况，如果在查询周期内都存在，则isFull为true
     bitset<MNS> judgeLife = LifespanDifference(queryLife, haveFound);
-    if (judgeLife.none()) {
-        node2Scc.isFull = true;
-    } else {
-        node2Scc.isFull = false;
-    }
+    node2Scc.isFull = judgeLife.none();
     sort(node2Scc.vectorOfSccs.begin(), node2Scc.vectorOfSccs.end(), SortSccInNode);
     return node2Scc;
 }
@@ -629,16 +602,10 @@ Node2Scc FindSccsOfNode2(OpSccTable &opSccTable, int nodeId, bitset<MNS> queryLi
                 haveFound = LifespanUnion(haveFound, interLife);
             }
         }
-    } else {
     }
+    else assert(false);
     bitset<MNS> judgeLife = LifespanDifference(queryLife, haveFound);
-    if (judgeLife.none()) {
-        node2Scc.isFull = true;
-        printf("\t#Query interval is covered with node's lifespan#\n");
-    } else {
-        node2Scc.isFull = false;
-        printf("\t#Query interval isn't covered with node's lifespan#\n");
-    }
+    node2Scc.isFull = judgeLife.none();
     sort(node2Scc.vectorOfSccs.begin(), node2Scc.vectorOfSccs.end(), SortSccInNode);
     return node2Scc;
 }
@@ -660,6 +627,4 @@ StoreQueryRecords2Grail(string &resultFileAddress, vector<ToGrail> &toGrail, dou
     }
     outfile.close();
 }
-
-
 #endif //IG_NOOP_5_PROCESS_QUERY_H

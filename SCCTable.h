@@ -15,7 +15,6 @@ typedef struct SccID_Life {
 bool SortSccInNode(SccID_Life &a, SccID_Life &b) {
     int a1 = GetFirst1Pos(a.life_time);
     int b1 = GetFirst1Pos(b.life_time);
-
     return a1 < b1;
 }
 

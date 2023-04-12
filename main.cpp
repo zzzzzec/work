@@ -1,14 +1,16 @@
 #include "common.h"
 #include "HRindex.h"
+#include "validation.h"
 using namespace std;
 
-void Query(HRindex& hrindex, vector<QueryResult>& queryRecords) {
+bool Query(HRindex& hrindex, vector<QueryResult>& queryRecords) {
     OpSccTable opSccTable = BuildOpSccTable(hrindex.sccTable);
     double tmp = 0;
     vector<ToGrail> toGrail = QueryReachabilityonIG2(hrindex.IG, opSccTable, queryRecords, tmp);
     for(auto it = toGrail.begin(); it != toGrail.end(); it++){
         cout << it->souID << " " << it->tarID << " " << hrindex.IG.isReachable(it->souID, it->tarID) << endl;
     }
+    return true;
 }
 
 int main() {
@@ -53,8 +55,8 @@ int main() {
     queryRecords.push_back(queryRecord);
     Query(hrindex, queryRecords);
 
-    hrindex.update();
-    Query(hrindex, queryRecords);
+    //hrindex.update();
+    //Query(hrindex, queryRecords);
     
     return 0;
 
