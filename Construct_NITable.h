@@ -44,7 +44,7 @@ vector<int> exToNode(vector<int> con) {
 //在timespan时间戳下，从evergingGraphSequence中获取NITable
 //NITable其实就是对于DAG的描述，每一个表项都有自己指向和指向自己的节点集合
 NodeInfoTable GetNITable(NodeInfoTable &nodeInfoTable, vector<vector<int>> &evolvingGraphSequence, int timeStamp) {
-    int curDAG_ID = timeStamp - 1;          //DAG快照编号应从0开始
+    int curDAG_ID = timeStamp;          //DAG快照编号应从0开始
     vector<int> curDAG_edges = evolvingGraphSequence[curDAG_ID];
     vector<int> sourceNodeVector = exFromNode(curDAG_edges);
     vector<int> targetNodeVector = exToNode(curDAG_edges);
@@ -127,12 +127,9 @@ NodeInfoTable GetNITable(NodeInfoTable &nodeInfoTable, vector<vector<int>> &evol
 
 RefineNITable GetRefineNITable(NodeInfoTable nodeInfoTable) {
     RefineNITable refineNITable;
-
     for (auto record = nodeInfoTable.begin(); record != nodeInfoTable.end(); record++) {
-
         RefineRecordItem refineRecordItem;
         refineRecordItem.node = (*record).node;
-
         //该节点有入边
         if (!(*record).In.empty()) {
             auto numOfInEdge = (*record).In.size();
@@ -143,35 +140,28 @@ RefineNITable GetRefineNITable(NodeInfoTable nodeInfoTable) {
                 bitset<MNS> cur_in = (*record).In[i].lifespan;
                 unionOfIn = LifespanUnion(unionOfIn, cur_in);
             }
-
             //对每条出边记录进行细化处理
             for (int j = 0; j < numOfOutEdge; ++j) {
                 int curTarId = (*record).Out[j].vertexID;
                 bitset<MNS> cur_out = (*record).Out[j].lifespan;
-
                 bitset<MNS> instantPartLife = LifespanJoin(cur_out, unionOfIn);
-
                 if (instantPartLife.none()) {
                     //不存在Instant-Part记录,该记录为Interval-Part
                     Item intervalRecord;
                     intervalRecord.vertexID = curTarId;
                     intervalRecord.lifespan = cur_out;
                     intervalRecord.partLab = 2;
-
                     refineRecordItem.Out.push_back(intervalRecord);
                 } else {
                     bitset<MNS> intervalPartLife = LifespanDifference(cur_out, instantPartLife);
-
                     //1.Interval-Part:
                     if (intervalPartLife.any()) {
                         Item intervalRecord;
                         intervalRecord.vertexID = curTarId;
                         intervalRecord.lifespan = intervalPartLife;
                         intervalRecord.partLab = 2;
-
                         refineRecordItem.Out.push_back(intervalRecord);
                     }
-
                     //2.Instant-Part:
                     auto sizeOfInstantPart = instantPartLife.count();
                     vector<int> vectorOfInstantLife = GetLifespanTruePos(instantPartLife);
@@ -189,21 +179,16 @@ RefineNITable GetRefineNITable(NodeInfoTable nodeInfoTable) {
                 }
             }
         } else {
-
             for (auto it = (*record).Out.begin(); it != (*record).Out.end(); it++) {
                 Item intervalRecord;
                 intervalRecord.vertexID = (*it).vertexID;
                 intervalRecord.lifespan = (*it).lifespan;
                 intervalRecord.partLab = 2;
-
                 refineRecordItem.Out.push_back(intervalRecord);
             }
-
         }
-
         refineNITable.push_back(refineRecordItem);
     }
-
     return refineNITable;
 }
 

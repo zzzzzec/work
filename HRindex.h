@@ -28,7 +28,7 @@ public:
     string storeSccTableAddress;
     string storeRefineNITableAddress;
 
-    Graph* originGraph;
+    Graphs originGraph;
     SCCGraph sccGraph;
 
     vector<vector<int>> evolvingGraphSequence;
@@ -82,14 +82,15 @@ HRindex::HRindex() {}
 HRindex::~HRindex() {}
 
 bool HRindex::buildOriginGraph() {
-    originGraph = new Graph[timeIntervalLength];
-    for (int timeStamp = 1; timeStamp < timeIntervalLength + 1; ++timeStamp) {
+    for (int timeStamp = 0; timeStamp < timeIntervalLength; ++timeStamp) {
+        Graph g;
         vector<int> dataVector = GetFileData(graphDatafileAddHead, timeStamp);
         auto ne = dataVector.size();
         int num_edges = ne / 2;
         for (int i = 0; i < ne; i = i + 2) {
-            originGraph[timeStamp - 1].InsertEdge(dataVector[i], dataVector[i + 1]);
+            g.InsertEdge(dataVector[i], dataVector[i + 1]);
         }
+        originGraph.push_back(g);
     }
     return true;
 };
@@ -97,7 +98,6 @@ bool HRindex::buildOriginGraph() {
 bool HRindex::getSCCTable()
 {
     this->sccTable = GetSCCTable(timeIntervalLength, originGraph, evolvingGraphSequence, sccEdgeInfoSequence, buildSccTableTime);
-    buildSCCGraph();
     return true;
 }
 
@@ -116,7 +116,7 @@ bool HRindex::stroreSCCTable()
 bool HRindex::getNITable() {
     buildNIT_startTime = clock();
     int timestamp;
-    for (int i = 1; i <= timeIntervalLength; ++i) {
+    for (int i = 0; i <= timeIntervalLength; ++i) {
         timestamp = i;
         nodeInfoTable = GetNITable(nodeInfoTable, evolvingGraphSequence, timestamp);
     }

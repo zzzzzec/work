@@ -11,10 +11,8 @@
 #include "update.h"
 #include "HRindex.h"
 #include "NIT.h"
-
 using namespace std;
 
-// 一个图数据结构，使用邻接表存储
 typedef struct Arc{
     int dstID;
     struct Arc *next;
@@ -51,7 +49,7 @@ SCCGraph::SCCGraph() {}
 SCCGraph::~SCCGraph() {}
 SCCGraph::SCCGraph(vector<vector<int>> &evolvingGraphSequence, SccTable &sccTable){
     vector<SCCnode> thisGraph;
-    int timeStamp = 1;
+    int timeStamp = 0;
     for(auto it = evolvingGraphSequence.begin(); it != evolvingGraphSequence.end(); it++){
         thisGraph.clear();
         //先吧SCC节点加入进来
@@ -101,7 +99,7 @@ SCCnode SCCGraph::findSCCnodeFromID(int SCCID, int timestamp){
             return *it;
         }
     }
-    return *it;
+    throw "scc node not found";
 }
 
 int SCCGraph::findSCCIDNodeFromOriginNodeID(int originNodeID, int timestamp){
@@ -227,13 +225,12 @@ int SCCGraph::deleteNode(int SCCID, int timestamp) {
 }
 
 vector<SCCnode> SCCGraph::findCycle(int SCCIDu, int timestamp) {
-    //这里检测环，然后把检测到的环都按照第一个的ID合并，因为时SRC->DST，所以如果有环，那么一定包含这两个节点
+    //这里检测环，然后把检测到的环都按照第一个的ID合并，因为SRC->DST，所以如果有环，那么一定包含这两个节点
     vector<SCCnode> cycle;
     map<int, bool> visited;
-    for(auto it = sccGraphs[timestamp-1].second.begin(); it != sccGraphs[timestamp-1].second.end(); it++){
+    for(auto it = sccGraphs[timestamp].second.begin(); it != sccGraphs[timestamp].second.end(); it++){
         visited.insert(make_pair(it->SCCID, false));
     }
-
     stack<SCCnode> s;
     s.push(findSCCnodeFromID(SCCIDu, timestamp));
     SCCnode* tmp = NULL;

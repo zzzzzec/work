@@ -36,4 +36,8 @@
          __output(__format(__fmt__), __FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__);
 #endif
 
+#define GDBSTOP(expr) \
+    if (expr) { \
+        asm("int3"); \
+    }
 #endif

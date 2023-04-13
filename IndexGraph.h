@@ -788,7 +788,6 @@ IGraph BuildIndexGraph(RefineNITable refineNITable) {
             int tarID = (*recordOfNIT).Out[j].vertexID;
             int label = (*recordOfNIT).Out[j].partLab;
             bitset<MNS> edgeLife = (*recordOfNIT).Out[j].lifespan;
-
             IG.ConstructOutEdge(souID, tarID, edgeLife, label, intervalUnion);
         }
     }

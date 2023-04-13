@@ -83,8 +83,10 @@ public:
     VerNode& findNodeRefByID(int nodeID);
     vector<int> findOutArcList(int nodeID);
     vector<int> findInArcList(int nodeID);
+    int getRandomNodeID() {return vertices[rand() % vertices.size()].souID;}
+    bool IsReachable(int src, int dst);
 };
-
+typedef vector<Graph> Graphs;
 Graph::Graph() {
     vexnum = 0;
     edgenum = 0;
@@ -97,9 +99,7 @@ Graph::Graph() {
     }
 }
 
-Graph::~Graph() {
-
-}
+Graph::~Graph() {}
 
 int Graph::VerPos(int nodeID) {
     for (int i = 0; i < vertices.size(); ++i) {
@@ -454,6 +454,30 @@ vector<int> Graph::findInArcList(int nodeID) {
         }
     }
     return inArcList;
+}
+
+bool Graph::IsReachable(int src, int dst) {
+    if(NodeIsExists(src) == false || NodeIsExists(dst) == false)
+        return false;
+    if (src == dst)
+        return true;
+    map<int,bool> visited;
+    stack<int> s;
+    s.push(src);
+    while (!s.empty()) {
+        int u = s.top();
+        s.pop();
+        int spos = VerPos(u);
+        for (ArcNode* v = vertices[spos].firstArc; v != NULL; v = v->nextarc) {
+            if (v->tarID == dst)
+                return true;
+            if (!visited[v->tarID]) {
+                visited[v->tarID] = true;
+                s.push(v->tarID);
+            }
+        }
+    }
+    return false;
 }
 
 #endif //IG_NOOP_5_GRAPH_H
