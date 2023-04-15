@@ -22,18 +22,16 @@
 typedef pair<SCCEdge, set<NodeEdge>> SCCEdgeInfoItem;
 typedef vector<SCCEdgeInfoItem> SCCEdgeInfo;
 typedef vector<SCCEdgeInfo> SCCEdgeInfoSequence;
-
-SccTable GetSCCTable(   int timeIntervalLength, string fileAddressHead, vector<vector<int>>& evolvingGraphSequence,
-                        SCCEdgeInfoSequence& sccEdgesSequence, double& buildSccTableTime);
+SccTable GetSCCTable(int timeIntervalLength, Graphs& originGraph, vector<vector<int>>& evolvingGraphSequence, SCCEdgeInfoSequence& sccEdgesSequence, double& buildSccTableTime);
 vector<int> GetFileData(string fileAddressHead, int timeStamp);
 int getSccId(int vertexId, int timestamp, SccTable sccTable);
-void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId, Graphs originGraph);
+void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId, Graphs& originGraph);
 SCCEdgeInfo BuildCurDAGEdgesDataSequenceFromIndex(Graph graph, SccTable &st, map<int, int> &index_ST, int &timeStamp);
 map<int, int> BuildIndexOfCurSccTable(SccTable &st, int &timeStamp);
 
 //----------------------------
 //问题：不同时间的 SCCID 是如何分配的？
-SccTable GetSCCTable(int timeIntervalLength, Graphs originGraph, vector<vector<int>> &evolvingGraphSequence,
+SccTable GetSCCTable(int timeIntervalLength, Graphs& originGraph, vector<vector<int>> &evolvingGraphSequence,
                      SCCEdgeInfoSequence& sccEdgesSequence, double &buildSccTableTime) {
     //st 变量是全局时间有效的，对于每一个时间戳都有效
     SccTable st;
@@ -70,8 +68,7 @@ SccTable GetSCCTable(int timeIntervalLength, Graphs originGraph, vector<vector<i
     return st;
 }
 
-SccTable GetSCCTableFromOneGraph(int timeStamp, Graph* originGraph, vector<int>& evolvingGraph,
-    SCCEdgeInfo& sccEdgeInfo) {
+SccTable GetSCCTableFromOneGraph(int timeStamp, Graph* originGraph, vector<int>& evolvingGraph, SCCEdgeInfo& sccEdgeInfo) {
     SccTable st;
     int sccId = 0;
     originGraph->CalculateConnection();
@@ -98,6 +95,8 @@ SccTable GetSCCTableFromOneGraph(int timeStamp, Graph* originGraph, vector<int>&
         auto findScc = find_if(st.begin(), st.end(), [&thisSet](const SCCTableItem& p) {return thisSet == p.nodeGroup;});
         if (findScc != st.end()) {
             (*findScc).sccID_Life.life_time.set(timeStamp);
+            cout << "SCCIDremap timeStamp" << timeStamp << endl;
+            cout << findScc->sccID_Life.scc_id << endl;
             originGraph->SCCIDremap(thisSet, findScc->sccID_Life.scc_id);
         }
         else {
@@ -163,7 +162,7 @@ vector<int> GetFileData(string fileAddressHead, int timeStamp) {
     return dataVector;
 }
 
-void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId, Graphs originGraph) {
+void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId, Graphs& originGraph) {
     map<int, set<int>> sccSet;
     //sccset: key:SCC的编号 value:该SCC中所有节点的集合
     for (auto it = v2s.begin(); it != v2s.end(); it++) {
@@ -174,10 +173,9 @@ void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeSta
             tmp.insert(curV);
             sccSet[curS] = tmp;
         }
-        else {
-            sccSet[curS].insert(curV);
-        }
+        else sccSet[curS].insert(curV);
     }
+    
     for (int m = 0; m < numOfSCC; ++m) {
         set <int> thisSet = sccSet[m];
         auto findScc = find_if(st.begin(), st.end(), [&thisSet](const SCCTableItem &p) {return thisSet == p.nodeGroup;});

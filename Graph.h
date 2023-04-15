@@ -31,6 +31,11 @@ typedef struct VerNode {
         sccOfIG = 0;
         firstArc = NULL;
     }
+    VerNode(int id, int sccid) {
+        souID = id;
+        sccOfIG = sccid;
+        firstArc = NULL;
+    }
 } VerNode;
 
 //定义邻接表
@@ -72,8 +77,9 @@ public:
     bool NodeIsExists(int nodeID);
     int VerPos(int nodeID);
     void AddOutToSourceNode(int souPos, int tarID);
-    bool AddNode(int ID);
+    bool AddNode(int ID, int SCCID);
     void InsertEdge(int souID, int tarID);
+    void InsertEdgeWithCheck(int souID, int tarID);
     void DeleteEdge(int souID, int tarID);
     void DeleteNode(int nodeID);
     void DFSTraverse();
@@ -160,6 +166,16 @@ void Graph::InsertEdge(int souID, int tarID) {
         vertices.push_back(newTarNode);
         vexnum++;
     }
+}
+
+void Graph::InsertEdgeWithCheck(int souID, int tarID) {
+    int souPos = VerPos(souID);
+    int tarPos = VerPos(tarID);
+    if(souPos == -1 || tarPos == -1) {
+        cout << "InsertEdgeWithCheck: souID or tarID is not exists" << endl;
+        exit(0);
+    }
+    AddOutToSourceNode(souPos, tarID);
 }
 
 void Graph::AddOutToSourceNode(int souPos, int tarID) {
@@ -300,43 +316,31 @@ bool Graph::NodeIsExists(int nodeID) {
 void Graph::DeleteEdge(int souID, int tarID) {
     int souPos = VerPos(souID);
     int tarPos = VerPos(tarID);
-
-    if (souPos == -1 || tarPos == -1) {
-        cout << "Don't exist this sourceNode/targetNode!" << endl;
-    } else {
-        ArcNode *p = vertices[souPos].firstArc;
-        ArcNode *q = NULL;
-
-        if (p == NULL) {
-            cout << "Don't exist this edge" << endl;
-        } else {
-            q = p;
-            if (p->tarID == tarID) {
-                p = p->nextarc;
-                delete (q);
-                vertices[souPos].firstArc = p;
-
-                edgenum--;
-            } else {
-                while (p != NULL) {
-                    if (p->tarID == tarID) {
-                        p = p->nextarc;
-                        delete (q->nextarc);
-                        q->nextarc = p;
-
-                        edgenum--;
-                        break;
-                    } else {
-                        q = p;
-                        p = p->nextarc;
-                    }
-                }
-            }
-        }
+    if (souPos == -1) {
+        throw "DeleteEdge: source node is not exists";
     }
-
-    if (vertices[tarPos].firstArc == NULL) {
-        vertices.erase(vertices.begin() + tarPos);
+    if (tarPos == -1) {
+        throw "DeleteEdge: target node is not exists";
+    }
+    else {
+        ArcNode* p = vertices[souPos].firstArc;
+        ArcNode* q = NULL;
+        while (p) {
+            if (p->tarID == tarID) {
+                if (q == NULL) {
+                    vertices[souPos].firstArc = p->nextarc;
+                }
+                else {
+                    q->nextarc = p->nextarc;
+                }
+                delete p;
+                edgenum--;
+                return;
+            }
+            q = p;
+            p = p->nextarc;
+        }
+        throw "DeleteEdge: edge is not exists";
     }
 }
 
@@ -359,13 +363,13 @@ void Graph::CreateVertex(int ID) {
     vexnum++;
 }
 
-bool Graph::AddNode(int ID){
+bool Graph::AddNode(int ID, int SCCID){
     for (auto it = vertices.begin(); it != vertices.end(); it++){
         if (it->souID == ID) {
             return false;
         }
     }
-    VerNode newVerNode(ID);
+    VerNode newVerNode(ID, SCCID);
     vertices.push_back(newVerNode);
     vexnum++;
     connectedCount ++;

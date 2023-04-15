@@ -96,11 +96,7 @@ vector<QueryOnIG>
 ProcessEGSConQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode, bitset<MNS> queryLife, double& recordQT);
 Node2Scc FindSccsOfNode2(OpSccTable& opSccTable, int nodeId, bitset<MNS> queryLife);
 
-
-
 void StoreQueryRecords2Grail(string &resultFileAddress, vector<ToGrail> &toGrail, double &queryTime);
-
-
 
 vector<QueryResult> ReadQuery(string queryFileAddress) {
     vector<QueryResult> queryRecords;
@@ -214,7 +210,7 @@ ProcessEGSDisQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode
                             }
                             catch (...) {
                                 GDBSTOP(true)
-                                    continue;
+                                continue;
                             }
                         }
                     }
@@ -473,7 +469,6 @@ ProcessEGSDisQuery(IGraph &IG, SccTable &sccTable, int souNode, int tarNode, bit
                         }
                     }
                 }
-
             }
         }
     } else {
@@ -485,6 +480,7 @@ ProcessEGSDisQuery(IGraph &IG, SccTable &sccTable, int souNode, int tarNode, bit
     recordQT = (double) (query_endTime - query_startTime);
     return queryOnIG;
 }
+
 vector<QueryOnIG>
 ProcessEGSConQuery(IGraph& IG, SccTable& sccTable, int souNode, int tarNode, bitset<MNS> queryLife, double& recordQT) {
     Node2Scc source = FindSccsOfNode(sccTable, souNode, queryLife);

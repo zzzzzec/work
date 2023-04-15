@@ -31,6 +31,9 @@ typedef struct updateRecord_t{
     int u;
     int v;
     int timestamp;
+    //construct function
+    updateRecord_t() {}
+    updateRecord_t(int type, int u, int v, int timestamp):type(type), u(u), v(v), timestamp(timestamp) {}
 }updateRecord;
 
 bool readUpdateRecords(vector<updateRecord> &updateRecordVector, string updateFileAddress){

@@ -6,38 +6,51 @@ using namespace std;
 /*
     原节点ID，SCCID，timeStamp都是从0开始
 */
+bool judge(map<int,bool>& res, int type) {
+    //disjunctive: 有一个true就是true
+    if (type == 1) {
+        for (auto it = res.begin(); it != res.end(); it++) {
+            if (it->second == true) return true;
+        }
+        return false;
+    }
+    //conjunctive: 全部true才是true
+    else {
+        for (auto it = res.begin(); it != res.end(); it++) {
+            if (it->second == false) return false;
+        }
+        return true;
+    }
+}
 
+bool judge(vector<pair<ToGrail, bool>>& res, int type) {
+    //disjunctive: 有一个true就是true
+    if (type == 1) {
+        for (auto it = res.begin(); it != res.end(); it++) {
+            if (it->second == true) return true;
+        }
+        return false;
+    }
+    //conjunctive: 全部true才是true
+    else {
+        for (auto it = res.begin(); it != res.end(); it++) {
+            if (it->second == false) return false;
+        }
+        return true;
+    }
+}
 
-bool Query(HRindex& hrindex, vector<QueryResult>& queryRecords) {
+bool Query(HRindex& hrindex, vector<QueryResult>& queryRecords, string resultFileAddress) {
     auto groundTruth = ReachabilityQueryValidation(hrindex, queryRecords);
     int i = 0;
+    ofstream resultFile;
+    resultFile.open(resultFileAddress);
     OpSccTable opSccTable = BuildOpSccTable(hrindex.sccTable);
     for (auto queryit = queryRecords.begin(); queryit != queryRecords.end(); queryit++) {
         bool res;
-        bool truth;
-        //disjunctive: 有一个true就是true
-        if (queryit->type == 1) {
-            for (auto groundTruthit = groundTruth[i].begin(); groundTruthit != groundTruth[i].end(); groundTruthit++) {
-                if (groundTruthit->second == true) {
-                    truth = true;
-                    break;
-                }
-            }
-            truth = false;
-        }
-        //conjunctive: 全部true才是true
-        else {
-            for (auto groundTruthit = groundTruth[i].begin(); groundTruthit != groundTruth[i].end(); groundTruthit++) {
-                if (groundTruthit->second == false) {
-                    truth = false;
-                    break;
-                }
-                truth = true;
-            }
-        }
+        bool truth = judge(groundTruth[i], queryit->type);
         double tmp = 0;
         vector<ToGrail> toGrail = QueryReachabilityonIG2(hrindex.IG, opSccTable, (*queryit), tmp);
-        
         bool flag = false;
         for (auto toGrailit = toGrail.begin(); toGrailit != toGrail.end(); toGrailit++) {
             if (toGrailit->souID == -1 && toGrailit->tarID == -1) {
@@ -50,47 +63,30 @@ bool Query(HRindex& hrindex, vector<QueryResult>& queryRecords) {
                 flag = true;
                 break;
             }
-        }
-        if (!flag) {
-            vector<pair<ToGrail, bool>> result;
-            for (auto it = toGrail.begin(); it != toGrail.end(); it++) {
-                result.push_back(make_pair(*it, hrindex.IG.isReachable(it->souID, it->tarID)));
-            }
-            if (queryit->type == 1) {
-                for (auto it = result.begin(); it != result.end(); it++) {
-                    if (it->second == true) {
-                        res = true;
-                        break;
-                    }
+            if (!flag) {
+                vector<pair<ToGrail, bool>> result;
+                for (auto it = toGrail.begin(); it != toGrail.end(); it++) {
+                    result.push_back(make_pair(*it, hrindex.IG.isReachable(it->souID, it->tarID)));
                 }
-
-            }
-            else {
-                for (auto it = result.begin(); it != result.end(); it++) {
-                    if (it->second == false) {
-                        res = false;
-                        break;
-                    } 
-                }
-
+                res = judge(result, queryit->type);
             }
         }
-        cout << endl;
-        cout << i << " st======================" << endl;
-        cout << "Query: " << queryit->souID << "->" << queryit->tarID << " [" << queryit->query_b << "," << queryit->query_e << "] " << queryit->type << endl;
-        cout << "GroundTruth: " << endl;
+        resultFile << endl;
+        resultFile << i << " st======================" << endl;
+        resultFile << "Query: " << queryit->souID << "->" << queryit->tarID << " [" << queryit->query_b << "," << queryit->query_e << "] " << queryit->type << endl;
+        resultFile << "GroundTruth: " << endl;
         for (auto it = groundTruth[i].begin(); it != groundTruth[i].end(); it++) {
-            cout << it->first << " : " << it->second << endl;
+            resultFile << it->first << " : " << it->second << endl;
         }
-        if (res == truth) cout << "Correct!" << endl;
+        if (res == truth) resultFile << "Correct!" << endl;
         else {
-            cout << "Wrong! GroundTruth: " << truth << " Result: " << res << endl;
-            int a = 1;
-            a++;
+            resultFile << "Wrong! GroundTruth: " << truth << " Result: " << res << endl;
+            exit(0);
         }
         i++;
     }
     cout << "Finish!" << endl;
+    resultFile.close();
     return true;
 }
 
@@ -161,11 +157,15 @@ int main() {
     queryRecords.push_back(queryRecord);
     Query(hrindex, queryRecords);
     */
-    //hrindex.update();
     //Query(hrindex, queryRecords);
     //GenerateRandomQuery(hrindex, 1000, queryFileAddress);
     vector<QueryResult> queryRecords = ReadQuery(queryFileAddress);
-    Query(hrindex, queryRecords);
+    //Query(hrindex, queryRecords, resultFileAddress);
+    //vector<updateRecord> updateRecords;
+    //updateRecords.push_back(updateRecord(3, 100, 101, 0));
+    //hrindex.updateFromRecords(updateRecords);
+    hrindex.updateFromFile(updateFileAddress);
+    Query(hrindex, queryRecords, resultFileAddress);
     return 0;
 
 }
