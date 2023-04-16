@@ -91,7 +91,9 @@ public:
     vector<int> findInArcList(int nodeID);
     int getRandomNodeID() {return vertices[rand() % vertices.size()].souID;}
     bool IsReachable(int src, int dst);
+    void NewGraphSCCIDRemap(map<int,int> sccIDmap);
 };
+
 typedef vector<Graph> Graphs;
 Graph::Graph() {
     vexnum = 0;
@@ -484,4 +486,10 @@ bool Graph::IsReachable(int src, int dst) {
     return false;
 }
 
+//仅用于边删除更新时新建的图
+void Graph::NewGraphSCCIDRemap(map<int, int> sccIDmap) {
+    for (auto it = this->vertices.begin(); it != this->vertices.end(); it++){
+        it->sccOfIG = sccIDmap[it->sccOfIG];
+    }
+}
 #endif //IG_NOOP_5_GRAPH_H

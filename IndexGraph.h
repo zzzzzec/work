@@ -9,6 +9,8 @@
 #include <map>
 #include <stack>
 #include <bitset>
+#include "json/json-forwards.h"
+#include "json/json.h"
 
 using namespace std;
 
@@ -43,11 +45,13 @@ typedef struct IGNode {
 
 //定义索引图弧结构
 typedef struct IGArcNode {
+    int taruuid;
     int tarID;                          //目的节点ID
     bitset<MNS> tarLifespan;            //目的节点Lifespan
     IGArcNode* nextarc;                 //指向下一条弧的指针
     IGArcNode() { nextarc = NULL; }
-    IGArcNode(int v, bitset<MNS> t) {
+    IGArcNode(int id, int v, bitset<MNS> t) {
+        taruuid = id;
         tarID = v;
         tarLifespan = t;
         nextarc = NULL;
@@ -115,6 +119,7 @@ public:
     void MaintainRelationship(int verID, bitset<MNS> verLifespan);
     void WriteEdgeFormIG2(string writeFileAddress);                    //将IG存储为GRAIL图数据格式
     void StoreFullIndexGraph(string storeFull_IG_Address);
+    void StoreFullIndexGraphJSON(string storeFull_IG_Address);
     void ConstructOutEdge(int souID, int tarID, bitset<MNS> t, int label, bitset<MNS> intervalUnion);
     int FindIDonIG(int sccID, bitset<MNS> lifespan);           //根据SCC的id及其生存期，确定其在索引图上的ID
     void OptimizeIntervalVertex();
@@ -179,7 +184,15 @@ int IGraph::Newuuid() {
 
 void IGraph::AddOutToSourceNode(int souPos, int tarID, bitset<MNS> tarLife) {
     //尾插法
-    IGArcNode *newArcNode = new IGArcNode(tarID, tarLife);
+    int taruuid = -1;
+    for (auto node : vertices) {
+        if (node.souID == tarID && node.souLifespan == tarLife) {
+            taruuid = node.uuid;
+            break;
+        }
+    }
+    assert(taruuid != -1);
+    IGArcNode* newArcNode = new IGArcNode(taruuid ,tarID, tarLife);
     IGArcNode *temp = vertices[souPos].firstArc;
 
     if (temp == NULL) {
@@ -213,7 +226,6 @@ void IGraph::InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> t
         souPos = vertices.size() - 1;
         AddOutToSourceNode(souPos, tarID, tarLife);
     }
-
     if (tarPos == -1) {
         int newid = Newuuid();
         IGVerNode newTarNode(newid, tarID, tarLife);
@@ -485,6 +497,7 @@ void IGraph::ProTarget(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> ta
     }
 }
 
+//对应case3，加入边(<souID,L>,<souID,tx>), verLifespan为tx
 void IGraph::MaintainRelationship(int verID, bitset<MNS> verLifespan) {
     //找到当前u的所有拷贝,将其存入copyNodes中
     vector<CopyNode> copyNodes = FindAllCopyNodes(verID);
@@ -556,10 +569,8 @@ void IGraph::StoreFullIndexGraph(string storeFull_IG_Address) {
 
     for (int i = 0; i < vexnum; ++i) {
         vector<IGNode> curNodeVector;
-
         int curNodeID = vertices[i].souID;
         bitset<MNS> curNodeLife = vertices[i].souLifespan;
-
         IGNode curSouNode;
         curSouNode.nodeID = curNodeID;
         curSouNode.nodeLife = curNodeLife;
@@ -594,10 +605,35 @@ void IGraph::StoreFullIndexGraph(string storeFull_IG_Address) {
         }
     }
 }
+
+void IGraph::StoreFullIndexGraphJSON(string path) {
+    Json::Value JsonGraph;
+    for (auto node : vertices) {
+        Json::Value JsonNode;
+        JsonNode["uuid"] = node.uuid;
+        JsonNode["souID"] = node.souID;
+        JsonNode["souLifespan"] = node.souLifespan.to_string();
+        Json::Value JsonArcs;
+        for (IGArcNode *p = node.firstArc; p; p = p->nextarc) {
+            Json::Value JsonArc;
+            JsonArc["uuid"] = p->taruuid;
+            JsonArc["tarID"] = p->tarID;
+            JsonArc["tarLifespan"] = p->tarLifespan.to_string();
+            JsonArcs.append(JsonArc);
+        }
+        JsonNode["arcs"] = JsonArcs;
+        JsonGraph.append(JsonNode);
+    }
+    ofstream fout(path);
+    if (fout) {
+        fout << JsonGraph.toStyledString();
+    }
+}
+
 //处理ONTable里的一个表项里的一条边，intervalUnion是N2+的时间并集(论文里的case2)
 void IGraph::ConstructOutEdge(int souID, int tarID, bitset<MNS> t, int label, bitset<MNS> intervalUnion) {
     if (label == 1) {
-        //该记录属于Instant-Part
+        //该记录属于Instant-Part, 只有一个时间点tx，创建边((souID,tx),(tarID,tx))
         int souPos = VerPos(souID, t);
         if (souPos != -1) {
             //存在(u,t)节点,以其为源节点构建
@@ -605,12 +641,15 @@ void IGraph::ConstructOutEdge(int souID, int tarID, bitset<MNS> t, int label, bi
         } else {
             //不存在(u,t)节点,以其为源节点构建
             CreateVertex(souID, t);
+            //case3,理论上此时的t来自L1，只有一个有效位
             MaintainRelationship(souID, t);
+            if (t.count() != 1) {
+                cout << "error" << endl;
+            }
             ProTarget(souID, t, tarID, t);
         }
     } else if (label == 2) {
-        //该记录属于Interval-Part
-
+        //该记录属于Interval-Part, 创建边((souID, intervalUnion),(tarID,t))
         //确定IG中是否存在Interval-Part的源节点
         int souPos = VerPos(souID, intervalUnion);
         if (souPos != -1) {

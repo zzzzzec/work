@@ -1,5 +1,10 @@
 #ifndef IG_NOOP_5_HRINDEX_H
 #define IG_NOOP_5_HRINDEX_H
+#define UPDATE_TYPE_ADD_NODE 1
+#define UPDATE_TYPE_ADD_EDGE 2
+#define UPDATE_TYPE_DELETE_NODE 3
+#define UPDATE_TYPE_DELETE_EDGE 4
+
 #include "common.h"
 #include "Lifespan.h"
 #include "Graph.h"
@@ -72,10 +77,10 @@ public:
 
 private:
     bool singleStepUpdate(updateRecord& ur);
-    void singleStepUpdateAddNode(int u, int timestamp);
-    void singleStepUpdateAddEdge(int u, int v, int timestamp);
-    void singleStepUpdateDeleteNode(int u, int timestamp);
-    void singleStepUpdateDeleteEdge(int u, int v, int timestamp);
+    bool singleStepUpdateAddNode(int u, int timestamp);
+    bool singleStepUpdateAddEdge(int u, int v, int timestamp);
+    bool singleStepUpdateDeleteNode(int u, int timestamp);
+    bool singleStepUpdateDeleteEdge(int u, int v, int timestamp);
 };
 
 HRindex::HRindex() {}
@@ -115,6 +120,7 @@ bool HRindex::stroreSCCTable()
 
 bool HRindex::getNITable() {
     buildNIT_startTime = clock();
+    nodeInfoTable.clear();
     int timestamp;
     for (int i = 0; i <= timeIntervalLength; ++i) {
         timestamp = i;
@@ -127,6 +133,7 @@ bool HRindex::getNITable() {
 
 bool HRindex::getRefineNITable() {
     buildRefineNIT_startTime = clock();
+    refineNITable.clear();
     refineNITable = GetRefineNITable(nodeInfoTable);
     buildRefineNIT_endTime = clock();
     buildRefineNIT_time = (double)(buildRefineNIT_endTime - buildRefineNIT_startTime) / CLOCKS_PER_SEC;
@@ -155,16 +162,26 @@ bool HRindex::stroreIndexGraph() {
 bool HRindex::updateFromFile(string updateFileAddress) {
     vector<updateRecord> updateRecordVector;
     readUpdateRecords(updateRecordVector, updateFileAddress);
+    int totalRecordNum = updateRecordVector.size();
+    int finishRecordNum = 0;
     for (int i = 0; i < updateRecordVector.size(); ++i) {
-        singleStepUpdate(updateRecordVector[i]);
+        if(singleStepUpdate(updateRecordVector[i])) {
+            finishRecordNum++;
+        }
     }
+    cout << finishRecordNum << "/" << totalRecordNum << endl;
     return true;
 }
 
 bool HRindex::updateFromRecords(vector<updateRecord>& updateRecordVector) {
+    int totalRecordNum = updateRecordVector.size();
+    int finishRecordNum = 0;
     for (int i = 0; i < updateRecordVector.size(); ++i) {
-        singleStepUpdate(updateRecordVector[i]);
+        if (singleStepUpdate(updateRecordVector[i])){
+            finishRecordNum++;
+        }
     }
+    cout << finishRecordNum << "/" << totalRecordNum << endl;
     return true;
 }
 
@@ -216,20 +233,20 @@ bool HRindex::reconstructEvolvingGraphSequence(SCCGraph& sccGraph, int timestamp
 bool HRindex::singleStepUpdate(updateRecord& ur) {
     switch (ur.type)
     {
-    case(1): {
-        singleStepUpdateAddNode(ur.u, ur.timestamp);
+    case(UPDATE_TYPE_ADD_NODE): {
+        return singleStepUpdateAddNode(ur.u, ur.timestamp);
         break;
     }
-    case(3): {
-        singleStepUpdateAddEdge(ur.u, ur.v, ur.timestamp);
+    case(UPDATE_TYPE_ADD_EDGE): {
+        return singleStepUpdateAddEdge(ur.u, ur.v, ur.timestamp);
         break;
     }
-    case(2): {
-        singleStepUpdateDeleteEdge(ur.u, ur.v, ur.timestamp);
+    case(UPDATE_TYPE_DELETE_EDGE): {
+        return singleStepUpdateDeleteEdge(ur.u, ur.v, ur.timestamp);
         break;
     }
-    case(4): {
-        singleStepUpdateDeleteNode(ur.u, ur.timestamp);
+    case(UPDATE_TYPE_DELETE_NODE): {
+        return singleStepUpdateDeleteNode(ur.u, ur.timestamp);
         break;
     }
     default: {
@@ -237,10 +254,9 @@ bool HRindex::singleStepUpdate(updateRecord& ur) {
         return false;
     }
     }
-    return true;
 }
 
-void HRindex::singleStepUpdateAddNode(int u, int timestamp) {
+bool HRindex::singleStepUpdateAddNode(int u, int timestamp) {
     //添加一个节点u，这个节点没有与任何其他边相连，因此是孤立的SCC
     /*需要更改的内容
         1. originGraph:新增一个节点 id = u, sccid = newSCCID, firstArc = NULL
@@ -265,9 +281,25 @@ void HRindex::singleStepUpdateAddNode(int u, int timestamp) {
     RefineRecordItem newRefineRecordItem;
     newRefineRecordItem.node = newSCCID;
     refineNITable.push_back(newRefineRecordItem);
+    return true;
 }
 
-void HRindex::singleStepUpdateAddEdge(int u, int v, int timestamp) {
+/*
+    更新描述: 添加一条边(u,v)
+
+    需要更改的内容:
+    1. originGraph:新增一条边 u->v
+    2. SCCTable: 不改变
+    3. SCCGraph：如果SCCID不同，需要改变
+    4. evolovingGraphSequence: 根据SCCGraph重建
+    5. sccEdgeInfoSequence：TODO
+    6. NIT：重建TimeStamp时刻
+    7. RefineNIT：重建
+    8. IG：重建
+
+    失败情况：无
+*/
+bool HRindex::singleStepUpdateAddEdge(int u, int v, int timestamp) {
     //添加一条边(u,v),先检测是否存在
     if (!originGraph[timestamp].NodeIsExists(u)) {
         singleStepUpdateAddNode(u, timestamp);
@@ -275,16 +307,6 @@ void HRindex::singleStepUpdateAddEdge(int u, int v, int timestamp) {
     if (!originGraph[timestamp].NodeIsExists(v)) {
         singleStepUpdateAddNode(v, timestamp);
     }
-    /*需要更改的内容
-        1. originGraph:新增一条边 u->v
-        2. SCCTable: 不改变
-        3. SCCGraph：如果SCCID不同，需要改变
-        4. evolovingGraphSequence: 根据SCCGraph重建
-        5. sccEdgeInfoSequence：TODO
-        6. NIT：重建TimeStamp时刻
-        7. RefineNIT：重建
-        8. IG：重建
-    */
     originGraph[timestamp].InsertEdgeWithCheck(u, v);
     int uSCCID = originGraph[timestamp].findSCCIDFromNodeId(u);
     int vSCCID = originGraph[timestamp].findSCCIDFromNodeId(v);
@@ -353,42 +375,109 @@ void HRindex::singleStepUpdateAddEdge(int u, int v, int timestamp) {
         this->refineNITable = GetRefineNITable(nodeInfoTable);
         this->IG = BuildIndexGraph(this->refineNITable);
     }
+    return true;
 }
 
-void HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
-    //删除一条边u->v
-    /*需要更改的内容
-        不在同一个SCC
-        1. originGraph:删除 u->v
-        2. SCCTable: 不变
-        3. SCCGraph：删除u->v
-        4. evolovingGraphSequence: 根据SCCGraph重建
-        5. sccEdgeInfoSequence：删除对应项目
-        6. NIT：在timeStamp时刻u->v
-        7. RefineNIT：重建
-        8. IG：重建
+static SCCEdgeInfo _SCCEdgeInfoRemap(SCCEdgeInfo& s, map<int, int>& remap) {
+    SCCEdgeInfo newS;
+    for (auto it = s.begin(); it != s.end(); ++it) {
+        SCCEdgeInfoItem newItem = *it;
+        newItem.sccEdge.sScc = remap[newItem.sccEdge.sScc];
+        newItem.sccEdge.tScc = remap[newItem.sccEdge.tScc];
+        newS.insert(newItem);
+    }
+    return newS;
+}
 
-        在同一个SCC
-        1. originGraph:删除 u->v
-        2. SCCTable: 有可能分裂，删除原有项目，添加新的项目
-        3. SCCGraph：先收集原SCC的边，删除原SCC的节点，先重建内部边，然后重建外部边
-        4. evolovingGraphSequence: 根据SCCGraph重建
-        5. sccEdgeInfoSequence：需要合并
-        6. NIT：重建
-        7. RefineNIT：重建
-        8. IG：重建
-    */
+typedef struct {
+    int SCCsrc;
+    int SCCdst;
+    int nodeSrc;
+    int nodeDst;
+} _updateSCCEdgeInfoParam;
+typedef vector<_updateSCCEdgeInfoParam> _updateSCCEdgeInfoParamList;
+static void _updateSCCEdgeInfo(SCCEdgeInfo& s, _updateSCCEdgeInfoParamList& paramList) {
+    for (auto it = paramList.begin(); it != paramList.end(); ++it) {
+        int SCCsrc = it->SCCsrc;
+        int SCCdst = it->SCCdst;
+        int nodeSrc = it->nodeSrc;
+        int nodeDst = it->nodeDst;
+        NodeEdge tmp;
+        tmp.src = nodeSrc;
+        tmp.dst = nodeDst;
+        for (auto it2 = s.begin(); it2 != s.end(); ++it2) {
+            if (it2->sccEdge.sScc == SCCsrc && it2->sccEdge.tScc == SCCdst) {
+                it2->nodeEdges.insert(tmp);
+                continue;
+            }
+            SCCEdgeInfoItem newItem;
+            newItem.sccEdge.sScc = SCCsrc;
+            newItem.sccEdge.tScc = SCCdst;
+            newItem.nodeEdges.insert(tmp);
+            s.insert(newItem);
+        }
+    }
+}
+/*
+    更新描述：删除(u,v)
+    需要更改的内容：
+    不在同一个SCC
+    1. originGraph:删除 u->v
+    2. SCCTable: 不变
+    3. SCCGraph：删除u->v
+    4. evolovingGraphSequence: 根据SCCGraph重建
+    5. sccEdgeInfoSequence：删除对应项目
+    6. NIT：在timeStamp时刻u->v
+    7. RefineNIT：重建
+    8. IG：重建
+
+    在同一个SCC
+    1. originGraph:删除 u->v
+    2. SCCTable: 有可能分裂，删除原有项目，添加新的项目
+    3. SCCGraph：先收集原SCC的边，删除原SCC的节点，先重建内部边，然后重建外部边
+    4. evolovingGraphSequence: 根据SCCGraph重建
+    5. sccEdgeInfoSequence：需要把新的分裂后的SCC的内部的边加入
+    6. NIT：重建
+    7. RefineNIT：重建
+    8. IG：重建
+
+    失败情况：
+    1. u，v 不存在
+    2. u->v不存在
+*/
+bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
+    int uSCCID = -1;
+    int vSCCID = -1;
     try { originGraph[timestamp].DeleteEdge(u, v); }
     catch (const char* msg) {
         cout << msg << endl;
         goto ABORT;
     }
     
-    int uSCCID = originGraph[timestamp].findSCCIDFromNodeId(u);
-    int vSCCID = originGraph[timestamp].findSCCIDFromNodeId(v);
+    uSCCID = originGraph[timestamp].findSCCIDFromNodeId(u);
+    vSCCID = originGraph[timestamp].findSCCIDFromNodeId(v);
+    assert(uSCCID != -1 && vSCCID != -1);
     if (uSCCID != vSCCID) {
         //不在一个SCC内，所以对SCC内部没有影响,并且SCC的节点是没有变化的
-        try { sccGraph.deleteEdge(uSCCID, vSCCID, timestamp);}
+        //需要注意，一个SCC的边可能对应多个原始图中的边，因此先检查是由还有其他边的存在
+        for (auto it = sccEdgeInfoSequence[timestamp].begin(); it != sccEdgeInfoSequence[timestamp].end(); ++it) {
+            if (it->sccEdge.sScc == uSCCID && it->sccEdge.tScc == vSCCID) {
+                auto findres = find_if(it->nodeEdges.begin(), it->nodeEdges.end(), [&u, &v](const NodeEdge& ei) {return ei.src == u && ei.dst == v; });
+                if (findres == it->nodeEdges.end()) {
+                    cout << "Error: can not find the edge in sccEdgeInfoSequence" << endl;
+                    goto ABORT;
+                }
+                it->nodeEdges.erase(findres);
+                if (it->nodeEdges.empty()) {
+                    //SCC边已经不对应原始边了，可以删除
+                    sccEdgeInfoSequence[timestamp].erase(it);
+                }
+                else return true;
+                break;
+            }
+        }
+        
+        try { sccGraph.deleteEdge(uSCCID, vSCCID, timestamp); }
         catch (const char* msg) {
             cout << msg << endl;
             goto ABORT;
@@ -396,7 +485,7 @@ void HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         reconstructEvolvingGraphSequence(sccGraph, timestamp);
         for (auto sccEdgeInfoSequenceit = sccEdgeInfoSequence[timestamp].begin();
             sccEdgeInfoSequenceit != sccEdgeInfoSequence[timestamp].end(); ++sccEdgeInfoSequenceit) {
-            if (sccEdgeInfoSequenceit->first.sScc == uSCCID && sccEdgeInfoSequenceit->first.tScc == vSCCID) {
+            if (sccEdgeInfoSequenceit->sccEdge.sScc == uSCCID && sccEdgeInfoSequenceit->sccEdge.tScc == vSCCID) {
                 sccEdgeInfoSequence[timestamp].erase(sccEdgeInfoSequenceit);
                 break;
             }
@@ -410,12 +499,13 @@ void HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
             cout << "node not in NIT" << endl;
             goto ABORT;
         }
-        for (auto uOutit = urecord->Out.begin(); uOutit != urecord->Out.end(); ++uOutit) {
+        for (auto uOutit = urecord->Out.begin(); uOutit != urecord->Out.end();++uOutit) {
             if (uOutit->vertexID == vSCCID) {
                 uOutit->lifespan.set(timestamp, false);
                 if (uOutit->lifespan.none()) {
                     urecord->Out.erase(uOutit);
                 }
+                break;
             }
         }
         for (auto vInit = vrecord->In.begin(); vInit != vrecord->In.end(); ++vInit) {
@@ -424,10 +514,11 @@ void HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
                 if (vInit->lifespan.none()) {
                     vrecord->In.erase(vInit);
                 }
+                break;
             }
         }
-        this->refineNITable = GetRefineNITable(nodeInfoTable);
-        this->IG = BuildIndexGraph(this->refineNITable);
+        getRefineNITable();
+        buildIndexGraph();
     }
     else {
         //在同一个SCC内部，先把SCC内部重新分割
@@ -482,65 +573,93 @@ void HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
             if (findRes->sccID_Life.life_time.none()) sccTable.erase(findRes);
         }
         else assert(false);
+        map<int, int> SCCRemap;
         //把新图中的SCC与原图之中的SCC合并，本来删除的SCC在SCCtable中是唯一的，但是删除以后分裂的SCC有可能已经存在于SCCtable中
-        map<int, int> SCCIDmap;
-        sccGraph.deleteNode(uSCCID, timestamp);
         for (auto it = newSCCTable.begin(); it != newSCCTable.end(); ++it) {
             auto res = sccTable.insert(*it);
             if (!res.second) {
-                SCCIDmap[it->sccID_Life.scc_id] = res.first->sccID_Life.scc_id;
+                //重新映射
+                SCCRemap[it->sccID_Life.scc_id] = res.first->sccID_Life.scc_id;
                 res.first->sccID_Life.life_time.set(timestamp, true);
+                sccGraph.addNode(res.first->sccID_Life.scc_id, timestamp, res.first->nodeGroup);
             }
             else {
                 int newid = newSCCID(this->sccTable);
+                SCCRemap[it->sccID_Life.scc_id] = newid;
                 res.first->sccID_Life.scc_id = newid;
                 sccGraph.addNode(newid, timestamp, res.first->nodeGroup);
-                SCCIDmap[it->sccID_Life.scc_id] = newid;
             }
         }
+        newGraph.NewGraphSCCIDRemap(SCCRemap);
+        newSCCEdgeInfo = _SCCEdgeInfoRemap(newSCCEdgeInfo, SCCRemap);
+        sccGraph.deleteNode(uSCCID, timestamp);
         //先加入内部的边
         for (auto it = newSCCEdgeInfo.begin(); it != newSCCEdgeInfo.end(); ++it) {
-            sccGraph.addEdge(SCCIDmap[it->first.sScc], SCCIDmap[it->first.tScc], timestamp);
+            if (sccGraph.addEdge(it->sccEdge.sScc, it->sccEdge.tScc, timestamp) == 0)
+                assert(false);
         }
+        
         //将外部的节点与SCC相连，外部->内部，需要确定内部是哪一个SCC
+        _updateSCCEdgeInfoParamList INparamList;
+        _updateSCCEdgeInfoParamList OUTparamList;
+        SCCEdgeInfo& sccEdgeInfo = sccEdgeInfoSequence[timestamp];
         for (auto it = in.begin(); it != in.end(); ++it) {
             auto dstSCCID = it->tScc;
             auto srcSCCID = it->sScc;
-            auto sccEdgeInfo = sccEdgeInfoSequence[timestamp];
-            auto findResult = find_if(sccEdgeInfo.begin(), sccEdgeInfo.end(), [&](SCCEdgeInfoItem& item) {return item.first.sScc == srcSCCID && item.first.tScc == dstSCCID; });
+            auto findResult = find_if(sccEdgeInfo.begin(), sccEdgeInfo.end(), [&](const SCCEdgeInfoItem& item) {return item.sccEdge.sScc == srcSCCID && item.sccEdge.tScc == dstSCCID; });
             if (findResult != sccEdgeInfo.end()) {
-                for (auto edgeit = findResult->second.begin(); edgeit != findResult->second.end(); ++edgeit) {
+                for (auto edgeit = findResult->nodeEdges.begin(); edgeit != findResult->nodeEdges.end(); ++edgeit) {
                     int insideSCCID = newGraph.findSCCIDFromNodeId(edgeit->dst);
-                    sccGraph.addEdge(srcSCCID, insideSCCID, timestamp);
-                } 
+                    if(sccGraph.addEdge(srcSCCID, insideSCCID, timestamp) == 0)
+                        assert(false);
+                    INparamList.push_back({ srcSCCID, insideSCCID, edgeit->src, edgeit->dst });
+                }
             }
         }
+        _updateSCCEdgeInfo(sccEdgeInfo, INparamList);
         //将新的SCC与外部相连, 内部->外部，需要确定内部是哪一个SCC
         for (auto it = out.begin(); it != out.end(); ++it) {
             auto dstSCCID = it->tScc;
             auto srcSCCID = it->sScc;
-            auto sccEdgeInfo = sccEdgeInfoSequence[timestamp];
-            auto findResult = find_if(sccEdgeInfo.begin(), sccEdgeInfo.end(), [&](SCCEdgeInfoItem& item) {return item.first.sScc == srcSCCID && item.first.tScc == dstSCCID; });
-            if (findResult != sccEdgeInfo.end()) {
-                for (auto edgeit = findResult->second.begin(); edgeit != findResult->second.end(); ++edgeit) {
+            auto findResult2 = find_if(sccEdgeInfo.begin(), sccEdgeInfo.end(), [&](const SCCEdgeInfoItem& item) {return item.sccEdge.sScc == srcSCCID && item.sccEdge.tScc == dstSCCID; });
+            if (findResult2 != sccEdgeInfo.end()) {
+                for (auto edgeit = findResult2->nodeEdges.begin(); edgeit != findResult2->nodeEdges.end(); ++edgeit) {
                     auto res = sccGraph.findSCCIDNodeFromOriginNodeID(edgeit->src, timestamp);
                     assert(res != -1);
                     int newSCCSrcID = res;
                     //此边为newSCCSrcID->dstSCCID的边
-                    sccGraph.addEdge(newSCCSrcID, dstSCCID, timestamp);
+                    if (sccGraph.addEdge(newSCCSrcID, dstSCCID, timestamp) == 0)
+                        assert(false);
+                    OUTparamList.push_back({ newSCCSrcID, dstSCCID, edgeit->src, edgeit->dst });
                 }
             }
             else assert(false);
         }
+        _updateSCCEdgeInfo(sccEdgeInfo, OUTparamList);
+        //删除原本SCC的SCCEdgeinfo
+        for (auto it = sccEdgeInfo.begin(); it != sccEdgeInfo.end();) {
+            if (it->sccEdge.sScc == uSCCID || it->sccEdge.tScc == uSCCID) {
+                it = sccEdgeInfo.erase(it);
+            }
+            else ++it;
+        }
+        int sccEdgeInfoSize = sccEdgeInfo.size();
+        sccEdgeInfo.insert(newSCCEdgeInfo.begin(), newSCCEdgeInfo.end());
+        assert(sccEdgeInfo.size() == sccEdgeInfoSize + newSCCEdgeInfo.size());
         reconstructEvolvingGraphSequence(sccGraph, timestamp);
+        getNITable();
+        getRefineNITable();
+        buildIndexGraph();
     }
+    cout << "delete edge(" << u <<"->"<< v << ")at timeStamp" << timestamp <<" success!" << endl;
+    return true;
 
 ABORT:
     cout << "update: delete edge failed!" << endl;
-    return;
+    return false;
 }
 
-void HRindex::singleStepUpdateDeleteNode(int u, int timestamp) {
+bool HRindex::singleStepUpdateDeleteNode(int u, int timestamp) {
     vector<int> outList;
     vector<int> inList;
     outList = originGraph[timestamp].findOutArcList(u);
@@ -562,14 +681,17 @@ void HRindex::singleStepUpdateDeleteNode(int u, int timestamp) {
     for (auto it = nodeInfoTable.begin(); it != nodeInfoTable.end(); ++it) {
         if (it->node == uSCCID) {
             nodeInfoTable.erase(it);
+            break;
         }
     }
     for (auto it = refineNITable.begin(); it != refineNITable.end(); ++it) {
         if(it->node == uSCCID) {
             refineNITable.erase(it);
+            break;
         }
     }
     buildIndexGraph();
+    return true;
 }
 
 #endif

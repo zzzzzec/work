@@ -50,7 +50,12 @@ public:
         return node == cur.node;
     }
 };
-
+bool compareRecordItem(RecordItem a, RecordItem b) {
+    return a.node < b.node;
+}
+bool compareRefineRecordItem(RefineRecordItem a, RefineRecordItem b) {
+    return a.node < b.node;
+}
 typedef struct vector<RecordItem> NodeInfoTable;
 typedef struct vector<RefineRecordItem> RefineNITable;
 void StoreRefineNITable(string storeRefineNIT, RefineNITable refineNITable);

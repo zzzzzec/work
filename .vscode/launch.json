@@ -26,10 +26,16 @@
                     "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
                 },
+                
+                //{
+                //    "description": "Catch throw",
+                //    "text": "catch throw",
+                //    "ignoreFailures": false
+                //},
                 {
-                    "description": "Catch throw",
-                    "text": "-exec catch throw",
-                    "ignoreFailures": true
+                    "description": "assert stop",
+                    "text": "break abort",
+                    "ignoreFailures": false
                 }
             ],
             //"preLaunchTask": "C/C++: cpp.exe build active file",

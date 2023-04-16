@@ -51,6 +51,9 @@ typedef struct NodeEdge{
             return a.dst > dst;
         }
     }
+    bool operator==(const NodeEdge& a) const {
+        return a.src == src && a.dst == dst;
+    }
 }NodeEdge;
 
 typedef struct sccEdge {

@@ -24,11 +24,6 @@ typedef struct {
     arc *firstArc;
 } SCCnode;
 
-
-
-
-
-
 class SCCGraph
 {
 public:
@@ -155,7 +150,8 @@ int SCCGraph::addNode(int SCCID, int timestamp, set<int> originNodeSet) {
 }
 
 int SCCGraph::addEdge(int srcID, int dstID, int timestamp) {
-    if(this->edgeExist(srcID, dstID, timestamp)) return 0;
+    if (srcID == dstID) return 0;
+    if (this->edgeExist(srcID, dstID, timestamp)) return 1;
     if (this->IDexist(srcID, timestamp) && this->IDexist(dstID, timestamp)) {
         arc* newArc = new arc;
         newArc->dstID = dstID;
@@ -204,7 +200,7 @@ int SCCGraph::deleteNode(int SCCID, int timestamp) {
     for (auto it = sccGraphs[timestamp].second.begin(); it != sccGraphs[timestamp].second.end(); it++) {
         if(it->SCCID == SCCID){
             sccGraphs[timestamp].second.erase(it);
-            return 1;
+            it = sccGraphs[timestamp].second.begin();
         }
         else {
             arc *tmp = it->firstArc;

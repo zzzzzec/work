@@ -8,6 +8,7 @@
 			"args": [
 				"-g",
 				"${workspaceFolder}\\main.cpp",
+				"${workspaceFolder}\\json\\jsoncpp.cpp",
 				"-o",
 				"${workspaceFolder}\\main.exe",
 				"-static"

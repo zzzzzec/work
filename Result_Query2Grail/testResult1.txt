@@ -1,0 +1,7292 @@
+The local date and time is: Sun Apr 16 15:06:58 2023
+
+
+0 st======================
+Query: 4->1 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+1 st======================
+Query: 7->5 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+2 st======================
+Query: 2->5 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+3 st======================
+Query: 9->9 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+4 st======================
+Query: 7->3 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+5 st======================
+Query: 7->8 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+6 st======================
+Query: 3->3 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+7 st======================
+Query: 4->1 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+8 st======================
+Query: 9->3 [3,3] 2
+GroundTruth: 
+3 : 0
+Correct!
+
+9 st======================
+Query: 8->9 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+10 st======================
+Query: 7->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+11 st======================
+Query: 2->10 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+12 st======================
+Query: 7->9 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+13 st======================
+Query: 7->7 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+14 st======================
+Query: 1->6 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+15 st======================
+Query: 6->11 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+16 st======================
+Query: 4->10 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+17 st======================
+Query: 1->8 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+Correct!
+
+18 st======================
+Query: 3->3 [0,3] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+19 st======================
+Query: 11->6 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+20 st======================
+Query: 10->3 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+21 st======================
+Query: 7->3 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+22 st======================
+Query: 4->3 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+23 st======================
+Query: 9->5 [1,1] 1
+GroundTruth: 
+1 : 1
+Correct!
+
+24 st======================
+Query: 8->6 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+25 st======================
+Query: 10->2 [3,3] 1
+GroundTruth: 
+3 : 0
+Correct!
+
+26 st======================
+Query: 11->5 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+27 st======================
+Query: 4->9 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+28 st======================
+Query: 9->3 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+29 st======================
+Query: 8->2 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+30 st======================
+Query: 3->5 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+31 st======================
+Query: 8->3 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+32 st======================
+Query: 11->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+33 st======================
+Query: 2->9 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+34 st======================
+Query: 7->1 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+35 st======================
+Query: 8->8 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+36 st======================
+Query: 9->2 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+37 st======================
+Query: 6->2 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+38 st======================
+Query: 1->9 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+39 st======================
+Query: 5->5 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+40 st======================
+Query: 8->2 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+41 st======================
+Query: 7->3 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+42 st======================
+Query: 6->2 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+43 st======================
+Query: 2->3 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+44 st======================
+Query: 10->3 [3,3] 1
+GroundTruth: 
+3 : 0
+Correct!
+
+45 st======================
+Query: 3->6 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+46 st======================
+Query: 10->8 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+47 st======================
+Query: 7->8 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+48 st======================
+Query: 2->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+49 st======================
+Query: 3->2 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+50 st======================
+Query: 8->11 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+51 st======================
+Query: 8->3 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+52 st======================
+Query: 4->11 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+53 st======================
+Query: 11->7 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+54 st======================
+Query: 6->10 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+55 st======================
+Query: 7->4 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+56 st======================
+Query: 2->10 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 1
+Correct!
+
+57 st======================
+Query: 2->9 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+58 st======================
+Query: 2->6 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+59 st======================
+Query: 3->2 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+60 st======================
+Query: 1->3 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+61 st======================
+Query: 5->2 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+62 st======================
+Query: 7->9 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+63 st======================
+Query: 2->9 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+64 st======================
+Query: 7->10 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+65 st======================
+Query: 7->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+66 st======================
+Query: 8->11 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+67 st======================
+Query: 8->7 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+68 st======================
+Query: 6->3 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+69 st======================
+Query: 2->2 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+70 st======================
+Query: 7->2 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+71 st======================
+Query: 7->2 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+72 st======================
+Query: 7->2 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+73 st======================
+Query: 8->3 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+74 st======================
+Query: 3->11 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+75 st======================
+Query: 3->8 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+76 st======================
+Query: 8->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+77 st======================
+Query: 4->4 [1,1] 1
+GroundTruth: 
+1 : 1
+Correct!
+
+78 st======================
+Query: 1->8 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+79 st======================
+Query: 2->3 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+80 st======================
+Query: 9->7 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+81 st======================
+Query: 1->8 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+82 st======================
+Query: 8->1 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+83 st======================
+Query: 6->2 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+84 st======================
+Query: 2->3 [0,3] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+85 st======================
+Query: 7->9 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+86 st======================
+Query: 4->1 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+87 st======================
+Query: 2->2 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+88 st======================
+Query: 1->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 1
+Correct!
+
+89 st======================
+Query: 7->7 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+90 st======================
+Query: 7->10 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+91 st======================
+Query: 3->3 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+92 st======================
+Query: 3->10 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+93 st======================
+Query: 8->6 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+94 st======================
+Query: 1->3 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+95 st======================
+Query: 3->10 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+96 st======================
+Query: 1->7 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+97 st======================
+Query: 5->7 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+98 st======================
+Query: 7->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+99 st======================
+Query: 5->6 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+100 st======================
+Query: 3->6 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+101 st======================
+Query: 1->2 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+102 st======================
+Query: 7->4 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+103 st======================
+Query: 4->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+104 st======================
+Query: 7->8 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+105 st======================
+Query: 1->3 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+106 st======================
+Query: 5->10 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+107 st======================
+Query: 8->2 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+108 st======================
+Query: 2->1 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+109 st======================
+Query: 1->1 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+110 st======================
+Query: 8->7 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+111 st======================
+Query: 5->11 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+112 st======================
+Query: 10->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+113 st======================
+Query: 3->1 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+114 st======================
+Query: 9->10 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+115 st======================
+Query: 3->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+116 st======================
+Query: 4->5 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+117 st======================
+Query: 2->3 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+118 st======================
+Query: 2->1 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+119 st======================
+Query: 3->3 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+120 st======================
+Query: 5->1 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+121 st======================
+Query: 1->7 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+122 st======================
+Query: 1->3 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+123 st======================
+Query: 4->5 [1,1] 1
+GroundTruth: 
+1 : 1
+Correct!
+
+124 st======================
+Query: 1->6 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+125 st======================
+Query: 6->9 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+126 st======================
+Query: 9->9 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+127 st======================
+Query: 7->3 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+128 st======================
+Query: 1->9 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+129 st======================
+Query: 3->1 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+130 st======================
+Query: 2->2 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+131 st======================
+Query: 3->5 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+132 st======================
+Query: 9->1 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+133 st======================
+Query: 3->8 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+134 st======================
+Query: 1->2 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+135 st======================
+Query: 8->9 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+136 st======================
+Query: 2->5 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+137 st======================
+Query: 1->9 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+138 st======================
+Query: 6->9 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+139 st======================
+Query: 2->1 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+140 st======================
+Query: 4->5 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+141 st======================
+Query: 7->4 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+142 st======================
+Query: 5->3 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+143 st======================
+Query: 7->10 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+144 st======================
+Query: 4->6 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+145 st======================
+Query: 1->11 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 1
+Correct!
+
+146 st======================
+Query: 3->9 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+147 st======================
+Query: 1->2 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+148 st======================
+Query: 6->9 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+149 st======================
+Query: 3->4 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+150 st======================
+Query: 2->1 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+151 st======================
+Query: 7->5 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+152 st======================
+Query: 1->8 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+153 st======================
+Query: 9->3 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+154 st======================
+Query: 8->6 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+155 st======================
+Query: 3->3 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+156 st======================
+Query: 10->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+157 st======================
+Query: 6->8 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+158 st======================
+Query: 3->6 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+159 st======================
+Query: 6->3 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+160 st======================
+Query: 4->2 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+161 st======================
+Query: 10->2 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+162 st======================
+Query: 9->2 [3,3] 1
+GroundTruth: 
+3 : 0
+Correct!
+
+163 st======================
+Query: 3->2 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+164 st======================
+Query: 10->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+165 st======================
+Query: 7->1 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+166 st======================
+Query: 6->5 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+167 st======================
+Query: 10->7 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+168 st======================
+Query: 8->6 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+169 st======================
+Query: 5->7 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+170 st======================
+Query: 1->7 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+171 st======================
+Query: 2->1 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+172 st======================
+Query: 5->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+173 st======================
+Query: 5->11 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+174 st======================
+Query: 1->7 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+175 st======================
+Query: 3->3 [2,3] 1
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+176 st======================
+Query: 5->5 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+177 st======================
+Query: 1->7 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+178 st======================
+Query: 4->10 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+179 st======================
+Query: 5->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+180 st======================
+Query: 3->9 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 1
+Correct!
+
+181 st======================
+Query: 4->6 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+182 st======================
+Query: 1->10 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+183 st======================
+Query: 2->10 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+184 st======================
+Query: 8->10 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+185 st======================
+Query: 1->6 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+186 st======================
+Query: 8->9 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+187 st======================
+Query: 10->8 [1,1] 1
+GroundTruth: 
+1 : 1
+Correct!
+
+188 st======================
+Query: 5->1 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+189 st======================
+Query: 6->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+190 st======================
+Query: 3->2 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+191 st======================
+Query: 8->7 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+192 st======================
+Query: 1->3 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+193 st======================
+Query: 6->7 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+194 st======================
+Query: 5->1 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+195 st======================
+Query: 1->3 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+196 st======================
+Query: 4->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+197 st======================
+Query: 6->3 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+198 st======================
+Query: 3->8 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+199 st======================
+Query: 1->1 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+200 st======================
+Query: 8->10 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+201 st======================
+Query: 7->2 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+202 st======================
+Query: 6->10 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+203 st======================
+Query: 3->6 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+204 st======================
+Query: 3->3 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+205 st======================
+Query: 3->9 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+206 st======================
+Query: 7->7 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+207 st======================
+Query: 3->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+208 st======================
+Query: 4->11 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+209 st======================
+Query: 1->4 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+210 st======================
+Query: 4->1 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+211 st======================
+Query: 3->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+212 st======================
+Query: 5->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+213 st======================
+Query: 11->10 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+214 st======================
+Query: 7->3 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+215 st======================
+Query: 4->4 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+216 st======================
+Query: 4->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+217 st======================
+Query: 1->6 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+Correct!
+
+218 st======================
+Query: 3->6 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+219 st======================
+Query: 1->2 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+220 st======================
+Query: 8->1 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+221 st======================
+Query: 6->2 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+222 st======================
+Query: 1->4 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+223 st======================
+Query: 9->2 [3,3] 1
+GroundTruth: 
+3 : 0
+Correct!
+
+224 st======================
+Query: 3->1 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+225 st======================
+Query: 9->1 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+226 st======================
+Query: 6->3 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+227 st======================
+Query: 4->1 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+228 st======================
+Query: 5->10 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+229 st======================
+Query: 4->1 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+230 st======================
+Query: 2->8 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+231 st======================
+Query: 6->2 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+232 st======================
+Query: 5->10 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+233 st======================
+Query: 3->3 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+234 st======================
+Query: 3->9 [1,1] 1
+GroundTruth: 
+1 : 1
+Correct!
+
+235 st======================
+Query: 3->2 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+Correct!
+
+236 st======================
+Query: 7->10 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+237 st======================
+Query: 10->10 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+238 st======================
+Query: 7->1 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+239 st======================
+Query: 7->9 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+240 st======================
+Query: 8->9 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+241 st======================
+Query: 1->8 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+242 st======================
+Query: 7->1 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+243 st======================
+Query: 8->9 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+244 st======================
+Query: 3->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+245 st======================
+Query: 3->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+246 st======================
+Query: 7->10 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+247 st======================
+Query: 11->3 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+248 st======================
+Query: 1->10 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+249 st======================
+Query: 8->1 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+250 st======================
+Query: 8->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+251 st======================
+Query: 7->1 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+252 st======================
+Query: 8->5 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+253 st======================
+Query: 7->8 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+254 st======================
+Query: 1->2 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+255 st======================
+Query: 7->3 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+256 st======================
+Query: 7->2 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+257 st======================
+Query: 7->5 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+258 st======================
+Query: 8->3 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+259 st======================
+Query: 8->3 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+260 st======================
+Query: 4->9 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+261 st======================
+Query: 2->3 [0,3] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+262 st======================
+Query: 9->2 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+263 st======================
+Query: 8->5 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+264 st======================
+Query: 5->6 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+265 st======================
+Query: 9->10 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+266 st======================
+Query: 5->3 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+267 st======================
+Query: 3->1 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+268 st======================
+Query: 4->3 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+269 st======================
+Query: 5->9 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+270 st======================
+Query: 6->2 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+271 st======================
+Query: 3->3 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+272 st======================
+Query: 6->1 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+273 st======================
+Query: 2->1 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+274 st======================
+Query: 8->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+275 st======================
+Query: 7->1 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+276 st======================
+Query: 8->3 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+277 st======================
+Query: 6->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+278 st======================
+Query: 3->8 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+279 st======================
+Query: 1->7 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+280 st======================
+Query: 3->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+281 st======================
+Query: 2->6 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+282 st======================
+Query: 8->1 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+283 st======================
+Query: 2->4 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+284 st======================
+Query: 10->1 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+285 st======================
+Query: 4->10 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+286 st======================
+Query: 7->1 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+287 st======================
+Query: 3->2 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+288 st======================
+Query: 4->1 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+289 st======================
+Query: 2->2 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+290 st======================
+Query: 1->6 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+Correct!
+
+291 st======================
+Query: 5->2 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+292 st======================
+Query: 8->6 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+293 st======================
+Query: 9->1 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+294 st======================
+Query: 7->11 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+295 st======================
+Query: 3->10 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+296 st======================
+Query: 6->1 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+297 st======================
+Query: 8->1 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+298 st======================
+Query: 3->3 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+299 st======================
+Query: 3->9 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 1
+Correct!
+
+300 st======================
+Query: 6->5 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+301 st======================
+Query: 7->5 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+302 st======================
+Query: 1->1 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+303 st======================
+Query: 1->1 [0,3] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+304 st======================
+Query: 5->1 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+305 st======================
+Query: 1->2 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+306 st======================
+Query: 7->3 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+307 st======================
+Query: 1->11 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+308 st======================
+Query: 8->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+309 st======================
+Query: 5->3 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+310 st======================
+Query: 2->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+311 st======================
+Query: 3->9 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+312 st======================
+Query: 3->2 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+313 st======================
+Query: 7->4 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+314 st======================
+Query: 3->9 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 1
+Correct!
+
+315 st======================
+Query: 5->1 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+316 st======================
+Query: 8->2 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+317 st======================
+Query: 10->1 [3,3] 2
+GroundTruth: 
+3 : 0
+Correct!
+
+318 st======================
+Query: 9->2 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+319 st======================
+Query: 2->11 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+320 st======================
+Query: 6->5 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+321 st======================
+Query: 6->4 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+322 st======================
+Query: 1->9 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 1
+Correct!
+
+323 st======================
+Query: 2->7 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+324 st======================
+Query: 2->3 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+325 st======================
+Query: 7->2 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+326 st======================
+Query: 7->8 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+327 st======================
+Query: 6->11 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+328 st======================
+Query: 5->2 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+329 st======================
+Query: 7->9 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+330 st======================
+Query: 5->6 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+331 st======================
+Query: 8->1 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+332 st======================
+Query: 4->3 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+333 st======================
+Query: 3->3 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+334 st======================
+Query: 7->3 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+335 st======================
+Query: 10->6 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+336 st======================
+Query: 2->6 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+337 st======================
+Query: 8->3 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+338 st======================
+Query: 7->1 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+339 st======================
+Query: 3->7 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+340 st======================
+Query: 11->1 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+341 st======================
+Query: 1->6 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+342 st======================
+Query: 7->2 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+343 st======================
+Query: 7->2 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+344 st======================
+Query: 2->2 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+345 st======================
+Query: 3->5 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+346 st======================
+Query: 1->4 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 0
+Correct!
+
+347 st======================
+Query: 1->5 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+348 st======================
+Query: 1->1 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+349 st======================
+Query: 6->3 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+350 st======================
+Query: 9->10 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+351 st======================
+Query: 4->10 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+352 st======================
+Query: 6->3 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+353 st======================
+Query: 4->9 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+354 st======================
+Query: 5->4 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+355 st======================
+Query: 8->3 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+356 st======================
+Query: 9->10 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+357 st======================
+Query: 5->2 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+358 st======================
+Query: 9->10 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+359 st======================
+Query: 2->10 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+360 st======================
+Query: 1->7 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+Correct!
+
+361 st======================
+Query: 6->4 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+362 st======================
+Query: 1->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 1
+Correct!
+
+363 st======================
+Query: 5->10 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+364 st======================
+Query: 7->1 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+365 st======================
+Query: 4->11 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+366 st======================
+Query: 2->3 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+367 st======================
+Query: 1->11 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 1
+Correct!
+
+368 st======================
+Query: 5->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+369 st======================
+Query: 3->8 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+370 st======================
+Query: 3->5 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+371 st======================
+Query: 4->8 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+372 st======================
+Query: 1->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 1
+Correct!
+
+373 st======================
+Query: 8->5 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+374 st======================
+Query: 2->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+375 st======================
+Query: 3->3 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+376 st======================
+Query: 3->4 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+377 st======================
+Query: 3->1 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+378 st======================
+Query: 10->1 [3,3] 2
+GroundTruth: 
+3 : 0
+Correct!
+
+379 st======================
+Query: 8->1 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+380 st======================
+Query: 3->9 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+381 st======================
+Query: 3->3 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+382 st======================
+Query: 7->7 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+383 st======================
+Query: 1->10 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+384 st======================
+Query: 4->9 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+385 st======================
+Query: 6->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+386 st======================
+Query: 8->8 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+387 st======================
+Query: 1->1 [2,3] 1
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+388 st======================
+Query: 4->1 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+389 st======================
+Query: 1->6 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+390 st======================
+Query: 3->3 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+391 st======================
+Query: 5->10 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+392 st======================
+Query: 8->1 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+393 st======================
+Query: 11->2 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+394 st======================
+Query: 2->4 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+395 st======================
+Query: 4->5 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+396 st======================
+Query: 2->3 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+397 st======================
+Query: 6->1 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+398 st======================
+Query: 3->1 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+399 st======================
+Query: 8->10 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+400 st======================
+Query: 7->2 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+401 st======================
+Query: 3->2 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+Correct!
+
+402 st======================
+Query: 2->3 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+403 st======================
+Query: 9->8 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+404 st======================
+Query: 2->6 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+405 st======================
+Query: 2->4 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+406 st======================
+Query: 10->1 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+407 st======================
+Query: 3->1 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+408 st======================
+Query: 4->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+409 st======================
+Query: 4->4 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+410 st======================
+Query: 6->10 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+411 st======================
+Query: 2->1 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+412 st======================
+Query: 8->5 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+413 st======================
+Query: 4->1 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+414 st======================
+Query: 1->1 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+415 st======================
+Query: 3->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+416 st======================
+Query: 8->10 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+417 st======================
+Query: 8->11 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+418 st======================
+Query: 5->3 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+419 st======================
+Query: 6->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+420 st======================
+Query: 3->3 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+421 st======================
+Query: 2->3 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+422 st======================
+Query: 6->8 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+423 st======================
+Query: 6->3 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+424 st======================
+Query: 3->9 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+425 st======================
+Query: 7->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+426 st======================
+Query: 1->1 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+427 st======================
+Query: 6->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+428 st======================
+Query: 2->4 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+429 st======================
+Query: 11->1 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+430 st======================
+Query: 5->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+431 st======================
+Query: 3->3 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+432 st======================
+Query: 10->11 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+433 st======================
+Query: 4->1 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+434 st======================
+Query: 4->1 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+435 st======================
+Query: 2->2 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+436 st======================
+Query: 8->3 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+437 st======================
+Query: 5->9 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+438 st======================
+Query: 6->9 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+439 st======================
+Query: 7->11 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+440 st======================
+Query: 1->9 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+441 st======================
+Query: 2->1 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+442 st======================
+Query: 8->11 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+443 st======================
+Query: 11->3 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+444 st======================
+Query: 7->3 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+445 st======================
+Query: 7->4 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+446 st======================
+Query: 3->2 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+Correct!
+
+447 st======================
+Query: 6->1 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+448 st======================
+Query: 5->4 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+449 st======================
+Query: 8->7 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+450 st======================
+Query: 3->5 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+451 st======================
+Query: 6->8 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+452 st======================
+Query: 3->3 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+453 st======================
+Query: 2->10 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+454 st======================
+Query: 2->10 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+455 st======================
+Query: 3->3 [2,3] 1
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+456 st======================
+Query: 7->4 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+457 st======================
+Query: 5->2 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+458 st======================
+Query: 8->2 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+459 st======================
+Query: 9->3 [3,3] 1
+GroundTruth: 
+3 : 0
+Correct!
+
+460 st======================
+Query: 5->6 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+461 st======================
+Query: 7->8 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+462 st======================
+Query: 3->5 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+463 st======================
+Query: 3->10 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+464 st======================
+Query: 4->2 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+465 st======================
+Query: 6->2 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+466 st======================
+Query: 2->1 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+467 st======================
+Query: 7->10 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+468 st======================
+Query: 5->9 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+469 st======================
+Query: 3->2 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+470 st======================
+Query: 4->1 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+471 st======================
+Query: 7->1 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+472 st======================
+Query: 1->10 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+473 st======================
+Query: 4->2 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+474 st======================
+Query: 9->1 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+475 st======================
+Query: 2->9 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+476 st======================
+Query: 10->10 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+477 st======================
+Query: 5->7 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+478 st======================
+Query: 4->7 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+479 st======================
+Query: 8->4 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+480 st======================
+Query: 7->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+481 st======================
+Query: 1->3 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+482 st======================
+Query: 1->9 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 1
+Correct!
+
+483 st======================
+Query: 6->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+484 st======================
+Query: 5->3 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+485 st======================
+Query: 5->5 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+486 st======================
+Query: 4->3 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+487 st======================
+Query: 8->1 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+488 st======================
+Query: 10->1 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+489 st======================
+Query: 8->9 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+490 st======================
+Query: 2->10 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+491 st======================
+Query: 2->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+492 st======================
+Query: 8->4 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+493 st======================
+Query: 5->1 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+494 st======================
+Query: 1->2 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+495 st======================
+Query: 7->2 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+496 st======================
+Query: 10->6 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+497 st======================
+Query: 6->3 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+498 st======================
+Query: 7->9 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+499 st======================
+Query: 4->11 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+500 st======================
+Query: 5->3 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+501 st======================
+Query: 3->11 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+502 st======================
+Query: 5->2 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+503 st======================
+Query: 1->6 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+504 st======================
+Query: 8->3 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+505 st======================
+Query: 5->8 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+506 st======================
+Query: 8->3 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+507 st======================
+Query: 2->10 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+508 st======================
+Query: 4->11 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+509 st======================
+Query: 8->1 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+510 st======================
+Query: 9->4 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+511 st======================
+Query: 3->5 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+512 st======================
+Query: 2->3 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+513 st======================
+Query: 3->10 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+514 st======================
+Query: 5->9 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+515 st======================
+Query: 5->4 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+516 st======================
+Query: 8->6 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+517 st======================
+Query: 2->6 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+518 st======================
+Query: 7->10 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+519 st======================
+Query: 9->11 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+520 st======================
+Query: 6->2 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+521 st======================
+Query: 8->1 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+522 st======================
+Query: 9->10 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+523 st======================
+Query: 8->3 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+524 st======================
+Query: 5->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+525 st======================
+Query: 4->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+526 st======================
+Query: 6->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+527 st======================
+Query: 6->3 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+528 st======================
+Query: 4->8 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+529 st======================
+Query: 5->5 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+530 st======================
+Query: 7->8 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+531 st======================
+Query: 7->1 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+532 st======================
+Query: 3->6 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+533 st======================
+Query: 4->10 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+534 st======================
+Query: 1->1 [2,3] 1
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+535 st======================
+Query: 5->1 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+536 st======================
+Query: 5->7 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+537 st======================
+Query: 8->9 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+538 st======================
+Query: 8->1 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+539 st======================
+Query: 8->7 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+540 st======================
+Query: 7->7 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+541 st======================
+Query: 1->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+542 st======================
+Query: 7->3 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+543 st======================
+Query: 3->7 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+544 st======================
+Query: 2->9 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 1
+Correct!
+
+545 st======================
+Query: 7->3 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+546 st======================
+Query: 8->8 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+547 st======================
+Query: 2->10 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+548 st======================
+Query: 6->2 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+549 st======================
+Query: 4->10 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+550 st======================
+Query: 8->2 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+551 st======================
+Query: 1->11 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+552 st======================
+Query: 5->9 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+553 st======================
+Query: 5->2 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+554 st======================
+Query: 6->2 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+555 st======================
+Query: 5->9 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+556 st======================
+Query: 3->10 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 1
+Correct!
+
+557 st======================
+Query: 2->1 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+558 st======================
+Query: 5->3 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+559 st======================
+Query: 10->9 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+560 st======================
+Query: 10->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+561 st======================
+Query: 7->4 [0,0] 1
+GroundTruth: 
+0 : 0
+Correct!
+
+562 st======================
+Query: 6->3 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+563 st======================
+Query: 2->9 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+564 st======================
+Query: 6->8 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+565 st======================
+Query: 3->5 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+566 st======================
+Query: 3->9 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+567 st======================
+Query: 11->11 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+568 st======================
+Query: 3->3 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+569 st======================
+Query: 4->3 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+570 st======================
+Query: 7->10 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+571 st======================
+Query: 1->4 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+572 st======================
+Query: 3->4 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+573 st======================
+Query: 6->1 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+574 st======================
+Query: 8->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+575 st======================
+Query: 3->4 [1,1] 1
+GroundTruth: 
+1 : 1
+Correct!
+
+576 st======================
+Query: 4->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+577 st======================
+Query: 7->9 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+578 st======================
+Query: 7->2 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+579 st======================
+Query: 8->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+580 st======================
+Query: 2->1 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+581 st======================
+Query: 1->10 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 1
+Correct!
+
+582 st======================
+Query: 6->2 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+583 st======================
+Query: 5->10 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+584 st======================
+Query: 10->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+585 st======================
+Query: 3->1 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+586 st======================
+Query: 1->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+587 st======================
+Query: 6->10 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+588 st======================
+Query: 1->9 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+589 st======================
+Query: 9->2 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+590 st======================
+Query: 4->3 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+591 st======================
+Query: 7->7 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+592 st======================
+Query: 6->1 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+593 st======================
+Query: 9->10 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+594 st======================
+Query: 6->2 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+595 st======================
+Query: 4->8 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+596 st======================
+Query: 1->1 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+597 st======================
+Query: 10->7 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+598 st======================
+Query: 2->3 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+599 st======================
+Query: 1->10 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+600 st======================
+Query: 7->3 [0,0] 1
+GroundTruth: 
+0 : 0
+Correct!
+
+601 st======================
+Query: 5->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+602 st======================
+Query: 1->1 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+603 st======================
+Query: 5->5 [1,1] 1
+GroundTruth: 
+1 : 1
+Correct!
+
+604 st======================
+Query: 8->3 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+605 st======================
+Query: 2->4 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+606 st======================
+Query: 3->7 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+607 st======================
+Query: 3->9 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+608 st======================
+Query: 7->3 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+609 st======================
+Query: 3->4 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+610 st======================
+Query: 1->6 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+611 st======================
+Query: 8->4 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+612 st======================
+Query: 2->9 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+613 st======================
+Query: 4->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+614 st======================
+Query: 8->6 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+615 st======================
+Query: 4->9 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+616 st======================
+Query: 8->2 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+617 st======================
+Query: 6->4 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+618 st======================
+Query: 8->4 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+619 st======================
+Query: 9->9 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+620 st======================
+Query: 2->10 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+621 st======================
+Query: 2->6 [1,1] 1
+GroundTruth: 
+1 : 1
+Correct!
+
+622 st======================
+Query: 4->2 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+623 st======================
+Query: 8->1 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+624 st======================
+Query: 3->2 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+Correct!
+
+625 st======================
+Query: 1->3 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+626 st======================
+Query: 10->9 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+627 st======================
+Query: 3->3 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+628 st======================
+Query: 3->10 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+629 st======================
+Query: 3->2 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+630 st======================
+Query: 9->2 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+631 st======================
+Query: 7->10 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+632 st======================
+Query: 1->4 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+633 st======================
+Query: 7->10 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+634 st======================
+Query: 6->1 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+635 st======================
+Query: 4->2 [0,0] 1
+GroundTruth: 
+0 : 0
+Correct!
+
+636 st======================
+Query: 8->3 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+637 st======================
+Query: 2->3 [1,1] 1
+GroundTruth: 
+1 : 1
+Correct!
+
+638 st======================
+Query: 2->5 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+639 st======================
+Query: 9->1 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+640 st======================
+Query: 1->4 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+641 st======================
+Query: 3->2 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+642 st======================
+Query: 1->7 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+643 st======================
+Query: 5->11 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+644 st======================
+Query: 8->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+645 st======================
+Query: 4->2 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+646 st======================
+Query: 7->10 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+647 st======================
+Query: 2->4 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+648 st======================
+Query: 5->5 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+649 st======================
+Query: 10->10 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+650 st======================
+Query: 7->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+651 st======================
+Query: 7->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+652 st======================
+Query: 3->10 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 1
+Correct!
+
+653 st======================
+Query: 4->3 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+654 st======================
+Query: 9->1 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+655 st======================
+Query: 7->3 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+656 st======================
+Query: 3->3 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+657 st======================
+Query: 2->1 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+658 st======================
+Query: 5->5 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+659 st======================
+Query: 8->3 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+660 st======================
+Query: 11->5 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+661 st======================
+Query: 1->6 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+Correct!
+
+662 st======================
+Query: 6->5 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+663 st======================
+Query: 9->10 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+664 st======================
+Query: 1->10 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+665 st======================
+Query: 1->4 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+666 st======================
+Query: 5->5 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+667 st======================
+Query: 3->10 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+668 st======================
+Query: 3->8 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+669 st======================
+Query: 7->8 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+670 st======================
+Query: 3->2 [0,3] 2
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+671 st======================
+Query: 4->11 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+672 st======================
+Query: 1->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 1
+Correct!
+
+673 st======================
+Query: 2->9 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+674 st======================
+Query: 2->9 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+675 st======================
+Query: 2->2 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+676 st======================
+Query: 1->4 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 0
+Correct!
+
+677 st======================
+Query: 1->7 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+Correct!
+
+678 st======================
+Query: 4->10 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+679 st======================
+Query: 4->1 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+680 st======================
+Query: 2->10 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+681 st======================
+Query: 1->9 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+682 st======================
+Query: 6->7 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+683 st======================
+Query: 5->4 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+684 st======================
+Query: 2->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+685 st======================
+Query: 5->4 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+686 st======================
+Query: 8->2 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+687 st======================
+Query: 7->7 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+688 st======================
+Query: 10->7 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+689 st======================
+Query: 8->6 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+690 st======================
+Query: 7->3 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+691 st======================
+Query: 5->2 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+692 st======================
+Query: 3->2 [2,3] 1
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+693 st======================
+Query: 3->3 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+694 st======================
+Query: 7->10 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+695 st======================
+Query: 9->3 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+696 st======================
+Query: 8->7 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+697 st======================
+Query: 1->10 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 1
+Correct!
+
+698 st======================
+Query: 8->10 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+699 st======================
+Query: 5->3 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+700 st======================
+Query: 4->6 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+701 st======================
+Query: 3->6 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+702 st======================
+Query: 1->7 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+703 st======================
+Query: 1->1 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+704 st======================
+Query: 3->6 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+705 st======================
+Query: 7->6 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+706 st======================
+Query: 2->2 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+707 st======================
+Query: 6->7 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+708 st======================
+Query: 8->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+709 st======================
+Query: 3->7 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+710 st======================
+Query: 3->8 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+711 st======================
+Query: 4->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+712 st======================
+Query: 7->7 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+713 st======================
+Query: 5->1 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+714 st======================
+Query: 3->3 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+715 st======================
+Query: 2->6 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+716 st======================
+Query: 8->1 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+717 st======================
+Query: 7->8 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+718 st======================
+Query: 1->9 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 1
+Correct!
+
+719 st======================
+Query: 1->5 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+720 st======================
+Query: 1->1 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+721 st======================
+Query: 5->10 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+722 st======================
+Query: 10->3 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+723 st======================
+Query: 8->6 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+724 st======================
+Query: 1->4 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+725 st======================
+Query: 7->8 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+726 st======================
+Query: 5->4 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+727 st======================
+Query: 9->7 [1,1] 1
+GroundTruth: 
+1 : 1
+Correct!
+
+728 st======================
+Query: 6->1 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+729 st======================
+Query: 1->9 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+730 st======================
+Query: 7->11 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+731 st======================
+Query: 7->11 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+732 st======================
+Query: 1->1 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+733 st======================
+Query: 7->9 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+734 st======================
+Query: 3->5 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+735 st======================
+Query: 5->11 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+736 st======================
+Query: 6->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+737 st======================
+Query: 8->1 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+738 st======================
+Query: 5->6 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+739 st======================
+Query: 7->2 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+740 st======================
+Query: 7->8 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+741 st======================
+Query: 7->10 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+742 st======================
+Query: 10->5 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+743 st======================
+Query: 8->2 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+744 st======================
+Query: 3->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+745 st======================
+Query: 2->1 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+746 st======================
+Query: 7->3 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+747 st======================
+Query: 5->1 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+748 st======================
+Query: 4->9 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+749 st======================
+Query: 5->3 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+750 st======================
+Query: 2->4 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+751 st======================
+Query: 6->7 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+752 st======================
+Query: 1->2 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+753 st======================
+Query: 6->2 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+754 st======================
+Query: 4->7 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+755 st======================
+Query: 7->5 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+756 st======================
+Query: 5->3 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+757 st======================
+Query: 1->1 [2,3] 1
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+758 st======================
+Query: 5->11 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+759 st======================
+Query: 7->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+760 st======================
+Query: 6->2 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+761 st======================
+Query: 4->2 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+762 st======================
+Query: 3->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+763 st======================
+Query: 8->11 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+764 st======================
+Query: 1->9 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+765 st======================
+Query: 10->3 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+766 st======================
+Query: 3->10 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+767 st======================
+Query: 2->1 [0,3] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+768 st======================
+Query: 3->10 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+769 st======================
+Query: 4->10 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+770 st======================
+Query: 2->4 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+771 st======================
+Query: 8->3 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+772 st======================
+Query: 4->9 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+773 st======================
+Query: 3->1 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+774 st======================
+Query: 5->3 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+775 st======================
+Query: 3->10 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+776 st======================
+Query: 8->5 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+777 st======================
+Query: 4->10 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+778 st======================
+Query: 7->4 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+779 st======================
+Query: 8->1 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+780 st======================
+Query: 10->9 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+781 st======================
+Query: 6->4 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+782 st======================
+Query: 6->4 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+783 st======================
+Query: 2->6 [1,1] 1
+GroundTruth: 
+1 : 1
+Correct!
+
+784 st======================
+Query: 2->2 [2,3] 1
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+785 st======================
+Query: 5->8 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+786 st======================
+Query: 6->5 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+787 st======================
+Query: 6->1 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+788 st======================
+Query: 1->9 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+789 st======================
+Query: 1->1 [0,3] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+790 st======================
+Query: 4->6 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+791 st======================
+Query: 6->1 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+792 st======================
+Query: 9->5 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+793 st======================
+Query: 7->8 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+794 st======================
+Query: 2->3 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+795 st======================
+Query: 3->1 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+796 st======================
+Query: 5->2 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+797 st======================
+Query: 2->1 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+798 st======================
+Query: 1->3 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+799 st======================
+Query: 7->2 [0,0] 1
+GroundTruth: 
+0 : 0
+Correct!
+
+800 st======================
+Query: 6->3 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+801 st======================
+Query: 3->2 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+802 st======================
+Query: 11->1 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+803 st======================
+Query: 4->1 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+804 st======================
+Query: 2->1 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+805 st======================
+Query: 9->9 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+806 st======================
+Query: 9->1 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+807 st======================
+Query: 2->8 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+808 st======================
+Query: 4->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+809 st======================
+Query: 4->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+810 st======================
+Query: 2->6 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+811 st======================
+Query: 4->2 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+812 st======================
+Query: 1->5 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+813 st======================
+Query: 3->4 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+814 st======================
+Query: 4->5 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+815 st======================
+Query: 1->7 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+816 st======================
+Query: 1->1 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+817 st======================
+Query: 8->3 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+818 st======================
+Query: 5->10 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+819 st======================
+Query: 2->10 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+820 st======================
+Query: 1->1 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+821 st======================
+Query: 4->2 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+822 st======================
+Query: 5->3 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+823 st======================
+Query: 10->8 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+824 st======================
+Query: 8->1 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+825 st======================
+Query: 7->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+826 st======================
+Query: 2->4 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+827 st======================
+Query: 4->1 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+828 st======================
+Query: 5->6 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+829 st======================
+Query: 5->10 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+830 st======================
+Query: 4->1 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+831 st======================
+Query: 1->1 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+832 st======================
+Query: 5->8 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+833 st======================
+Query: 8->1 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+834 st======================
+Query: 1->5 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+835 st======================
+Query: 11->1 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+836 st======================
+Query: 2->1 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+837 st======================
+Query: 7->9 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+838 st======================
+Query: 5->2 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+839 st======================
+Query: 5->6 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+840 st======================
+Query: 1->1 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+841 st======================
+Query: 9->3 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+842 st======================
+Query: 5->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+843 st======================
+Query: 3->1 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+844 st======================
+Query: 8->11 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+845 st======================
+Query: 5->1 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+846 st======================
+Query: 5->8 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+847 st======================
+Query: 1->5 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+848 st======================
+Query: 6->10 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+849 st======================
+Query: 1->2 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+850 st======================
+Query: 1->2 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 1
+3 : 1
+Correct!
+
+851 st======================
+Query: 1->9 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+852 st======================
+Query: 5->9 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+853 st======================
+Query: 1->5 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+854 st======================
+Query: 2->7 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+855 st======================
+Query: 6->1 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+856 st======================
+Query: 6->3 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+857 st======================
+Query: 5->1 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+858 st======================
+Query: 6->3 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+859 st======================
+Query: 2->7 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+860 st======================
+Query: 4->4 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+861 st======================
+Query: 6->6 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+862 st======================
+Query: 2->1 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+863 st======================
+Query: 2->3 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+864 st======================
+Query: 8->2 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+865 st======================
+Query: 4->1 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+866 st======================
+Query: 1->8 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+867 st======================
+Query: 9->1 [3,3] 1
+GroundTruth: 
+3 : 0
+Correct!
+
+868 st======================
+Query: 5->2 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+869 st======================
+Query: 2->8 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+870 st======================
+Query: 3->11 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 1
+Correct!
+
+871 st======================
+Query: 6->11 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+872 st======================
+Query: 3->3 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+873 st======================
+Query: 2->10 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+874 st======================
+Query: 3->9 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 1
+Correct!
+
+875 st======================
+Query: 8->3 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+876 st======================
+Query: 7->10 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+877 st======================
+Query: 10->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+878 st======================
+Query: 4->8 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+879 st======================
+Query: 1->10 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+880 st======================
+Query: 6->8 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!
+
+881 st======================
+Query: 3->2 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+882 st======================
+Query: 1->5 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+883 st======================
+Query: 6->2 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+884 st======================
+Query: 1->7 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+885 st======================
+Query: 3->10 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+886 st======================
+Query: 6->1 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+887 st======================
+Query: 8->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+888 st======================
+Query: 4->9 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+889 st======================
+Query: 1->10 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+890 st======================
+Query: 6->1 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+891 st======================
+Query: 6->3 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+892 st======================
+Query: 1->2 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+893 st======================
+Query: 1->10 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+894 st======================
+Query: 2->9 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+895 st======================
+Query: 4->3 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+896 st======================
+Query: 1->3 [2,3] 2
+GroundTruth: 
+2 : 1
+3 : 1
+Correct!
+
+897 st======================
+Query: 6->1 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+898 st======================
+Query: 7->8 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+899 st======================
+Query: 1->8 [1,1] 1
+GroundTruth: 
+1 : 0
+Correct!
+
+900 st======================
+Query: 6->3 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+901 st======================
+Query: 3->1 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+902 st======================
+Query: 1->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 1
+Correct!
+
+903 st======================
+Query: 6->4 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+904 st======================
+Query: 4->1 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+905 st======================
+Query: 1->8 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+906 st======================
+Query: 11->2 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+907 st======================
+Query: 5->1 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+908 st======================
+Query: 6->10 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+909 st======================
+Query: 7->10 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+910 st======================
+Query: 7->3 [0,0] 2
+GroundTruth: 
+0 : 0
+Correct!
+
+911 st======================
+Query: 5->9 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+912 st======================
+Query: 10->9 [3,3] 2
+GroundTruth: 
+3 : 1
+Correct!
+
+913 st======================
+Query: 4->7 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 0
+Correct!
+
+914 st======================
+Query: 3->10 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+915 st======================
+Query: 7->3 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+916 st======================
+Query: 6->3 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+917 st======================
+Query: 3->3 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+918 st======================
+Query: 7->1 [0,0] 1
+GroundTruth: 
+0 : 0
+Correct!
+
+919 st======================
+Query: 4->11 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+920 st======================
+Query: 7->4 [0,2] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+921 st======================
+Query: 1->10 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+922 st======================
+Query: 3->9 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 1
+Correct!
+
+923 st======================
+Query: 7->3 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+924 st======================
+Query: 9->1 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+925 st======================
+Query: 2->4 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+926 st======================
+Query: 8->2 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+927 st======================
+Query: 2->9 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 1
+Correct!
+
+928 st======================
+Query: 6->8 [2,2] 1
+GroundTruth: 
+2 : 0
+Correct!
+
+929 st======================
+Query: 2->10 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+930 st======================
+Query: 9->9 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+931 st======================
+Query: 10->4 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+932 st======================
+Query: 3->1 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+933 st======================
+Query: 8->5 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+934 st======================
+Query: 6->10 [1,1] 2
+GroundTruth: 
+1 : 0
+Correct!
+
+935 st======================
+Query: 2->9 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+936 st======================
+Query: 1->3 [0,1] 1
+GroundTruth: 
+0 : 1
+1 : 0
+Correct!
+
+937 st======================
+Query: 8->1 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+938 st======================
+Query: 6->7 [0,0] 2
+GroundTruth: 
+0 : 1
+Correct!
+
+939 st======================
+Query: 6->1 [0,0] 1
+GroundTruth: 
+0 : 0
+Correct!
+
+940 st======================
+Query: 5->10 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+941 st======================
+Query: 1->4 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 0
+2 : 0
+Correct!
+
+942 st======================
+Query: 4->4 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+943 st======================
+Query: 3->10 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+944 st======================
+Query: 11->3 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+945 st======================
+Query: 5->2 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+946 st======================
+Query: 8->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+947 st======================
+Query: 5->1 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+948 st======================
+Query: 8->10 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+949 st======================
+Query: 3->1 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+950 st======================
+Query: 2->5 [0,0] 1
+GroundTruth: 
+0 : 1
+Correct!
+
+951 st======================
+Query: 6->3 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+952 st======================
+Query: 8->1 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+953 st======================
+Query: 5->6 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+954 st======================
+Query: 5->3 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+955 st======================
+Query: 6->2 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+956 st======================
+Query: 2->1 [2,2] 2
+GroundTruth: 
+2 : 1
+Correct!
+
+957 st======================
+Query: 2->6 [0,2] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+958 st======================
+Query: 7->2 [2,3] 2
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+959 st======================
+Query: 3->11 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+960 st======================
+Query: 8->4 [0,0] 1
+GroundTruth: 
+0 : 0
+Correct!
+
+961 st======================
+Query: 3->5 [2,2] 1
+GroundTruth: 
+2 : 1
+Correct!
+
+962 st======================
+Query: 7->8 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+963 st======================
+Query: 1->1 [0,3] 1
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+3 : 1
+Correct!
+
+964 st======================
+Query: 3->10 [1,3] 1
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+965 st======================
+Query: 1->11 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+966 st======================
+Query: 11->1 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+967 st======================
+Query: 4->9 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+968 st======================
+Query: 8->7 [1,2] 2
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+969 st======================
+Query: 8->10 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+970 st======================
+Query: 1->7 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+971 st======================
+Query: 1->5 [1,2] 1
+GroundTruth: 
+1 : 0
+2 : 1
+Correct!
+
+972 st======================
+Query: 5->10 [0,1] 1
+GroundTruth: 
+0 : 0
+1 : 0
+Correct!
+
+973 st======================
+Query: 5->4 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+974 st======================
+Query: 4->8 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 0
+Correct!
+
+975 st======================
+Query: 9->3 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+976 st======================
+Query: 2->9 [0,1] 2
+GroundTruth: 
+0 : 0
+1 : 1
+Correct!
+
+977 st======================
+Query: 7->3 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+Correct!
+
+978 st======================
+Query: 2->11 [0,2] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 1
+Correct!
+
+979 st======================
+Query: 2->10 [1,3] 2
+GroundTruth: 
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+980 st======================
+Query: 10->1 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+981 st======================
+Query: 3->5 [0,2] 2
+GroundTruth: 
+0 : 1
+1 : 1
+2 : 1
+Correct!
+
+982 st======================
+Query: 3->9 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 1
+2 : 0
+3 : 1
+Correct!
+
+983 st======================
+Query: 7->8 [1,2] 1
+GroundTruth: 
+1 : 1
+2 : 1
+Correct!
+
+984 st======================
+Query: 1->9 [3,3] 1
+GroundTruth: 
+3 : 1
+Correct!
+
+985 st======================
+Query: 4->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 0
+Correct!
+
+986 st======================
+Query: 1->9 [2,3] 1
+GroundTruth: 
+2 : 0
+3 : 1
+Correct!
+
+987 st======================
+Query: 8->3 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+988 st======================
+Query: 4->6 [1,1] 1
+GroundTruth: 
+1 : 1
+Correct!
+
+989 st======================
+Query: 2->8 [1,1] 2
+GroundTruth: 
+1 : 1
+Correct!
+
+990 st======================
+Query: 5->8 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+991 st======================
+Query: 7->2 [1,3] 2
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+992 st======================
+Query: 4->10 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+993 st======================
+Query: 7->2 [1,2] 2
+GroundTruth: 
+1 : 0
+2 : 0
+Correct!
+
+994 st======================
+Query: 8->8 [0,1] 2
+GroundTruth: 
+0 : 1
+1 : 1
+Correct!
+
+995 st======================
+Query: 7->2 [0,3] 1
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+996 st======================
+Query: 7->3 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+997 st======================
+Query: 8->2 [1,3] 1
+GroundTruth: 
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+998 st======================
+Query: 4->3 [0,3] 2
+GroundTruth: 
+0 : 0
+1 : 0
+2 : 0
+3 : 0
+Correct!
+
+999 st======================
+Query: 7->11 [2,2] 2
+GroundTruth: 
+2 : 0
+Correct!

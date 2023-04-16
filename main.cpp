@@ -45,6 +45,11 @@ bool Query(HRindex& hrindex, vector<QueryResult>& queryRecords, string resultFil
     int i = 0;
     ofstream resultFile;
     resultFile.open(resultFileAddress);
+    //在文件头写入当前时间
+    time_t now = time(0);
+    char* dt = ctime(&now);
+    resultFile << "The local date and time is: " << dt << endl;
+    
     OpSccTable opSccTable = BuildOpSccTable(hrindex.sccTable);
     for (auto queryit = queryRecords.begin(); queryit != queryRecords.end(); queryit++) {
         bool res;
@@ -124,11 +129,13 @@ int main() {
     //string graphDatafileAddHead = "./testdata/graph";
     string storeIndexGraphAddress = "./Result_IG2Grail/test_IG2GRail.txt";
     string storeFull_IG_Address = "./Result_Full_IG/test_FULL_IG.txt";
+    string storeIGJSONPath = "./Result_Full_IG/IG.json";
     string storeSccTableAddress = "./Result_SccTable/test_SccTable.txt";
     string storeRefineNITableAddress = "./Result_RefineNITable/test_RefineNITable.txt";
     string recordConstructTime = "./Result_ConstructSccTableTime/test_BuildSccTable.txt";
     string queryFileAddress = "./QueryFile/testQuery.txt";
     string resultFileAddress = "./Result_Query2Grail/testResult.txt";
+    string resultFileAddress1 = "./Result_Query2Grail/testResult1.txt";
     string updateFileAddress = "./UpdateFile/testUpdate.txt";
 
     cout << "Starting..." << endl;
@@ -165,6 +172,9 @@ int main() {
     //updateRecords.push_back(updateRecord(3, 100, 101, 0));
     //hrindex.updateFromRecords(updateRecords);
     hrindex.updateFromFile(updateFileAddress);
+    sort(hrindex.nodeInfoTable.begin(), hrindex.nodeInfoTable.end(), compareRecordItem);
+    sort(hrindex.refineNITable.begin(), hrindex.refineNITable.end(), compareRefineRecordItem);
+    //hrindex.IG.StoreFullIndexGraphJSON(storeIGJSONPath);
     Query(hrindex, queryRecords, resultFileAddress);
     return 0;
 

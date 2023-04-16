@@ -9,17 +9,12 @@
 #include "Construct_NITable.h"
 #include "IndexGraph.h"
 #include "Process_Query.h"
-#include "update.h"
 #include "HRindex.h"
 #include "SCCGraph.h"
 #include "NIT.h"
 
 /* updatefile structure:
-    type: 
-        1: add a single node (u)
-        2: delete a single node (v)
-        3: add a single edge<u,v>
-        4: delete a single edge<u,v>
+    type: 1,2,3,4
     u: the node id
     v: the node id(in case 1 and 2 this value is -1)
     timestamp: the time when this update happens

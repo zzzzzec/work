@@ -1,3 +1,5 @@
+The local date and time is: Sun Apr 16 21:57:43 2023
+
 
 0 st======================
 Query: 4->1 [1,3] 2
@@ -12,7 +14,7 @@ Query: 7->5 [0,2] 1
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 2 st======================
@@ -107,7 +109,7 @@ Correct!
 14 st======================
 Query: 1->6 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -128,8 +130,8 @@ Correct!
 17 st======================
 Query: 1->8 [0,2] 1
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 2 : 1
 Correct!
 
@@ -172,13 +174,13 @@ Correct!
 23 st======================
 Query: 9->5 [1,1] 1
 GroundTruth: 
-1 : 1
+1 : 0
 Correct!
 
 24 st======================
 Query: 8->6 [2,2] 2
 GroundTruth: 
-2 : 1
+2 : 0
 Correct!
 
 25 st======================
@@ -274,7 +276,7 @@ Correct!
 Query: 1->9 [0,1] 2
 GroundTruth: 
 0 : 0
-1 : 1
+1 : 0
 Correct!
 
 39 st======================
@@ -321,7 +323,7 @@ Correct!
 45 st======================
 Query: 3->6 [0,2] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 2 : 1
 Correct!
@@ -329,7 +331,7 @@ Correct!
 46 st======================
 Query: 10->8 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 Correct!
 
@@ -408,7 +410,7 @@ Correct!
 58 st======================
 Query: 2->6 [0,2] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 2 : 1
 Correct!
@@ -417,14 +419,14 @@ Correct!
 Query: 3->2 [0,1] 2
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 Correct!
 
 60 st======================
 Query: 1->3 [0,1] 2
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 Correct!
 
 61 st======================
@@ -562,14 +564,14 @@ Correct!
 80 st======================
 Query: 9->7 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 Correct!
 
 81 st======================
 Query: 1->8 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -623,7 +625,7 @@ Correct!
 Query: 1->9 [0,3] 2
 GroundTruth: 
 0 : 0
-1 : 1
+1 : 0
 2 : 0
 3 : 1
 Correct!
@@ -669,7 +671,7 @@ Correct!
 94 st======================
 Query: 1->3 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -711,7 +713,7 @@ Correct!
 100 st======================
 Query: 3->6 [0,0] 1
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 101 st======================
@@ -747,7 +749,7 @@ Correct!
 105 st======================
 Query: 1->3 [1,3] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -788,7 +790,7 @@ Query: 8->7 [0,2] 1
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 111 st======================
@@ -823,7 +825,7 @@ Correct!
 115 st======================
 Query: 3->2 [1,3] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -832,7 +834,7 @@ Correct!
 Query: 4->5 [1,2] 1
 GroundTruth: 
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 117 st======================
@@ -867,13 +869,13 @@ Correct!
 121 st======================
 Query: 1->7 [1,1] 1
 GroundTruth: 
-1 : 1
+1 : 0
 Correct!
 
 122 st======================
 Query: 1->3 [1,3] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -887,8 +889,8 @@ Correct!
 124 st======================
 Query: 1->6 [0,1] 1
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 Correct!
 
 125 st======================
@@ -915,7 +917,7 @@ Correct!
 Query: 1->9 [0,1] 2
 GroundTruth: 
 0 : 0
-1 : 1
+1 : 0
 Correct!
 
 129 st======================
@@ -938,7 +940,7 @@ Correct!
 131 st======================
 Query: 3->5 [0,1] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -952,14 +954,14 @@ Correct!
 133 st======================
 Query: 3->8 [0,0] 2
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 134 st======================
 Query: 1->2 [0,1] 2
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 Correct!
 
 135 st======================
@@ -973,14 +975,14 @@ Correct!
 136 st======================
 Query: 2->5 [0,1] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
 137 st======================
 Query: 1->9 [1,1] 1
 GroundTruth: 
-1 : 1
+1 : 0
 Correct!
 
 138 st======================
@@ -1000,7 +1002,7 @@ Query: 4->5 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 141 st======================
@@ -1030,7 +1032,7 @@ Query: 4->6 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 145 st======================
@@ -1051,7 +1053,7 @@ Correct!
 Query: 1->2 [0,3] 1
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -1083,13 +1085,13 @@ Query: 7->5 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 152 st======================
 Query: 1->8 [0,0] 1
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 153 st======================
@@ -1132,7 +1134,7 @@ Correct!
 158 st======================
 Query: 3->6 [0,2] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 2 : 1
 Correct!
@@ -1195,13 +1197,13 @@ Query: 6->5 [0,2] 1
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 167 st======================
 Query: 10->7 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 Correct!
 
@@ -1210,7 +1212,7 @@ Query: 8->6 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 169 st======================
@@ -1222,7 +1224,7 @@ Correct!
 170 st======================
 Query: 1->7 [0,0] 1
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 171 st======================
@@ -1248,7 +1250,7 @@ Correct!
 174 st======================
 Query: 1->7 [0,0] 2
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 175 st======================
@@ -1267,7 +1269,7 @@ Correct!
 177 st======================
 Query: 1->7 [0,0] 1
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 178 st======================
@@ -1298,7 +1300,7 @@ Query: 4->6 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 182 st======================
@@ -1325,7 +1327,7 @@ Correct!
 185 st======================
 Query: 1->6 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -1339,7 +1341,7 @@ Correct!
 187 st======================
 Query: 10->8 [1,1] 1
 GroundTruth: 
-1 : 1
+1 : 0
 Correct!
 
 188 st======================
@@ -1369,7 +1371,7 @@ Query: 8->7 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 192 st======================
@@ -1396,7 +1398,7 @@ Correct!
 Query: 1->3 [0,3] 1
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -1420,7 +1422,7 @@ Correct!
 198 st======================
 Query: 3->8 [0,1] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -1486,7 +1488,7 @@ Correct!
 207 st======================
 Query: 3->2 [1,3] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -1501,8 +1503,8 @@ Correct!
 209 st======================
 Query: 1->4 [0,1] 2
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 Correct!
 
 210 st======================
@@ -1558,15 +1560,15 @@ Correct!
 217 st======================
 Query: 1->6 [0,2] 2
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 2 : 1
 Correct!
 
 218 st======================
 Query: 3->6 [0,0] 2
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 219 st======================
@@ -1593,7 +1595,7 @@ Correct!
 222 st======================
 Query: 1->4 [0,0] 1
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 223 st======================
@@ -1647,7 +1649,7 @@ Correct!
 230 st======================
 Query: 2->8 [0,1] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -1686,7 +1688,7 @@ Correct!
 Query: 3->2 [0,2] 1
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -1728,8 +1730,8 @@ Correct!
 241 st======================
 Query: 1->8 [0,1] 2
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 Correct!
 
 242 st======================
@@ -1783,7 +1785,7 @@ Correct!
 Query: 1->10 [0,1] 1
 GroundTruth: 
 0 : 0
-1 : 1
+1 : 0
 Correct!
 
 249 st======================
@@ -1815,7 +1817,7 @@ Query: 8->5 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 253 st======================
@@ -1900,7 +1902,7 @@ Query: 8->5 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 264 st======================
@@ -2013,15 +2015,15 @@ Correct!
 278 st======================
 Query: 3->8 [0,1] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
 279 st======================
 Query: 1->7 [0,1] 2
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 Correct!
 
 280 st======================
@@ -2034,7 +2036,7 @@ Correct!
 281 st======================
 Query: 2->6 [0,0] 1
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 282 st======================
@@ -2046,7 +2048,7 @@ Correct!
 283 st======================
 Query: 2->4 [0,0] 2
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 284 st======================
@@ -2079,7 +2081,7 @@ Correct!
 Query: 3->2 [0,3] 1
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -2104,8 +2106,8 @@ Correct!
 290 st======================
 Query: 1->6 [0,2] 2
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 2 : 1
 Correct!
 
@@ -2120,7 +2122,7 @@ Correct!
 Query: 8->6 [1,2] 2
 GroundTruth: 
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 293 st======================
@@ -2182,7 +2184,7 @@ Correct!
 Query: 7->5 [1,2] 2
 GroundTruth: 
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 302 st======================
@@ -2320,7 +2322,7 @@ Correct!
 Query: 6->5 [1,2] 1
 GroundTruth: 
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 321 st======================
@@ -2333,7 +2335,7 @@ Correct!
 Query: 1->9 [0,3] 1
 GroundTruth: 
 0 : 0
-1 : 1
+1 : 0
 2 : 0
 3 : 1
 Correct!
@@ -2433,13 +2435,13 @@ Correct!
 335 st======================
 Query: 10->6 [1,1] 2
 GroundTruth: 
-1 : 1
+1 : 0
 Correct!
 
 336 st======================
 Query: 2->6 [0,1] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -2472,8 +2474,8 @@ Correct!
 341 st======================
 Query: 1->6 [0,1] 2
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 Correct!
 
 342 st======================
@@ -2501,22 +2503,22 @@ Correct!
 345 st======================
 Query: 3->5 [0,1] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
 346 st======================
 Query: 1->4 [0,2] 1
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 2 : 0
 Correct!
 
 347 st======================
 Query: 1->5 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -2615,8 +2617,8 @@ Correct!
 360 st======================
 Query: 1->7 [0,2] 2
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 2 : 1
 Correct!
 
@@ -2630,7 +2632,7 @@ Correct!
 Query: 1->10 [0,3] 1
 GroundTruth: 
 0 : 0
-1 : 1
+1 : 0
 2 : 0
 3 : 1
 Correct!
@@ -2686,27 +2688,27 @@ Correct!
 369 st======================
 Query: 3->8 [0,1] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
 370 st======================
 Query: 3->5 [0,0] 1
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 371 st======================
 Query: 4->8 [2,2] 1
 GroundTruth: 
-2 : 1
+2 : 0
 Correct!
 
 372 st======================
 Query: 1->9 [0,3] 2
 GroundTruth: 
 0 : 0
-1 : 1
+1 : 0
 2 : 0
 3 : 1
 Correct!
@@ -2715,7 +2717,7 @@ Correct!
 Query: 8->5 [1,2] 1
 GroundTruth: 
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 374 st======================
@@ -2791,7 +2793,7 @@ Correct!
 Query: 1->10 [0,1] 1
 GroundTruth: 
 0 : 0
-1 : 1
+1 : 0
 Correct!
 
 384 st======================
@@ -2836,8 +2838,8 @@ Correct!
 389 st======================
 Query: 1->6 [0,1] 2
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 Correct!
 
 390 st======================
@@ -2872,7 +2874,7 @@ Correct!
 394 st======================
 Query: 2->4 [0,0] 1
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 395 st======================
@@ -2921,7 +2923,7 @@ Correct!
 Query: 3->2 [0,2] 1
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -2937,7 +2939,7 @@ Correct!
 403 st======================
 Query: 9->8 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 Correct!
 
@@ -2950,7 +2952,7 @@ Correct!
 405 st======================
 Query: 2->4 [0,2] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 2 : 0
 Correct!
@@ -3119,7 +3121,7 @@ Correct!
 428 st======================
 Query: 2->4 [0,1] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -3212,7 +3214,7 @@ Correct!
 440 st======================
 Query: 1->9 [1,1] 1
 GroundTruth: 
-1 : 1
+1 : 0
 Correct!
 
 441 st======================
@@ -3255,7 +3257,7 @@ Correct!
 Query: 3->2 [0,2] 2
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -3280,7 +3282,7 @@ Query: 8->7 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 450 st======================
@@ -3370,7 +3372,7 @@ Correct!
 462 st======================
 Query: 3->5 [0,1] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -3422,7 +3424,7 @@ Correct!
 469 st======================
 Query: 3->2 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -3512,7 +3514,7 @@ Correct!
 482 st======================
 Query: 1->9 [1,3] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 3 : 1
 Correct!
@@ -3616,7 +3618,7 @@ Correct!
 496 st======================
 Query: 10->6 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 Correct!
 
@@ -3669,8 +3671,8 @@ Correct!
 503 st======================
 Query: 1->6 [0,1] 1
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 Correct!
 
 504 st======================
@@ -3763,7 +3765,7 @@ Correct!
 Query: 8->6 [1,2] 2
 GroundTruth: 
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 517 st======================
@@ -3930,7 +3932,7 @@ Correct!
 539 st======================
 Query: 8->7 [2,2] 1
 GroundTruth: 
-2 : 1
+2 : 0
 Correct!
 
 540 st======================
@@ -3956,7 +3958,7 @@ Correct!
 543 st======================
 Query: 3->7 [0,1] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -4118,7 +4120,7 @@ Correct!
 565 st======================
 Query: 3->5 [0,2] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 2 : 1
 Correct!
@@ -4162,14 +4164,14 @@ Correct!
 571 st======================
 Query: 1->4 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 Correct!
 
 572 st======================
 Query: 3->4 [0,2] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 2 : 0
 Correct!
@@ -4239,7 +4241,7 @@ Correct!
 581 st======================
 Query: 1->10 [1,3] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 3 : 1
 Correct!
@@ -4279,7 +4281,7 @@ Correct!
 586 st======================
 Query: 1->2 [1,3] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -4346,7 +4348,7 @@ Correct!
 595 st======================
 Query: 4->8 [2,2] 2
 GroundTruth: 
-2 : 1
+2 : 0
 Correct!
 
 596 st======================
@@ -4360,7 +4362,7 @@ Correct!
 597 st======================
 Query: 10->7 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 Correct!
 
@@ -4375,7 +4377,7 @@ Correct!
 599 st======================
 Query: 1->10 [1,1] 2
 GroundTruth: 
-1 : 1
+1 : 0
 Correct!
 
 600 st======================
@@ -4445,14 +4447,14 @@ Correct!
 609 st======================
 Query: 3->4 [0,1] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
 610 st======================
 Query: 1->6 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -4481,7 +4483,7 @@ Correct!
 Query: 8->6 [1,2] 1
 GroundTruth: 
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 615 st======================
@@ -4559,7 +4561,7 @@ Correct!
 Query: 3->2 [0,2] 2
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -4567,7 +4569,7 @@ Correct!
 Query: 1->3 [0,1] 1
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 Correct!
 
 626 st======================
@@ -4596,7 +4598,7 @@ Correct!
 Query: 3->2 [0,3] 1
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -4620,8 +4622,8 @@ Correct!
 632 st======================
 Query: 1->4 [0,1] 2
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 Correct!
 
 633 st======================
@@ -4662,7 +4664,7 @@ Correct!
 638 st======================
 Query: 2->5 [0,0] 2
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 639 st======================
@@ -4676,7 +4678,7 @@ Correct!
 640 st======================
 Query: 1->4 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 Correct!
 
@@ -4689,8 +4691,8 @@ Correct!
 642 st======================
 Query: 1->7 [0,1] 1
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 Correct!
 
 643 st======================
@@ -4830,8 +4832,8 @@ Correct!
 661 st======================
 Query: 1->6 [0,2] 2
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 2 : 1
 Correct!
 
@@ -4839,7 +4841,7 @@ Correct!
 Query: 6->5 [1,2] 1
 GroundTruth: 
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 663 st======================
@@ -4859,7 +4861,7 @@ Correct!
 665 st======================
 Query: 1->4 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 Correct!
 
@@ -4879,7 +4881,7 @@ Correct!
 668 st======================
 Query: 3->8 [0,1] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -4893,7 +4895,7 @@ Correct!
 Query: 3->2 [0,3] 2
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -4910,7 +4912,7 @@ Correct!
 Query: 1->9 [0,3] 2
 GroundTruth: 
 0 : 0
-1 : 1
+1 : 0
 2 : 0
 3 : 1
 Correct!
@@ -4941,16 +4943,16 @@ Correct!
 676 st======================
 Query: 1->4 [0,2] 2
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 2 : 0
 Correct!
 
 677 st======================
 Query: 1->7 [0,2] 1
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 2 : 1
 Correct!
 
@@ -5035,7 +5037,7 @@ Correct!
 688 st======================
 Query: 10->7 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 Correct!
 
@@ -5099,7 +5101,7 @@ Correct!
 697 st======================
 Query: 1->10 [1,3] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 3 : 1
 Correct!
@@ -5127,7 +5129,7 @@ Correct!
 701 st======================
 Query: 3->6 [0,2] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 2 : 1
 Correct!
@@ -5135,7 +5137,7 @@ Correct!
 702 st======================
 Query: 1->7 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -5186,13 +5188,13 @@ Correct!
 709 st======================
 Query: 3->7 [0,0] 1
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 710 st======================
 Query: 3->8 [0,1] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -5231,7 +5233,7 @@ Correct!
 715 st======================
 Query: 2->6 [0,1] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -5251,7 +5253,7 @@ Correct!
 718 st======================
 Query: 1->9 [1,3] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 3 : 1
 Correct!
@@ -5259,7 +5261,7 @@ Correct!
 719 st======================
 Query: 1->5 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -5291,13 +5293,13 @@ Query: 8->6 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 724 st======================
 Query: 1->4 [1,1] 2
 GroundTruth: 
-1 : 1
+1 : 0
 Correct!
 
 725 st======================
@@ -5317,7 +5319,7 @@ Correct!
 727 st======================
 Query: 9->7 [1,1] 1
 GroundTruth: 
-1 : 1
+1 : 0
 Correct!
 
 728 st======================
@@ -5365,7 +5367,7 @@ Correct!
 734 st======================
 Query: 3->5 [0,0] 2
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 735 st======================
@@ -5419,7 +5421,7 @@ Correct!
 742 st======================
 Query: 10->5 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 Correct!
 
@@ -5478,7 +5480,7 @@ Correct!
 750 st======================
 Query: 2->4 [0,2] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 2 : 0
 Correct!
@@ -5494,7 +5496,7 @@ Correct!
 Query: 1->2 [0,3] 1
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -5513,14 +5515,14 @@ Query: 4->7 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 755 st======================
 Query: 7->5 [1,2] 1
 GroundTruth: 
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 756 st======================
@@ -5568,7 +5570,7 @@ Correct!
 762 st======================
 Query: 3->2 [1,3] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -5584,7 +5586,7 @@ Correct!
 Query: 1->9 [0,1] 1
 GroundTruth: 
 0 : 0
-1 : 1
+1 : 0
 Correct!
 
 765 st======================
@@ -5630,7 +5632,7 @@ Correct!
 770 st======================
 Query: 2->4 [0,1] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -5746,7 +5748,7 @@ Query: 6->5 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 787 st======================
@@ -5774,7 +5776,7 @@ Correct!
 790 st======================
 Query: 4->6 [2,2] 1
 GroundTruth: 
-2 : 1
+2 : 0
 Correct!
 
 791 st======================
@@ -5787,7 +5789,7 @@ Correct!
 792 st======================
 Query: 9->5 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 0
 Correct!
 
@@ -5831,7 +5833,7 @@ Correct!
 798 st======================
 Query: 1->3 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -5929,14 +5931,14 @@ Correct!
 812 st======================
 Query: 1->5 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
 813 st======================
 Query: 3->4 [0,1] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -5945,7 +5947,7 @@ Query: 4->5 [0,2] 1
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 815 st======================
@@ -6006,7 +6008,7 @@ Correct!
 823 st======================
 Query: 10->8 [1,1] 2
 GroundTruth: 
-1 : 1
+1 : 0
 Correct!
 
 824 st======================
@@ -6089,7 +6091,7 @@ Correct!
 834 st======================
 Query: 1->5 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -6182,7 +6184,7 @@ Correct!
 847 st======================
 Query: 1->5 [0,0] 2
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 848 st======================
@@ -6202,7 +6204,7 @@ Correct!
 Query: 1->2 [0,3] 1
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 2 : 1
 3 : 1
 Correct!
@@ -6230,7 +6232,7 @@ Correct!
 854 st======================
 Query: 2->7 [0,1] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -6266,7 +6268,7 @@ Correct!
 859 st======================
 Query: 2->7 [0,0] 1
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 860 st======================
@@ -6320,7 +6322,7 @@ Correct!
 866 st======================
 Query: 1->8 [0,0] 1
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 867 st======================
@@ -6340,7 +6342,7 @@ Correct!
 869 st======================
 Query: 2->8 [0,1] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 Correct!
 
@@ -6403,7 +6405,7 @@ Correct!
 878 st======================
 Query: 4->8 [2,2] 1
 GroundTruth: 
-2 : 1
+2 : 0
 Correct!
 
 879 st======================
@@ -6479,7 +6481,7 @@ Correct!
 889 st======================
 Query: 1->10 [1,1] 2
 GroundTruth: 
-1 : 1
+1 : 0
 Correct!
 
 890 st======================
@@ -6501,7 +6503,7 @@ Correct!
 Query: 1->2 [0,1] 1
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 Correct!
 
 893 st======================
@@ -6554,7 +6556,7 @@ Correct!
 899 st======================
 Query: 1->8 [1,1] 1
 GroundTruth: 
-1 : 1
+1 : 0
 Correct!
 
 900 st======================
@@ -6576,7 +6578,7 @@ Correct!
 Query: 1->10 [0,3] 1
 GroundTruth: 
 0 : 0
-1 : 1
+1 : 0
 2 : 0
 3 : 1
 Correct!
@@ -6600,7 +6602,7 @@ Correct!
 905 st======================
 Query: 1->8 [0,0] 2
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 906 st======================
@@ -6661,7 +6663,7 @@ Query: 4->7 [0,2] 2
 GroundTruth: 
 0 : 1
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 914 st======================
@@ -6718,7 +6720,7 @@ Correct!
 Query: 1->10 [0,1] 2
 GroundTruth: 
 0 : 0
-1 : 1
+1 : 0
 Correct!
 
 922 st======================
@@ -6820,7 +6822,7 @@ Correct!
 Query: 1->3 [0,1] 1
 GroundTruth: 
 0 : 1
-1 : 1
+1 : 0
 Correct!
 
 937 st======================
@@ -6854,8 +6856,8 @@ Correct!
 941 st======================
 Query: 1->4 [0,2] 2
 GroundTruth: 
-0 : 1
-1 : 1
+0 : 0
+1 : 0
 2 : 0
 Correct!
 
@@ -6923,7 +6925,7 @@ Correct!
 950 st======================
 Query: 2->5 [0,0] 1
 GroundTruth: 
-0 : 1
+0 : 0
 Correct!
 
 951 st======================
@@ -6975,7 +6977,7 @@ Correct!
 957 st======================
 Query: 2->6 [0,2] 1
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 2 : 1
 Correct!
@@ -7054,7 +7056,7 @@ Correct!
 Query: 8->7 [1,2] 2
 GroundTruth: 
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 969 st======================
@@ -7068,14 +7070,14 @@ Correct!
 970 st======================
 Query: 1->7 [1,2] 2
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
 971 st======================
 Query: 1->5 [1,2] 1
 GroundTruth: 
-1 : 1
+1 : 0
 2 : 1
 Correct!
 
@@ -7097,7 +7099,7 @@ Correct!
 Query: 4->8 [1,2] 1
 GroundTruth: 
 1 : 1
-2 : 1
+2 : 0
 Correct!
 
 975 st======================
@@ -7149,7 +7151,7 @@ Correct!
 981 st======================
 Query: 3->5 [0,2] 2
 GroundTruth: 
-0 : 1
+0 : 0
 1 : 1
 2 : 1
 Correct!

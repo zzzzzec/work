@@ -193,8 +193,7 @@ ProcessEGSDisQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode
                             queryOnIG.push_back(record);
                         }
                         catch (...) {
-                            GDBSTOP(true)
-                                continue;
+                            continue;
                         }
                     }
                     else {
@@ -209,7 +208,6 @@ ProcessEGSDisQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode
                                 queryOnIG.push_back(record);
                             }
                             catch (...) {
-                                GDBSTOP(true)
                                 continue;
                             }
                         }
@@ -226,7 +224,10 @@ ProcessEGSDisQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode
     }
     query_endTime = clock();
     recordQT = (double)(query_endTime - query_startTime);
-    GDBSTOP(queryOnIG.size() == 0)
+    if (queryOnIG.size() == 0) {
+        QueryOnIG record(-2, -2);
+        queryOnIG.push_back(record);
+    }
     return queryOnIG;
 }
 
