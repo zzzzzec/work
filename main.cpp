@@ -52,6 +52,7 @@ bool Query(HRindex& hrindex, vector<QueryResult>& queryRecords, string resultFil
     
     OpSccTable opSccTable = BuildOpSccTable(hrindex.sccTable);
     for (auto queryit = queryRecords.begin(); queryit != queryRecords.end(); queryit++) {
+        cout << "Query(" << i << "): " << queryit->souID << "->" << queryit->tarID << " [" << queryit->query_b << "," << queryit->query_e << "] " << queryit->type << endl;
         bool res;
         bool truth = judge(groundTruth[i], queryit->type);
         double tmp = 0;
@@ -124,32 +125,34 @@ bool GenerateRandomQuery(HRindex& hrindex, int num, string queryFileAddress) {
 
 int main() {
 
-    int timeIntervalLength = 4; 
-    string graphDatafileAddHead = "./GraphData_DBLP/graph";
+    int timeIntervalLength = 16; 
+    //string graphDatafileAddHead = "./GraphData_DBLP/graph";
     //string graphDatafileAddHead = "./testdata/graph";
+    string graphDatafileAddHead = "./Dataset/sx-mathoverflow/sx-mathoverflow";
     string storeIndexGraphAddress = "./Result_IG2Grail/test_IG2GRail.txt";
     string storeFull_IG_Address = "./Result_Full_IG/test_FULL_IG.txt";
     string storeIGJSONPath = "./Result_Full_IG/IG.json";
     string storeSccTableAddress = "./Result_SccTable/test_SccTable.txt";
     string storeRefineNITableAddress = "./Result_RefineNITable/test_RefineNITable.txt";
-    string recordConstructTime = "./Result_ConstructSccTableTime/test_BuildSccTable.txt";
     string queryFileAddress = "./QueryFile/testQuery.txt";
     string resultFileAddress = "./Result_Query2Grail/testResult.txt";
     string resultFileAddress1 = "./Result_Query2Grail/testResult1.txt";
     string updateFileAddress = "./UpdateFile/testUpdate.txt";
-
+    string logFileAddress = "./log.txt";
     cout << "Starting..." << endl;
     
-    HRindex hrindex;
-    hrindex.timeIntervalLength = timeIntervalLength;
-    hrindex.graphDatafileAddHead = graphDatafileAddHead;
-    hrindex.storeIndexGraphAddress = storeIndexGraphAddress;
-    hrindex.storeFull_IG_Address = storeFull_IG_Address;
-    hrindex.storeSccTableAddress = storeSccTableAddress;
-    hrindex.storeRefineNITableAddress = storeRefineNITableAddress;
-    hrindex.recordConstructTime = recordConstructTime;
-    hrindex.queryFileAddress = queryFileAddress;
-    hrindex.resultFileAddress = resultFileAddress;
+    HRindex hrindex(
+        timeIntervalLength,
+        graphDatafileAddHead,
+        queryFileAddress,
+        resultFileAddress,
+        
+        storeIndexGraphAddress,
+        storeFull_IG_Address,
+        storeSccTableAddress,
+        storeRefineNITableAddress,
+        logFileAddress
+    );
 
     hrindex.buildOriginGraph();
     hrindex.getSCCTable();
@@ -157,7 +160,8 @@ int main() {
     hrindex.getNITable();
     hrindex.getRefineNITable();
     hrindex.buildIndexGraph();
-
+    hrindex.printStatistics();
+    cout << "Finish building index graph!" << endl;
     /*
     vector<QueryResult> queryRecords;
     QueryResult queryRecord(4,1, 1, 4, 1, 0);
@@ -166,14 +170,21 @@ int main() {
     */
     //Query(hrindex, queryRecords);
     //GenerateRandomQuery(hrindex, 1000, queryFileAddress);
+    cout << "start query..." << endl;
     vector<QueryResult> queryRecords = ReadQuery(queryFileAddress);
+    cout << "query loaded! size :" << queryRecords.size() << endl;
     //Query(hrindex, queryRecords, resultFileAddress);
     //vector<updateRecord> updateRecords;
     //updateRecords.push_back(updateRecord(3, 100, 101, 0));
     //hrindex.updateFromRecords(updateRecords);
     hrindex.updateFromFile(updateFileAddress);
+    
+    for (int i = 0; i < hrindex.timeIntervalLength; i++) {
+        hrindex.originGraph[i].gsort();
+    }
     sort(hrindex.nodeInfoTable.begin(), hrindex.nodeInfoTable.end(), compareRecordItem);
     sort(hrindex.refineNITable.begin(), hrindex.refineNITable.end(), compareRefineRecordItem);
+    cout << "num = " << hrindex.originGraph[0].GetNodeEdgesNum(4) << endl;
     //hrindex.IG.StoreFullIndexGraphJSON(storeIGJSONPath);
     Query(hrindex, queryRecords, resultFileAddress);
     return 0;

@@ -16,6 +16,8 @@
 #include <assert.h>
 #include <stack>
 #include <map>
+#include <iomanip>
+#include <functional>
 
 #define DEBUG_LEVEL 2
 

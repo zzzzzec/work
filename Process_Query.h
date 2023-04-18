@@ -169,6 +169,15 @@ ProcessEGSDisQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode
      *      若均返回false，则最终返回false。*/
     clock_t query_startTime, query_endTime;
     query_startTime = clock();
+    if(source.vectorOfSccs.size() == 0 || target.vectorOfSccs.size() == 0) {
+        //查询记录中若存在(-2,-2)，可直接返回false
+        QueryOnIG record(-2, -2);
+        queryOnIG.push_back(record);
+        query_endTime = clock();
+        recordQT += (double) (query_endTime - query_startTime) / CLOCKS_PER_SEC;
+        return queryOnIG;
+    }
+    
     bool timeIntervalcrossFlag = false;
 
     for (auto souIter = source.vectorOfSccs.begin(); souIter != source.vectorOfSccs.end(); souIter++) {
@@ -239,7 +248,15 @@ ProcessEGSConQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode
     vector<QueryOnIG> queryOnIG;
     clock_t query_startTime, query_endTime;
     query_startTime = clock();
-
+    if(source.vectorOfSccs.size() == 0 || target.vectorOfSccs.size() == 0) {
+        //查询记录中若存在(-2,-2)，可直接返回false
+        QueryOnIG record(-2, -2);
+        queryOnIG.push_back(record);
+        query_endTime = clock();
+        recordQT += (double) (query_endTime - query_startTime) / CLOCKS_PER_SEC;
+        return queryOnIG;
+    }
+    
     if (!source.vectorOfSccs.empty() && !target.vectorOfSccs.empty()) {
         if (!source.isFull || !target.isFull) {
             //sou或tar在查询区间内在某一时间段不存在，可立即回答可达性：No
@@ -315,6 +332,7 @@ ProcessEGSConQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode
 Node2Scc FindSccsOfNode2(OpSccTable& opSccTable, int nodeId, bitset<MNS> queryLife) {
     Node2Scc node2Scc;
     node2Scc.nodeID = nodeId;
+    node2Scc.vectorOfSccs.clear();
     bitset<MNS> haveFound;
     haveFound.reset();
     auto opSTIter = opSccTable.find(nodeId);
@@ -332,7 +350,7 @@ Node2Scc FindSccsOfNode2(OpSccTable& opSccTable, int nodeId, bitset<MNS> queryLi
             }
         }
     }
-    else assert(false);
+    else return node2Scc;
     bitset<MNS> judgeLife = LifespanDifference(queryLife, haveFound);
     node2Scc.isFull = judgeLife.none();
     sort(node2Scc.vectorOfSccs.begin(), node2Scc.vectorOfSccs.end(), SortSccInNode);

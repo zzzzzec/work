@@ -30,7 +30,8 @@ bool operator<(const SCCEdgeInfoItem& a, const SCCEdgeInfoItem& b) {
 typedef set<SCCEdgeInfoItem> SCCEdgeInfo;
 typedef vector<SCCEdgeInfo> SCCEdgeInfoSequence;
 SccTable GetSCCTable(int timeIntervalLength, Graphs& originGraph, vector<vector<int>>& evolvingGraphSequence, SCCEdgeInfoSequence& sccEdgesSequence, double& buildSccTableTime);
-vector<int> GetFileData(string fileAddressHead, int timeStamp);
+vector<int> GetFileData1(string fileAddressHead, int timeStamp);
+vector<int> GetFileData2(string fileAddressHead, int timeStamp);
 int getSccId(int vertexId, int timestamp, SccTable sccTable);
 void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId, Graphs& originGraph);
 SCCEdgeInfo BuildCurDAGEdgesDataSequenceFromIndex(Graph graph, SccTable &st, map<int, int> &index_ST, int &timeStamp);
@@ -153,7 +154,7 @@ int getSccId(int vertexId, int timestamp, SccTable sccTable) {
     return -1;
 }
 
-vector<int> GetFileData(string fileAddressHead, int timeStamp) {
+vector<int> GetFileData1(string fileAddressHead, int timeStamp) {
     string fileAddressTail = to_string(timeStamp) + ".txt";
     string fileAddress = fileAddressHead + fileAddressTail;
     vector<int> dataVector;
@@ -169,7 +170,24 @@ vector<int> GetFileData(string fileAddressHead, int timeStamp) {
     return dataVector;
 }
 
-void UpdateSccTable(int numOfSCC, map<int, int> &v2s, SccTable &st, int &timeStamp, int &sccId, Graphs& originGraph) {
+vector<int> GetFileData2(string fileAddressHead, int timeStamp) {
+    string fileAddressTail = to_string(timeStamp) + ".txt";
+    string fileAddress = fileAddressHead + fileAddressTail;
+    vector<int> dataVector;
+    ifstream fin;
+    fin.open(fileAddress);
+    int src, dst, ts;
+    if (fin) {
+        while (fin >> src >> dst >> ts) {
+            dataVector.push_back(src);
+            dataVector.push_back(dst);
+        }
+    }
+    fin.close();
+    return dataVector;
+}
+
+void UpdateSccTable(int numOfSCC, map<int, int>& v2s, SccTable& st, int& timeStamp, int& sccId, Graphs& originGraph) {
     map<int, set<int>> sccSet;
     //sccset: key:SCC的编号 value:该SCC中所有节点的集合
     for (auto it = v2s.begin(); it != v2s.end(); it++) {

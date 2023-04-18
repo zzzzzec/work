@@ -65,6 +65,7 @@ public:
     Graph Reverse();                                    //求反向图
     AdjList_Graph GetVertices();                        //获取图的邻接表
     int GetVexNum();                                    //获取图的节点数
+    int GetEdgeNum() { return edgenum; }
     int GetConnectedCount();                            //获取SCC数量
     map<int, vector<NodeinG>> GetSccOfIGraph();         //获取IGraph中的SCC及其对应ID
     stack<NodeinG> GetReversePost();                    //返回顶点的逆后序序列
@@ -72,9 +73,11 @@ public:
     void CalReversePost();                              //通过递归调用DFSForReversePost求得逆后序
     void CalculateConnection();                         //求图的强连通分量
     void SumScc();
-
+    void gsort();
+    
     map<int, int> GetMapV2S();
     bool NodeIsExists(int nodeID);
+    int GetNodeEdgesNum(int nodeID);
     int VerPos(int nodeID);
     void AddOutToSourceNode(int souPos, int tarID);
     bool AddNode(int ID, int SCCID);
@@ -148,6 +151,7 @@ Graph Graph::Reverse() {
 }
 
 void Graph::InsertEdge(int souID, int tarID) {
+    if (souID == tarID) return;
     int souPos = VerPos(souID);
     int tarPos = VerPos(tarID);
 
@@ -180,11 +184,24 @@ void Graph::InsertEdgeWithCheck(int souID, int tarID) {
     AddOutToSourceNode(souPos, tarID);
 }
 
-void Graph::AddOutToSourceNode(int souPos, int tarID) {
-//尾插法
-    ArcNode *newArcNode = new ArcNode(tarID);
-    ArcNode *temp = vertices[souPos].firstArc;
+inline bool _checkExist(AdjList_Graph& vertices ,int souPos, int tarID) {
+    ArcNode* temp = vertices[souPos].firstArc;
+    while(temp) {
+        if(temp->tarID == tarID) {
+            return true;
+        }
+        temp = temp->nextarc;
+    }
+    return false;
+}
 
+void Graph::AddOutToSourceNode(int souPos, int tarID) {
+    //尾插法
+    if(_checkExist(vertices, souPos, tarID)) {
+        return;
+    }
+    ArcNode* newArcNode = new ArcNode(tarID);
+    ArcNode *temp = vertices[souPos].firstArc;
     if (temp == NULL) {
         //temp为NULL
         vertices[souPos].firstArc = newArcNode;
@@ -276,6 +293,24 @@ void Graph::CalculateConnection() {
         }
     }
     delete[] visited;
+}
+
+void Graph::gsort() {
+    sort(vertices.begin(), vertices.end(), [](VerNode &a, VerNode &b) {
+        return a.souID < b.souID;
+    });
+}
+
+int Graph::GetNodeEdgesNum(int nodeID) {
+    if(!NodeIsExists(nodeID)) {
+        return -1;
+    }
+    int nodePos = VerPos(nodeID);
+    int count = 0;
+    for (ArcNode *p = vertices[nodePos].firstArc; p; p = p->nextarc) {
+        count++;
+    }
+    return count;
 }
 
 map<int, vector<NodeinG>> Graph::GetSccOfIGraph() {

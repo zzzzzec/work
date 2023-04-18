@@ -56,6 +56,20 @@
         "xlocinfo": "cpp",
         "xlocnum": "cpp",
         "xstddef": "cpp",
-        "xtr1common": "cpp"
+        "xtr1common": "cpp",
+        "array": "cpp",
+        "functional": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "xhash": "cpp",
+        "chrono": "cpp",
+        "charconv": "cpp",
+        "format": "cpp",
+        "forward_list": "cpp",
+        "locale": "cpp",
+        "optional": "cpp",
+        "ratio": "cpp",
+        "xlocbuf": "cpp",
+        "xlocmes": "cpp"
     }
 }

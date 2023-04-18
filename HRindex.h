@@ -4,7 +4,8 @@
 #define UPDATE_TYPE_ADD_EDGE 2
 #define UPDATE_TYPE_DELETE_NODE 3
 #define UPDATE_TYPE_DELETE_EDGE 4
-
+#define HRINDEX_PRINT logFile
+#include <chrono>
 #include "common.h"
 #include "Lifespan.h"
 #include "Graph.h"
@@ -19,12 +20,20 @@
 #include "NIT.h"
 using namespace std;
 
+template <typename R, typename F, typename... Args>
+std::pair<double, R> measureTime(F func, Args&&... args) {
+    auto start = std::chrono::high_resolution_clock::now();
+    R result = std::invoke(func, std::forward<Args>(args)...);
+    auto end = std::chrono::high_resolution_clock::now();
+    double duration = std::chrono::duration<double, std::milli>(end - start).count();
+    return { duration, result };
+}
+
 class HRindex
 {
 public:
     int timeIntervalLength;
     string graphDatafileAddHead;
-    string recordConstructTime;
     string queryFileAddress;
     string resultFileAddress;
 
@@ -32,29 +41,42 @@ public:
     string storeFull_IG_Address;
     string storeSccTableAddress;
     string storeRefineNITableAddress;
-
+    string logFileAddress;
+    fstream logFile;
+    
     Graphs originGraph;
     SCCGraph sccGraph;
-
     vector<vector<int>> evolvingGraphSequence;
     SCCEdgeInfoSequence sccEdgeInfoSequence;
     SccTable sccTable;
-
-    double buildSccTableTime;
-
-    clock_t buildNIT_startTime, buildNIT_endTime;
-    NodeInfoTable nodeInfoTable;
-    double buildNIT_time;
-
-    clock_t buildRefineNIT_startTime, buildRefineNIT_endTime;
-    RefineNITable refineNITable;
-    double buildRefineNIT_time;
-
-    clock_t buildIG_startTime, buildIG_endTime;
-    IGraph IG;
-    double buildIG_time;
     
-    HRindex();
+    NodeInfoTable nodeInfoTable;
+    RefineNITable refineNITable;
+    IGraph IG;
+
+    clock_t buildOriginGraphStartTime, buildOriginGraphEndTime;
+    clock_t buildSccTableStartTime, buildSccTableEndTime;
+    clock_t buildSCCGraphStartTime, buildSCCGraphEndTime;
+    clock_t buildNITStartTime, buildNITEndTime;
+    clock_t buildRefineNITStartTime, buildRefineNITEndTime;
+    clock_t buildIGStartTime, buildIGEndTime;
+
+    double buildOriginGraphTime;
+    double buildSccTableTime;
+    double buildSCCGraphTime;
+    double buildNITTime;
+    double buildRefineNITTime;
+    double buildIGTime;
+    HRindex(int timeIntervalLength,
+        string graphDatafileAddHead,
+        string queryFileAddress,
+        string resultFileAddress,
+
+        string storeIndexGraphAddress,
+        string storeFull_IG_Address,
+        string storeSccTableAddress,
+        string storeRefineNITableAddress,
+        string logFileAddress);
     ~HRindex();
     bool buildOriginGraph();
     bool getSCCTable();
@@ -73,7 +95,7 @@ public:
     bool addSCCnode(int nodeID, int newSCCID, Lifespan lifespan);
     bool addSCCedge(int srcNodeID, int dstNodeID, Lifespan lifespan);
     bool reconstructEvolvingGraphSequence(SCCGraph& sccGraph, int timestamp);
-    vector<SCCnode> findCycle();
+    void printStatistics();
 
 private:
     bool singleStepUpdate(updateRecord& ur);
@@ -83,13 +105,43 @@ private:
     bool singleStepUpdateDeleteEdge(int u, int v, int timestamp);
 };
 
-HRindex::HRindex() {}
+HRindex::HRindex(int timeIntervalLength,
+    string graphDatafileAddHead,
+    string queryFileAddress,
+    string resultFileAddress,
+
+    string storeIndexGraphAddress,
+    string storeFull_IG_Address,
+    string storeSccTableAddress,
+    string storeRefineNITableAddress,
+    string logFileAddress){
+
+    this->timeIntervalLength = timeIntervalLength;
+    this->graphDatafileAddHead = graphDatafileAddHead;
+    this->queryFileAddress = queryFileAddress;
+    this->resultFileAddress = resultFileAddress;
+
+    this->storeIndexGraphAddress = storeIndexGraphAddress;
+    this->storeFull_IG_Address = storeFull_IG_Address;
+    this->storeSccTableAddress = storeSccTableAddress;
+    this->storeRefineNITableAddress = storeRefineNITableAddress;
+    this->logFileAddress = logFileAddress;
+    
+    logFile = fstream(logFileAddress, ios::out);
+    //第一行输出日期
+    time_t now = time(0);
+    char* dt = ctime(&now);
+    HRINDEX_PRINT << "The local date and time is: " << dt << endl;
+    HRINDEX_PRINT << "starting" << endl;
+}
+
 HRindex::~HRindex() {}
 
 bool HRindex::buildOriginGraph() {
+    buildOriginGraphStartTime = clock();
     for (int timeStamp = 0; timeStamp < timeIntervalLength; ++timeStamp) {
         Graph g;
-        vector<int> dataVector = GetFileData(graphDatafileAddHead, timeStamp);
+        vector<int> dataVector = GetFileData2(graphDatafileAddHead, timeStamp);
         auto ne = dataVector.size();
         int num_edges = ne / 2;
         for (int i = 0; i < ne; i = i + 2) {
@@ -97,18 +149,29 @@ bool HRindex::buildOriginGraph() {
         }
         originGraph.push_back(g);
     }
+    buildOriginGraphEndTime = clock();
+    buildOriginGraphTime = (double)(buildOriginGraphEndTime - buildOriginGraphStartTime) / CLOCKS_PER_SEC;
+    HRINDEX_PRINT  << "step1:buildOriginGraph(" << std::fixed << std::setprecision(2) << buildOriginGraphTime << "s)" << endl;
     return true;
 };
 
 bool HRindex::getSCCTable()
 {
+    buildSccTableStartTime = clock();
     this->sccTable = GetSCCTable(timeIntervalLength, originGraph, evolvingGraphSequence, sccEdgeInfoSequence, buildSccTableTime);
+    buildSccTableEndTime = clock();
+    buildSccTableTime = (double)(buildSccTableEndTime - buildSccTableStartTime) / CLOCKS_PER_SEC;
+    HRINDEX_PRINT  << "step2:buildSccTable(" << std::fixed << std::setprecision(2) << buildSccTableTime << "s)" << endl;
     return true;
 }
 
 bool HRindex::buildSCCGraph()
 {
+    buildSCCGraphStartTime = clock();
     sccGraph = SCCGraph(evolvingGraphSequence, sccTable);
+    buildSCCGraphEndTime = clock();
+    buildSCCGraphTime = (double)(buildSCCGraphEndTime - buildSCCGraphStartTime) / CLOCKS_PER_SEC;
+    HRINDEX_PRINT  << "step3:buildSCCGraph(" << std::fixed << std::setprecision(2) << buildSCCGraphTime << "s)" << endl;
     return true;
 }
 
@@ -119,24 +182,26 @@ bool HRindex::stroreSCCTable()
 }
 
 bool HRindex::getNITable() {
-    buildNIT_startTime = clock();
+    buildNITStartTime = clock();
     nodeInfoTable.clear();
     int timestamp;
     for (int i = 0; i <= timeIntervalLength; ++i) {
         timestamp = i;
         nodeInfoTable = GetNITable(nodeInfoTable, evolvingGraphSequence, timestamp);
     }
-    buildNIT_endTime = clock();
-    buildNIT_time = (double)(buildNIT_endTime - buildNIT_startTime) / CLOCKS_PER_SEC;
+    buildNITEndTime = clock();
+    buildNITTime = (double)(buildNITEndTime - buildNITStartTime) / CLOCKS_PER_SEC;
+    HRINDEX_PRINT  << "step4:buildNITable(" << std::fixed << std::setprecision(2) << buildNITTime << "s)" << endl;
     return true;
 }
 
 bool HRindex::getRefineNITable() {
-    buildRefineNIT_startTime = clock();
+    buildRefineNITStartTime = clock();
     refineNITable.clear();
     refineNITable = GetRefineNITable(nodeInfoTable);
-    buildRefineNIT_endTime = clock();
-    buildRefineNIT_time = (double)(buildRefineNIT_endTime - buildRefineNIT_startTime) / CLOCKS_PER_SEC;
+    buildRefineNITEndTime = clock();
+    buildRefineNITTime = (double)(buildRefineNITEndTime - buildRefineNITStartTime) / CLOCKS_PER_SEC;
+    HRINDEX_PRINT  << "step5:buildRefineNITable(" << std::fixed << std::setprecision(2) << buildRefineNITTime << "s)" << endl;
     return true;
 }
 
@@ -146,10 +211,11 @@ bool HRindex::stroreRefineNITable() {
 }
 
 bool HRindex::buildIndexGraph() {
-    buildIG_startTime = clock();
+    buildIGStartTime = clock();
     IG = BuildIndexGraph(refineNITable);
-    buildIG_endTime = clock();
-    buildIG_time = (double)(buildIG_endTime - buildIG_startTime) / CLOCKS_PER_SEC;
+    buildIGEndTime = clock();
+    buildIGTime = (double)(buildIGEndTime - buildIGStartTime) / CLOCKS_PER_SEC;
+    HRINDEX_PRINT  << "step6:buildIndexGraph(" << std::fixed << std::setprecision(2) << buildIGTime << "s)" << endl;
     return true;
 }
 
@@ -164,12 +230,15 @@ bool HRindex::updateFromFile(string updateFileAddress) {
     readUpdateRecords(updateRecordVector, updateFileAddress);
     int totalRecordNum = updateRecordVector.size();
     int finishRecordNum = 0;
+    
     for (int i = 0; i < updateRecordVector.size(); ++i) {
-        if(singleStepUpdate(updateRecordVector[i])) {
+        HRINDEX_PRINT << "update " << i << "/" << totalRecordNum << endl;
+        if (singleStepUpdate(updateRecordVector[i])) {
             finishRecordNum++;
         }
     }
-    cout << finishRecordNum << "/" << totalRecordNum << endl;
+    HRINDEX_PRINT << finishRecordNum << "/" << totalRecordNum << endl;
+    HRINDEX_PRINT << endl;
     return true;
 }
 
@@ -177,11 +246,13 @@ bool HRindex::updateFromRecords(vector<updateRecord>& updateRecordVector) {
     int totalRecordNum = updateRecordVector.size();
     int finishRecordNum = 0;
     for (int i = 0; i < updateRecordVector.size(); ++i) {
-        if (singleStepUpdate(updateRecordVector[i])){
+        HRINDEX_PRINT << "update " << i << "/" << totalRecordNum << endl;
+        if (singleStepUpdate(updateRecordVector[i])) {
             finishRecordNum++;
         }
     }
-    cout << finishRecordNum << "/" << totalRecordNum << endl;
+    HRINDEX_PRINT << finishRecordNum << "/" << totalRecordNum << endl;
+    HRINDEX_PRINT << endl;
     return true;
 }
 
@@ -300,28 +371,67 @@ bool HRindex::singleStepUpdateAddNode(int u, int timestamp) {
     失败情况：无
 */
 bool HRindex::singleStepUpdateAddEdge(int u, int v, int timestamp) {
+    clock_t start, end;
+    double duration;
+    clock_t addNodeStart, addNodeEnd;
+    double addNodeDuration;
+    start = clock();
+    HRINDEX_PRINT << "singleStepUpdateAddEdge: " << u << "->" << v << " " << timestamp << endl;
     //添加一条边(u,v),先检测是否存在
     if (!originGraph[timestamp].NodeIsExists(u)) {
+        addNodeStart = clock();
         singleStepUpdateAddNode(u, timestamp);
+        addNodeEnd = clock();
+        addNodeDuration = ((double)(addNodeEnd - addNodeStart) / CLOCKS_PER_SEC ) * 1000;
+        HRINDEX_PRINT << "node : " << u << " not exists(" << addNodeDuration << "ms)" << endl;
+    }
+    else {
+        HRINDEX_PRINT << "node : " << u << " exists" << endl;
     }
     if (!originGraph[timestamp].NodeIsExists(v)) {
+        addNodeStart = clock();
         singleStepUpdateAddNode(v, timestamp);
+        addNodeEnd = clock();
+        addNodeDuration = ((double)(addNodeEnd - addNodeStart) / CLOCKS_PER_SEC) * 1000;
+        HRINDEX_PRINT << "node : " << v << " not exists(" << addNodeDuration << "ms)" << endl;
     }
+    else {
+        HRINDEX_PRINT << "node : " << v << " exists" << endl;
+    }
+
+    
     originGraph[timestamp].InsertEdgeWithCheck(u, v);
-    int uSCCID = originGraph[timestamp].findSCCIDFromNodeId(u);
-    int vSCCID = originGraph[timestamp].findSCCIDFromNodeId(v);
+    HRINDEX_PRINT << "step1 : originGraph insert edge" << endl;
+    auto [d1, uSCCID] = measureTime<int>(std::bind(&Graph::findSCCIDFromNodeId, &originGraph[timestamp], u));
+    HRINDEX_PRINT << "step2.1 : findSCCIDFromNodeId(" << u <<")(" << d1 << "ms)" << endl;
+    auto [d2, vSCCID] = measureTime<int>(std::bind(&Graph::findSCCIDFromNodeId, &originGraph[timestamp], v));
+    HRINDEX_PRINT << "step2.2 : findSCCIDFromNodeId(" << v << ")(" << d1 << "ms)" << endl;
+    //int uSCCID = originGraph[timestamp].findSCCIDFromNodeId(u);
+    //int vSCCID = originGraph[timestamp].findSCCIDFromNodeId(v);
     assert(uSCCID != -1 && vSCCID != -1);
     if (uSCCID != vSCCID) {
         //循环检测环，直到没有环为止
         sccGraph.addEdge(uSCCID, vSCCID, timestamp);
+        clock_t findCycleStart, findCycleEnd;
+        double findCycleDuration;
+        findCycleStart = clock();
         vector<SCCnode> cycle = sccGraph.findCycle(uSCCID, timestamp);
         while (cycle.size() != 0) {
             //考虑合并后的SCC与其他SCC相同
             int reusedID = sccGraph.merge(cycle, timestamp, sccTable);
             cycle = sccGraph.findCycle(reusedID, timestamp);
         }
-        reconstructEvolvingGraphSequence(sccGraph, timestamp);
+        findCycleEnd = clock();
+        findCycleDuration = ((double)(findCycleEnd - findCycleStart) / CLOCKS_PER_SEC) * 1000;
+        HRINDEX_PRINT << "step2 : findCycle(" << findCycleDuration << "ms)" << endl;
 
+        auto[d3, notuse] = measureTime<bool>(std::bind(&HRindex::reconstructEvolvingGraphSequence, this, sccGraph, timestamp));
+        //reconstructEvolvingGraphSequence(sccGraph, timestamp);
+        HRINDEX_PRINT << "step3 : reconstructEvolvingGraphSequence(" << d3 << "ms)" << endl;
+
+        clock_t reconstructNITStart, reconstructNITEnd;
+        double reconstructNITDuration;
+        reconstructNITStart = clock();
         int id;
         auto exist = [&id](RecordItem& ri) {return ri.node == id;};
         //整个删除在timeStamp时刻的NIT中的内容，然后重建
@@ -370,11 +480,22 @@ bool HRindex::singleStepUpdateAddEdge(int u, int v, int timestamp) {
                 nodeInfoTable.push_back(newNITableRecordItem);
             }
         }
-
+        reconstructNITEnd = clock();
+        reconstructNITDuration = ((double)(reconstructNITEnd - reconstructNITStart) / CLOCKS_PER_SEC) * 1000;
+        HRINDEX_PRINT << "step4 : reconstructNIT(" << reconstructNITDuration << "ms)" << endl;
+        
         //更新RefineNITable
-        this->refineNITable = GetRefineNITable(nodeInfoTable);
-        this->IG = BuildIndexGraph(this->refineNITable);
+        auto [d5, refineNITable] = measureTime<RefineNITable>(GetRefineNITable, nodeInfoTable);
+        HRINDEX_PRINT << "step5 : Reconstruct RefineNITable(" << d5 << "ms)" << endl;
+        auto [d6, IG] = measureTime<IGraph>(BuildIndexGraph, refineNITable);
+        HRINDEX_PRINT << "step6 : Rebuild IndexGraph(" << d6 << "ms)" << endl;
+        //this->refineNITable = GetRefineNITable(nodeInfoTable);
+        //this->IG = BuildIndexGraph(this->refineNITable);
     }
+    end = clock();
+    duration = ((double)(end - start) / CLOCKS_PER_SEC) * 1000;
+    HRINDEX_PRINT << "finish(" << duration << "ms)" << endl;
+    HRINDEX_PRINT << endl;
     return true;
 }
 
@@ -450,7 +571,7 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
     int vSCCID = -1;
     try { originGraph[timestamp].DeleteEdge(u, v); }
     catch (const char* msg) {
-        cout << msg << endl;
+        HRINDEX_PRINT  << msg << endl;
         goto ABORT;
     }
     
@@ -464,7 +585,7 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
             if (it->sccEdge.sScc == uSCCID && it->sccEdge.tScc == vSCCID) {
                 auto findres = find_if(it->nodeEdges.begin(), it->nodeEdges.end(), [&u, &v](const NodeEdge& ei) {return ei.src == u && ei.dst == v; });
                 if (findres == it->nodeEdges.end()) {
-                    cout << "Error: can not find the edge in sccEdgeInfoSequence" << endl;
+                    HRINDEX_PRINT  << "Error: can not find the edge in sccEdgeInfoSequence" << endl;
                     goto ABORT;
                 }
                 it->nodeEdges.erase(findres);
@@ -479,7 +600,7 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         
         try { sccGraph.deleteEdge(uSCCID, vSCCID, timestamp); }
         catch (const char* msg) {
-            cout << msg << endl;
+            HRINDEX_PRINT  << msg << endl;
             goto ABORT;
         }
         reconstructEvolvingGraphSequence(sccGraph, timestamp);
@@ -496,7 +617,7 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         auto urecord = find_if(nodeInfoTable.begin(), nodeInfoTable.end(), uexist);
         auto vrecord = find_if(nodeInfoTable.begin(), nodeInfoTable.end(), vexist);
         if(urecord == nodeInfoTable.end() || vrecord == nodeInfoTable.end()) {
-            cout << "node not in NIT" << endl;
+            HRINDEX_PRINT  << "node not in NIT" << endl;
             goto ABORT;
         }
         for (auto uOutit = urecord->Out.begin(); uOutit != urecord->Out.end();++uOutit) {
@@ -525,7 +646,7 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         auto findResult = find_if(sccGraph.sccGraphs[timestamp].second.begin(), sccGraph.sccGraphs[timestamp].second.end(),
             [&uSCCID](SCCnode& sccnode) { return sccnode.SCCID == uSCCID; });
         if(findResult == sccGraph.sccGraphs[timestamp].second.end()) {
-            cout << "SCC not in SCCGraph" << endl;
+            HRINDEX_PRINT  << "SCC not in SCCGraph" << endl;
             goto ABORT;
         }
         set<int> nodeSet = findResult->originNodeSet;
@@ -651,11 +772,11 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         getRefineNITable();
         buildIndexGraph();
     }
-    cout << "delete edge(" << u <<"->"<< v << ")at timeStamp" << timestamp <<" success!" << endl;
+    HRINDEX_PRINT  << "delete edge(" << u <<"->"<< v << ")at timeStamp" << timestamp <<" success!" << endl;
     return true;
 
 ABORT:
-    cout << "update: delete edge failed!" << endl;
+    HRINDEX_PRINT  << "update: delete edge failed!" << endl;
     return false;
 }
 
@@ -694,4 +815,14 @@ bool HRindex::singleStepUpdateDeleteNode(int u, int timestamp) {
     return true;
 }
 
+
+void HRindex::printStatistics() {
+    for (int i = 0; i < timeIntervalLength; i++) {
+        HRINDEX_PRINT << "timeStamp: " << i;
+        HRINDEX_PRINT << " nodeNum: " << originGraph[i].GetVexNum();
+        HRINDEX_PRINT << " edgeNum: " << originGraph[i].GetEdgeNum();
+        HRINDEX_PRINT << " SCCNum: " << sccGraph.sccGraphs[i].second.size() << endl;
+    }
+    HRINDEX_PRINT << endl;
+}
 #endif
