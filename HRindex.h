@@ -28,6 +28,15 @@ std::pair<double, R> measureTime(F func, Args&&... args) {
     double duration = std::chrono::duration<double, std::milli>(end - start).count();
     return { duration, result };
 }
+//void version
+template <typename F, typename... Args>
+double measureTime(F func, Args&&... args) {
+    auto start = std::chrono::high_resolution_clock::now();
+    std::invoke(func, std::forward<Args>(args)...);
+    auto end = std::chrono::high_resolution_clock::now();
+    double duration = std::chrono::duration<double, std::milli>(end - start).count();
+    return duration;
+}
 
 class HRindex
 {
@@ -412,18 +421,23 @@ bool HRindex::singleStepUpdateAddEdge(int u, int v, int timestamp) {
     if (uSCCID != vSCCID) {
         //循环检测环，直到没有环为止
         sccGraph.addEdge(uSCCID, vSCCID, timestamp);
+        
         clock_t findCycleStart, findCycleEnd;
         double findCycleDuration;
         findCycleStart = clock();
+        //这里或许可以改进一下，现在的算法是循环检测环，了解一下coloring算法
+        int cycleNum = 0;
         vector<SCCnode> cycle = sccGraph.findCycle(uSCCID, timestamp);
         while (cycle.size() != 0) {
             //考虑合并后的SCC与其他SCC相同
-            int reusedID = sccGraph.merge(cycle, timestamp, sccTable);
-            cycle = sccGraph.findCycle(reusedID, timestamp);
+            int newID = sccGraph.merge(cycle, timestamp, sccTable);
+            cycle = sccGraph.findCycle(newID, timestamp);
+            cycleNum++;
         }
+        
         findCycleEnd = clock();
         findCycleDuration = ((double)(findCycleEnd - findCycleStart) / CLOCKS_PER_SEC) * 1000;
-        HRINDEX_PRINT << "step2 : findCycle(" << findCycleDuration << "ms)" << endl;
+        HRINDEX_PRINT << "step2 : findCycle( "<< cycleNum << " in " << findCycleDuration << "ms)" << endl;
 
         auto[d3, notuse] = measureTime<bool>(std::bind(&HRindex::reconstructEvolvingGraphSequence, this, sccGraph, timestamp));
         //reconstructEvolvingGraphSequence(sccGraph, timestamp);
@@ -567,9 +581,19 @@ static void _updateSCCEdgeInfo(SCCEdgeInfo& s, _updateSCCEdgeInfoParamList& para
     2. u->v不存在
 */
 bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
+    HRINDEX_PRINT << "singleStepUpdateDeleteEdge(" << u << "->" << v << "," << timestamp << ")" << endl;
+    clock_t start, end;
+    double duration;
+    start = clock();
+    
     int uSCCID = -1;
     int vSCCID = -1;
-    try { originGraph[timestamp].DeleteEdge(u, v); }
+
+    
+    try {
+        auto d1 = measureTime(std::bind(&Graph::DeleteEdge, &originGraph[timestamp], u, v));
+        HRINDEX_PRINT << "step1 : DeleteEdge(" << d1 << "ms)" << endl;
+    }
     catch (const char* msg) {
         HRINDEX_PRINT  << msg << endl;
         goto ABORT;
@@ -821,7 +845,8 @@ void HRindex::printStatistics() {
         HRINDEX_PRINT << "timeStamp: " << i;
         HRINDEX_PRINT << " nodeNum: " << originGraph[i].GetVexNum();
         HRINDEX_PRINT << " edgeNum: " << originGraph[i].GetEdgeNum();
-        HRINDEX_PRINT << " SCCNum: " << sccGraph.sccGraphs[i].second.size() << endl;
+        HRINDEX_PRINT << " SCCNum: " << sccGraph.sccGraphs[i].second.size();
+        HRINDEX_PRINT << " SCCEdgeNum: " << sccGraph.getEdgeNum(i) << endl;
     }
     HRINDEX_PRINT << endl;
 }

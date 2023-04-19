@@ -36,12 +36,16 @@ public:
     int addEdge(int srcID, int dstID, int timestamp);
     int deleteEdge(int srcID, int dstID, int timestamp);
     bool edgeExist(int srcID, int dstID, int timestamp);
+    int getEdgeNum(int timeStamp);
     int findSCCIDNodeFromOriginNodeID(int originNodeID, int timestamp);
     void SCCGraphInsertArc(int srcID, int dstID, int timestamp, vector<SCCnode>& thisGraph);
+    vector<int> findCycleAndMerge(int uSCCID, int timestamp);
     vector<SCCnode> findCycle(int SCCIDu, int timestamp);
     SCCnode findSCCnodeFromID(int SCCID, int timestamp);
     bool SCCIDexist(int SCCID, int timestamp);
-    int merge(vector<SCCnode> &cycle, int timestamp, SccTable &sccTable);
+    int merge1(const vector<SCCnode>& cycle, int timestamp);
+    int merge2(const vector<SCCnode>& cycle, int timestamp, SccTable& sccTable);
+    int newNodeID(int timestamp);
     ~SCCGraph();
 };
 
@@ -223,6 +227,16 @@ int SCCGraph::deleteNode(int SCCID, int timestamp) {
     return 1;
 }
 
+int SCCGraph::newNodeID(int timestamp){
+    int maxID = 0;
+    for(auto it = sccGraphs[timestamp].second.begin(); it != sccGraphs[timestamp].second.end(); it++){
+        if(it->SCCID > maxID){
+            maxID = it->SCCID;
+        }
+    }
+    return maxID + 1;
+}
+
 vector<SCCnode> SCCGraph::findCycle(int SCCIDu, int timestamp) {
     //这里检测环，然后把检测到的环都按照第一个的ID合并，因为SRC->DST，所以如果有环，那么一定包含这两个节点
     vector<SCCnode> cycle;
@@ -266,7 +280,7 @@ vector<SCCnode> SCCGraph::findCycle(int SCCIDu, int timestamp) {
     return cycle;
 }
 
-int sccIncycle(int SCCID, vector<SCCnode> &cycle){
+int sccIncycle(int SCCID, const vector<SCCnode> &cycle){
     for(auto it = cycle.begin(); it != cycle.end(); it++){
         if(it->SCCID == SCCID){
             return 1;
@@ -274,8 +288,50 @@ int sccIncycle(int SCCID, vector<SCCnode> &cycle){
     }
     return 0;
 }
+//仅更新SCCGraph
+int SCCGraph::merge1(const vector<SCCnode>& cycle, int timestamp) {
+        SCCnode newNode;
+    //合并后的节点ID不可以重用，因为代码中的逻辑是SCCID对应唯一的原始图节点集合，这个集合是全局的
+    //所以这里需要重新分配一个ID
+    newNode.SCCID = newNodeID(timestamp);
+    newNode.firstArc = NULL;
+    arc* arcit;
+    auto it = sccGraphs[timestamp].second.begin();
+    while(it != sccGraphs[timestamp].second.end()){
+        arcit = it->firstArc;
+        if(sccIncycle(it->SCCID, cycle)){
+            //cycle中的节点，需要合并出边
+            while(arcit != NULL){
+                if(!sccIncycle(arcit->dstID, cycle)){
+                    arc* newarc = new arc;
+                    newarc->dstID = arcit->dstID;
+                    newarc->next = newNode.firstArc;
+                    newNode.firstArc = newarc;
+                }
+                arcit = arcit->next;
+            }
+            set_union(  newNode.originNodeSet.begin(), newNode.originNodeSet.end(), 
+                        it->originNodeSet.begin(), it->originNodeSet.end(), 
+                        inserter(newNode.originNodeSet, newNode.originNodeSet.begin()));
+            it = sccGraphs[timestamp].second.erase(it);
+        }
+        else{
+            //其他节点，需要把出边的目的节点改为新的SCCID
+            while(arcit != NULL){
+                if(sccIncycle(arcit->dstID, cycle)){
+                    arcit -> dstID = newNode.SCCID;
+                }
+                arcit = arcit->next;
+            }
+            it++;
+        }
+    }
+    sccGraphs[timestamp].second.push_back(newNode);
+    return newNode.SCCID;
+}
 
-int SCCGraph::merge(vector<SCCnode> &cycle, int timestamp, SccTable &sccTable){
+//更新SCCGraph和SccTable
+int SCCGraph::merge2(const vector<SCCnode>& cycle, int timestamp, SccTable& sccTable) {
     SCCnode newNode;
     //合并后的节点ID不可以重用，因为代码中的逻辑是SCCID对应唯一的原始图节点集合，这个集合是全局的
     //所以这里需要重新分配一个ID
@@ -343,4 +399,41 @@ int SCCGraph::merge(vector<SCCnode> &cycle, int timestamp, SccTable &sccTable){
     return newNode.SCCID;
 }
 
+vector<int> SCCGraph::findCycleAndMerge(int uSCCID, int timestamp) {
+    int cycleNum = 0;
+    vector<int> effectedSCC;
+    map<int, int> tree;
+    vector<SCCnode> cycle = findCycle(uSCCID, timestamp);
+    while (cycle.size() != 0) {
+        //考虑合并后的SCC与其他SCC相同
+        int newID = merge1(cycle, timestamp);
+        for (auto it = cycle.begin(); it != cycle.end(); it++) {
+            tree[it->SCCID] = newID;
+        }
+        tree[newID] = -1;
+        cycle = findCycle(newID, timestamp);
+        //新产生的SCC必定包含了原本的SCCid
+        assert(sccIncycle(newID, cycle) == 1);
+        cycleNum++;
+    }
+}
+
+static int _getEdgeNumOneNode(SCCnode& node) {
+    auto tmp = node.firstArc;
+    int num = 0;
+    while (tmp != NULL) {
+        num++;
+        tmp = tmp->next;
+    }
+    return num;
+}
+
+int SCCGraph::getEdgeNum(int timestamp) {
+    vector<SCCnode>& vertices = sccGraphs[timestamp].second;
+    int num = 0;
+    for (auto it = vertices.begin(); it != vertices.end(); it++) {
+        num += _getEdgeNumOneNode(*it);
+    }
+    return num;
+}
 #endif

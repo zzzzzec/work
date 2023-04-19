@@ -188,5 +188,4 @@ int main() {
     //hrindex.IG.StoreFullIndexGraphJSON(storeIGJSONPath);
     Query(hrindex, queryRecords, resultFileAddress);
     return 0;
-
 }

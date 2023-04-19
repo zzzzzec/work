@@ -1,88 +1,26 @@
-The local date and time is: Tue Apr 18 22:51:26 2023
+The local date and time is: Wed Apr 19 09:20:13 2023
 
 starting
-step1:buildOriginGraph(8.04s)
-step2:buildSccTable(46.12s)
-step3:buildSCCGraph(1.95s)
-step4:buildNITable(7.62s)
-step5:buildRefineNITable(0.54s)
-step6:buildIndexGraph(12.74s)
-timeStamp: 0 nodeNum: 1886 edgeNum: 16542 SCCNum: 723
-timeStamp: 1 nodeNum: 2620 edgeNum: 22953 SCCNum: 1002
-timeStamp: 2 nodeNum: 3182 edgeNum: 23879 SCCNum: 1284
-timeStamp: 3 nodeNum: 3371 edgeNum: 21583 SCCNum: 1431
-timeStamp: 4 nodeNum: 3381 edgeNum: 17452 SCCNum: 1598
-timeStamp: 5 nodeNum: 3471 edgeNum: 16492 SCCNum: 1622
-timeStamp: 6 nodeNum: 3680 edgeNum: 16813 SCCNum: 1747
-timeStamp: 7 nodeNum: 3757 edgeNum: 16220 SCCNum: 1883
-timeStamp: 8 nodeNum: 4069 edgeNum: 17401 SCCNum: 2028
-timeStamp: 9 nodeNum: 3994 edgeNum: 15272 SCCNum: 2173
-timeStamp: 10 nodeNum: 4107 edgeNum: 14680 SCCNum: 2324
-timeStamp: 11 nodeNum: 4090 edgeNum: 13970 SCCNum: 2344
-timeStamp: 12 nodeNum: 3883 edgeNum: 13202 SCCNum: 2261
-timeStamp: 13 nodeNum: 3999 edgeNum: 13312 SCCNum: 2343
-timeStamp: 14 nodeNum: 4018 edgeNum: 12740 SCCNum: 2458
-timeStamp: 15 nodeNum: 4285 edgeNum: 13610 SCCNum: 2631
-
-update 0/5
-singleStepUpdateAddEdge: 11->17 2
-node : 11 exists
-node : 17 not exists(4.00ms)
-step1 : originGraph insert edge
-step2.1 : findSCCIDFromNodeId(11)(0.00ms)
-step2.2 : findSCCIDFromNodeId(17)(0.00ms)
-step2 : findCycle(117.00ms)
-step3 : reconstructEvolvingGraphSequence(0.00ms)
-step4 : reconstructNIT(61.00ms)
-step5 : Reconstruct RefineNITable(766.19ms)
-step6 : Rebuild IndexGraph(13056.30ms)
-finish(14673.00ms)
-update 1/5
-singleStepUpdateAddEdge: 11->3 8
-node : 11 exists
-node : 3 exists
-step1 : originGraph insert edge
-step2.1 : findSCCIDFromNodeId(11)(0.00ms)
-step2.2 : findSCCIDFromNodeId(3)(0.00ms)
-finish(0.00ms)
-update 2/5
-singleStepUpdateAddEdge: 12->10 0
-node : 12 not exists(1.00ms)
-node : 10 not exists(1.00ms)
-step1 : originGraph insert edge
-step2.1 : findSCCIDFromNodeId(12)(0.00ms)
-step2.2 : findSCCIDFromNodeId(10)(0.00ms)
-step2 : findCycle(1.00ms)
-step3 : reconstructEvolvingGraphSequence(0.00ms)
-step4 : reconstructNIT(21.00ms)
-step5 : Reconstruct RefineNITable(952.26ms)
-step6 : Rebuild IndexGraph(14791.33ms)
-finish(16846.00ms)
-update 3/5
-singleStepUpdateAddEdge: 4->11 8
-node : 4 not exists(1.00ms)
-node : 11 exists
-step1 : originGraph insert edge
-step2.1 : findSCCIDFromNodeId(4)(0.00ms)
-step2.2 : findSCCIDFromNodeId(11)(0.00ms)
-step2 : findCycle(342.00ms)
-step3 : reconstructEvolvingGraphSequence(0.00ms)
-step4 : reconstructNIT(282.00ms)
-step5 : Reconstruct RefineNITable(676.19ms)
-step6 : Rebuild IndexGraph(15097.26ms)
-finish(17425.00ms)
-update 4/5
-singleStepUpdateAddEdge: 18->6 1
-node : 18 exists
-node : 6 not exists(2.00ms)
-step1 : originGraph insert edge
-step2.1 : findSCCIDFromNodeId(18)(0.00ms)
-step2.2 : findSCCIDFromNodeId(6)(0.00ms)
-step2 : findCycle(2.00ms)
-step3 : reconstructEvolvingGraphSequence(0.00ms)
-step4 : reconstructNIT(39.00ms)
-step5 : Reconstruct RefineNITable(707.22ms)
-step6 : Rebuild IndexGraph(14720.36ms)
-finish(16183.00ms)
-5/5
+step1:buildOriginGraph(6.73s)
+step2:buildSccTable(40.79s)
+step3:buildSCCGraph(1.76s)
+step4:buildNITable(6.56s)
+step5:buildRefineNITable(0.48s)
+step6:buildIndexGraph(11.49s)
+timeStamp: 0 nodeNum: 1886 edgeNum: 16542 SCCNum: 723 SCCEdgeNum: 759
+timeStamp: 1 nodeNum: 2620 edgeNum: 22953 SCCNum: 1002 SCCEdgeNum: 1060
+timeStamp: 2 nodeNum: 3182 edgeNum: 23879 SCCNum: 1284 SCCEdgeNum: 1349
+timeStamp: 3 nodeNum: 3371 edgeNum: 21583 SCCNum: 1431 SCCEdgeNum: 1521
+timeStamp: 4 nodeNum: 3381 edgeNum: 17452 SCCNum: 1598 SCCEdgeNum: 1695
+timeStamp: 5 nodeNum: 3471 edgeNum: 16492 SCCNum: 1622 SCCEdgeNum: 1743
+timeStamp: 6 nodeNum: 3680 edgeNum: 16813 SCCNum: 1747 SCCEdgeNum: 1826
+timeStamp: 7 nodeNum: 3757 edgeNum: 16220 SCCNum: 1883 SCCEdgeNum: 1998
+timeStamp: 8 nodeNum: 4069 edgeNum: 17401 SCCNum: 2028 SCCEdgeNum: 2168
+timeStamp: 9 nodeNum: 3994 edgeNum: 15272 SCCNum: 2173 SCCEdgeNum: 2314
+timeStamp: 10 nodeNum: 4107 edgeNum: 14680 SCCNum: 2324 SCCEdgeNum: 2427
+timeStamp: 11 nodeNum: 4090 edgeNum: 13970 SCCNum: 2344 SCCEdgeNum: 2496
+timeStamp: 12 nodeNum: 3883 edgeNum: 13202 SCCNum: 2261 SCCEdgeNum: 2390
+timeStamp: 13 nodeNum: 3999 edgeNum: 13312 SCCNum: 2343 SCCEdgeNum: 2452
+timeStamp: 14 nodeNum: 4018 edgeNum: 12740 SCCNum: 2458 SCCEdgeNum: 2600
+timeStamp: 15 nodeNum: 4285 edgeNum: 13610 SCCNum: 2631 SCCEdgeNum: 2779
 
