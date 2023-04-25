@@ -355,9 +355,7 @@ RefineNITable GetRefineNITable(NodeInfoTable& nodeInfoTable) {
     return refineNITable;
 }
 
-//这个函数用于删除NIT中id节点在timestamp时刻的IN和OUT中的记录
-void deleteNITItem(RecordItem& ri, int timeStamp)
-{
+void deleteNITItemIN(RecordItem& ri, int timeStamp) {
     for (auto it = ri.In.begin(); it != ri.In.end();)
     {
         if (it->lifespan.test(timeStamp))
@@ -373,7 +371,9 @@ void deleteNITItem(RecordItem& ri, int timeStamp)
             ++it;
         }
     }
-    
+}
+
+void deleteNITItemOut(RecordItem& ri, int timeStamp) {
     for (auto it = ri.Out.begin(); it != ri.Out.end();)
     {
         if (it->lifespan.test(timeStamp))
@@ -383,6 +383,28 @@ void deleteNITItem(RecordItem& ri, int timeStamp)
         if (it->lifespan.count() == 0)
         {
             it = ri.Out.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+}
+//这个函数用于删除NIT中id节点在timestamp时刻的IN和OUT中的记录
+void deleteNITItem(RecordItem& ri, int timeStamp)
+{
+    deleteNITItemIN(ri, timeStamp);
+    deleteNITItemOut(ri, timeStamp);
+}
+
+void deleteRefineNITItem(RefineRecordItem& rri, int timeStamp) {
+    for (auto it = rri.Out.begin(); it != rri.Out.begin(); ) {
+        if (it->lifespan.test(timeStamp)) {
+            it->lifespan.set(timeStamp, false);
+        }
+        if (it->lifespan.count() == 0)
+        {
+            it = rri.Out.erase(it);
         }
         else
         {

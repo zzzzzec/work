@@ -51,6 +51,14 @@ Lifespan LifespanBuild(int i, int j) {
     return b;
 }
 
+Lifespan LifespanTestAndUnset(Lifespan & life, int pos) {
+    if (!life.test(pos))
+        throw "LifespanTestAndRemove: test failed";
+    Lifespan newlife = life;
+    newlife.set(pos, false);
+    return newlife;
+}
+
 bitset<MNS> LifespanBuild(bitset<MNS>& b, int i, int j) {
     for (int k = i; k <= j; ++k) {
         b.set(k);

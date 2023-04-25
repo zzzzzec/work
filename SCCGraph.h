@@ -46,7 +46,7 @@ public:
     SCCnode merge2(const vector<SCCnode>& cycle);
     int merge(const vector<SCCnode>& cycle, SccTable& sccTable);
     int newNodeID();
-
+    pair<vector<int>, vector<int>> getInAndOutNodes(int SCCID);
 };
 
 typedef vector<SCCGraph> SCCGraphs;
@@ -325,12 +325,15 @@ SCCnode SCCGraph::merge2(const vector<SCCnode>& cycle) {
     vertices.push_back(newNode);
     return newNode;
 }
-
+/*
 //更新SCCGraph和SccTable
+//有问题，合并后的SCC如果已经存在的话就不需要新建了
 int SCCGraph::merge(const vector<SCCnode>& cycle, SccTable& sccTable) {
     SCCnode newNode;
     //合并后的节点ID不可以重用，因为代码中的逻辑是SCCID对应唯一的原始图节点集合，这个集合是全局的
     //所以这里需要重新分配一个ID
+    //首先需要确定合并后的新节点是否已经存在于SCCTable
+    
     newNode.SCCID = newSCCID(sccTable);
     newNode.firstArc = NULL;
     arc* arcit;
@@ -395,6 +398,85 @@ int SCCGraph::merge(const vector<SCCnode>& cycle, SccTable& sccTable) {
     
     return newNode.SCCID;
 }
+*/
+
+//更新SCCGraph和SccTable
+int SCCGraph::merge(const vector<SCCnode>& cycle, SccTable& sccTable) {
+    SCCnode newNode;
+    //合并后的节点ID不可以重用，因为代码中的逻辑是SCCID对应唯一的原始图节点集合，这个集合是全局的
+    //所以这里需要重新分配一个ID
+    //首先需要确定合并后的新节点是否已经存在于SCCTable
+    newNode.originNodeSet.clear();
+    for (auto it : vertices) {
+        if (sccIncycle(it.SCCID, cycle)) {
+            set_union(  newNode.originNodeSet.begin(), newNode.originNodeSet.end(), 
+                        it.originNodeSet.begin(), it.originNodeSet.end(), 
+                        inserter(newNode.originNodeSet, newNode.originNodeSet.begin()));
+        }
+    }
+    auto findRes = find_if(sccTable.begin(), sccTable.end(), [&](const SCCTableItem& item) {return item.nodeGroup == newNode.originNodeSet;});
+    if (findRes != sccTable.end()) {
+        newNode.SCCID = findRes->sccID_Life.scc_id;
+        assert(!findRes->sccID_Life.life_time.test(timestamp));
+        findRes->sccID_Life.life_time.set(timestamp);
+    }
+    else {
+        newNode.SCCID = newSCCID(sccTable);
+        SCCTableItem newitem;
+        newitem.nodeGroup = newNode.originNodeSet;
+        SccID_Life newlife;
+        newlife.scc_id = newNode.SCCID;
+        bitset<MNS> newlifespan;
+        newlife.life_time = LifespanBuild(newlifespan, timestamp, timestamp);
+        auto insertRes = sccTable.insert(newitem);
+        assert(insertRes.second);
+    }
+    //删除合并前的SCC集合cycle
+    auto sccTableit = sccTable.begin();
+    while (sccTableit != sccTable.end())
+    {
+        if (sccTableit->sccID_Life.life_time.test(timestamp) && sccIncycle(sccTableit->sccID_Life.scc_id, cycle)) {
+            sccTableit->sccID_Life.life_time.set(timestamp, false);
+            sccTableit = sccTableit->sccID_Life.life_time.none() ? sccTable.erase(sccTableit) : sccTableit++;
+        }
+        else{
+            sccTableit++;
+        }
+    }
+    
+    newNode.firstArc = NULL;
+    arc* arcit;
+    auto it = vertices.begin();
+    while(it != vertices.end()){
+        arcit = it->firstArc;
+        if(sccIncycle(it->SCCID, cycle)){
+            //cycle中的节点，需要合并出边
+            while(arcit != NULL){
+                if(!sccIncycle(arcit->dstID, cycle)){
+                    arc* newarc = new arc;
+                    newarc->dstID = arcit->dstID;
+                    newarc->next = newNode.firstArc;
+                    newNode.firstArc = newarc;
+                }
+                arcit = arcit->next;
+            }
+            it = vertices.erase(it);
+        }
+        else{
+            //其他节点，需要把出边的目的节点改为新的SCCID
+            while(arcit != NULL){
+                if(sccIncycle(arcit->dstID, cycle)){
+                    arcit -> dstID = newNode.SCCID;
+                }
+                arcit = arcit->next;
+            }
+            it++;
+        }
+    }
+    vertices.push_back(newNode);
+    return newNode.SCCID;
+}
+
 
 static int _getEdgeNumOneNode(SCCnode& node) {
     auto tmp = node.firstArc;
@@ -413,4 +495,33 @@ int SCCGraph::getEdgeNum() {
     }
     return num;
 }
+
+pair<vector<int>, vector<int>> SCCGraph::getInAndOutNodes(int SCCID) {
+    SCCnode node = findSCCnodeFromID(SCCID);
+    vector<int> in;
+    vector<int> out;
+    auto edgeit = node.firstArc;
+    while (edgeit != NULL)
+    {
+        out.push_back(edgeit->dstID);
+        edgeit = edgeit->next;
+    }
+    for (auto it : vertices) {
+        auto it2 = it.firstArc;
+        while (it2 != NULL)
+        {
+            if (it2->dstID == SCCID) {
+                in.push_back(it.SCCID);
+                break;
+            }
+            it2 = it2->next;
+        }
+    }
+    return make_pair(in, out);
+}
+
+
+
+
+
 #endif

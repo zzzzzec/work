@@ -125,6 +125,7 @@ public:
     void OptimizeIntervalVertex();
     void ModifyNodeOrThrow(int id, Lifespan lifespan, Lifespan newLifespan);
     IGVerNode* findNode(int id, Lifespan lifespan);
+    void updateAddRefineRecord(const RefineRecordItem & ritem);
 
     bitset<MNS> GetSubVertexUnionLife(int verPos);
     vector<int> GetSouVerticesPos(int tarID, bitset<MNS> tarLife);
@@ -826,10 +827,10 @@ vector<int> IGraph::GetSubVerticesPos(int tarPos) {
 }
 
 IGVerNode* IGraph::findNode(int id , Lifespan Lifespan) {
-    for (auto it : vertices) {
-        if (it.souID == id && it.souLifespan == Lifespan) {
-            return &it;
-        }
+    for (int i = 0; i < vertices.size(); i++) {
+        IGVerNode* tmp = &(vertices[i]);
+        if (tmp->souID == id && tmp->souLifespan == Lifespan)
+            return tmp;
     }
     return nullptr;
 }
@@ -846,6 +847,23 @@ void IGraph::ModifyNodeOrThrow(int id, Lifespan lifespan, Lifespan newLifespan) 
                 edgeit->tarLifespan = newLifespan;
             edgeit = edgeit->nextarc;
         }
+    }
+}
+
+void IGraph::updateAddRefineRecord(const RefineRecordItem& ritem){
+    bitset<MNS> intervalUnion;
+    intervalUnion.reset(); //处理所有node节点的出边
+    for (int i = 0; i < ritem.Out.size(); ++i) {
+        if (ritem.Out[i].partLab == 2) { //如果这个node节点的这个出边是没有入边的 A->B 类型
+            bitset<MNS> cur_life = ritem.Out[i].lifespan;
+            intervalUnion = LifespanUnion(cur_life, intervalUnion);
+        }
+    }
+    for (int j = 0; j < ritem.Out.size(); ++j) {
+        int tarID = ritem.Out[j].vertexID;
+        int label = ritem.Out[j].partLab;
+        bitset<MNS> edgeLife = ritem.Out[j].lifespan;
+        ConstructOutEdge(ritem.node, tarID, edgeLife, label, intervalUnion);
     }
 }
 

@@ -518,63 +518,76 @@ Lifespan _getLpSi(RefineRecordItem& rri) {
     }
     return res;
 }
+
 /*更新IG
-            如果一个节点的IN和OUT都没有变化，那么 NIT 不变 -> RefineNIT不变 -> IG 不变
-            对于cycleList中的节点消失，会产生变化的有
-            in1          out1
-            in2 -> Si -> out2 
-            in3          out3
-            更新伪代码
-            for item in NIT：
-                if node not in  cycleList:
-                    for in in item.in:
-                        if in.node in cycleList:
-                            change = true
-                            if in.liefe.test(tx): in.node.set(tx = false)
-                            if(in.node.size == 0) remove in
-                    for out in item.out:
-                        if out.node in cycleList:
-                            change = true
-                            if in.liefe.test(tx): out.node.set(tx = false)
-                            if(out.node.size == 0) remove out
-                    union1 = U(it in item.IN)
+如果一个节点的IN和OUT都没有变化，那么 NIT 不变 -> RefineNIT不变 -> IG 不变
+对于cycleList中的节点消失，会产生变化的有
+in1          out1
+in2 -> Si -> out2 
+in3          out3
+更新伪代码
+for item in NIT：
+    if node not in  cycleList:
+        for in in item.in:
+            if in.node in cycleList:
+                change = true
+                if in.liefe.test(tx): in.node.set(tx = false)
+                if(in.node.size == 0) remove in
+        for out in item.out:
+            if out.node in cycleList:
+                change = true
+                if in.liefe.test(tx): out.node.set(tx = false)
+                if(out.node.size == 0) remove out
+        union1 = U(it in item.IN)
 
-                    for out in refineNIT.out:
-                        if tag == 1 && node in cycleList && time = tx
-                            remove out
-                            delete(<Si,tx> -> <Sj,tx>) [must exist]
-                        if tag == 2 && node in cycleList && tx -> time
-                            if out.time == tx:
-                                remove out
-                                delete(<Si,L+(Si)> -> <Sj,tx>)
-                            if out.time include tx:
-                                out.time.set(tx, false)
-                                delete(<Si, L+(Si)> -> (Sj, L2(Si,Sj)))
-                                add(<Si, L+(Si)> -> (Sj, L2(Si,Sj) - tx))
-                    union2 = U(it in refineTable.out.tag==2)
-                    if tx not in union2 && tx not in union1 : <Si, L+(Si)>) change to <Si, L+(Si) - tx> (must not exist)
+        for out in refineNIT.out:
+            if tag == 1 && node in cycleList && time = tx
+                remove out
+                delete(<Si,tx> -> <Sj,tx>) [must exist]
+            if tag == 2 && node in cycleList && tx -> time
+                if out.time == tx:
+                    remove out
+                    delete(<Si,L+(Si)> -> <Sj,tx>)
+                if out.time include tx:
+                    out.time.set(tx, false)
+                    delete(<Si, L+(Si)> -> (Sj, L2(Si,Sj)))
+                    add(<Si, L+(Si)> -> (Sj, L2(Si,Sj) - tx))
+        union2 = U(it in refineTable.out.tag==2)
+        if tx not in union2 && tx not in union1 : <Si, L+(Si)>) change to <Si, L+(Si) - tx> (must not exist)
 
-                    if tx in union: pass
-                    else:
-                        for it in refineTable.N1:
-                            move it to N2
-                            delete(<Si,tx> -> <Sj,tx>) [must exist]
-                            if Sj in N2:
-                                delete<Si,L+(Si) -> <Sj,L2(Si,Sj)>>
-                                add<Si,L+(Si)> -> <Sj, L2(Si,Sj)>
-                            else:
-                                add<Si,L+(Si)> -> <Sj, L2(Si,Sj)>
+        if tx in union: pass
+        else:
+            for it in refineTable.N1:
+                move it to N2
+                delete(<Si,tx> -> <Sj,tx>) [must exist]
+                if Sj in N2:
+                    delete<Si,L+(Si) -> <Sj,L2(Si,Sj)>>
+                    add<Si,L+(Si)> -> <Sj, L2(Si,Sj)>
                 else:
-                    delete (nit.in, tx)
-                    if out.size == 0 : return
-                    delete (nit.out, tx)
-                    for it in N1:
-                        delete<Si, tx> -> <Sj,tx>
-                    <Si, L+(Si)> -> <Si, L+(Si) - tx>
-                    for it in N2:
-                        delete<Si,L+(Si) - tx> -> <Sj, L2(Si,Sj)>
-                        add<Si, L+(Si) - tx> -> <Sj, L2(Si, Sj) - tx>
-                    delete (refiennit.out, tx)
+                    add<Si,L+(Si)> -> <Sj, tx>
+    else:
+        delete (nit.in, tx)
+        if out.size == 0 : return
+        delete (nit.out, tx)
+        for it in N1:
+            delete<Si, tx> -> <Sj,tx>
+        <Si, L+(Si)> -> <Si, L+(Si) - tx>
+        for it in N2:
+            delete<Si,L+(Si) - tx> -> <Sj, L2(Si,Sj)>
+            add<Si, L+(Si) - tx> -> <Sj, L2(Si, Sj) - tx>
+        delete (refiennit.out, tx)
+
+    //处理新增节点
+    in, out = getINOUT()
+    if newSCC exist:
+        //这里会带来什么变化 TODO
+        //1. IN中增加了tx时刻
+        //2. out中
+        in, out -> update
+
+    else:
+
+
 */
 
 bool HRindex::singleStepUpdateAddEdge2(int u, int v, int timestamp) {
@@ -617,28 +630,28 @@ bool HRindex::singleStepUpdateAddEdge2(int u, int v, int timestamp) {
     //int vSCCID = originGraph[timestamp].findSCCIDFromNodeId(v);
     assert(uSCCID != -1 && vSCCID != -1);
     if (uSCCID != vSCCID) {
-        sccGraphs[timestamp].addEdge(uSCCID, vSCCID);        
+        SCCGraph& thisSCCGraph = sccGraphs[timestamp];
+        sccGraphs[timestamp].addEdge(uSCCID, vSCCID);
         //循环检测环，直到没有环为止
         clock_t findCycleStart, findCycleEnd;
         double findCycleDuration;
         findCycleStart = clock();
         int cycleNum = 0;
         //这里或许可以改进一下，现在的算法是循环检测环，了解一下coloring算法
+        Lifespan tx = LifespanBuild(timestamp, timestamp);
         vector<SCCnode> cycle = sccGraphs[timestamp].findCycle(uSCCID);
         while (cycle.size() != 0) {
             int newSCCID = sccGraphs[timestamp].merge(cycle, sccTable);
             reconstructEvolvingGraphSequence(timestamp);
             cycleNum++;
-
+            
             for (auto item : nodeInfoTable) {
+                RefineRecordItem& ritem = findRefineRecordItem(refineNITable, item.node);
+                int Si = item.node;
+
                 //if node not in  cycleList:
                 if (!sccIncycle(item.node, cycle)) {
-                    RefineRecordItem& ritem = findRefineRecordItem(refineNITable, item.node);
                     auto in = item.In.begin();
-                    int Si = item.node;
-                    Lifespan tx;
-                    LifespanBuild(tx, timestamp, timestamp);
-                    
                     while (in != item.In.end()) {
                         if (sccIncycle(in->vertexID, cycle)) {
                             if (in->lifespan.test(timestamp))
@@ -730,6 +743,7 @@ bool HRindex::singleStepUpdateAddEdge2(int u, int v, int timestamp) {
                                         */
                                         IG.DeleteEdge1(Si, LpSi, it->vertexID, it->lifespan);
                                         it2.lifespan.set(timestamp, true);
+                                        IG.InsertEdgeSrcMustExistOrThrow(Si, LpSi, it->vertexID, it->lifespan);
                                         //IG.InsertEdge(Si, LpSi, )
                                         foundInN2 = true;
                                         break;
@@ -740,9 +754,11 @@ bool HRindex::singleStepUpdateAddEdge2(int u, int v, int timestamp) {
                                     newItem.partLab = 2;
                                     newItem.vertexID = it->vertexID;
                                     newItem.lifespan = LifespanBuild(timestamp, timestamp);
+                                    ritem.Out.push_back(newItem);
+                                    IG.InsertEdgeSrcMustExistOrThrow(Si, LpSi, it->vertexID, tx);
                                 }
    
-                                
+                                it = ritem.Out.erase(it);
                             }
                             else {
                                 it++;
@@ -752,8 +768,86 @@ bool HRindex::singleStepUpdateAddEdge2(int u, int v, int timestamp) {
 
                 }
                 else {
-                    
+                    //node in cycleList
+                    deleteNITItemIN(item, timestamp);
+                    if (item.Out.size() == 0) return true;
+                    deleteNITItemOut(item, timestamp);
+                    for (auto it : ritem.Out) {
+                        if (it.partLab == 1) {
+                            IG.DeleteEdge1(Si, tx, it.vertexID, tx);
+                        }
+                    }
+                    Lifespan Lpsi = _getLpSi(ritem);
+                    for (auto it : ritem.Out) {
+                        if (it.partLab == 2 && it.lifespan.test(timestamp)) {
+                            IG.DeleteEdge1(Si, Lpsi, it.vertexID, it.lifespan);
+                            Lifespan newlife = LifespanTestAndUnset(it.lifespan, timestamp);
+                            IG.InsertEdgeSrcMustExistOrThrow(Si, Lpsi, it.vertexID, newlife);
+                        }
+                    }
+                    deleteRefineNITItem(ritem, timestamp);
                 }
+            }
+            
+            //加入新的SCC节点, 使用SCCGraph来获取出入边信息
+            auto res = find_if(nodeInfoTable.begin(), nodeInfoTable.end(),
+                [&](RecordItem& item) {return item.node == newSCCID;});
+            vector<int> in;
+            vector<int> out;
+            auto inoutPair = sccGraphs[timestamp].getInAndOutNodes(newSCCID);
+            in = inoutPair.first;
+            out = inoutPair.second;
+            //合并后的SCC在其他的时刻有出现
+            if (res != nodeInfoTable.end()) {
+                for (auto init : in) {
+                    auto findres = find_if(res->In.begin(), res->In.end(),
+                        [&](Item& item) {return item.vertexID == init;});
+                    if (findres != res->In.end()) {
+                        assert(findres->lifespan.test(timestamp) == false);
+                        findres->lifespan.set(timestamp, true);
+                    }
+                    else {
+                        Item newItem;
+                        newItem.vertexID = init;
+                        newItem.lifespan = tx;
+                        res->In.push_back(newItem);
+                    }
+                }
+                for (auto outit : out) {
+                    auto findres = find_if(res->Out.begin(), res->Out.end(),
+                        [&](Item& item) {return item.vertexID == outit;});
+                    if (findres != res->Out.end()) {
+                        assert(findres->lifespan.test(timestamp) == false);
+                        findres->lifespan.set(timestamp, true);
+                    }
+                    else {
+                        Item newItem;
+                        newItem.vertexID = outit;
+                        newItem.lifespan = tx;
+                        res->In.push_back(newItem);
+                    }
+                }
+                
+            }
+            else {
+                RecordItem recordItem;
+                recordItem.node = newSCCID;
+                for (auto init : in) {
+                    Item newItem;
+                    newItem.vertexID = init;
+                    newItem.lifespan = tx;
+                    recordItem.In.push_back(newItem);
+                }
+                for (auto outit : out) {
+                    Item newItem;
+                    newItem.vertexID = outit;
+                    newItem.lifespan = tx;
+                    recordItem.Out.push_back(newItem);
+                }
+                nodeInfoTable.push_back(recordItem);
+                RefineRecordItem ritem = getRefineRecordItem(recordItem);
+                refineNITable.push_back(ritem);
+                IG.updateAddRefineRecord(ritem);
             }
         }
     }
