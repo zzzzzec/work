@@ -6,7 +6,6 @@
 #include "Graph.h"
 #include "SCCTable.h"
 #include "Process_Snapshots.h"
-#include "Construct_NITable.h"
 #include "IndexGraph.h"
 #include "Process_Query.h"
 #include "HRindex.h"

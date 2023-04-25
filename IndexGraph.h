@@ -2,15 +2,12 @@
 #define IG_NOOP_5_INDEXGRAPH_H
 
 #include "NIT.h"
-#include "Construct_NITable.h"
 #include "Lifespan.h"
 #include <iostream>
 #include <vector>
 #include <map>
 #include <stack>
 #include <bitset>
-#include "json/json-forwards.h"
-#include "json/json.h"
 
 using namespace std;
 
@@ -108,6 +105,9 @@ public:
     int Newuuid();
     void AddOutToSourceNode(int souPos, int tarID, bitset<MNS> tarLife);
     void InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
+    void InsertEdgeOrThrow(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
+    void InsertEdgeSrcMustExistOrThrow(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
+    
     void DeleteEdge1(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
     void DeleteEdge2(int souPos, int tarPos);
     void DeleteVertex(int nodePos);
@@ -123,6 +123,8 @@ public:
     void ConstructOutEdge(int souID, int tarID, bitset<MNS> t, int label, bitset<MNS> intervalUnion);
     int FindIDonIG(int sccID, bitset<MNS> lifespan);           //根据SCC的id及其生存期，确定其在索引图上的ID
     void OptimizeIntervalVertex();
+    void ModifyNodeOrThrow(int id, Lifespan lifespan, Lifespan newLifespan);
+    IGVerNode* findNode(int id, Lifespan lifespan);
 
     bitset<MNS> GetSubVertexUnionLife(int verPos);
     vector<int> GetSouVerticesPos(int tarID, bitset<MNS> tarLife);
@@ -210,6 +212,28 @@ void IGraph::AddOutToSourceNode(int souPos, int tarID, bitset<MNS> tarLife) {
     }
 }
 
+void IGraph::InsertEdgeOrThrow(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife) {
+    int souPos = VerPos(souID, souLife);
+    int tarPos = VerPos(tarID, tarLife);
+    if (souPos == -1 || tarPos == -1)
+        throw "node not exist";
+    AddOutToSourceNode(souPos, tarID, tarLife);
+}
+
+void IGraph::InsertEdgeSrcMustExistOrThrow(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife) {
+    int souPos = VerPos(souID, souLife);
+    int tarPos = VerPos(tarID, tarLife);
+    if (souPos == -1)
+        throw "InsertEdgeSrcMustExistOrThrow: ";
+    AddOutToSourceNode(souPos, tarID, tarLife);
+    if (tarPos == -1) {
+        int newid = Newuuid();
+        IGVerNode newTarNode(newid, tarID, tarLife);
+        vertices.push_back(newTarNode);
+        vexnum++;
+    }
+}
+
 void IGraph::InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife) {
     int souPos = VerPos(souID, souLife);
     int tarPos = VerPos(tarID, tarLife);
@@ -234,25 +258,25 @@ void IGraph::InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> t
     }
 }
 
+// must exist
 void IGraph::DeleteEdge1(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife) {
     int souPos = VerPos(souID, souLife);
     int tarPos = VerPos(tarID, tarLife);
 
     if (souPos == -1 || tarPos == -1) {
-        cout << "Don't exist this sourceNode!" << endl;
+        throw "Don't exist this sourceNode!";
     } else {
         IGArcNode *p = vertices[souPos].firstArc;
         IGArcNode *q = NULL;
 
         if (p == NULL) {
-            cout << "Don't exist this edge" << endl;
+            throw "Don't exist this edge";
         } else {
             q = p;
             if (p->tarID == tarID && p->tarLifespan == tarLife) {
                 p = p->nextarc;
                 delete (q);
                 vertices[souPos].firstArc = p;
-
                 edgenum--;
             } else {
                 while (p != NULL) {
@@ -801,6 +825,29 @@ vector<int> IGraph::GetSubVerticesPos(int tarPos) {
     return subPosVector;
 }
 
+IGVerNode* IGraph::findNode(int id , Lifespan Lifespan) {
+    for (auto it : vertices) {
+        if (it.souID == id && it.souLifespan == Lifespan) {
+            return &it;
+        }
+    }
+    return nullptr;
+}
+
+void IGraph::ModifyNodeOrThrow(int id, Lifespan lifespan, Lifespan newLifespan) {
+    auto res = findNode(id, lifespan);
+    if (res == nullptr)
+        throw "node not exist";
+    res->souLifespan = newLifespan;
+    for (auto it : vertices) {
+        auto edgeit = it.firstArc;
+        while (edgeit != NULL) {
+            if (edgeit->tarID == id && edgeit->tarLifespan == lifespan)
+                edgeit->tarLifespan = newLifespan;
+            edgeit = edgeit->nextarc;
+        }
+    }
+}
 
 IGraph BuildIndexGraph(RefineNITable refineNITable);
 IGraph ReadIndexGraph(string storeFull_IG_Address);

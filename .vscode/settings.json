@@ -70,6 +70,7 @@
         "optional": "cpp",
         "ratio": "cpp",
         "xlocbuf": "cpp",
-        "xlocmes": "cpp"
+        "xlocmes": "cpp",
+        "filesystem": "cpp"
     }
 }

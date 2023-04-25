@@ -125,13 +125,14 @@ bool GenerateRandomQuery(HRindex& hrindex, int num, string queryFileAddress) {
 
 int main() {
 
-    int timeIntervalLength = 16; 
-    //string graphDatafileAddHead = "./GraphData_DBLP/graph";
+    int timeIntervalLength = 4; 
+    string graphDatafileAddHead = "./GraphData_DBLP/graph";
     //string graphDatafileAddHead = "./testdata/graph";
-    string graphDatafileAddHead = "./Dataset/sx-mathoverflow/sx-mathoverflow";
+    //string graphDatafileAddHead = "./Dataset/sx-mathoverflow/sx-mathoverflow";
     string storeIndexGraphAddress = "./Result_IG2Grail/test_IG2GRail.txt";
     string storeFull_IG_Address = "./Result_Full_IG/test_FULL_IG.txt";
     string storeIGJSONPath = "./Result_Full_IG/IG.json";
+    string storeOriginGraphPath = "./ResultOriginGraph/";
     string storeSccTableAddress = "./Result_SccTable/test_SccTable.txt";
     string storeRefineNITableAddress = "./Result_RefineNITable/test_RefineNITable.txt";
     string queryFileAddress = "./QueryFile/testQuery.txt";
@@ -161,6 +162,7 @@ int main() {
     hrindex.getRefineNITable();
     hrindex.buildIndexGraph();
     hrindex.printStatistics();
+ 
     cout << "Finish building index graph!" << endl;
     /*
     vector<QueryResult> queryRecords;
@@ -170,22 +172,22 @@ int main() {
     */
     //Query(hrindex, queryRecords);
     //GenerateRandomQuery(hrindex, 1000, queryFileAddress);
-    cout << "start query..." << endl;
-    vector<QueryResult> queryRecords = ReadQuery(queryFileAddress);
-    cout << "query loaded! size :" << queryRecords.size() << endl;
+    //cout << "start query..." << endl;
+    //vector<QueryResult> queryRecords = ReadQuery(queryFileAddress);
+    //cout << "query loaded! size :" << queryRecords.size() << endl;
     //Query(hrindex, queryRecords, resultFileAddress);
-    //vector<updateRecord> updateRecords;
-    //updateRecords.push_back(updateRecord(3, 100, 101, 0));
-    //hrindex.updateFromRecords(updateRecords);
-    hrindex.updateFromFile(updateFileAddress);
+    vector<updateRecord> updateRecords;
+    updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 7, 10, 1));
+    hrindex.updateFromRecords(updateRecords);
+    //hrindex.updateFromFile(updateFileAddress);
     
     for (int i = 0; i < hrindex.timeIntervalLength; i++) {
         hrindex.originGraph[i].gsort();
     }
     sort(hrindex.nodeInfoTable.begin(), hrindex.nodeInfoTable.end(), compareRecordItem);
     sort(hrindex.refineNITable.begin(), hrindex.refineNITable.end(), compareRefineRecordItem);
-    cout << "num = " << hrindex.originGraph[0].GetNodeEdgesNum(4) << endl;
-    //hrindex.IG.StoreFullIndexGraphJSON(storeIGJSONPath);
-    Query(hrindex, queryRecords, resultFileAddress);
+    hrindex.IG.StoreFullIndexGraphJSON(storeIGJSONPath);
+    hrindex.storeOriginGraph(storeOriginGraphPath);
+    //Query(hrindex, queryRecords, resultFileAddress);
     return 0;
 }

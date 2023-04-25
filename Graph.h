@@ -47,6 +47,9 @@ typedef struct NodeinG {
 } NodeinG;
  
 class Graph {
+public:
+    int timestamp;
+    
 private:
     AdjList_Graph vertices;             //邻接表
     int vexnum, edgenum;                //节点数&边数
@@ -94,7 +97,8 @@ public:
     vector<int> findInArcList(int nodeID);
     int getRandomNodeID() {return vertices[rand() % vertices.size()].souID;}
     bool IsReachable(int src, int dst);
-    void NewGraphSCCIDRemap(map<int,int> sccIDmap);
+    void NewGraphSCCIDRemap(map<int, int> sccIDmap);
+    void StoreGraphJSON(string path);
 };
 
 typedef vector<Graph> Graphs;
@@ -527,4 +531,26 @@ void Graph::NewGraphSCCIDRemap(map<int, int> sccIDmap) {
         it->sccOfIG = sccIDmap[it->sccOfIG];
     }
 }
+
+void Graph::StoreGraphJSON(string path) {
+    Json::Value JsonGraph;
+    for (auto node : vertices) {
+        Json::Value JsonNode;
+        JsonNode["souID"] = node.souID;
+        JsonNode["time"] = timestamp;
+        Json::Value JsonArcs;
+        for (ArcNode *p = node.firstArc; p; p = p->nextarc) {
+            Json::Value JsonArc;
+            JsonArc["tarID"] = p->tarID;
+            JsonArcs.append(JsonArc);
+        }
+        JsonNode["arcs"] = JsonArcs;
+        JsonGraph.append(JsonNode);
+    }
+    ofstream fout(path);
+    if (fout) {
+        fout << JsonGraph.toStyledString();
+    }
+}
+
 #endif //IG_NOOP_5_GRAPH_H

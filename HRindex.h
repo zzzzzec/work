@@ -11,7 +11,6 @@
 #include "Graph.h"
 #include "SCCTable.h"
 #include "Process_Snapshots.h"
-#include "Construct_NITable.h"
 #include "IndexGraph.h"
 #include "Process_Query.h"
 #include "update.h"
@@ -54,7 +53,7 @@ public:
     fstream logFile;
     
     Graphs originGraph;
-    SCCGraph sccGraph;
+    SCCGraphs sccGraphs;
     vector<vector<int>> evolvingGraphSequence;
     SCCEdgeInfoSequence sccEdgeInfoSequence;
     SccTable sccTable;
@@ -103,13 +102,14 @@ public:
     int getaNewSCCID();
     bool addSCCnode(int nodeID, int newSCCID, Lifespan lifespan);
     bool addSCCedge(int srcNodeID, int dstNodeID, Lifespan lifespan);
-    bool reconstructEvolvingGraphSequence(SCCGraph& sccGraph, int timestamp);
+    bool reconstructEvolvingGraphSequence(int timestamp);
     void printStatistics();
-
+    void storeOriginGraph(string path);
 private:
     bool singleStepUpdate(updateRecord& ur);
     bool singleStepUpdateAddNode(int u, int timestamp);
     bool singleStepUpdateAddEdge(int u, int v, int timestamp);
+    bool singleStepUpdateAddEdge2(int u, int v, int timestamp);
     bool singleStepUpdateDeleteNode(int u, int timestamp);
     bool singleStepUpdateDeleteEdge(int u, int v, int timestamp);
 };
@@ -150,6 +150,7 @@ bool HRindex::buildOriginGraph() {
     buildOriginGraphStartTime = clock();
     for (int timeStamp = 0; timeStamp < timeIntervalLength; ++timeStamp) {
         Graph g;
+        g.timestamp = timeStamp;
         vector<int> dataVector = GetFileData2(graphDatafileAddHead, timeStamp);
         auto ne = dataVector.size();
         int num_edges = ne / 2;
@@ -177,7 +178,7 @@ bool HRindex::getSCCTable()
 bool HRindex::buildSCCGraph()
 {
     buildSCCGraphStartTime = clock();
-    sccGraph = SCCGraph(evolvingGraphSequence, sccTable);
+    sccGraphs = BuildSCCGraphs(evolvingGraphSequence, sccTable, timeIntervalLength);
     buildSCCGraphEndTime = clock();
     buildSCCGraphTime = (double)(buildSCCGraphEndTime - buildSCCGraphStartTime) / CLOCKS_PER_SEC;
     HRINDEX_PRINT  << "step3:buildSCCGraph(" << std::fixed << std::setprecision(2) << buildSCCGraphTime << "s)" << endl;
@@ -287,12 +288,12 @@ bool HRindex::addSCCnode(int nodeID, int newSCCID, Lifespan lifespan) {
     return true;
 }
 
-bool HRindex::reconstructEvolvingGraphSequence(SCCGraph& sccGraph, int timestamp) {
+bool HRindex::reconstructEvolvingGraphSequence(int timestamp) {
     vector<int> tmp;
-    for (auto it = sccGraph.sccGraphs.begin(); it != sccGraph.sccGraphs.end(); ++it)
+    for (auto it = sccGraphs.begin(); it != sccGraphs.end(); ++it)
     {
-        if (it->first == timestamp) {
-            for (auto it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+        if (it->timestamp == timestamp) {
+            for (auto it2 = it->vertices.begin(); it2 != it->vertices.end(); ++it2)
             {
                 int id = it2->SCCID;
                 arc* a = it2->firstArc;
@@ -352,7 +353,7 @@ bool HRindex::singleStepUpdateAddNode(int u, int timestamp) {
     int newSCCID = getaNewSCCID();
     originGraph[timestamp].AddNode(u, newSCCID);
     addSCCnode(u, newSCCID, LifespanBuild(newLifespan, timestamp, timestamp));
-    sccGraph.addNode(newSCCID, timestamp, { u });
+    sccGraphs[timestamp].addNode(newSCCID, { u });
     //加入一个新的ONTable的表项
     RecordItem newNITableRecordItem;
     newNITableRecordItem.node = newSCCID;
@@ -408,7 +409,6 @@ bool HRindex::singleStepUpdateAddEdge(int u, int v, int timestamp) {
         HRINDEX_PRINT << "node : " << v << " exists" << endl;
     }
 
-    
     originGraph[timestamp].InsertEdgeWithCheck(u, v);
     HRINDEX_PRINT << "step1 : originGraph insert edge" << endl;
     auto [d1, uSCCID] = measureTime<int>(std::bind(&Graph::findSCCIDFromNodeId, &originGraph[timestamp], u));
@@ -420,26 +420,21 @@ bool HRindex::singleStepUpdateAddEdge(int u, int v, int timestamp) {
     assert(uSCCID != -1 && vSCCID != -1);
     if (uSCCID != vSCCID) {
         //循环检测环，直到没有环为止
-        sccGraph.addEdge(uSCCID, vSCCID, timestamp);
-        
+        sccGraphs[timestamp].addEdge(uSCCID, vSCCID);
         clock_t findCycleStart, findCycleEnd;
         double findCycleDuration;
         findCycleStart = clock();
-        //这里或许可以改进一下，现在的算法是循环检测环，了解一下coloring算法
-        int cycleNum = 0;
-        vector<SCCnode> cycle = sccGraph.findCycle(uSCCID, timestamp);
+        vector<SCCnode> cycle = sccGraphs[timestamp].findCycle(uSCCID);
         while (cycle.size() != 0) {
             //考虑合并后的SCC与其他SCC相同
-            int newID = sccGraph.merge(cycle, timestamp, sccTable);
-            cycle = sccGraph.findCycle(newID, timestamp);
-            cycleNum++;
+            int reusedID = sccGraphs[timestamp].merge(cycle, sccTable);
+            cycle = sccGraphs[timestamp].findCycle(reusedID);
         }
-        
         findCycleEnd = clock();
         findCycleDuration = ((double)(findCycleEnd - findCycleStart) / CLOCKS_PER_SEC) * 1000;
-        HRINDEX_PRINT << "step2 : findCycle( "<< cycleNum << " in " << findCycleDuration << "ms)" << endl;
+        HRINDEX_PRINT << "step2 : findCycle(" << findCycleDuration << "ms)" << endl;
 
-        auto[d3, notuse] = measureTime<bool>(std::bind(&HRindex::reconstructEvolvingGraphSequence, this, sccGraph, timestamp));
+        auto[d3, notuse] = measureTime<bool>(std::bind(&HRindex::reconstructEvolvingGraphSequence, this, timestamp));
         //reconstructEvolvingGraphSequence(sccGraph, timestamp);
         HRINDEX_PRINT << "step3 : reconstructEvolvingGraphSequence(" << d3 << "ms)" << endl;
 
@@ -450,20 +445,19 @@ bool HRindex::singleStepUpdateAddEdge(int u, int v, int timestamp) {
         auto exist = [&id](RecordItem& ri) {return ri.node == id;};
         //整个删除在timeStamp时刻的NIT中的内容，然后重建
         deleteNIT(nodeInfoTable, timestamp);
-        for (auto sccGraphit = sccGraph.sccGraphs[timestamp].second.begin();
-            sccGraphit != sccGraph.sccGraphs[timestamp].second.end(); ++sccGraphit) {
+        for (auto sccGraphit = sccGraphs[timestamp].vertices.begin();
+            sccGraphit != sccGraphs[timestamp].vertices.end(); ++sccGraphit) {
             id = sccGraphit->SCCID;
             vector<int> INlist;
             vector<int> OUTlist;
             //遍历整个图来找到这个SCCID的入边
-            for (auto INlistit = sccGraph.sccGraphs[timestamp].second.begin();
-                INlistit != sccGraph.sccGraphs[timestamp].second.end(); ++INlistit) {
-                if (INlistit->SCCID == id) continue;
+            for (auto INlistit : sccGraphs[timestamp].vertices) {
+                if (INlistit.SCCID == id) continue;
                 else {
-                    for (auto arcit = INlistit->firstArc; arcit != NULL; arcit = arcit->next)
+                    for (auto arcit = INlistit.firstArc; arcit != NULL; arcit = arcit->next)
                     {
                         if (arcit->dstID == id) {
-                            INlist.push_back(INlistit->SCCID);
+                            INlist.push_back(INlistit.SCCID);
                             break;
                         }
                     }
@@ -499,12 +493,269 @@ bool HRindex::singleStepUpdateAddEdge(int u, int v, int timestamp) {
         HRINDEX_PRINT << "step4 : reconstructNIT(" << reconstructNITDuration << "ms)" << endl;
         
         //更新RefineNITable
-        auto [d5, refineNITable] = measureTime<RefineNITable>(GetRefineNITable, nodeInfoTable);
+        auto [d5, newRefineNITable] = measureTime<RefineNITable>(GetRefineNITable, this->nodeInfoTable);
+        this->refineNITable = newRefineNITable;
         HRINDEX_PRINT << "step5 : Reconstruct RefineNITable(" << d5 << "ms)" << endl;
-        auto [d6, IG] = measureTime<IGraph>(BuildIndexGraph, refineNITable);
+        
+        //更新IG
+        auto [d6, newIG] = measureTime<IGraph>(BuildIndexGraph, refineNITable);
+        this->IG = newIG;
         HRINDEX_PRINT << "step6 : Rebuild IndexGraph(" << d6 << "ms)" << endl;
-        //this->refineNITable = GetRefineNITable(nodeInfoTable);
-        //this->IG = BuildIndexGraph(this->refineNITable);
+    }
+    end = clock();
+    duration = ((double)(end - start) / CLOCKS_PER_SEC) * 1000;
+    HRINDEX_PRINT << "finish(" << duration << "ms)" << endl;
+    HRINDEX_PRINT << endl;
+    return true;
+}
+
+
+Lifespan _getLpSi(RefineRecordItem& rri) {
+    Lifespan res;
+    for (auto it : rri.Out) {
+        if (it.partLab == 2)
+            LifespanUnion(res, it.lifespan);
+    }
+    return res;
+}
+/*更新IG
+            如果一个节点的IN和OUT都没有变化，那么 NIT 不变 -> RefineNIT不变 -> IG 不变
+            对于cycleList中的节点消失，会产生变化的有
+            in1          out1
+            in2 -> Si -> out2 
+            in3          out3
+            更新伪代码
+            for item in NIT：
+                if node not in  cycleList:
+                    for in in item.in:
+                        if in.node in cycleList:
+                            change = true
+                            if in.liefe.test(tx): in.node.set(tx = false)
+                            if(in.node.size == 0) remove in
+                    for out in item.out:
+                        if out.node in cycleList:
+                            change = true
+                            if in.liefe.test(tx): out.node.set(tx = false)
+                            if(out.node.size == 0) remove out
+                    union1 = U(it in item.IN)
+
+                    for out in refineNIT.out:
+                        if tag == 1 && node in cycleList && time = tx
+                            remove out
+                            delete(<Si,tx> -> <Sj,tx>) [must exist]
+                        if tag == 2 && node in cycleList && tx -> time
+                            if out.time == tx:
+                                remove out
+                                delete(<Si,L+(Si)> -> <Sj,tx>)
+                            if out.time include tx:
+                                out.time.set(tx, false)
+                                delete(<Si, L+(Si)> -> (Sj, L2(Si,Sj)))
+                                add(<Si, L+(Si)> -> (Sj, L2(Si,Sj) - tx))
+                    union2 = U(it in refineTable.out.tag==2)
+                    if tx not in union2 && tx not in union1 : <Si, L+(Si)>) change to <Si, L+(Si) - tx> (must not exist)
+
+                    if tx in union: pass
+                    else:
+                        for it in refineTable.N1:
+                            move it to N2
+                            delete(<Si,tx> -> <Sj,tx>) [must exist]
+                            if Sj in N2:
+                                delete<Si,L+(Si) -> <Sj,L2(Si,Sj)>>
+                                add<Si,L+(Si)> -> <Sj, L2(Si,Sj)>
+                            else:
+                                add<Si,L+(Si)> -> <Sj, L2(Si,Sj)>
+                else:
+                    delete (nit.in, tx)
+                    if out.size == 0 : return
+                    delete (nit.out, tx)
+                    for it in N1:
+                        delete<Si, tx> -> <Sj,tx>
+                    <Si, L+(Si)> -> <Si, L+(Si) - tx>
+                    for it in N2:
+                        delete<Si,L+(Si) - tx> -> <Sj, L2(Si,Sj)>
+                        add<Si, L+(Si) - tx> -> <Sj, L2(Si, Sj) - tx>
+                    delete (refiennit.out, tx)
+*/
+
+bool HRindex::singleStepUpdateAddEdge2(int u, int v, int timestamp) {
+    clock_t start, end;
+    double duration;
+    clock_t addNodeStart, addNodeEnd;
+    double addNodeDuration;
+    start = clock();
+
+    HRINDEX_PRINT << "singleStepUpdateAddEdge: " << u << "->" << v << " " << timestamp << endl;
+    //添加一条边(u,v),先检测是否存在
+    if (!originGraph[timestamp].NodeIsExists(u)) {
+        addNodeStart = clock();
+        singleStepUpdateAddNode(u, timestamp);
+        addNodeEnd = clock();
+        addNodeDuration = ((double)(addNodeEnd - addNodeStart) / CLOCKS_PER_SEC ) * 1000;
+        HRINDEX_PRINT << "node : " << u << " not exists(" << addNodeDuration << "ms)" << endl;
+    }
+    else {
+        HRINDEX_PRINT << "node : " << u << " exists" << endl;
+    }
+    if (!originGraph[timestamp].NodeIsExists(v)) {
+        addNodeStart = clock();
+        singleStepUpdateAddNode(v, timestamp);
+        addNodeEnd = clock();
+        addNodeDuration = ((double)(addNodeEnd - addNodeStart) / CLOCKS_PER_SEC) * 1000;
+        HRINDEX_PRINT << "node : " << v << " not exists(" << addNodeDuration << "ms)" << endl;
+    }
+    else {
+        HRINDEX_PRINT << "node : " << v << " exists" << endl;
+    }
+
+    originGraph[timestamp].InsertEdgeWithCheck(u, v);
+    HRINDEX_PRINT << "step1 : originGraph insert edge" << endl;
+    auto [d1, uSCCID] = measureTime<int>(std::bind(&Graph::findSCCIDFromNodeId, &originGraph[timestamp], u));
+    HRINDEX_PRINT << "step2.1 : findSCCIDFromNodeId(" << u <<")(" << d1 << "ms)" << endl;
+    auto [d2, vSCCID] = measureTime<int>(std::bind(&Graph::findSCCIDFromNodeId, &originGraph[timestamp], v));
+    HRINDEX_PRINT << "step2.2 : findSCCIDFromNodeId(" << v << ")(" << d1 << "ms)" << endl;
+    //int uSCCID = originGraph[timestamp].findSCCIDFromNodeId(u);
+    //int vSCCID = originGraph[timestamp].findSCCIDFromNodeId(v);
+    assert(uSCCID != -1 && vSCCID != -1);
+    if (uSCCID != vSCCID) {
+        sccGraphs[timestamp].addEdge(uSCCID, vSCCID);        
+        //循环检测环，直到没有环为止
+        clock_t findCycleStart, findCycleEnd;
+        double findCycleDuration;
+        findCycleStart = clock();
+        int cycleNum = 0;
+        //这里或许可以改进一下，现在的算法是循环检测环，了解一下coloring算法
+        vector<SCCnode> cycle = sccGraphs[timestamp].findCycle(uSCCID);
+        while (cycle.size() != 0) {
+            int newSCCID = sccGraphs[timestamp].merge(cycle, sccTable);
+            reconstructEvolvingGraphSequence(timestamp);
+            cycleNum++;
+
+            for (auto item : nodeInfoTable) {
+                //if node not in  cycleList:
+                if (!sccIncycle(item.node, cycle)) {
+                    RefineRecordItem& ritem = findRefineRecordItem(refineNITable, item.node);
+                    auto in = item.In.begin();
+                    int Si = item.node;
+                    Lifespan tx;
+                    LifespanBuild(tx, timestamp, timestamp);
+                    
+                    while (in != item.In.end()) {
+                        if (sccIncycle(in->vertexID, cycle)) {
+                            if (in->lifespan.test(timestamp))
+                                in->lifespan.set(timestamp);
+                            if (in->lifespan.none())
+                                in = item.In.erase(in);
+                            else
+                                ++in;
+                        }
+                        else {
+                            ++in;
+                        }
+                    }
+
+                    auto out = item.Out.begin();
+                    while (out != item.Out.end()) {
+                        if (sccIncycle(out->vertexID, cycle)) {
+                            if (out->lifespan.test(timestamp))
+                                out->lifespan.set(timestamp);
+                            if (out->lifespan.none())
+                                out = item.In.erase(in);
+                            else
+                                ++out;
+                        }
+                        else {
+                            ++out;
+                        }
+                    }
+
+                    Lifespan union1;
+                    for (auto in : item.In) union1 = union1 | in.lifespan;
+
+                    auto rit = ritem.Out.begin();
+                    Lifespan LpSi = _getLpSi(ritem);
+                    
+                    while (rit != ritem.Out.end()) {
+                        if (rit->partLab == 1 && sccIncycle(rit->vertexID, cycle) && rit->lifespan.test(timestamp)) {
+                            rit = ritem.Out.erase(rit);
+                            //delete(<Si,tx> -> <Sj,tx>) [must exist]
+                            IG.DeleteEdge1(Si, tx, rit->vertexID, tx);
+                            continue;
+                        }
+                        if (rit->partLab == 2 && sccIncycle(rit->vertexID, cycle) && LifespanisSub(rit->lifespan, tx)) {
+                            //timestamp = tx
+                            if (rit->lifespan.count() == 1 && rit->lifespan.test(timestamp)) {
+                                rit = ritem.Out.erase(rit);
+                                //delete(<Si,L+(Si)> -> <Sj,tx>)
+                                IG.DeleteEdge1(Si, LpSi, rit->vertexID, tx);
+                                continue;
+                            }
+                            else {
+                                //lifespan include tx
+                                assert(rit->lifespan.test(timestamp));
+                                IG.DeleteEdge1(Si, LpSi, rit->vertexID, rit->lifespan);
+                                rit->lifespan.set(timestamp, false);
+                                assert(!rit->lifespan.none());
+                                IG.InsertEdge(Si, LpSi, rit->vertexID, rit->lifespan);
+                                rit++;
+                                continue;
+                            }
+                        }
+                        rit++;
+                    }
+
+                    Lifespan union2 = _getLpSi(ritem);
+                    if ((!union1.test(timestamp)) && (!union2.test(timestamp))) {
+                        //if tx not in union2 && tx not in union1 : <Si, L+(Si)>) change to <Si, L+(Si) - tx> (must not exist)
+                        Lifespan newLife = LpSi;
+                        newLife.set(timestamp, false);
+                        IG.ModifyNodeOrThrow(Si, LpSi, newLife);
+                    }
+
+                    LpSi = _getLpSi(ritem);
+                    if (!(union1.test(timestamp))) {
+                        auto it = ritem.Out.begin();
+                        while (it != ritem.Out.end()) {
+                            if (it->partLab == 1) {
+                                //delete(<Si,tx> -> <Sj,tx>) [must exist]
+                                IG.DeleteEdge1(Si, tx, it->vertexID, tx);
+                                //move it to N2 [<Sj, tx>]
+                                bool foundInN2 = false;
+                                for (auto it2 : ritem.Out) {
+                                    if (it2.partLab == 2 && it2.vertexID == it->vertexID) {
+                                        assert(!it2.lifespan.test(timestamp));
+                                        /*
+                                        if Sj in N2:
+                                            delete<Si,L+(Si) -> <Sj,L2(Si,Sj)>>
+                                            add<Si,L+(Si)> -> <Sj, L2(Si,Sj)>
+                                        */
+                                        IG.DeleteEdge1(Si, LpSi, it->vertexID, it->lifespan);
+                                        it2.lifespan.set(timestamp, true);
+                                        //IG.InsertEdge(Si, LpSi, )
+                                        foundInN2 = true;
+                                        break;
+                                    }
+                                }
+                                if (!foundInN2) {
+                                    Item newItem;
+                                    newItem.partLab = 2;
+                                    newItem.vertexID = it->vertexID;
+                                    newItem.lifespan = LifespanBuild(timestamp, timestamp);
+                                }
+   
+                                
+                            }
+                            else {
+                                it++;
+                            }
+                        }
+                    }
+
+                }
+                else {
+                    
+                }
+            }
+        }
     }
     end = clock();
     duration = ((double)(end - start) / CLOCKS_PER_SEC) * 1000;
@@ -622,12 +873,12 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
             }
         }
         
-        try { sccGraph.deleteEdge(uSCCID, vSCCID, timestamp); }
+        try { sccGraphs[timestamp].deleteEdge(uSCCID, vSCCID); }
         catch (const char* msg) {
             HRINDEX_PRINT  << msg << endl;
             goto ABORT;
         }
-        reconstructEvolvingGraphSequence(sccGraph, timestamp);
+        reconstructEvolvingGraphSequence(timestamp);
         for (auto sccEdgeInfoSequenceit = sccEdgeInfoSequence[timestamp].begin();
             sccEdgeInfoSequenceit != sccEdgeInfoSequence[timestamp].end(); ++sccEdgeInfoSequenceit) {
             if (sccEdgeInfoSequenceit->sccEdge.sScc == uSCCID && sccEdgeInfoSequenceit->sccEdge.tScc == vSCCID) {
@@ -667,9 +918,9 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
     }
     else {
         //在同一个SCC内部，先把SCC内部重新分割
-        auto findResult = find_if(sccGraph.sccGraphs[timestamp].second.begin(), sccGraph.sccGraphs[timestamp].second.end(),
+        auto findResult = find_if(sccGraphs[timestamp].vertices.begin(), sccGraphs[timestamp].vertices.end(),
             [&uSCCID](SCCnode& sccnode) { return sccnode.SCCID == uSCCID; });
-        if(findResult == sccGraph.sccGraphs[timestamp].second.end()) {
+        if(findResult == sccGraphs[timestamp].vertices.end()) {
             HRINDEX_PRINT  << "SCC not in SCCGraph" << endl;
             goto ABORT;
         }
@@ -677,7 +928,7 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         //收集此SCC的所有边
         vector<SCCEdge> in;
         vector<SCCEdge> out;
-        for (auto it = sccGraph.sccGraphs[timestamp].second.begin(); it != sccGraph.sccGraphs[timestamp].second.end(); ++it) {
+        for (auto it = sccGraphs[timestamp].vertices.begin(); it != sccGraphs[timestamp].vertices.end(); ++it) {
             if (it->SCCID == uSCCID) {
                 for (auto arcit = it->firstArc; arcit != NULL; arcit = arcit->next) {
                     SCCEdge newEdge;
@@ -726,21 +977,21 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
                 //重新映射
                 SCCRemap[it->sccID_Life.scc_id] = res.first->sccID_Life.scc_id;
                 res.first->sccID_Life.life_time.set(timestamp, true);
-                sccGraph.addNode(res.first->sccID_Life.scc_id, timestamp, res.first->nodeGroup);
+                sccGraphs[timestamp].addNode(res.first->sccID_Life.scc_id, res.first->nodeGroup);
             }
             else {
                 int newid = newSCCID(this->sccTable);
                 SCCRemap[it->sccID_Life.scc_id] = newid;
                 res.first->sccID_Life.scc_id = newid;
-                sccGraph.addNode(newid, timestamp, res.first->nodeGroup);
+                sccGraphs[timestamp].addNode(newid, res.first->nodeGroup);
             }
         }
         newGraph.NewGraphSCCIDRemap(SCCRemap);
         newSCCEdgeInfo = _SCCEdgeInfoRemap(newSCCEdgeInfo, SCCRemap);
-        sccGraph.deleteNode(uSCCID, timestamp);
+        sccGraphs[timestamp].deleteNode(uSCCID);
         //先加入内部的边
         for (auto it = newSCCEdgeInfo.begin(); it != newSCCEdgeInfo.end(); ++it) {
-            if (sccGraph.addEdge(it->sccEdge.sScc, it->sccEdge.tScc, timestamp) == 0)
+            if (sccGraphs[timestamp].addEdge(it->sccEdge.sScc, it->sccEdge.tScc) == 0)
                 assert(false);
         }
         
@@ -755,7 +1006,7 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
             if (findResult != sccEdgeInfo.end()) {
                 for (auto edgeit = findResult->nodeEdges.begin(); edgeit != findResult->nodeEdges.end(); ++edgeit) {
                     int insideSCCID = newGraph.findSCCIDFromNodeId(edgeit->dst);
-                    if(sccGraph.addEdge(srcSCCID, insideSCCID, timestamp) == 0)
+                    if(sccGraphs[timestamp].addEdge(srcSCCID, insideSCCID) == 0)
                         assert(false);
                     INparamList.push_back({ srcSCCID, insideSCCID, edgeit->src, edgeit->dst });
                 }
@@ -769,11 +1020,11 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
             auto findResult2 = find_if(sccEdgeInfo.begin(), sccEdgeInfo.end(), [&](const SCCEdgeInfoItem& item) {return item.sccEdge.sScc == srcSCCID && item.sccEdge.tScc == dstSCCID; });
             if (findResult2 != sccEdgeInfo.end()) {
                 for (auto edgeit = findResult2->nodeEdges.begin(); edgeit != findResult2->nodeEdges.end(); ++edgeit) {
-                    auto res = sccGraph.findSCCIDNodeFromOriginNodeID(edgeit->src, timestamp);
+                    auto res = sccGraphs[timestamp].findSCCIDNodeFromOriginNodeID(edgeit->src);
                     assert(res != -1);
                     int newSCCSrcID = res;
                     //此边为newSCCSrcID->dstSCCID的边
-                    if (sccGraph.addEdge(newSCCSrcID, dstSCCID, timestamp) == 0)
+                    if (sccGraphs[timestamp].addEdge(newSCCSrcID, dstSCCID) == 0)
                         assert(false);
                     OUTparamList.push_back({ newSCCSrcID, dstSCCID, edgeit->src, edgeit->dst });
                 }
@@ -791,7 +1042,7 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         int sccEdgeInfoSize = sccEdgeInfo.size();
         sccEdgeInfo.insert(newSCCEdgeInfo.begin(), newSCCEdgeInfo.end());
         assert(sccEdgeInfo.size() == sccEdgeInfoSize + newSCCEdgeInfo.size());
-        reconstructEvolvingGraphSequence(sccGraph, timestamp);
+        reconstructEvolvingGraphSequence(timestamp);
         getNITable();
         getRefineNITable();
         buildIndexGraph();
@@ -819,9 +1070,9 @@ bool HRindex::singleStepUpdateDeleteNode(int u, int timestamp) {
     
     int uSCCID = originGraph[timestamp].findSCCIDFromNodeId(u); 
     originGraph[timestamp].DeleteNode(u);
-    sccGraph.deleteNode(u, timestamp);
+    sccGraphs[timestamp].deleteNode(u);
     DeleteSccTableByID(sccTable, uSCCID, timestamp);
-    reconstructEvolvingGraphSequence(sccGraph, timestamp);
+    reconstructEvolvingGraphSequence(timestamp);
 
     for (auto it = nodeInfoTable.begin(); it != nodeInfoTable.end(); ++it) {
         if (it->node == uSCCID) {
@@ -845,9 +1096,16 @@ void HRindex::printStatistics() {
         HRINDEX_PRINT << "timeStamp: " << i;
         HRINDEX_PRINT << " nodeNum: " << originGraph[i].GetVexNum();
         HRINDEX_PRINT << " edgeNum: " << originGraph[i].GetEdgeNum();
-        HRINDEX_PRINT << " SCCNum: " << sccGraph.sccGraphs[i].second.size();
-        HRINDEX_PRINT << " SCCEdgeNum: " << sccGraph.getEdgeNum(i) << endl;
+        HRINDEX_PRINT << " SCCNum: " << sccGraphs[i].vertices.size();
+        HRINDEX_PRINT << " SCCEdgeNum: " << sccGraphs[i].getEdgeNum() << endl;
     }
     HRINDEX_PRINT << endl;
+}
+
+void HRindex::storeOriginGraph(string path) {
+    for (auto g : originGraph) {
+        string fileName = path + "originGraph" + to_string(g.timestamp) + ".json";
+        g.StoreGraphJSON(fileName);
+    }
 }
 #endif

@@ -42,7 +42,16 @@ bitset<MNS> LifespanUnion(bitset<MNS> &l1, bitset<MNS> &l2) {
     return result;
 }
 
-bitset<MNS> LifespanBuild(bitset<MNS> &b, int i, int j) {
+Lifespan LifespanBuild(int i, int j) {
+    Lifespan b;
+    b.reset();
+    for (int k = i; k <= j; ++k) {
+        b.set(k);
+    }
+    return b;
+}
+
+bitset<MNS> LifespanBuild(bitset<MNS>& b, int i, int j) {
     for (int k = i; k <= j; ++k) {
         b.set(k);
     }

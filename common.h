@@ -18,6 +18,10 @@
 #include <map>
 #include <iomanip>
 #include <functional>
+#include <tuple>
+
+#include "json/json-forwards.h"
+#include "json/json.h"
 
 #define DEBUG_LEVEL 2
 
@@ -39,4 +43,11 @@
 #endif
 
 #define GDBSTOP(expr) if (expr) asm("int3");
+#define THROW(exception) \
+    do { \
+        std::ostringstream oss; \
+        oss << "Error at line " << __LINE__ << " in function " << __func__; \
+        throw std::runtime_error(oss.str()); \
+    } while (0)
+
 #endif

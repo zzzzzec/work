@@ -27,11 +27,11 @@
                     "ignoreFailures": true
                 },
                 
-                //{
-                //    "description": "Catch throw",
-                //    "text": "catch throw",
-                //    "ignoreFailures": false
-                //},
+                {
+                    "description": "Catch throw",
+                    "text": "catch throw",
+                    "ignoreFailures": false
+                },
                 {
                     "description": "assert stop",
                     "text": "break abort",

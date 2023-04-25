@@ -4,18 +4,18 @@
 		[
 			{
 				"tarID" : 0,
-				"tarLifespan" : "00000000000000000001",
+				"tarLifespan" : "00000000000000000100",
 				"uuid" : 2
 			}
 		],
 		"souID" : 1,
-		"souLifespan" : "00000000000000000001",
+		"souLifespan" : "00000000000000000100",
 		"uuid" : 1
 	},
 	{
 		"arcs" : null,
 		"souID" : 0,
-		"souLifespan" : "00000000000000000001",
+		"souLifespan" : "00000000000000000100",
 		"uuid" : 2
 	},
 	{
@@ -23,148 +23,97 @@
 		[
 			{
 				"tarID" : 0,
-				"tarLifespan" : "00000000000000000010",
+				"tarLifespan" : "00000000000000000001",
 				"uuid" : 4
 			}
 		],
 		"souID" : 1,
-		"souLifespan" : "00000000000000000010",
+		"souLifespan" : "00000000000000000001",
 		"uuid" : 3
 	},
 	{
 		"arcs" : null,
 		"souID" : 0,
-		"souLifespan" : "00000000000000000010",
+		"souLifespan" : "00000000000000000001",
 		"uuid" : 4
 	},
 	{
 		"arcs" : 
 		[
 			{
-				"tarID" : 6,
+				"tarID" : 5,
 				"tarLifespan" : "00000000000000000010",
 				"uuid" : 6
 			}
 		],
-		"souID" : 5,
+		"souID" : 1,
 		"souLifespan" : "00000000000000000010",
 		"uuid" : 5
+	},
+	{
+		"arcs" : null,
+		"souID" : 5,
+		"souLifespan" : "00000000000000000010",
+		"uuid" : 6
 	},
 	{
 		"arcs" : 
 		[
 			{
 				"tarID" : 1,
-				"tarLifespan" : "00000000000000000010",
-				"uuid" : 3
+				"tarLifespan" : "00000000000000000011",
+				"uuid" : 8
 			},
 			{
 				"tarID" : 3,
-				"tarLifespan" : "00000000000000000010",
-				"uuid" : 7
+				"tarLifespan" : "00000000000000001000",
+				"uuid" : 9
 			},
 			{
-				"tarID" : 7,
+				"tarID" : 5,
 				"tarLifespan" : "00000000000000000010",
-				"uuid" : 8
+				"uuid" : 6
 			}
 		],
-		"souID" : 6,
-		"souLifespan" : "00000000000000000010",
-		"uuid" : 6
-	},
-	{
-		"arcs" : null,
-		"souID" : 3,
-		"souLifespan" : "00000000000000000010",
+		"souID" : 2,
+		"souLifespan" : "00000000000000001011",
 		"uuid" : 7
-	},
-	{
-		"arcs" : null,
-		"souID" : 7,
-		"souLifespan" : "00000000000000000010",
-		"uuid" : 8
 	},
 	{
 		"arcs" : 
 		[
 			{
-				"tarID" : 10,
-				"tarLifespan" : "00000000000000000100",
-				"uuid" : 10
+				"tarID" : 1,
+				"tarLifespan" : "00000000000000000001",
+				"uuid" : 3
 			},
 			{
-				"tarID" : 8,
-				"tarLifespan" : "00000000000000000100",
-				"uuid" : 11
+				"tarID" : 1,
+				"tarLifespan" : "00000000000000000010",
+				"uuid" : 5
 			}
 		],
-		"souID" : 4,
-		"souLifespan" : "00000000000000000100",
+		"souID" : 1,
+		"souLifespan" : "00000000000000000011",
+		"uuid" : 8
+	},
+	{
+		"arcs" : null,
+		"souID" : 3,
+		"souLifespan" : "00000000000000001000",
 		"uuid" : 9
 	},
 	{
 		"arcs" : 
 		[
 			{
-				"tarID" : 11,
+				"tarID" : 0,
 				"tarLifespan" : "00000000000000000100",
-				"uuid" : 12
+				"uuid" : 2
 			}
 		],
-		"souID" : 10,
+		"souID" : 4,
 		"souLifespan" : "00000000000000000100",
 		"uuid" : 10
-	},
-	{
-		"arcs" : 
-		[
-			{
-				"tarID" : 9,
-				"tarLifespan" : "00000000000000000100",
-				"uuid" : 13
-			}
-		],
-		"souID" : 8,
-		"souLifespan" : "00000000000000000100",
-		"uuid" : 11
-	},
-	{
-		"arcs" : null,
-		"souID" : 11,
-		"souLifespan" : "00000000000000000100",
-		"uuid" : 12
-	},
-	{
-		"arcs" : 
-		[
-			{
-				"tarID" : 10,
-				"tarLifespan" : "00000000000000000100",
-				"uuid" : 10
-			}
-		],
-		"souID" : 9,
-		"souLifespan" : "00000000000000000100",
-		"uuid" : 13
-	},
-	{
-		"arcs" : 
-		[
-			{
-				"tarID" : 3,
-				"tarLifespan" : "00000000000000001000",
-				"uuid" : 15
-			}
-		],
-		"souID" : 2,
-		"souLifespan" : "00000000000000001000",
-		"uuid" : 14
-	},
-	{
-		"arcs" : null,
-		"souID" : 3,
-		"souLifespan" : "00000000000000001000",
-		"uuid" : 15
 	}
 ]
