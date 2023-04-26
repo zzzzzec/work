@@ -319,7 +319,7 @@ bool HRindex::singleStepUpdate(updateRecord& ur) {
         break;
     }
     case(UPDATE_TYPE_ADD_EDGE): {
-        return singleStepUpdateAddEdge(ur.u, ur.v, ur.timestamp);
+        return singleStepUpdateAddEdge2(ur.u, ur.v, ur.timestamp);
         break;
     }
     case(UPDATE_TYPE_DELETE_EDGE): {

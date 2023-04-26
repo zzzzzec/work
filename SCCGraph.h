@@ -428,6 +428,9 @@ int SCCGraph::merge(const vector<SCCnode>& cycle, SccTable& sccTable) {
         newlife.scc_id = newNode.SCCID;
         bitset<MNS> newlifespan;
         newlife.life_time = LifespanBuild(newlifespan, timestamp, timestamp);
+        newitem.sccID_Life = newlife;
+        newitem.SCCID = newNode.SCCID;
+        newitem.lifeSpan = newlifespan;
         auto insertRes = sccTable.insert(newitem);
         assert(insertRes.second);
     }
