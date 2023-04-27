@@ -514,7 +514,7 @@ Lifespan _getLpSi(RefineRecordItem& rri) {
     Lifespan res;
     for (auto it : rri.Out) {
         if (it.partLab == 2)
-            LifespanUnion(res, it.lifespan);
+            res = LifespanUnion(res, it.lifespan);
     }
     return res;
 }
@@ -645,6 +645,8 @@ bool HRindex::singleStepUpdateAddEdge2(int u, int v, int timestamp) {
             reconstructEvolvingGraphSequence(timestamp);
             cycleNum++;
             
+            sort(nodeInfoTable.begin(), nodeInfoTable.end(), compareRecordItem);
+            sort(refineNITable.begin(), refineNITable.end(), compareRefineRecordItem);
             for (auto item : nodeInfoTable) {
                 RefineRecordItem& ritem = findRefineRecordItem(refineNITable, item.node);
                 int Si = item.node;
@@ -655,7 +657,7 @@ bool HRindex::singleStepUpdateAddEdge2(int u, int v, int timestamp) {
                     while (in != item.In.end()) {
                         if (sccIncycle(in->vertexID, cycle)) {
                             if (in->lifespan.test(timestamp))
-                                in->lifespan.set(timestamp);
+                                in->lifespan.set(timestamp, false);
                             if (in->lifespan.none())
                                 in = item.In.erase(in);
                             else
@@ -670,7 +672,7 @@ bool HRindex::singleStepUpdateAddEdge2(int u, int v, int timestamp) {
                     while (out != item.Out.end()) {
                         if (sccIncycle(out->vertexID, cycle)) {
                             if (out->lifespan.test(timestamp))
-                                out->lifespan.set(timestamp);
+                                out->lifespan.set(timestamp, false);
                             if (out->lifespan.none())
                                 out = item.In.erase(in);
                             else
@@ -708,7 +710,7 @@ bool HRindex::singleStepUpdateAddEdge2(int u, int v, int timestamp) {
                                 IG.DeleteEdge1(Si, LpSi, rit->vertexID, rit->lifespan);
                                 rit->lifespan.set(timestamp, false);
                                 assert(!rit->lifespan.none());
-                                IG.InsertEdge(Si, LpSi, rit->vertexID, rit->lifespan);
+                                IG.InsertEdgeSrcMustExistOrThrow(Si, LpSi, rit->vertexID, rit->lifespan);
                                 rit++;
                                 continue;
                             }
@@ -770,7 +772,7 @@ bool HRindex::singleStepUpdateAddEdge2(int u, int v, int timestamp) {
                 else {
                     //node in cycleList
                     deleteNITItemIN(item, timestamp);
-                    if (item.Out.size() == 0) return true;
+                    if (item.Out.size() == 0) continue;
                     deleteNITItemOut(item, timestamp);
                     for (auto it : ritem.Out) {
                         if (it.partLab == 1) {

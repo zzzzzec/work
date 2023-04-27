@@ -58,7 +58,6 @@ SCCGraphs BuildSCCGraphs(vector<vector<int>> &evolvingGraphSequence, SccTable &s
     }
     return sccGraphs;
 }
-
 SCCGraph::SCCGraph() {}
 SCCGraph::~SCCGraph() {}
 SCCGraph::SCCGraph(vector<int>& evolvingGraph, SccTable& sccTable, int ts) {

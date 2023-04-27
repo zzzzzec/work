@@ -226,19 +226,25 @@ void IGraph::InsertEdgeSrcMustExistOrThrow(int souID, bitset<MNS> souLife, int t
     int tarPos = VerPos(tarID, tarLife);
     if (souPos == -1)
         throw "InsertEdgeSrcMustExistOrThrow: ";
-    AddOutToSourceNode(souPos, tarID, tarLife);
     if (tarPos == -1) {
         int newid = Newuuid();
         IGVerNode newTarNode(newid, tarID, tarLife);
         vertices.push_back(newTarNode);
         vexnum++;
     }
+    AddOutToSourceNode(souPos, tarID, tarLife);
 }
 
 void IGraph::InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife) {
     int souPos = VerPos(souID, souLife);
     int tarPos = VerPos(tarID, tarLife);
 
+    if (tarPos == -1) {
+        int newid = Newuuid();
+        IGVerNode newTarNode(newid, tarID, tarLife);
+        vertices.push_back(newTarNode);
+        vexnum++;
+    }
     if (souPos != -1) {
         //当前存在节点(souID,souLife)
         AddOutToSourceNode(souPos, tarID, tarLife);
@@ -251,12 +257,7 @@ void IGraph::InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> t
         souPos = vertices.size() - 1;
         AddOutToSourceNode(souPos, tarID, tarLife);
     }
-    if (tarPos == -1) {
-        int newid = Newuuid();
-        IGVerNode newTarNode(newid, tarID, tarLife);
-        vertices.push_back(newTarNode);
-        vexnum++;
-    }
+
 }
 
 // must exist

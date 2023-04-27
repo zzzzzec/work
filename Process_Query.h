@@ -90,10 +90,12 @@ Node2Scc FindSccsOfNode(SccTable& sccTable, int nodeId, bitset<MNS> queryLife);
 
 vector<ToGrail>
 QueryReachabilityonIG2(IGraph &IG, OpSccTable &opSccTable, QueryResult& queryRecord, double &queryTime);
+/*
 vector<QueryOnIG>
 ProcessEGSDisQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode, bitset<MNS> queryLife, double &recordQT);
 vector<QueryOnIG>
 ProcessEGSConQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode, bitset<MNS> queryLife, double& recordQT);
+*/
 Node2Scc FindSccsOfNode2(OpSccTable& opSccTable, int nodeId, bitset<MNS> queryLife);
 
 void StoreQueryRecords2Grail(string &resultFileAddress, vector<ToGrail> &toGrail, double &queryTime);
@@ -112,49 +114,6 @@ vector<QueryResult> ReadQuery(string queryFileAddress) {
         }
     }
     return queryRecords;
-}
-
-vector<ToGrail>
-QueryReachabilityonIG2(IGraph &IG, OpSccTable &opSccTable,QueryResult &queryRecord, double &queryTime) {
-    vector<ToGrail> toGrail;
-    int souNode = queryRecord.souID;
-    int tarNode = queryRecord.tarID;
-    int qBegin = queryRecord.query_b;
-    int qEnd = queryRecord.query_e;
-    int type = queryRecord.type;
-    double recordQueryTime = 0;
-    bitset<MNS> queryInterval;
-    queryInterval = LifespanBuild(queryInterval, qBegin, qEnd);
-    if (type == 1) {
-        //非连续查询
-        //(-1,-1):在某个时刻src和dst属于同一个SCC，直接返回true
-        //(-2,-2):src和dst的存在时间没有交集，直接返回false
-        vector<QueryOnIG> disjunctiveQuery = ProcessEGSDisQuery2(IG, opSccTable, souNode, tarNode, queryInterval, recordQueryTime);
-        if (disjunctiveQuery.empty()) printf("Result Set is empty\n");
-        //QueryOnIG中存放的是下标
-        for (auto record = disjunctiveQuery.begin(); record != disjunctiveQuery.end(); record++) {
-            ToGrail record2Grail;
-            record2Grail.souID = (*record).souSccId;
-            record2Grail.tarID = (*record).tarSccId;
-            record2Grail.reachability = 1;
-            toGrail.push_back(record2Grail);
-        }
-    }
-    else {
-        //连续查询
-        //（-1，-1）：在每个时刻src和dst都在一个SCC中，返回true
-        //（-2，-2）：src和dst至少有一个在查询区间内的某一时刻不存在，返回false
-        vector<QueryOnIG> conjunctiveQuery = ProcessEGSConQuery2(IG, opSccTable, souNode, tarNode, queryInterval, recordQueryTime);
-        for (auto record = conjunctiveQuery.begin(); record != conjunctiveQuery.end(); record++) {
-                ToGrail record2Grail;
-                record2Grail.souID = (*record).souSccId;
-                record2Grail.tarID = (*record).tarSccId;
-                record2Grail.reachability = 1;
-                toGrail.push_back(record2Grail);
-        }
-    }
-    queryTime += recordQueryTime;
-    return toGrail;
 }
 
 vector<QueryOnIG>
@@ -314,7 +273,6 @@ ProcessEGSConQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode
             }
             query_endTime = clock();
             recordQT = (double)(query_endTime - query_startTime);
-            GDBSTOP(queryOnIG.size() == 0) 
             return queryOnIG;
         }
     } else {
@@ -323,7 +281,6 @@ ProcessEGSConQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode
         queryOnIG.push_back(record);
         query_endTime = clock();
         recordQT = (double)(query_endTime - query_startTime);
-        GDBSTOP(queryOnIG.size() == 0)
         return queryOnIG;
     }
     
@@ -357,6 +314,50 @@ Node2Scc FindSccsOfNode2(OpSccTable& opSccTable, int nodeId, bitset<MNS> queryLi
     return node2Scc;
 }
 
+vector<ToGrail>
+QueryReachabilityonIG2(IGraph& IG, OpSccTable& opSccTable, QueryResult& queryRecord, double& queryTime) {
+    vector<ToGrail> toGrail;
+    int souNode = queryRecord.souID;
+    int tarNode = queryRecord.tarID;
+    int qBegin = queryRecord.query_b;
+    int qEnd = queryRecord.query_e;
+    int type = queryRecord.type;
+    double recordQueryTime = 0;
+    bitset<MNS> queryInterval;
+    queryInterval = LifespanBuild(queryInterval, qBegin, qEnd);
+    if (type == 1) {
+        //非连续查询
+        //(-1,-1):在某个时刻src和dst属于同一个SCC，直接返回true
+        //(-2,-2):src和dst的存在时间没有交集，直接返回false
+        vector<QueryOnIG> disjunctiveQuery = ProcessEGSDisQuery2(IG, opSccTable, souNode, tarNode, queryInterval, recordQueryTime);
+        if (disjunctiveQuery.empty()) printf("Result Set is empty\n");
+        //QueryOnIG中存放的是下标
+        for (auto record = disjunctiveQuery.begin(); record != disjunctiveQuery.end(); record++) {
+            ToGrail record2Grail;
+            record2Grail.souID = (*record).souSccId;
+            record2Grail.tarID = (*record).tarSccId;
+            record2Grail.reachability = 1;
+            toGrail.push_back(record2Grail);
+        }
+    }
+    else {
+        //连续查询
+        //（-1，-1）：在每个时刻src和dst都在一个SCC中，返回true
+        //（-2，-2）：src和dst至少有一个在查询区间内的某一时刻不存在，返回false
+        vector<QueryOnIG> conjunctiveQuery = ProcessEGSConQuery2(IG, opSccTable, souNode, tarNode, queryInterval, recordQueryTime);
+        for (auto record = conjunctiveQuery.begin(); record != conjunctiveQuery.end(); record++) {
+            ToGrail record2Grail;
+            record2Grail.souID = (*record).souSccId;
+            record2Grail.tarID = (*record).tarSccId;
+            record2Grail.reachability = 1;
+            toGrail.push_back(record2Grail);
+        }
+    }
+    queryTime += recordQueryTime;
+    return toGrail;
+}
+
+
 void
 StoreQueryRecords2Grail(string &resultFileAddress, vector<ToGrail> &toGrail, double &queryTime) {
     ofstream outfile(resultFileAddress);
@@ -374,6 +375,8 @@ StoreQueryRecords2Grail(string &resultFileAddress, vector<ToGrail> &toGrail, dou
     }
     outfile.close();
 }
+
+/*
 
 vector<ToGrail>
 QueryReachabilityonIG(IGraph &IG, SccTable &sccTable, vector<QueryResult> &queryRecords, double &queryTime) {
@@ -439,10 +442,6 @@ ProcessEGSDisQuery(IGraph &IG, SccTable &sccTable, int souNode, int tarNode, bit
     Node2Scc source = FindSccsOfNode(sccTable, souNode, queryLife);
     Node2Scc target = FindSccsOfNode(sccTable, tarNode, queryLife);
     vector<QueryOnIG> queryOnIG;
-    /* 查询条目中若存在(-1,-1)，可直接返回true；若存在(-2,-2)，可直接返回false
-     * 否则，对查询条目逐一处理：
-     *      若其一返回true，则直接返回true；
-     *      若均返回false，则最终返回false。*/
     clock_t query_startTime, query_endTime;
     query_startTime = clock();
 
@@ -457,7 +456,8 @@ ProcessEGSDisQuery(IGraph &IG, SccTable &sccTable, int souNode, int tarNode, bit
                         QueryOnIG record(-1, -1);
                         queryOnIG.push_back(record);
                         return queryOnIG;
-                    } else {
+                    }
+                    else {
                         //重叠时间段内位于不同SCC，记录souSCC与tarSCC及其区间
                         if (interLife.count() == 1) {
                             try {
@@ -465,12 +465,12 @@ ProcessEGSDisQuery(IGraph &IG, SccTable &sccTable, int souNode, int tarNode, bit
                                 int ID_tar = IG.FindIDonIG((*tarIter).scc_id, interLife);
                                 QueryOnIG record(ID_sou, ID_tar);
                                 queryOnIG.push_back(record);
-                            } catch (...) {
-                                /*QueryOnIG record(-2, -2);
-                                queryOnIG.push_back(record);*/
+                            }
+                            catch (...) {
                                 continue;
                             }
-                        } else {
+                        }
+                        else {
                             vector<int> interLifeTruePos = GetLifespanTruePos(interLife);
                             for (int i = 0; i < interLifeTruePos.size(); ++i) {
                                 bitset<MNS> cur;
@@ -480,36 +480,30 @@ ProcessEGSDisQuery(IGraph &IG, SccTable &sccTable, int souNode, int tarNode, bit
                                     int ID_tar = IG.FindIDonIG((*tarIter).scc_id, cur);
                                     QueryOnIG record(ID_sou, ID_tar);
                                     queryOnIG.push_back(record);
-                                } catch (...) {
+                                }
+                                catch (...) {
                                     continue;
                                 }
-
                             }
                         }
                     }
                 }
             }
         }
-    } else {
+    }
+    else
+    {
         //在全部查询区间内源/目的不存在，直接返回false
         QueryOnIG record(-2, -2);
         queryOnIG.push_back(record);
     }
-    query_endTime = clock();
-    recordQT = (double) (query_endTime - query_startTime);
     return queryOnIG;
 }
 
-vector<QueryOnIG>
-ProcessEGSConQuery(IGraph& IG, SccTable& sccTable, int souNode, int tarNode, bitset<MNS> queryLife, double& recordQT) {
+vector<QueryOnIG> ProcessEGSConQuery(IGraph& IG, SccTable& sccTable, int souNode, int tarNode, bitset<MNS> queryLife, double& recordQT) {
     Node2Scc source = FindSccsOfNode(sccTable, souNode, queryLife);
     Node2Scc target = FindSccsOfNode(sccTable, tarNode, queryLife);
     vector<QueryOnIG> queryOnIG;
-    /* 查询条目中若存在(-1,-1)，可直接返回true；若存在(-2,-2)，可直接返回false
-     * 否则，对每条查询条目逐一处理：
-     *      若存在其一返回false，则直接返回false；
-     *      若均返回true，则最终返回true*/
-
     clock_t query_startTime, query_endTime;
     query_startTime = clock();
 
@@ -530,10 +524,6 @@ ProcessEGSConQuery(IGraph& IG, SccTable& sccTable, int souNode, int tarNode, bit
                     bitset<MNS> interLife = LifespanJoin((*souIter).life_time, (*tarIter).life_time);
 
                     if (interLife.any()) {
-                        //存在重叠时间段
-                        /* 若重叠时间段内源SCC与目的SCC相同
-                         * 说明souSCC与tarSCC在该时间段内可达，
-                         * 不计入查询条目中*/
                         if ((*souIter).scc_id == (*tarIter).scc_id) {
                             continue;
                         }
@@ -630,5 +620,6 @@ Node2Scc FindSccsOfNode(SccTable &sccTable, int nodeId, bitset<MNS> queryLife) {
     sort(node2Scc.vectorOfSccs.begin(), node2Scc.vectorOfSccs.end(), SortSccInNode);
     return node2Scc;
 }
+*/
 
 #endif //IG_NOOP_5_PROCESS_QUERY_H

@@ -2,7 +2,6 @@
 #include "HRindex.h"
 #include "validation.h"
 using namespace std;
-
 /*
     原节点ID，SCCID，timeStamp都是从0开始
 */

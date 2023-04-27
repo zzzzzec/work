@@ -18,7 +18,7 @@ using namespace std;
 typedef bitset<MNS> Lifespan;
 
 bitset<MNS> LifespanJoin(bitset<MNS> &l1, bitset<MNS> &l2);
-bitset<MNS> LifespanUnion(bitset<MNS> &l1, bitset<MNS> &l2);
+bitset<MNS> LifespanUnion(bitset<MNS> l1, bitset<MNS> l2);
 bitset<MNS> LifespanBuild(bitset<MNS> &b, int i, int j);
 bool LifespanisSub(bitset<MNS> &L, bitset<MNS> &l);
 bool LifespanisProSub(bitset<MNS> &L, bitset<MNS> &l);
@@ -36,7 +36,7 @@ bitset<MNS> LifespanJoin(bitset<MNS> &l1, bitset<MNS> &l2) {
     return result;
 }
 
-bitset<MNS> LifespanUnion(bitset<MNS> &l1, bitset<MNS> &l2) {
+bitset<MNS> LifespanUnion(bitset<MNS> l1, bitset<MNS> l2) {
     bitset<MNS> result;
     result = l1 | l2;
     return result;
