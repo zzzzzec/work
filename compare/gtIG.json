@@ -1,0 +1,119 @@
+[
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 0,
+				"tarLifespan" : "00000000000000000100",
+				"uuid" : 2
+			}
+		],
+		"souID" : 1,
+		"souLifespan" : "00000000000000000100",
+		"uuid" : 1
+	},
+	{
+		"arcs" : null,
+		"souID" : 0,
+		"souLifespan" : "00000000000000000100",
+		"uuid" : 2
+	},
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 0,
+				"tarLifespan" : "00000000000000000001",
+				"uuid" : 4
+			}
+		],
+		"souID" : 1,
+		"souLifespan" : "00000000000000000001",
+		"uuid" : 3
+	},
+	{
+		"arcs" : null,
+		"souID" : 0,
+		"souLifespan" : "00000000000000000001",
+		"uuid" : 4
+	},
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 5,
+				"tarLifespan" : "00000000000000000010",
+				"uuid" : 6
+			}
+		],
+		"souID" : 1,
+		"souLifespan" : "00000000000000000010",
+		"uuid" : 5
+	},
+	{
+		"arcs" : null,
+		"souID" : 5,
+		"souLifespan" : "00000000000000000010",
+		"uuid" : 6
+	},
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 1,
+				"tarLifespan" : "00000000000000000011",
+				"uuid" : 8
+			},
+			{
+				"tarID" : 3,
+				"tarLifespan" : "00000000000000001000",
+				"uuid" : 9
+			},
+			{
+				"tarID" : 5,
+				"tarLifespan" : "00000000000000000010",
+				"uuid" : 6
+			}
+		],
+		"souID" : 2,
+		"souLifespan" : "00000000000000001011",
+		"uuid" : 7
+	},
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 1,
+				"tarLifespan" : "00000000000000000001",
+				"uuid" : 3
+			},
+			{
+				"tarID" : 1,
+				"tarLifespan" : "00000000000000000010",
+				"uuid" : 5
+			}
+		],
+		"souID" : 1,
+		"souLifespan" : "00000000000000000011",
+		"uuid" : 8
+	},
+	{
+		"arcs" : null,
+		"souID" : 3,
+		"souLifespan" : "00000000000000001000",
+		"uuid" : 9
+	},
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 0,
+				"tarLifespan" : "00000000000000000100",
+				"uuid" : 2
+			}
+		],
+		"souID" : 4,
+		"souLifespan" : "00000000000000000100",
+		"uuid" : 10
+	}
+]

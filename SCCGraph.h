@@ -47,6 +47,7 @@ public:
     int merge(const vector<SCCnode>& cycle, SccTable& sccTable);
     int newNodeID();
     pair<vector<int>, vector<int>> getInAndOutNodes(int SCCID);
+    void storeSCCGraphJSON(string path);
 };
 
 typedef vector<SCCGraph> SCCGraphs;
@@ -522,7 +523,33 @@ pair<vector<int>, vector<int>> SCCGraph::getInAndOutNodes(int SCCID) {
     return make_pair(in, out);
 }
 
-
+void SCCGraph::storeSCCGraphJSON(string path) {
+    Json::Value JsonGraph;
+    for (auto node : vertices) {
+        Json::Value JsonNode;
+        JsonNode["ID"] = node.SCCID;
+        JsonNode["time"] = timestamp;
+        Json::Value JsonArcs;
+        Json::Value nodeset;
+        for (auto i : node.originNodeSet) {
+            Json::Value n;
+            n["originID"] = i;
+            nodeset.append(n);
+        }
+        JsonNode["originNodeSet"] = nodeset;
+        for (arc* p = node.firstArc; p; p = p->next) {
+            Json::Value JsonArc;
+            JsonArc["dstID"] = p->dstID;
+            JsonArcs.append(JsonArc);
+        }
+        JsonNode["arcs"] = JsonArcs;
+        JsonGraph.append(JsonNode);
+    }
+    ofstream fout(path);
+    if (fout) {
+        fout << JsonGraph.toStyledString();
+    }
+}
 
 
 

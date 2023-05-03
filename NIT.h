@@ -23,6 +23,9 @@ public:
     bool operator()(const Item &cur) {
         return vertexID == cur.vertexID;
     }
+    bool operator==(const Item &cur) {
+        return vertexID == cur.vertexID && lifespan == cur.lifespan;
+    }
 };
 
 //定义表中每一行记录
@@ -398,7 +401,7 @@ void deleteNITItem(RecordItem& ri, int timeStamp)
 }
 
 void deleteRefineNITItem(RefineRecordItem& rri, int timeStamp) {
-    for (auto it = rri.Out.begin(); it != rri.Out.begin(); ) {
+    for (auto it = rri.Out.begin(); it != rri.Out.end(); ) {
         if (it->lifespan.test(timeStamp)) {
             it->lifespan.set(timeStamp, false);
         }
@@ -485,4 +488,38 @@ void insertNITout(RecordItem & record, int id ,int timeStamp){
     return;
 }
 
+pair<bool, bool> refineNITINsertOrThrow(RefineRecordItem & ritem, const Item& i) {
+    Item newItem;
+    assert(i.lifespan.count() == 1);
+    int pos = i.lifespan._Find_first();
+    bool success = false;
+    bool createNew = false;
+    if (i.partLab == 1) {
+        auto res = find_if(ritem.Out.begin(), ritem.Out.end(),
+            [&](Item& a) {return (a.partLab == 1 && a.vertexID == i.vertexID); });
+        assert(res == ritem.Out.end());
+        newItem = i;
+        ritem.Out.push_back(newItem);
+        createNew = true;
+        success = true;
+    }
+    else if (i.partLab == 2) {
+        auto res = find_if(ritem.Out.begin(), ritem.Out.end(),
+            [&](Item& a) {return (a.partLab == 2 && a.vertexID == i.vertexID); });
+        if (res != ritem.Out.end()) {
+            assert(!res->lifespan.test(pos));
+            res->lifespan.set(pos, true);
+        }
+        else {
+            newItem = i;
+            ritem.Out.push_back(newItem);
+            createNew = true;
+        }
+        success = true;
+    }
+    else {
+        throw "partLab is not 1 or 2";
+    }
+    return make_pair(success, createNew);
+}
 #endif

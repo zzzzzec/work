@@ -21,6 +21,28 @@
 				"$gcc"
 			],
 			"group": "build",
+		},
+		{
+			"type": "cppbuild",
+			"label": "WSL: build",
+			"command": "/usr/bin/g++",
+			"args": [
+				"-std=c++17",
+				"-g",
+				"${workspaceFolder}/main.cpp",
+				"${workspaceFolder}/json/jsoncpp.cpp",
+				"-o",
+				"${workspaceFolder}/main",
+				"-static"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
 		}
 	]
+
 }

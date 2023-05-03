@@ -70,6 +70,29 @@ typedef struct IGVerNode {
         sccOfIG = 0;
         firstArc = NULL;
     }
+    
+    bool operator==(const IGVerNode& node) const {
+        if(souID == node.souID && souLifespan == node.souLifespan) {
+            auto p = firstArc;
+            while (p != NULL) {
+                auto q = node.firstArc;
+                while (q != NULL) {
+                    if (p->tarID == q->tarID && p->tarLifespan == q->tarLifespan) {
+                        break;
+                    }
+                    q = q->nextarc;
+                }
+                if (q == NULL) {
+                    return false;
+                }
+                p = p->nextarc;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 } IGVerNode;
 
 //定义邻接表
@@ -110,6 +133,8 @@ public:
     
     void DeleteEdge1(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
     void DeleteEdge2(int souPos, int tarPos);
+    void DeleteEdgeKeepEmptyNode(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
+    
     void DeleteVertex(int nodePos);
     void CreateVertex(int ID, bitset<MNS> t);
     vector<CopyNode> FindAllCopyNodes(int souID);
@@ -125,7 +150,10 @@ public:
     void OptimizeIntervalVertex();
     void ModifyNodeOrThrow(int id, Lifespan lifespan, Lifespan newLifespan);
     IGVerNode* findNode(int id, Lifespan lifespan);
-    void updateAddRefineRecord(const RefineRecordItem & ritem);
+    IGVerNode* findNodeByPos(int pos) { return &vertices[pos]; }
+    void updateAddRefineRecord(const RefineRecordItem& ritem);
+    void deleteEmptyNode();
+    
 
     bitset<MNS> GetSubVertexUnionLife(int verPos);
     vector<int> GetSouVerticesPos(int tarID, bitset<MNS> tarLife);
@@ -146,6 +174,7 @@ private:
         }
         return false;
     }
+    bool hasIncomeEdge(int uuid);
 };
 
 IGraph::IGraph() {
@@ -258,6 +287,45 @@ void IGraph::InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> t
         AddOutToSourceNode(souPos, tarID, tarLife);
     }
 
+}
+
+void IGraph::DeleteEdgeKeepEmptyNode(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife)
+{
+    int souPos = VerPos(souID, souLife);
+    int tarPos = VerPos(tarID, tarLife);
+
+    if (souPos == -1 || tarPos == -1) {
+        throw "Don't exist this sourceNode!";
+    } else {
+        IGArcNode *p = vertices[souPos].firstArc;
+        IGArcNode *q = NULL;
+
+        if (p == NULL) {
+            throw "Don't exist this edge";
+        } else {
+            q = p;
+            if (p->tarID == tarID && p->tarLifespan == tarLife) {
+                p = p->nextarc;
+                delete (q);
+                vertices[souPos].firstArc = p;
+                edgenum--;
+            } else {
+                while (p != NULL) {
+                    if (p->tarID == tarID && p->tarLifespan == tarLife) {
+                        p = p->nextarc;
+                        delete (q->nextarc);
+                        q->nextarc = p;
+
+                        edgenum--;
+                        break;
+                    } else {
+                        q = p;
+                        p = p->nextarc;
+                    }
+                }
+            }
+        }
+    }
 }
 
 // must exist
@@ -654,6 +722,9 @@ void IGraph::StoreFullIndexGraphJSON(string path) {
     if (fout) {
         fout << JsonGraph.toStyledString();
     }
+    else {
+        cout << __FUNCTION__ <<"open file error" << endl;
+    }
 }
 
 //处理ONTable里的一个表项里的一条边，intervalUnion是N2+的时间并集(论文里的case2)
@@ -833,7 +904,7 @@ IGVerNode* IGraph::findNode(int id , Lifespan Lifespan) {
         if (tmp->souID == id && tmp->souLifespan == Lifespan)
             return tmp;
     }
-    return nullptr;
+    return NULL;
 }
 
 void IGraph::ModifyNodeOrThrow(int id, Lifespan lifespan, Lifespan newLifespan) {
@@ -936,5 +1007,30 @@ IGraph ReadIndexGraph(string storeFull_IG_Address) {
 
     return iGraph;
 }
+
+bool IGraph::hasIncomeEdge(int uuid) {
+    for (auto node : vertices) {
+        auto edgeit = node.firstArc;
+        while (edgeit != NULL) {
+            if (edgeit->tarID == uuid)
+                return true;
+            edgeit = edgeit->nextarc;
+        }
+    }
+    return false;
+}
+
+void IGraph::deleteEmptyNode() {
+    auto it = vertices.begin();
+    while (it != vertices.end()) {
+        if (it->firstArc == nullptr && !hasIncomeEdge(it->souID)) {
+            it = vertices.erase(it);
+        }
+        else {
+            it++;
+        }
+    }
+}
+
 
 #endif //IG_NOOP_5_INDEXGRAPH_H

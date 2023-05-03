@@ -90,12 +90,10 @@ Node2Scc FindSccsOfNode(SccTable& sccTable, int nodeId, bitset<MNS> queryLife);
 
 vector<ToGrail>
 QueryReachabilityonIG2(IGraph &IG, OpSccTable &opSccTable, QueryResult& queryRecord, double &queryTime);
-/*
 vector<QueryOnIG>
 ProcessEGSDisQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode, bitset<MNS> queryLife, double &recordQT);
 vector<QueryOnIG>
 ProcessEGSConQuery2(IGraph &IG, OpSccTable &opSccTable, int souNode, int tarNode, bitset<MNS> queryLife, double& recordQT);
-*/
 Node2Scc FindSccsOfNode2(OpSccTable& opSccTable, int nodeId, bitset<MNS> queryLife);
 
 void StoreQueryRecords2Grail(string &resultFileAddress, vector<ToGrail> &toGrail, double &queryTime);

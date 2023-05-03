@@ -10,8 +10,6 @@
 #include <iomanip>
 #include <time.h>
 #include <algorithm>
-#include <windows.h>
-#include <direct.h>
 #include <sstream>
 #include <assert.h>
 #include <stack>
@@ -19,6 +17,7 @@
 #include <iomanip>
 #include <functional>
 #include <tuple>
+#include <chrono>
 
 #include "json/json-forwards.h"
 #include "json/json.h"

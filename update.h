@@ -2,15 +2,7 @@
 #define IG_NOOP_5_UPDATE_H
 
 #include "common.h"
-#include "Lifespan.h"
-#include "Graph.h"
-#include "SCCTable.h"
-#include "Process_Snapshots.h"
-#include "IndexGraph.h"
-#include "Process_Query.h"
 #include "HRindex.h"
-#include "SCCGraph.h"
-#include "NIT.h"
 
 /* updatefile structure:
     type: 1,2,3,4
