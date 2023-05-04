@@ -12,7 +12,6 @@
 #include <algorithm>
 //#define MNS 5000
 #define MNS 20
-
 using namespace std;
 
 typedef bitset<MNS> Lifespan;

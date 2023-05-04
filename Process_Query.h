@@ -5,11 +5,7 @@
 #ifndef IG_NOOP_5_PROCESS_QUERY_H
 #define IG_NOOP_5_PROCESS_QUERY_H
 
-#include <fstream>
-#include <iostream>
-#include <time.h>
-#include <bitset>
-#include <algorithm>
+#include "common.h"
 #include "IndexGraph.h"
 #include "SCCTable.h"
 #include "Lifespan.h"

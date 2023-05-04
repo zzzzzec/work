@@ -2,16 +2,7 @@
 #define IG_NOOP_5_SCCGRAPH_H
 #include "common.h"
 #include "Lifespan.h"
-#include "Graph.h"
-#include "SCCTable.h"
-#include "Process_Snapshots.h"
-#include "IndexGraph.h"
-#include "Process_Query.h"
-#include "update.h"
-#include "HRindex.h"
-#include "NIT.h"
 using namespace std;
-
 typedef struct Arc{
     int dstID;
     struct Arc *next;
@@ -22,6 +13,7 @@ typedef struct {
     int SCCID;
     arc *firstArc;
 } SCCnode;
+
 
 class SCCGraph
 {

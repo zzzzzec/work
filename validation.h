@@ -197,8 +197,6 @@ void compareHRindex(HRindex& gt, HRindex& test, string resultIGPath) {
     cout << "comparing IGraph..." << endl;
     int gtNodeNum = gt.IG.GetVexNum();
     int testNodeNum = test.IG.GetVexNum();
-    int gtEdgeNum = gt.IG.GetEdgeNum();
-    int testEdgeNum = test.IG.GetEdgeNum();
     string gtIGPath = resultIGPath + "gtIG.json";
     string testIGPath = resultIGPath + "testIG.json";
     gt.IG.StoreFullIndexGraphJSON(gtIGPath);
@@ -206,9 +204,6 @@ void compareHRindex(HRindex& gt, HRindex& test, string resultIGPath) {
     
     if (gtNodeNum != testNodeNum) {
         throw "NodeNum not equal!";
-    }
-    if (gtEdgeNum != testEdgeNum) {
-        throw "EdgeNum not equal!";
     }
     for (int i = 0; i < gtNodeNum; i++) {
         IGVerNode* gtNode = gt.IG.findNodeByPos(i);

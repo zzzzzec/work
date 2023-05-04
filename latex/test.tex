@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{xeCJK}
+\setCJKmainfont{SimSun}
+
+\begin{document}
+\begin{algorithm}
+\caption{HRindex插入更新算法}
+
+\begin{algorithmic}[1]
+\Function{updateInsertEdge}{$src, dst, timestamp$}
+    \State $G_{t} = originGraph[timestamp]$
+    \State $SCC_{t} = SCCGraph[timestamp]$
+    \If{$!G_{t}.exist(src)$}
+        \State \Call {updateAddNode}{$ur, oldHRindex$}
+    \EndIf
+    \If{$!G_t.exist(dst)$}
+        \State \Call {updateAddNode}{$ur, oldHRindex$}
+    \EndIf
+    \State $G_t$.insert(ur.src, ur.dst)
+    \State $SCC_{src}$ = $SCC_t$.find(ur.src)
+    \State $SCC_{dst}$ = $SCC_t$.find(ur.dst)
+
+    \If{$SCC_{src} == SCC_{dst}$}
+        \State \Return
+    \Else
+        \State SCCGraph[timestamp].insert(src, dst)
+        \State $cycle \gets findCycle(SCCGraph[timestamp])$
+        \While{cyele.size != 0}
+            \State $SCCID_{new} \gets merge(SCCGraph[timestamp], cycle)$
+            \State \Comment Firstly, we process the newly added SCC node after merging.
+            \State $In$ = $SCC_t$.getIncomingEdge($SCCID_{new}$)
+            \State $Out$ = $SCC_t$.getOutgoingEdge($SCCID_{new}$)
+            \If {newSCCID exist in other timestamp}
+            \Else 
+                \State NIT.push(getNITItem($In, Out$)) 
+            \EndIf
+            \State \Comment Secondly, we delete the SCC node existing in the cycle and process the node which is connected which these node.
+            \For {each item IN NIT}
+                \State $S_i$ = item.node
+                \If {$S_i$ in cycle}
+                    
+                \Else 
+                \EndIf  
+            \EndFor
+        \EndWhile
+
+    \EndIf
+\EndFunction
+
+
+\end{algorithmic}
+\end{algorithm}
+\end{document}

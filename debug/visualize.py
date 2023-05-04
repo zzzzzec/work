@@ -74,7 +74,9 @@ def visualizeSCC():
 
 
 if __name__ == "__main__" :
-    visualizeOriginGraph() 
+    #visualizeOriginGraph() 
     visualizeIG("../compare", "gtIG.json")
-    #visualizeIG("../compare", "testIG.json")
-    visualizeSCC()
+    visualizeIG("../compare", "testIG.json")
+    #visualizeIG("../", "afterIG.json")
+    #visualizeSCC()
+    print("done")

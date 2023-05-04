@@ -51,12 +51,6 @@
 		"uuid" : 5
 	},
 	{
-		"arcs" : null,
-		"souID" : 0,
-		"souLifespan" : "00000000000000000010",
-		"uuid" : 6
-	},
-	{
 		"arcs" : 
 		[
 			{
@@ -96,25 +90,6 @@
 		"souID" : 1,
 		"souLifespan" : "00000000000000000011",
 		"uuid" : 8
-	},
-	{
-		"arcs" : 
-		[
-			{
-				"tarID" : 3,
-				"tarLifespan" : "00000000000000000010",
-				"uuid" : 10
-			}
-		],
-		"souID" : 3,
-		"souLifespan" : "00000000000000001010",
-		"uuid" : 9
-	},
-	{
-		"arcs" : null,
-		"souID" : 3,
-		"souLifespan" : "00000000000000000010",
-		"uuid" : 10
 	},
 	{
 		"arcs" : 

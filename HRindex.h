@@ -15,6 +15,7 @@
 #include "Process_Query.h"
 #include "SCCGraph.h"
 #include "NIT.h"
+#include "update.h"
 
 using namespace std;
 
@@ -925,7 +926,11 @@ bool HRindex::singleStepUpdateAddEdge2(int u, int v, int timestamp) {
                     deleteRefineNITItem(ritem, timestamp);
                 }
             }
-            
+            //删除所有在cycle中且含有tx的节点
+            IG.StoreFullIndexGraphJSON("./beforeIG.json");
+            IG.deleteNodeWhichInCycleAndIncludeTimestamp(cycle, timestamp);
+            IG.StoreFullIndexGraphJSON("./afterIG.json");
+            IG.deleteEmptyNode();
             cycle = sccGraphs[timestamp].findCycle(newSCCID);
             int a = 1;
             a++;

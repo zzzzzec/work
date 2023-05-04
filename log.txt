@@ -1,4 +1,4 @@
-The local date and time is: Tue May 02 22:35:55 2023
+The local date and time is: Thu May 04 10:44:00 2023
 
 starting
 step1:buildOriginGraph(0.00s)
@@ -13,3 +13,21 @@ timeStamp: 2 nodeNum: 9 edgeNum: 12 SCCNum: 3 SCCEdgeNum: 2
 timeStamp: 3 nodeNum: 5 edgeNum: 7 SCCNum: 2 SCCEdgeNum: 1
 
 update 0/1
+singleStepUpdateAddEdge: 7->10 1
+node : 7 exists
+node : 10 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(7)(0.00ms)
+step2.2 : findSCCIDFromNodeId(10)(0.00ms)
+finish(1014.00ms)
+
+1/1
+
+tep3 : reconstructEvolvingGraphSequence(0.00ms)
+step4 : reconstructNIT(0.00ms)
+step5 : Reconstruct RefineNITable(0.00ms)
+step6 : Rebuild IndexGraph(5.00ms)
+finish(6.00ms)
+
+1/1
+

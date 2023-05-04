@@ -71,6 +71,9 @@
         "ratio": "cpp",
         "xlocbuf": "cpp",
         "xlocmes": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "*.tcc": "cpp",
+        "cwctype": "cpp",
+        "string_view": "cpp"
     }
 }
