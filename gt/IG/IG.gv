@@ -1,0 +1,38 @@
+// IindexGraph
+digraph {
+	1 [label="uuid = 1
+souID = 1
+LifeSpan = [0, 1, 3]"]
+	2 [label="uuid = 2
+souID = 0
+LifeSpan = [0]"]
+	3 [label="uuid = 3
+souID = 3
+LifeSpan = [1]"]
+	4 [label="uuid = 4
+souID = 4
+LifeSpan = [1, 3]"]
+	5 [label="uuid = 5
+souID = 3
+LifeSpan = [2]"]
+	6 [label="uuid = 6
+souID = 2
+LifeSpan = [2]"]
+	7 [label="uuid = 7
+souID = 2
+LifeSpan = [1]"]
+	8 [label="uuid = 8
+souID = 4
+LifeSpan = [1]"]
+	9 [label="uuid = 9
+souID = 5
+LifeSpan = [2]"]
+	1 -> 2
+	1 -> 3
+	1 -> 4
+	3 -> 7
+	4 -> 8
+	5 -> 6
+	8 -> 7
+	9 -> 6
+}

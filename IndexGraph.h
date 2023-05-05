@@ -131,8 +131,7 @@ public:
 
     void ProTarget(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
     void MaintainRelationship(int verID, bitset<MNS> verLifespan);
-    void StoreFullIndexGraph(string storeFull_IG_Address);
-    void StoreFullIndexGraphJSON(string storeFull_IG_Address);
+    void StoreFullIndexGraphJSON(string dir);
     void ConstructOutEdge(int souID, int tarID, bitset<MNS> t, int label, bitset<MNS> intervalUnion);
     
     void ModifyNodeOrThrow(int id, Lifespan lifespan, Lifespan newLifespan);
@@ -144,6 +143,7 @@ public:
     bitset<MNS> GetSubVertexUnionLife(int verPos);
     vector<int> GetSouVerticesPos(int tarID, bitset<MNS> tarLife);
     vector<int> GetSubVerticesPos(int tarPos);
+    void IDremap(map<int, int> m);
     
     bool isReachable(int u, int v) {
         map<int, bool> visited;
@@ -458,50 +458,7 @@ void IGraph::MaintainRelationship(int verID, bitset<MNS> verLifespan) {
     }
 }
 
-
-void IGraph::StoreFullIndexGraph(string storeFull_IG_Address) {
-    vector<vector<IGNode>> edgeOfIG;
-
-    for (int i = 0; i < vexnum; ++i) {
-        vector<IGNode> curNodeVector;
-        int curNodeID = vertices[i].souID;
-        bitset<MNS> curNodeLife = vertices[i].souLifespan;
-        IGNode curSouNode;
-        curSouNode.nodeID = curNodeID;
-        curSouNode.nodeLife = curNodeLife;
-        curNodeVector.push_back(curSouNode);
-
-        for (IGArcNode *p = vertices[i].firstArc; p; p = p->nextarc) {
-            int tarID = p->tarID;
-            bitset<MNS> tarLife = p->tarLifespan;
-
-            IGNode curTarNode;
-            curTarNode.nodeID = tarID;
-            curTarNode.nodeLife = tarLife;
-            curNodeVector.push_back(curTarNode);
-        }
-
-        edgeOfIG.push_back(curNodeVector);
-    }
-
-    ofstream fout(storeFull_IG_Address);
-    if (fout) {
-        for (auto it = edgeOfIG.begin(); it != edgeOfIG.end(); it++) {
-            auto souIt = (*it).begin();
-            fout << (*souIt).nodeID << "-{" << (*souIt).nodeLife << "} :" << endl;
-
-            auto tmp = souIt;
-            tmp++;
-
-            for (auto tarIter = tmp; tarIter != (*it).end(); tarIter++) {
-                fout << "\t # " << (*tarIter).nodeID << "-{" << (*tarIter).nodeLife << "}" << endl;
-            }
-            fout << "-----------------------" << endl;
-        }
-    }
-}
-
-void IGraph::StoreFullIndexGraphJSON(string path) {
+void IGraph::StoreFullIndexGraphJSON(string dir) {
     Json::Value JsonGraph;
     for (auto node : vertices) {
         Json::Value JsonNode;
@@ -519,7 +476,7 @@ void IGraph::StoreFullIndexGraphJSON(string path) {
         JsonNode["arcs"] = JsonArcs;
         JsonGraph.append(JsonNode);
     }
-    ofstream fout(path);
+    ofstream fout(dir + "IG.json");
     if (fout) {
         fout << JsonGraph.toStyledString();
     }
@@ -842,5 +799,13 @@ void IGraph::deleteEmptyNode() {
     }
 }
 
+void IGraph::IDremap(map<int, int> m) {
+    for (auto &it : vertices) {
+        it.souID = m[it.souID];
+        for (auto it2 = it.firstArc; it2 != nullptr; it2 = it2->nextarc) {
+            it2->tarID = m[it2->tarID];
+        }
+    }
+}
 
 #endif //IG_NOOP_5_INDEXGRAPH_H

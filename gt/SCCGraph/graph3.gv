@@ -1,0 +1,10 @@
+// sccGraph3
+digraph {
+	4 [label="ID = 4
+time3
+[9, 10]"]
+	1 [label="ID = 1
+time3
+[1, 2, 3]"]
+	1 -> 4
+}

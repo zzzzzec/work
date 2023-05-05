@@ -50,7 +50,7 @@ Lifespan LifespanBuild(int i, int j) {
     return b;
 }
 
-Lifespan LifespanTestAndUnset(Lifespan & life, int pos) {
+Lifespan LifespanTestAndUnset(const Lifespan & life, int pos) {
     if (!life.test(pos))
         throw "LifespanTestAndRemove: test failed";
     Lifespan newlife = life;

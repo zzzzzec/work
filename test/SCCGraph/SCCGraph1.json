@@ -1,0 +1,82 @@
+[
+	{
+		"ID" : 1,
+		"arcs" : 
+		[
+			{
+				"dstID" : 0
+			}
+		],
+		"originNodeSet" : 
+		[
+			{
+				"originID" : 4
+			}
+		],
+		"time" : 1
+	},
+	{
+		"ID" : 3,
+		"arcs" : 
+		[
+			{
+				"dstID" : 0
+			}
+		],
+		"originNodeSet" : 
+		[
+			{
+				"originID" : 9
+			},
+			{
+				"originID" : 10
+			}
+		],
+		"time" : 1
+	},
+	{
+		"ID" : 2,
+		"arcs" : 
+		[
+			{
+				"dstID" : 3
+			},
+			{
+				"dstID" : 1
+			}
+		],
+		"originNodeSet" : 
+		[
+			{
+				"originID" : 1
+			},
+			{
+				"originID" : 2
+			},
+			{
+				"originID" : 3
+			}
+		],
+		"time" : 1
+	},
+	{
+		"ID" : 0,
+		"arcs" : null,
+		"originNodeSet" : 
+		[
+			{
+				"originID" : 5
+			},
+			{
+				"originID" : 6
+			},
+			{
+				"originID" : 7
+			},
+			{
+				"originID" : 8
+			}
+		],
+		"time" : 1
+	}
+]

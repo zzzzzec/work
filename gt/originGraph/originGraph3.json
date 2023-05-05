@@ -1,0 +1,58 @@
+[
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 2
+			},
+			{
+				"tarID" : 9
+			}
+		],
+		"souID" : 1,
+		"time" : 3
+	},
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 3
+			}
+		],
+		"souID" : 2,
+		"time" : 3
+	},
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 1
+			},
+			{
+				"tarID" : 9
+			}
+		],
+		"souID" : 3,
+		"time" : 3
+	},
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 10
+			}
+		],
+		"souID" : 9,
+		"time" : 3
+	},
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 9
+			}
+		],
+		"souID" : 10,
+		"time" : 3
+	}
+]

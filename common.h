@@ -49,5 +49,22 @@
         throw std::runtime_error(oss.str()); \
     } while (0)
 
+template <typename R, typename F, typename... Args>
+std::pair<double, R> measureTime(F func, Args&&... args) {
+    auto start = std::chrono::high_resolution_clock::now();
+    R result = std::invoke(func, std::forward<Args>(args)...);
+    auto end = std::chrono::high_resolution_clock::now();
+    double duration = std::chrono::duration<double, std::milli>(end - start).count();
+    return { duration, result };
+}
+//void version
+template <typename F, typename... Args>
+double measureTime(F func, Args&&... args) {
+    auto start = std::chrono::high_resolution_clock::now();
+    std::invoke(func, std::forward<Args>(args)...);
+    auto end = std::chrono::high_resolution_clock::now();
+    double duration = std::chrono::duration<double, std::milli>(end - start).count();
+    return duration;
+}
 #endif
 

@@ -1,0 +1,33 @@
+// OriginGraph2
+digraph {
+	1 [label="souID = 1
+time2"]
+	2 [label="souID = 2
+time2"]
+	3 [label="souID = 3
+time2"]
+	4 [label="souID = 4
+time2"]
+	5 [label="souID = 5
+time2"]
+	6 [label="souID = 6
+time2"]
+	7 [label="souID = 7
+time2"]
+	8 [label="souID = 8
+time2"]
+	11 [label="souID = 11
+time2"]
+	1 -> 2
+	1 -> 5
+	2 -> 3
+	2 -> 11
+	3 -> 1
+	4 -> 6
+	5 -> 6
+	6 -> 7
+	7 -> 8
+	8 -> 5
+	11 -> 3
+	11 -> 7
+}

@@ -197,10 +197,6 @@ void compareHRindex(HRindex& gt, HRindex& test, string resultIGPath) {
     cout << "comparing IGraph..." << endl;
     int gtNodeNum = gt.IG.GetVexNum();
     int testNodeNum = test.IG.GetVexNum();
-    string gtIGPath = resultIGPath + "gtIG.json";
-    string testIGPath = resultIGPath + "testIG.json";
-    gt.IG.StoreFullIndexGraphJSON(gtIGPath);
-    test.IG.StoreFullIndexGraphJSON(testIGPath);
     
     if (gtNodeNum != testNodeNum) {
         throw "NodeNum not equal!";

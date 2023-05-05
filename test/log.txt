@@ -1,0 +1,25 @@
+The local date and time is: Fri May 05 11:32:28 2023
+
+starting
+step1:buildOriginGraph(0.00s)
+step2:buildSccTable(0.00s)
+step3:buildSCCGraph(0.00s)
+step4:buildNITable(0.00s)
+step5:buildRefineNITable(0.00s)
+step6:buildIndexGraph(0.01s)
+timeStamp: 0 nodeNum: 8 edgeNum: 9 SCCNum: 3 SCCEdgeNum: 2
+timeStamp: 1 nodeNum: 10 edgeNum: 13 SCCNum: 4 SCCEdgeNum: 4
+timeStamp: 2 nodeNum: 9 edgeNum: 12 SCCNum: 3 SCCEdgeNum: 2
+timeStamp: 3 nodeNum: 5 edgeNum: 7 SCCNum: 2 SCCEdgeNum: 1
+
+update 0/1
+singleStepUpdateAddEdge: 6->4 0
+node : 6 exists
+node : 4 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(6)(0.00ms)
+step2.2 : findSCCIDFromNodeId(4)(0.00ms)
+finish(5.00ms)
+
+1/1
+

@@ -4,9 +4,6 @@ import os
 
 os.chdir("D:\desktop\work\code\IG_NoOp_5\debug")
 MAXLIFESPAN = 4
-originGraphJSONPath = "../resultOriginGraph"
-#IGJSONPath = "../Result_Full_IG"
-SCCGraphPath = "../resultSCCGraph"
 def printLifeSpan(string):
     return 
 
@@ -18,9 +15,9 @@ def binary_string_to_indices(s: str) -> list:
             result.append(i)
     return result
 
-def visualizeOriginGraph():
+def visualizeOriginGraph(dir:str):
     for i in range(MAXLIFESPAN):
-        filePath = originGraphJSONPath + "/originGraph" + str(i) + ".json"
+        filePath = dir + "/originGraph" + str(i) + ".json"
         with open(filePath, 'r') as f:
             data = json.load(f)
             dot = graphviz.Digraph(comment='OriginGraph' + str(i), engine= 'fdp')
@@ -33,7 +30,7 @@ def visualizeOriginGraph():
                     continue
                 for edge in node['arcs']:
                     dot.edge(str(node['souID']), str(edge['tarID']))
-            dot.render(filename='graph' + str(i) + '.gv', directory=originGraphJSONPath, view=False)
+            dot.render(filename='graph' + str(i) + '.gv', directory=dir, view=False)
 
 def visualizeIG(directory:str, fileName:str):
     filePath = os.path.join(directory, fileName)
@@ -51,9 +48,9 @@ def visualizeIG(directory:str, fileName:str):
                 dot.edge(str(node['uuid']), str(edge['uuid']))
         dot.render(filename= fileName.split(".")[0] + ".gv" , directory=directory, view=False)
     
-def visualizeSCC():
+def visualizeSCC(dir:str):
     for i in range(MAXLIFESPAN):
-        filePath = SCCGraphPath + "/sccGraph" + str(i) + ".json"
+        filePath = dir + "/sccGraph" + str(i) + ".json"
         with open(filePath, 'r') as f:
             data = json.load(f)
             dot = graphviz.Digraph(comment='sccGraph' + str(i), engine= 'fdp')
@@ -70,13 +67,13 @@ def visualizeSCC():
                     continue
                 for edge in node['arcs']:
                     dot.edge(str(node['ID']), str(edge['dstID']))
-            dot.render(filename='graph' + str(i) + '.gv', directory=SCCGraphPath, view=False)
+            dot.render(filename='graph' + str(i) + '.gv', directory=dir, view=False)
 
+def visualizeAll(dir:str):
+    visualizeOriginGraph(dir + "/originGraph")
+    visualizeSCC(dir + "/SCCGraph")
+    visualizeIG(dir + "/IG", "IG.json")
 
 if __name__ == "__main__" :
-    #visualizeOriginGraph() 
-    visualizeIG("../compare", "gtIG.json")
-    visualizeIG("../compare", "testIG.json")
-    #visualizeIG("../", "afterIG.json")
-    #visualizeSCC()
+    visualizeAll("../gt")
     print("done")

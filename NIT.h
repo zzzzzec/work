@@ -19,8 +19,10 @@ public:
     int partLab;
 public:
     Item() : vertexID(), lifespan(), partLab() {}
-    Item(int id) : vertexID(id), partLab(0) {}
-    bool operator()(const Item &cur) {
+    Item(int id): vertexID(id), partLab(0) {}
+    Item(int id, bitset<MNS> lifespan): vertexID(id), lifespan(lifespan), partLab(-1) {}
+    Item(int id, bitset<MNS> lifespan, int partLab): vertexID(id), lifespan(lifespan), partLab(partLab) {}
+    bool operator()(const Item& cur) {
         return vertexID == cur.vertexID;
     }
     bool operator==(const Item &cur) {
@@ -74,9 +76,6 @@ RefineNITable GetRefineNITable(NodeInfoTable& nodeInfoTable);
 RecordItem& findRecordItem(NodeInfoTable& nodeInfoTable, int node);
 RefineRecordItem& findRefineRecordItem(RefineNITable& refineNITable, int node);
 
-void StoreRefineNITable(string storeRefineNIT, RefineNITable refineNITable);
-RefineNITable ReadRefineNITable(string storeRefineNIT);
-
 RecordItem& findRecordItem(NodeInfoTable& nodeInfoTable, int node) {
     for (auto item = nodeInfoTable.begin(); item != nodeInfoTable.end(); item++) {
         if ((*item).node == node) {
@@ -94,85 +93,6 @@ RefineRecordItem& findRefineRecordItem(RefineNITable& refineNITable, int node) {
     }
     throw "No such node in the RefineNITable!";
 }
-
-void StoreRefineNITable(string storeRefineNIT, RefineNITable refineNITable) {
-    ofstream outfile(storeRefineNIT);
-    if (outfile) {
-        printf("Storeing the Refine_NI_Table......\n");
-        for (auto item = refineNITable.begin(); item != refineNITable.end(); item++) {
-            outfile << (*item).node << " # ";
-            for (auto outIt = (*item).Out.begin(); outIt != (*item).Out.end(); outIt++) {
-                outfile << (*outIt).vertexID << " - ";
-                for (int i = 0; i < MNS; ++i) {
-                    outfile << (*outIt).lifespan[i] << " ";
-                }
-                outfile << "@ " << (*outIt).partLab << " | ";
-            }
-            outfile << " /" << endl;
-        }
-    }
-    outfile.close();
-}
-
-RefineNITable ReadRefineNITable(string storeRefineNIT) {
-    RefineNITable refineNITable;
-
-    vector<int> tmpVector;
-    int souID = -1;
-    int tarID = -1;
-    int type = -1;
-    bitset<MNS> lifetime;
-    vector<Item> out;
-    ifstream fin(storeRefineNIT);
-    if (fin) {
-        string str;
-        printf("Reading the Refine NI-Table......\n");
-        while (fin >> str) {
-            if (str != "#" & str != "-" & str != "@" & str != "|" & str != "/") {
-                int data = stoi(str);
-                tmpVector.push_back(data);
-            } else if (str == "#") {
-                souID = tmpVector[0];
-                tmpVector.clear();
-            } else if (str == "-") {
-                tarID = tmpVector[0];
-                tmpVector.clear();
-            } else if (str == "@") {
-                lifetime.reset();
-                for (int i = 0; i < tmpVector.size(); ++i) {
-                    if (tmpVector[i] == 1) {
-                        lifetime.set(i);
-                    }
-                }
-                tmpVector.clear();
-            } else if (str == "|") {
-                type = tmpVector[0];
-                tmpVector.clear();
-
-                Item item;
-                item.vertexID = tarID;
-                item.lifespan = lifetime;
-                item.partLab = type;
-                out.push_back(item);
-
-                tarID = -1;
-                lifetime.reset();
-                type = -1;
-            } else if (str == "/") {
-                RefineRecordItem refineRecordItem;
-                refineRecordItem.node = souID;
-                refineRecordItem.Out = out;
-                refineNITable.push_back(refineRecordItem);
-
-                out.clear();
-                souID = -1;
-            }
-        }
-    }
-
-    return refineNITable;
-}
-
 
 bool outItemSort(Item item1, Item item2) {
     return item1.lifespan.count() > item2.lifespan.count();

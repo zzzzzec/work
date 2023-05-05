@@ -1,0 +1,21 @@
+\documentclass{article} 
+\usepackage{amsthm}
+\usepackage {mathtools}
+\usepackage{xeCJK}
+\setCJKmainfont{SimSun}
+\newtheorem{theorem}{Theorem}
+
+\begin{document}
+
+\begin{theorem}  
+    对于一个有向无环图$G$, 插入一条边$(S_u,S_v)$使得$G$中出现环,记环中的所有节点集合为$C$, 将把$C$中的节点合并为新节点$S_{new}$得到的DAG记为$G_{new}$, 则对于$G_{new}$
+    中的任何一个节点$S_i$,记$S_i$的入边集合为$IN_Si$, 出边集合为$OUT_Si$ ,如果$S_i \notin C$, 那么$C \cap IN_Si \neq \emptyset$ 与$C \cap OUT_Si$至多有一个成立。 
+\end{theorem}
+
+\begin{proof} 
+    使用反证法，假设$C \cap IN_Si \neq \emptyset$ 与$C \cap OUT_Si$同时成立, 取$S_j \in C \cap IN_Si$, $S_k \in C \cap OUT_Si$, 由于合并后节点$S_j$与节点$S_k$之间存在一条边, 所以在$G_{new}$中$S_j$与$S_k$
+    属于同一个强连通分量,则必然存在一条路径$p$,使得 $ S_k \xrightarrow[]{p} S_j $. 此时$G_{new}$中存在环$S_i \xrightarrow[]{} S_k \xrightarrow[]{p} S_j \xrightarrow[]{} S_i$, 与$G_{new}$为有向无环图相矛盾.
+    故$C \cap IN_Si \neq \emptyset$ 与$C \cap OUT_Si$至多有一个成立。
+\end{proof}
+
+\end{document}

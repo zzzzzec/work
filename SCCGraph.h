@@ -541,8 +541,9 @@ void SCCGraph::storeSCCGraphJSON(string path) {
     if (fout) {
         fout << JsonGraph.toStyledString();
     }
+    else {
+        cout << __FUNCTION__ <<"open file error" << endl;
+    }
 }
-
-
 
 #endif

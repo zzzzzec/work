@@ -1,0 +1,38 @@
+[
+	{
+		"ID" : 4,
+		"arcs" : null,
+		"originNodeSet" : 
+		[
+			{
+				"originID" : 9
+			},
+			{
+				"originID" : 10
+			}
+		],
+		"time" : 3
+	},
+	{
+		"ID" : 1,
+		"arcs" : 
+		[
+			{
+				"dstID" : 4
+			}
+		],
+		"originNodeSet" : 
+		[
+			{
+				"originID" : 1
+			},
+			{
+				"originID" : 2
+			},
+			{
+				"originID" : 3
+			}
+		],
+		"time" : 3
+	}
+]
