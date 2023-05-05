@@ -8,20 +8,25 @@ using namespace std;
 
 int main() {
 
+    //第一行输出日期
+    logFile = fstream("./log.txt", ios::out);
+    time_t now = time(0);
+    char* dt = ctime(&now);
+    LOG << "The local date and time is: " << dt << endl;
+    LOG << "starting" << endl;
+    
     int timeIntervalLength = 4;
     string gtGraphDatefileAddHead = "./gt/GraphData_DBLP/graph";
     string gtStoreOriginGraphDir = "./gt/originGraph/";
     string gtStoreSCCGraphDir = "./gt/SCCGraph/";
     string gtStoreIGDir = "./gt/IG/";
     string gtResultPath = "./gt/result.txt";
-    string gtLogPath = "./gt/log.txt";
 
     string testGraphDatafileAddHead = "./test/GraphData_DBLP/graph";
     string testStoreOriginGraphDir = "./test/originGraph/";
     string testStoreSCCGraphDir = "./test/SCCGraph/";
     string testStoreIGDir = "./test/IG/";
     string testResultPath = "./test/result.txt";
-    string testLogPath = "./test/log.txt";
     
     string queryFilePath = "./QueryFile/testQuery.txt";
     string updateFilePath = "./UpdateFile/testUpdate.txt";
@@ -30,14 +35,14 @@ int main() {
 
     vector<updateRecord> updateRecords;
     updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 6, 4, 0));
-//    updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 6, 4, 1));
+    updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 6, 4, 1));
+    updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 7, 11, 2));
 
     HRindex gt(
         timeIntervalLength,
         gtGraphDatefileAddHead,
         queryFilePath,
-        gtResultPath,
-        gtLogPath
+        gtResultPath
     );
     gt.buildOriginGraph();
     gt.getSCCTable();
@@ -47,13 +52,13 @@ int main() {
     gt.buildIndexGraph();
     gt.printStatistics();
 
+    LOG << "gt construction finished" << endl;
     
     HRindex test(
         timeIntervalLength,
         testGraphDatafileAddHead,
         queryFilePath,
-        testResultPath,
-        testLogPath
+        testResultPath
     );
 
     test.buildOriginGraph();
@@ -65,6 +70,7 @@ int main() {
     test.printStatistics();
     test.updateFromRecords(updateRecords, 3);
 
+    LOG << "test construction finished" << endl;
     //remap
     map<int, int> remap;
     for (auto it : gt.sccTable) {
@@ -77,7 +83,15 @@ int main() {
     for (auto &it : gt.sccTable) {
         it.SCCID = remap[it.SCCID];
     }
-    for (auto &it : gt.nodeInfoTable) {
+    for (auto& it : gt.sccGraphs) {
+        for (auto& it2 : it.vertices) {
+            it2.SCCID = remap[it2.SCCID];
+            for(auto edge = it2.firstArc; edge != NULL; edge = edge->next) {
+                edge->dstID = remap[edge->dstID];
+            }
+        }
+    }
+    for (auto& it : gt.nodeInfoTable) {
         it.node = remap[it.node];
         for (auto & itin : it.In) {
             itin.vertexID = remap[itin.vertexID];

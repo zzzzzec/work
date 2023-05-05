@@ -66,5 +66,10 @@ double measureTime(F func, Args&&... args) {
     double duration = std::chrono::duration<double, std::milli>(end - start).count();
     return duration;
 }
+
+//全局日志
+#define LOG logFile
+std::fstream logFile;
+
 #endif
 

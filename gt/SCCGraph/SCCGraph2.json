@@ -1,10 +1,10 @@
 [
 	{
-		"ID" : 3,
+		"ID" : 1,
 		"arcs" : 
 		[
 			{
-				"dstID" : 2
+				"dstID" : 6
 			}
 		],
 		"originNodeSet" : 
@@ -16,13 +16,8 @@
 		"time" : 2
 	},
 	{
-		"ID" : 5,
-		"arcs" : 
-		[
-			{
-				"dstID" : 2
-			}
-		],
+		"ID" : 6,
+		"arcs" : null,
 		"originNodeSet" : 
 		[
 			{
@@ -35,17 +30,6 @@
 				"originID" : 3
 			},
 			{
-				"originID" : 11
-			}
-		],
-		"time" : 2
-	},
-	{
-		"ID" : 2,
-		"arcs" : null,
-		"originNodeSet" : 
-		[
-			{
 				"originID" : 5
 			},
 			{
@@ -56,6 +40,9 @@
 			},
 			{
 				"originID" : 8
+			},
+			{
+				"originID" : 11
 			}
 		],
 		"time" : 2

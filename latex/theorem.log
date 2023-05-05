@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.5.3)  4 MAY 2023 22:55
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.5.3)  5 MAY 2023 21:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -357,6 +357,11 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 LaTeX Font Warning: Font shape `TU/SimSun(0)/m/it' undefined
 (Font)              using `TU/SimSun(0)/m/n' instead on input line 11.
 
+
+Overfull \hbox (22.49173pt too wide) in paragraph at lines 32--33
+[]$\OML/cmm/m/it/10 S[]$ \TU/SimSun(0)/m/n/10 在 $\OML/cmm/m/it/10 L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 S[]; S[]\OT1/cmr/m/n/10 )$ \TU/SimSun(0)/m/n/10 时 刻 有 $\OML/cmm/m/it/10 N[]$ \TU/SimSun(0)/m/n/10 出 边 $\OML/cmm/m/it/10 S[]$\TU/lmr/m/n/10 , \TU/SimSun(0)/m/n/10 构 造 边 $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 < S[]; L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 S[]\OT1/cmr/m/n/10 ) \OML/cmm/m/it/10 >; < S[]; L[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 S[]; S[]\OT1/cmr/m/n/10 ) \OML/cmm/m/it/10 >
+ []
+
 [1
 
 ] (./theorem.aux)
@@ -367,10 +372,10 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  6566 strings out of 476683
  180330 string characters out of 5807576
- 1852012 words of memory out of 5000000
+ 1861012 words of memory out of 5000000
  26788 multiletter control sequences out of 15000+600000
  513371 words of font info for 45 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 70i,12n,81p,292b,229s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 70i,12n,81p,292b,242s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on theorem.pdf (1 page).

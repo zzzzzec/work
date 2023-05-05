@@ -4,7 +4,7 @@
 		"arcs" : 
 		[
 			{
-				"dstID" : 0
+				"dstID" : 6
 			}
 		],
 		"originNodeSet" : 
@@ -16,13 +16,8 @@
 		"time" : 2
 	},
 	{
-		"ID" : 4,
-		"arcs" : 
-		[
-			{
-				"dstID" : 0
-			}
-		],
+		"ID" : 6,
+		"arcs" : null,
 		"originNodeSet" : 
 		[
 			{
@@ -35,17 +30,6 @@
 				"originID" : 3
 			},
 			{
-				"originID" : 11
-			}
-		],
-		"time" : 2
-	},
-	{
-		"ID" : 0,
-		"arcs" : null,
-		"originNodeSet" : 
-		[
-			{
 				"originID" : 5
 			},
 			{
@@ -56,6 +40,9 @@
 			},
 			{
 				"originID" : 8
+			},
+			{
+				"originID" : 11
 			}
 		],
 		"time" : 2

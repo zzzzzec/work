@@ -3,106 +3,82 @@
 		"arcs" : 
 		[
 			{
-				"tarID" : 0,
-				"tarLifespan" : "00000000000000000001",
+				"tarID" : 5,
+				"tarLifespan" : "00000000000000000011",
 				"uuid" : 2
 			},
 			{
-				"tarID" : 0,
-				"tarLifespan" : "00000000000000000010",
-				"uuid" : 3
-			},
-			{
-				"tarID" : 0,
+				"tarID" : 3,
 				"tarLifespan" : "00000000000000001010",
-				"uuid" : 4
+				"uuid" : 3
 			}
 		],
-		"souID" : 0,
+		"souID" : 2,
 		"souLifespan" : "00000000000000001011",
 		"uuid" : 1
 	},
 	{
-		"arcs" : null,
-		"souID" : 0,
-		"souLifespan" : "00000000000000000001",
+		"arcs" : 
+		[
+			{
+				"tarID" : 5,
+				"tarLifespan" : "00000000000000000010",
+				"uuid" : 5
+			}
+		],
+		"souID" : 5,
+		"souLifespan" : "00000000000000000011",
 		"uuid" : 2
 	},
 	{
 		"arcs" : 
 		[
 			{
-				"tarID" : 0,
+				"tarID" : 3,
 				"tarLifespan" : "00000000000000000010",
-				"uuid" : 7
+				"uuid" : 4
 			}
 		],
-		"souID" : 0,
-		"souLifespan" : "00000000000000000010",
+		"souID" : 3,
+		"souLifespan" : "00000000000000001010",
 		"uuid" : 3
 	},
 	{
 		"arcs" : 
 		[
 			{
-				"tarID" : 0,
+				"tarID" : 5,
 				"tarLifespan" : "00000000000000000010",
-				"uuid" : 8
+				"uuid" : 5
 			}
 		],
-		"souID" : 0,
-		"souLifespan" : "00000000000000001010",
+		"souID" : 3,
+		"souLifespan" : "00000000000000000010",
 		"uuid" : 4
+	},
+	{
+		"arcs" : null,
+		"souID" : 5,
+		"souLifespan" : "00000000000000000010",
+		"uuid" : 5
 	},
 	{
 		"arcs" : 
 		[
 			{
-				"tarID" : 0,
+				"tarID" : 6,
 				"tarLifespan" : "00000000000000000100",
-				"uuid" : 6
+				"uuid" : 7
 			}
 		],
-		"souID" : 0,
-		"souLifespan" : "00000000000000000100",
-		"uuid" : 5
-	},
-	{
-		"arcs" : null,
-		"souID" : 0,
+		"souID" : 1,
 		"souLifespan" : "00000000000000000100",
 		"uuid" : 6
 	},
 	{
 		"arcs" : null,
-		"souID" : 0,
-		"souLifespan" : "00000000000000000010",
-		"uuid" : 7
-	},
-	{
-		"arcs" : 
-		[
-			{
-				"tarID" : 0,
-				"tarLifespan" : "00000000000000000010",
-				"uuid" : 7
-			}
-		],
-		"souID" : 0,
-		"souLifespan" : "00000000000000000010",
-		"uuid" : 8
-	},
-	{
-		"arcs" : 
-		[
-			{
-				"tarID" : 0,
-				"tarLifespan" : "00000000000000000100",
-				"uuid" : 6
-			}
-		],
-		"souID" : 0,
+		"souID" : 6,
 		"souLifespan" : "00000000000000000100",
-		"uuid" : 9
+		"uuid" : 7
 	}
 ]

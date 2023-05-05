@@ -1,6 +1,18 @@
-The local date and time is: Thu May 04 10:44:00 2023
+The local date and time is: Fri May 05 22:35:10 2023
 
 starting
+step1:buildOriginGraph(0.00s)
+step2:buildSccTable(0.00s)
+step3:buildSCCGraph(0.00s)
+step4:buildNITable(0.00s)
+step5:buildRefineNITable(0.00s)
+step6:buildIndexGraph(0.01s)
+timeStamp: 0 nodeNum: 8 edgeNum: 10 SCCNum: 2 SCCEdgeNum: 1
+timeStamp: 1 nodeNum: 10 edgeNum: 14 SCCNum: 3 SCCEdgeNum: 3
+timeStamp: 2 nodeNum: 9 edgeNum: 13 SCCNum: 2 SCCEdgeNum: 1
+timeStamp: 3 nodeNum: 5 edgeNum: 7 SCCNum: 2 SCCEdgeNum: 1
+
+gt construction finished
 step1:buildOriginGraph(0.00s)
 step2:buildSccTable(0.00s)
 step3:buildSCCGraph(0.00s)
@@ -12,22 +24,72 @@ timeStamp: 1 nodeNum: 10 edgeNum: 13 SCCNum: 4 SCCEdgeNum: 4
 timeStamp: 2 nodeNum: 9 edgeNum: 12 SCCNum: 3 SCCEdgeNum: 2
 timeStamp: 3 nodeNum: 5 edgeNum: 7 SCCNum: 2 SCCEdgeNum: 1
 
-update 0/1
-singleStepUpdateAddEdge: 7->10 1
+update 0/3
+singleStepUpdateAddEdge: 6->4 0
+node : 6 exists
+node : 4 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(6)(0.00ms)
+step2.2 : findSCCIDFromNodeId(4)(0.00ms)
+porcessing node 0
+porcessing node 1
+DeleteEdgeKeepEmptyNode: <1,00000000000000000001> -> <0,00000000000000000001>
+porcessing node 2
+InsertEdgeSrcMustExistOrThrow: <2,00000000000000001011> -> <5,00000000000000000001>
+DeleteEdgeKeepEmptyNode: <2,00000000000000001011> -> <1,00000000000000000011>
+InsertEdgeSrcMustExistOrThrow: <2,00000000000000001011> -> <1,00000000000000000010>
+porcessing node 3
+porcessing node 4
+porcessing node 5
+deleteNodeWhichInCycleAndIncludeTimestamp
+delEmptyNode
+finish(4.00ms)
+
+update 1/3
+singleStepUpdateAddEdge: 6->4 1
+node : 6 exists
+node : 4 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(6)(0.00ms)
+step2.2 : findSCCIDFromNodeId(4)(0.00ms)
+porcessing node 0
+porcessing node 1
+DeleteEdgeKeepEmptyNode: <1,00000000000000000010> -> <0,00000000000000000010>
+porcessing node 2
+DeleteEdgeKeepEmptyNode: <2,00000000000000001011> -> <5,00000000000000000001>
+InsertEdgeSrcMustExistOrThrow: <2,00000000000000001011> -> <5,00000000000000000011>
+DeleteEdgeKeepEmptyNode: <2,00000000000000001011> -> <1,00000000000000000010>
+porcessing node 3
+InsertEdgeSrcMustExistOrThrow: <3,00000000000000000010> -> <5,00000000000000000010>
+DeleteEdgeKeepEmptyNode: <3,00000000000000000010> -> <0,00000000000000000010>
+porcessing node 4
+porcessing node 5
+deleteNodeWhichInCycleAndIncludeTimestamp
+delEmptyNode
+deleteEmptyNode: delete node 5
+finish(7.00ms)
+
+update 2/3
+singleStepUpdateAddEdge: 7->11 2
 node : 7 exists
-node : 10 exists
+node : 11 exists
 step1 : originGraph insert edge
 step2.1 : findSCCIDFromNodeId(7)(0.00ms)
-step2.2 : findSCCIDFromNodeId(10)(0.00ms)
-finish(1014.00ms)
+step2.2 : findSCCIDFromNodeId(11)(0.00ms)
+porcessing node 0
+porcessing node 1
+InsertEdgeSrcMustExistOrThrow: <1,00000000000000000100> -> <6,00000000000000000100>
+DeleteEdgeKeepEmptyNode: <1,00000000000000000100> -> <0,00000000000000000100>
+porcessing node 2
+porcessing node 3
+porcessing node 4
+DeleteEdgeKeepEmptyNode: <4,00000000000000000100> -> <0,00000000000000000100>
+porcessing node 5
+porcessing node 6
+deleteNodeWhichInCycleAndIncludeTimestamp
+delEmptyNode
+finish(68.00ms)
 
-1/1
+3/3
 
-tep3 : reconstructEvolvingGraphSequence(0.00ms)
-step4 : reconstructNIT(0.00ms)
-step5 : Reconstruct RefineNITable(0.00ms)
-step6 : Rebuild IndexGraph(5.00ms)
-finish(6.00ms)
-
-1/1
-
+test construction finished

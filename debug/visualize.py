@@ -75,5 +75,7 @@ def visualizeAll(dir:str):
     visualizeIG(dir + "/IG", "IG.json")
 
 if __name__ == "__main__" :
+    #visualizeIG("../", "IG.json")
     visualizeAll("../gt")
+    visualizeAll("../test")
     print("done")

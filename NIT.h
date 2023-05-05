@@ -378,34 +378,36 @@ void deleteNIT(NodeInfoTable &table, int timeStamp)
     }
 }
 
-void insertNITin(RecordItem& record, int id, int timeStamp) {
+//插入一个时刻为tx的节点，若在其他时刻已经存在，返回true，否则返回false
+bool insertNITin(RecordItem& record, int id, int timeStamp) {
     for (auto it = record.In.begin(); it != record.In.end(); it++)
     {
         if(it->vertexID == id){
             it->lifespan.set(timeStamp);
-            return;
+            return true;
         }
     }
     Item item;
     item.vertexID = id;
     item.lifespan.set(timeStamp);
     record.In.push_back(item);
-    return;
+    return false;
 }
 
-void insertNITout(RecordItem & record, int id ,int timeStamp){
+//插入一个时刻为tx的节点，若在其他时刻已经存在，返回true，否则返回false
+bool insertNITout(RecordItem & record, int id ,int timeStamp){
     for (auto it = record.Out.begin(); it != record.Out.end(); it++)
     {
         if(it->vertexID == id){
             it->lifespan.set(timeStamp);
-            return;
+            return true;
         }
     }
     Item item;
     item.vertexID = id;
     item.lifespan.set(timeStamp);
     record.Out.push_back(item);
-    return;
+    return false;
 }
 
 pair<bool, bool> refineNITINsertOrThrow(RefineRecordItem & ritem, const Item& i) {
