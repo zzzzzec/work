@@ -2,7 +2,10 @@
 \usepackage{amsthm}
 \usepackage {mathtools}
 \usepackage{xeCJK}
+\usepackage{amssymb}
 \setCJKmainfont{SimSun}
+\usepackage{stackengine}
+
 \newtheorem{theorem}{Theorem1}
 
 \begin{document}
@@ -39,4 +42,23 @@
     因此必然满足$\bigcup \limits_{S_j \in G_S, S_j \neq S_i} L_2(S_j, S_i) \quad \cap \quad L^+(S_i) = \emptyset$, 因此$L_2$只能含有有一个时刻, 即$|L_2| = 1 $.
 \end{proof}
 
+\begin{theorem}
+    对于一个有向无环图$G$,若加入一条边$(u,v), u \in G, v \in G$使得$G$中产生了强连通分量, 那么必定存在至少一个环$C$, 且$u \in C, v \in C$.
+\end{theorem}
+\begin{proof} 
+    在$G$中,节点$u$和节点$v$的关系一共有三种情况
+    \begin{center}
+        \begin{itemize}
+            \item $u$与$v$相互不可达.
+            \item $G$中存在至少一条路$p$, 使得$u \stackrel{p}{\rightsquigarrow} v$, 即$u$可达$v$
+            \item $G$中存在至少一条路$q$, 使得$v \stackrel{q}{\rightsquigarrow} u$, 即$v$可达$u$
+        \end{itemize}
+    \end{center}
+    $u \stackrel{p}{\rightsquigarrow} v$和$v \stackrel{q}{\rightsquigarrow} u$不可能同时存在，因为这与$G$是有向无环图相矛盾.
+    在第一种情况中, 新加入$(u,v)$最多只能使得$u \rightsquigarrow v$, 不满足$G$中产生强连通分量的条件
+    在第二种情况中，新加入$(u,v)$, 由于$u, v$已经可达, 因此加入后仍无法满足$G$中产生强连通分量的条件
+    在第三种情况中, 新加入$(u,v)$会产生至少一个环$v \stackrel{q}{\rightsquigarrow} u \to v$.
+    综上所述,对于一个有向无环图$G$,若加入一条边$(u,v), u \in G, v \in G$使得$G$中产生了强连通分量, 那么必定存在至少一个环$C$, 且$u \in C, v \in C$.
+\end{proof}
+ 
 \end{document}

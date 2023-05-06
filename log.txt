@@ -1,4 +1,4 @@
-The local date and time is: Fri May 05 22:35:10 2023
+The local date and time is: Sat May 06 09:47:25 2023
 
 starting
 step1:buildOriginGraph(0.00s)
@@ -43,7 +43,7 @@ porcessing node 4
 porcessing node 5
 deleteNodeWhichInCycleAndIncludeTimestamp
 delEmptyNode
-finish(4.00ms)
+finish(5.00ms)
 
 update 1/3
 singleStepUpdateAddEdge: 6->4 1
@@ -88,7 +88,7 @@ porcessing node 5
 porcessing node 6
 deleteNodeWhichInCycleAndIncludeTimestamp
 delEmptyNode
-finish(68.00ms)
+finish(6.00ms)
 
 3/3
 

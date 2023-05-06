@@ -4,9 +4,9 @@ UPDATE_TYPE_ADD_EDGE = 2
 UPDATE_TYPE_DELETE_NODE = 3
 UPDATE_TYPE_DELETE_EDGE = 4
 DATASETADDR = "./Dataset/sx-mathoverflow/sx-mathoverflow0.txt"
-QUERYFILEADDR = "./QueryFile/testQuery.txt"
-UPDATEFILEADDR = "./updateFile/testUpdate.txt"
-TIMEINTERVAL = 16
+QUERYFILEADDR = "../QueryFile/testQuery.txt"
+UPDATEFILEADDR = "../updateFile/testUpdate.txt"
+TIMEINTERVAL = 4
 #转为python
 def GenerateRandomAddEdgeUpdate(num, updateFileAddress):
     updateRecords = []
@@ -24,12 +24,12 @@ def GenerateRandomAddEdgeUpdate(num, updateFileAddress):
         updateFile.write(str(it[0]) + ' ' + str(it[1]) + ' ' + str(it[2]) + ' ' + str(it[3]) + '\n')
 
     #追加写入
-    queryFile = open(QUERYFILEADDR, 'a')
-    for i in range(beginList.__len__()):
-        timeB = random.randint(0, TIMEINTERVAL - 1)
-        timeE = random.randint(timeB, TIMEINTERVAL - 1)
-        type = random.randint(0, 1) 
-        queryFile.write(str(beginList[i]) + ' ' + str(endList[i]) + ' ' + str(timeB) + ' ' + str(timeE) + ' ' + str(type) + '\n')    
+    #queryFile = open(QUERYFILEADDR, 'a')
+    #for i in range(beginList.__len__()):
+    #    timeB = random.randint(0, TIMEINTERVAL - 1)
+    #    timeE = random.randint(timeB, TIMEINTERVAL - 1)
+    #    type = random.randint(0, 1) 
+    #    queryFile.write(str(beginList[i]) + ' ' + str(endList[i]) + ' ' + str(timeB) + ' ' + str(timeE) + ' ' + str(type) + '\n')    
     
 def GenerateRandomDeleteEdgeUpdate(num, updateFileAddress):
     updateRecords = []
