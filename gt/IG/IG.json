@@ -3,82 +3,63 @@
 		"arcs" : 
 		[
 			{
-				"tarID" : 5,
-				"tarLifespan" : "00000000000000000011",
+				"tarID" : 0,
+				"tarLifespan" : "00000000000000000001",
 				"uuid" : 2
 			},
 			{
-				"tarID" : 3,
-				"tarLifespan" : "00000000000000001010",
+				"tarID" : 1,
+				"tarLifespan" : "00000000000000000001",
 				"uuid" : 3
+			},
+			{
+				"tarID" : 2,
+				"tarLifespan" : "00000000000000000001",
+				"uuid" : 4
+			},
+			{
+				"tarID" : 3,
+				"tarLifespan" : "00000000000000000001",
+				"uuid" : 5
+			},
+			{
+				"tarID" : 8,
+				"tarLifespan" : "00000000000000000001",
+				"uuid" : 6
 			}
 		],
-		"souID" : 2,
-		"souLifespan" : "00000000000000001011",
+		"souID" : 14,
+		"souLifespan" : "00000000000000000001",
 		"uuid" : 1
 	},
 	{
-		"arcs" : 
-		[
-			{
-				"tarID" : 5,
-				"tarLifespan" : "00000000000000000010",
-				"uuid" : 5
-			}
-		],
-		"souID" : 5,
-		"souLifespan" : "00000000000000000011",
+		"arcs" : null,
+		"souID" : 0,
+		"souLifespan" : "00000000000000000001",
 		"uuid" : 2
 	},
 	{
-		"arcs" : 
-		[
-			{
-				"tarID" : 3,
-				"tarLifespan" : "00000000000000000010",
-				"uuid" : 4
-			}
-		],
-		"souID" : 3,
-		"souLifespan" : "00000000000000001010",
+		"arcs" : null,
+		"souID" : 1,
+		"souLifespan" : "00000000000000000001",
 		"uuid" : 3
 	},
 	{
-		"arcs" : 
-		[
-			{
-				"tarID" : 5,
-				"tarLifespan" : "00000000000000000010",
-				"uuid" : 5
-			}
-		],
-		"souID" : 3,
-		"souLifespan" : "00000000000000000010",
+		"arcs" : null,
+		"souID" : 2,
+		"souLifespan" : "00000000000000000001",
 		"uuid" : 4
 	},
 	{
 		"arcs" : null,
-		"souID" : 5,
-		"souLifespan" : "00000000000000000010",
+		"souID" : 3,
+		"souLifespan" : "00000000000000000001",
 		"uuid" : 5
 	},
 	{
-		"arcs" : 
-		[
-			{
-				"tarID" : 6,
-				"tarLifespan" : "00000000000000000100",
-				"uuid" : 7
-			}
-		],
-		"souID" : 1,
-		"souLifespan" : "00000000000000000100",
-		"uuid" : 6
-	},
-	{
 		"arcs" : null,
-		"souID" : 6,
-		"souLifespan" : "00000000000000000100",
-		"uuid" : 7
+		"souID" : 8,
+		"souLifespan" : "00000000000000000001",
+		"uuid" : 6
 	}
 ]

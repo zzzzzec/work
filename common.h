@@ -71,5 +71,17 @@ double measureTime(F func, Args&&... args) {
 #define LOG logFile
 std::fstream logFile;
 
+std::string vec2string(const std::vector<int>& vec) {
+    std::string result = "[";
+    for (size_t i = 0; i < vec.size(); ++i) {
+        result += std::to_string(vec[i]);
+        if (i != vec.size() - 1) {
+            result += ",";
+        }
+    }
+    result += "]";
+    return result;
+}
+
 #endif
 

@@ -15,7 +15,7 @@ int main() {
     LOG << "The local date and time is: " << dt << endl;
     LOG << "starting" << endl;
     
-    int timeIntervalLength = 4;
+    int timeIntervalLength = 1;
     string gtGraphDatefileAddHead = "./gt/GraphData_DBLP/graph";
     string gtStoreOriginGraphDir = "./gt/originGraph/";
     string gtStoreSCCGraphDir = "./gt/SCCGraph/";
@@ -34,9 +34,10 @@ int main() {
     cout << "Starting..." << endl;
 
     vector<updateRecord> updateRecords;
-    updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 6, 4, 0));
-    updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 6, 4, 1));
-    updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 7, 11, 2));
+    updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 3, 1, 0));
+    //updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 6, 4, 0));
+    //updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 6, 4, 1));
+    //updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 7, 11, 2));
 
     HRindex gt(
         timeIntervalLength,

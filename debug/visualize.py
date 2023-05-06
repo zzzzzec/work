@@ -3,7 +3,7 @@ import json
 import os
 
 os.chdir("D:\desktop\work\code\IG_NoOp_5\debug")
-MAXLIFESPAN = 4
+MAXLIFESPAN = 1
 def printLifeSpan(string):
     return 
 

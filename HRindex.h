@@ -950,15 +950,14 @@ bool HRindex::singleStepUpdateAddEdge3(int u, int v, int timestamp) {
         clock_t findCycleStart, findCycleEnd;
         double findCycleDuration;
         findCycleStart = clock();
-        
-        int cycleNum = 0;
-
         Lifespan tx = LifespanBuild(timestamp, timestamp);
         
-        //这里需要循环检测环，TODO
-        vector<SCCnode> cycle = thisSCCGraph.findCycle(uSCCID);
-        int newSCCID = thisSCCGraph.merge(cycle, sccTable);
-        assert(thisSCCGraph.findCycle(newSCCID).size() == 0);
+        //vector<SCCnode> cycle = thisSCCGraph.findCycle(uSCCID);
+        //int newSCCID = thisSCCGraph.merge(cycle, sccTable);
+        pair<int, vector<SCCnode>> res = thisSCCGraph.findCycles(uSCCID, sccTable);
+        int newSCCID = res.first;
+        vector<SCCnode> cycle = res.second;
+        
         reconstructEvolvingGraphSequence(timestamp);
         //加入新的SCC节点, 使用SCCGraph来获取出入边信息
         auto newSCCFindRes = find_if(nodeInfoTable.begin(), nodeInfoTable.end(),

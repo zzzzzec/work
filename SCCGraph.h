@@ -326,30 +326,63 @@ int SCCGraph::merge(const vector<SCCnode>& cycle, SccTable& sccTable) {
     }
     
     newNode.firstArc = NULL;
-    arc* arcit;
     auto it = vertices.begin();
     while(it != vertices.end()){
-        arcit = it->firstArc;
         if(sccIncycle(it->SCCID, cycle)){
             //cycle中的节点，需要合并出边
-            while(arcit != NULL){
-                if(!sccIncycle(arcit->dstID, cycle)){
-                    arc* newarc = new arc;
-                    newarc->dstID = arcit->dstID;
-                    newarc->next = newNode.firstArc;
-                    newNode.firstArc = newarc;
+            Arc* current = it->firstArc;
+            while (current != NULL) {
+                if (!sccIncycle(current->dstID, cycle)) {
+                    //插入前检查
+                    bool find = false;
+                    arc* check = newNode.firstArc;
+                    while (check != NULL) {
+                        if (check->dstID == current->dstID) {
+                            find = true;
+                            break;
+                        }
+                        check = check->next;
+                    }
+                    if (!find) {
+                        arc* newarc = new arc;
+                        newarc->dstID = current->dstID;
+                        newarc->next = newNode.firstArc;
+                        newNode.firstArc = newarc;
+                    }
                 }
-                arcit = arcit->next;
+                current = current->next;
             }
             it = vertices.erase(it);
         }
         else{
             //其他节点，需要把出边的目的节点改为新的SCCID
-            while(arcit != NULL){
-                if(sccIncycle(arcit->dstID, cycle)){
-                    arcit -> dstID = newNode.SCCID;
+            arc* prev = nullptr;
+            arc* current = it->firstArc;
+            bool flag = false;
+            while (current != nullptr) {
+                if (sccIncycle(current->dstID, cycle)) {
+                    flag = true;
+                    if (prev == nullptr) {
+                        it->firstArc = current->next;
+                    }
+                    else {
+                        prev->next = current->next;
+                    }
+                    arc* temp = current;
+                    current = current->next;
+                    delete temp;
                 }
-                arcit = arcit->next;
+                else {
+                    prev = current;
+                    current = current->next;
+                }
+            }
+            //再把新节点加上, 头插法
+            if (flag) {
+                arc* newArc = new arc;
+                newArc->dstID = newNode.SCCID;
+                newArc->next = it->firstArc;
+                it->firstArc = newArc;
             }
             it++;
         }
@@ -361,9 +394,20 @@ int SCCGraph::merge(const vector<SCCnode>& cycle, SccTable& sccTable) {
 pair<int, vector<SCCnode>> SCCGraph::findCycles(int SCCIDu, SccTable& st) {
     vector<SCCnode> all;
     int oldid, newid;
+    int cycleNum = 0;
     auto cycle = findCycle(SCCIDu);
     while (cycle.size() != 0) {
+        cycleNum++;
         newid = merge(cycle, st);
+        vector<int> cycint;
+        cycint.resize(cycle.size());
+        transform(cycle.begin(), cycle.end(), cycint.begin(),
+            [](const SCCnode& obj) {return obj.SCCID;});
+        
+        LOG << "cycleNum = " << cycleNum << endl;
+        LOG << "cycle : " << vec2string(cycint) << " -> " << newid << endl;
+        string p = "./scc" + to_string(cycleNum) + ".json";
+        storeSCCGraphJSON(p);
         if (all.size() == 0) {
             all.insert(all.end(), cycle.begin(), cycle.end());
             oldid = newid;
@@ -379,7 +423,13 @@ pair<int, vector<SCCnode>> SCCGraph::findCycles(int SCCIDu, SccTable& st) {
             }
             oldid = newid;
         }
+        cycle = findCycle(newid);
     }
+    vector<int> allint;
+    allint.resize(all.size());
+    transform(all.begin(), all.end(), allint.begin(),
+        [](const SCCnode& obj) {return obj.SCCID;});
+    LOG << "All : " << vec2string(allint) << endl;
     return make_pair(newid, all);
 }
 
