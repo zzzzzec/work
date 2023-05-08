@@ -4,62 +4,118 @@
 		[
 			{
 				"tarID" : 0,
-				"tarLifespan" : "00000000000000000001",
+				"tarLifespan" : "00000000000000000110",
 				"uuid" : 2
-			},
-			{
-				"tarID" : 1,
-				"tarLifespan" : "00000000000000000001",
-				"uuid" : 3
-			},
-			{
-				"tarID" : 2,
-				"tarLifespan" : "00000000000000000001",
-				"uuid" : 4
-			},
-			{
-				"tarID" : 3,
-				"tarLifespan" : "00000000000000000001",
-				"uuid" : 5
-			},
-			{
-				"tarID" : 8,
-				"tarLifespan" : "00000000000000000001",
-				"uuid" : 6
 			}
 		],
-		"souID" : 14,
-		"souLifespan" : "00000000000000000001",
+		"souID" : 1,
+		"souLifespan" : "00000000000000000110",
 		"uuid" : 1
 	},
 	{
-		"arcs" : null,
+		"arcs" : 
+		[
+			{
+				"tarID" : 0,
+				"tarLifespan" : "00000000000000000010",
+				"uuid" : 8
+			},
+			{
+				"tarID" : 0,
+				"tarLifespan" : "00000000000000000100",
+				"uuid" : 10
+			}
+		],
 		"souID" : 0,
-		"souLifespan" : "00000000000000000001",
+		"souLifespan" : "00000000000000000110",
 		"uuid" : 2
 	},
 	{
-		"arcs" : null,
+		"arcs" : 
+		[
+			{
+				"tarID" : 0,
+				"tarLifespan" : "00000000000000000001",
+				"uuid" : 4
+			}
+		],
 		"souID" : 1,
 		"souLifespan" : "00000000000000000001",
 		"uuid" : 3
 	},
 	{
 		"arcs" : null,
-		"souID" : 2,
+		"souID" : 0,
 		"souLifespan" : "00000000000000000001",
 		"uuid" : 4
 	},
 	{
-		"arcs" : null,
-		"souID" : 3,
-		"souLifespan" : "00000000000000000001",
+		"arcs" : 
+		[
+			{
+				"tarID" : 1,
+				"tarLifespan" : "00000000000000000001",
+				"uuid" : 3
+			},
+			{
+				"tarID" : 3,
+				"tarLifespan" : "00000000000000001010",
+				"uuid" : 6
+			}
+		],
+		"souID" : 2,
+		"souLifespan" : "00000000000000001011",
 		"uuid" : 5
 	},
 	{
-		"arcs" : null,
-		"souID" : 8,
-		"souLifespan" : "00000000000000000001",
+		"arcs" : 
+		[
+			{
+				"tarID" : 3,
+				"tarLifespan" : "00000000000000000010",
+				"uuid" : 7
+			}
+		],
+		"souID" : 3,
+		"souLifespan" : "00000000000000001010",
 		"uuid" : 6
+	},
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 0,
+				"tarLifespan" : "00000000000000000010",
+				"uuid" : 8
+			}
+		],
+		"souID" : 3,
+		"souLifespan" : "00000000000000000010",
+		"uuid" : 7
+	},
+	{
+		"arcs" : null,
+		"souID" : 0,
+		"souLifespan" : "00000000000000000010",
+		"uuid" : 8
+	},
+	{
+		"arcs" : 
+		[
+			{
+				"tarID" : 0,
+				"tarLifespan" : "00000000000000000100",
+				"uuid" : 10
+			}
+		],
+		"souID" : 4,
+		"souLifespan" : "00000000000000000100",
+		"uuid" : 9
+	},
+	{
+		"arcs" : null,
+		"souID" : 0,
+		"souLifespan" : "00000000000000000100",
+		"uuid" : 10
 	}
 ]

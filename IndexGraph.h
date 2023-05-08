@@ -27,35 +27,31 @@ typedef struct CopyNode {
 
 } CopyNode;
 
-typedef struct IGNode {
-    int nodeID;
-    bitset<MNS> nodeLife;
-} IGNode;
-
 //定义索引图弧结构
-typedef struct IGArcNode {
+typedef struct IGarc {
     int taruuid;
     int tarID;                          //目的节点ID
     bitset<MNS> tarLifespan;            //目的节点Lifespan
-    IGArcNode* nextarc;                 //指向下一条弧的指针
-    IGArcNode() { nextarc = NULL; }
-    IGArcNode(int id, int v, bitset<MNS> t) {
+    IGarc* nextarc;                 //指向下一条弧的指针
+    IGarc() { nextarc = NULL; }
+    IGarc(int id, int v, bitset<MNS> t) {
         taruuid = id;
         tarID = v;
         tarLifespan = t;
         nextarc = NULL;
     }
-} IGArcNode;
+} IGarc;
 
 //定义索引图顶点结构
-typedef struct IGVerNode {
+typedef struct IGnode {
+    
     int uuid;
-    int souID;                          //源节点ID
-    bitset<MNS> souLifespan;            //源节点Lifespan
+    int souID;
+    bitset<MNS> souLifespan; 
     int sccOfIG;                        //标识源节点位于IG中哪个SCC
-    IGArcNode *firstArc;                //该节点第一条出边
+    IGarc *firstArc;
 
-    IGVerNode(int id, int u, bitset<MNS> t) {
+    IGnode(int id, int u, bitset<MNS> t) {
         uuid = id;
         souID = u;
         souLifespan = t;
@@ -63,7 +59,7 @@ typedef struct IGVerNode {
         firstArc = NULL;
     }
     
-    bool operator==(const IGVerNode& node) const {
+    bool operator==(const IGnode& node) const {
         if(souID == node.souID && souLifespan == node.souLifespan) {
             auto p = firstArc;
             while (p != NULL) {
@@ -85,8 +81,8 @@ typedef struct IGVerNode {
             return false;
         }
     }
-} IGVerNode;
-typedef struct vector<IGVerNode> AdjList;
+} IGnode;
+typedef struct vector<IGnode> AdjList;
 
 //定义排序:按照生存期规模升序排序
 bool copyNodeSort(CopyNode copyNode1, CopyNode copyNode2) {
@@ -118,16 +114,16 @@ public:
     void DeleteEdge2(int souPos, int tarPos);
     void DeleteEdgeKeepEmptyNode(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
 
-    void deleteOutComingEdge(IGVerNode* node, int tarID, bitset<MNS> tarLife);
-    void deleteNodeOrThrow(const IGVerNode node);
+    void deleteOutComingEdge(IGnode* node, int tarID, bitset<MNS> tarLife);
+    void deleteNodeOrThrow(const IGnode node);
     void deleteNodeWhichInCycleAndIncludeTimestamp(const vector<SCCnode>& cycle, int timestamp);
     void deleteEmptyNode();
     
     void CreateVertex(int ID, bitset<MNS> t);
     vector<CopyNode> FindAllCopyNodes(int souID);
     int FindIDonIG(int sccID, bitset<MNS> lifespan);           //根据SCC的id及其生存期，确定其在索引图上的ID
-    IGVerNode* findNode(int id, Lifespan lifespan);
-    IGVerNode* findNodeByPos(int pos) { return &vertices[pos]; }
+    IGnode* findNode(int id, Lifespan lifespan);
+    IGnode* findNodeByPos(int pos) { return &vertices[pos]; }
     
     bool HaveSuperLifespan(vector<CopyNode>& copyNodes, bitset<MNS> t);
 
@@ -157,7 +153,7 @@ private:
     bool isReachableUtil(const int u, const int v, map<int, bool>& visited) {
         if (u == v) return true;
         visited[vertices[u].uuid] = true;
-        for (IGArcNode* arc = vertices[u].firstArc; arc != NULL; arc = arc->nextarc) {
+        for (IGarc* arc = vertices[u].firstArc; arc != NULL; arc = arc->nextarc) {
             int arcPos = VerPos(arc->tarID, arc->tarLifespan);
             if (!visited[vertices[arcPos].uuid] && isReachableUtil(arcPos, v, visited)) return true;
         }
@@ -213,8 +209,8 @@ void IGraph::InsertEdgeWithoutCheck(int souPos, int tarID, bitset<MNS> tarLife) 
         }
     }
     assert(taruuid != -1);
-    IGArcNode* newArcNode = new IGArcNode(taruuid ,tarID, tarLife);
-    IGArcNode *temp = vertices[souPos].firstArc;
+    IGarc* newArcNode = new IGarc(taruuid ,tarID, tarLife);
+    IGarc *temp = vertices[souPos].firstArc;
 
     if (temp == NULL) {
         //temp为NULL
@@ -249,7 +245,7 @@ void IGraph::InsertEdgeSrcMustExistOrThrow(int souID, bitset<MNS> souLife, int t
         throw "InsertEdgeSrcMustExistOrThrow: ";
     if (tarPos == -1) {
         int newid = Newuuid();
-        IGVerNode newTarNode(newid, tarID, tarLife);
+        IGnode newTarNode(newid, tarID, tarLife);
         vertices.push_back(newTarNode);
         vexnum++;
     }
@@ -262,7 +258,7 @@ void IGraph::InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> t
 
     if (tarPos == -1) {
         int newid = Newuuid();
-        IGVerNode newTarNode(newid, tarID, tarLife);
+        IGnode newTarNode(newid, tarID, tarLife);
         vertices.push_back(newTarNode);
         vexnum++;
     }
@@ -272,7 +268,7 @@ void IGraph::InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> t
     } else {
         //当前不存在节点(souID,souLife)，需创建该节点
         int newid = Newuuid();
-        IGVerNode newSouNode(newid, souID, souLife);
+        IGnode newSouNode(newid, souID, souLife);
         vertices.push_back(newSouNode);
         vexnum++;
         souPos = vertices.size() - 1;
@@ -288,34 +284,40 @@ void IGraph::DeleteEdgeKeepEmptyNode(int souID, bitset<MNS> souLife, int tarID, 
 
     if (souPos == -1 || tarPos == -1) {
         throw "Don't exist this sourceNode!";
-    } else {
-        IGArcNode *p = vertices[souPos].firstArc;
-        IGArcNode *q = NULL;
-
-        if (p == NULL) {
+    }
+    else {
+        bool deleteFlag = false;
+        IGarc* current = vertices[souPos].firstArc;
+        IGarc* pre = NULL;
+        if (current == NULL) {
             throw "Don't exist this edge";
-        } else {
-            q = p;
-            if (p->tarID == tarID && p->tarLifespan == tarLife) {
-                p = p->nextarc;
-                delete (q);
-                vertices[souPos].firstArc = p;
-                edgenum--;
-            } else {
-                while (p != NULL) {
-                    if (p->tarID == tarID && p->tarLifespan == tarLife) {
-                        p = p->nextarc;
-                        delete (q->nextarc);
-                        q->nextarc = p;
-
+        }
+        else {
+            while (current != NULL) {
+                if (current->tarID == tarID && current->tarLifespan == tarLife) {
+                    if (pre == NULL) {
+                        deleteFlag = true;
+                        vertices[souPos].firstArc = current->nextarc;
+                        delete current;
                         edgenum--;
                         break;
-                    } else {
-                        q = p;
-                        p = p->nextarc;
+                    }
+                    else {
+                        deleteFlag = true;
+                        pre->nextarc = current->nextarc;
+                        delete current;
+                        edgenum--;
+                        break;
                     }
                 }
+                else {
+                    pre = current;
+                    current = current->nextarc;
+                }
             }
+        }
+        if (!deleteFlag) {
+            throw "Don't exist this edge";
         }
     }
 }
@@ -328,8 +330,8 @@ void IGraph::DeleteEdge1(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> 
     if (souPos == -1 || tarPos == -1) {
         throw "Don't exist this sourceNode!";
     } else {
-        IGArcNode *p = vertices[souPos].firstArc;
-        IGArcNode *q = NULL;
+        IGarc *p = vertices[souPos].firstArc;
+        IGarc *q = NULL;
 
         if (p == NULL) {
             throw "Don't exist this edge";
@@ -365,8 +367,8 @@ void IGraph::DeleteEdge1(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> 
 }
 
 void IGraph::DeleteEdge2(int souPos, int tarPos) {
-    IGArcNode *p = vertices[souPos].firstArc;
-    IGArcNode *q = NULL;
+    IGarc *p = vertices[souPos].firstArc;
+    IGarc *q = NULL;
 
     int tarID = vertices[tarPos].souID;
     bitset<MNS> tarLife = vertices[tarPos].souLifespan;
@@ -405,7 +407,7 @@ void IGraph::DeleteEdge2(int souPos, int tarPos) {
 
 void IGraph::CreateVertex(int ID, bitset<MNS> t) {
     int newid = Newuuid();
-    IGVerNode newVerNode(newid, ID, t);
+    IGnode newVerNode(newid, ID, t);
     vertices.push_back(newVerNode);
     vexnum++;
 }
@@ -480,7 +482,7 @@ void IGraph::StoreFullIndexGraphJSON(string dir) {
         JsonNode["souID"] = node.souID;
         JsonNode["souLifespan"] = node.souLifespan.to_string();
         Json::Value JsonArcs;
-        for (IGArcNode *p = node.firstArc; p; p = p->nextarc) {
+        for (IGarc *p = node.firstArc; p; p = p->nextarc) {
             Json::Value JsonArc;
             JsonArc["uuid"] = p->taruuid;
             JsonArc["tarID"] = p->tarID;
@@ -567,7 +569,7 @@ bitset<MNS> IGraph::GetSubVertexUnionLife(int verPos) {
     bitset<MNS> subVertexUnionLife;
     subVertexUnionLife.reset();
     int curID = vertices[verPos].souID;
-    IGArcNode *p = vertices[verPos].firstArc;
+    IGarc *p = vertices[verPos].firstArc;
 
     while (p) {
         int curTarID = p->tarID;
@@ -585,7 +587,7 @@ vector<int> IGraph::GetSouVerticesPos(int tarID, bitset<MNS> tarLife) {
 
     for (int i = 0; i < vertices.size(); ++i) {
         int curPos = i;
-        IGArcNode *p = vertices[curPos].firstArc;
+        IGarc *p = vertices[curPos].firstArc;
 
         while (p) {
             int curTarID = p->tarID;
@@ -603,7 +605,7 @@ vector<int> IGraph::GetSouVerticesPos(int tarID, bitset<MNS> tarLife) {
 vector<int> IGraph::GetSubVerticesPos(int tarPos) {
     vector<int> subPosVector;
     int curID = vertices[tarPos].souID;
-    IGArcNode *p = vertices[tarPos].firstArc;
+    IGarc *p = vertices[tarPos].firstArc;
 
     while (p) {
         int curTarID = p->tarID;
@@ -620,9 +622,9 @@ vector<int> IGraph::GetSubVerticesPos(int tarPos) {
     return subPosVector;
 }
 
-IGVerNode* IGraph::findNode(int id , Lifespan Lifespan) {
+IGnode* IGraph::findNode(int id , Lifespan Lifespan) {
     for (int i = 0; i < vertices.size(); i++) {
-        IGVerNode* tmp = &(vertices[i]);
+        IGnode* tmp = &(vertices[i]);
         if (tmp->souID == id && tmp->souLifespan == Lifespan)
             return tmp;
     }
@@ -705,9 +707,9 @@ bool IGraph::hasIncomeEdge(int souID, Lifespan life) {
     return false;
 }
 
-void IGraph::deleteOutComingEdge(IGVerNode* node, int tarID, bitset<MNS> tarLife) {
-    IGArcNode* p = node->firstArc;
-    IGArcNode* q = NULL;
+void IGraph::deleteOutComingEdge(IGnode* node, int tarID, bitset<MNS> tarLife) {
+    IGarc* p = node->firstArc;
+    IGarc* q = NULL;
     while (p != NULL) {
         if (p->tarID == node->souID && p->tarLifespan == node->souLifespan) {
             if (q == NULL) {
@@ -730,7 +732,7 @@ void IGraph::deleteOutComingEdge(IGVerNode* node, int tarID, bitset<MNS> tarLife
     }
 }
 
-void IGraph::deleteNodeOrThrow(const IGVerNode node) {
+void IGraph::deleteNodeOrThrow(const IGnode node) {
     auto it = vertices.begin();
     bool find = false;
     while (it != vertices.end()) {
@@ -764,11 +766,35 @@ void IGraph::deleteNodeWhichInCycleAndIncludeTimestamp(const vector<SCCnode>& cy
     }
 }
 
+//这个函数将case3创建的边视为不存在
 void IGraph::deleteEmptyNode() {
     auto it = vertices.begin();
     while (it != vertices.end()) {
-        if (it->firstArc == NULL && !hasIncomeEdge(it->souID, it->souLifespan)) {
-            LOG << __FUNCTION__ <<": delete node " << it->souID << endl;
+        IGarc* p = it->firstArc;
+        bool deleteFlag = true;
+        while (p != NULL) {
+            if (p->tarID != it->souID) {
+                deleteFlag = false;
+                break;
+            }
+            p = p->nextarc;
+        }
+        //除了case3出边之外没有出边
+        for (const auto node : vertices) {
+            //souID相同必是case3中的边
+            if (node.souID != it->souID) {
+                auto edgeit = node.firstArc;
+                while (edgeit != NULL) {
+                    if (edgeit->tarID == it->souID && edgeit->tarLifespan == it->souLifespan) {
+                        deleteFlag = false;
+                        break;
+                    }
+                    edgeit = edgeit->nextarc;
+                }
+            }
+        }
+        if (deleteFlag) {
+            LOG << __FUNCTION__ << ": delete node " << it->souID << endl;
             it = vertices.erase(it);
         }
         else {

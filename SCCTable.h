@@ -43,7 +43,8 @@ typedef map<int, vector<SccID_Life>> OpSccTable;
 typedef struct NodeEdge{
     int src;
     int dst;
-    bool operator<(const NodeEdge& a) const{
+    NodeEdge(int s, int d):src(s), dst(d) {}
+    bool operator<(const NodeEdge& a) const {
         if (a.src != src) {
             return a.src > src;
         }

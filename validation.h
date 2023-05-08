@@ -202,8 +202,8 @@ void compareHRindex(HRindex& gt, HRindex& test, string resultIGPath) {
         throw "NodeNum not equal!";
     }
     for (int i = 0; i < gtNodeNum; i++) {
-        IGVerNode* gtNode = gt.IG.findNodeByPos(i);
-        IGVerNode* testNode = test.IG.findNode(gtNode->souID, gtNode->souLifespan);
+        IGnode* gtNode = gt.IG.findNodeByPos(i);
+        IGnode* testNode = test.IG.findNode(gtNode->souID, gtNode->souLifespan);
         if (testNode == NULL) {
             throw "Node not found";
         }

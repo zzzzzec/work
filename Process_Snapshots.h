@@ -275,9 +275,7 @@ SCCEdgeInfo BuildCurDAGEdgesDataSequenceFromIndex(Graph graph, SccTable& st, map
                 auto res = find_if(sccEdges.begin(), sccEdges.end(),
                                     [&](const SCCEdgeInfoItem& item){return item.sccEdge.sScc == sourceSccId && item.sccEdge.tScc == targetSccId;} 
                 );
-                NodeEdge e;
-                e.src = curSouNodeID;
-                e.dst = curTarNodeID;
+                NodeEdge e(curSouNodeID, curTarNodeID);
                 if (res != sccEdges.end()) {
                     res->nodeEdges.insert(e);
                 }

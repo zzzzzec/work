@@ -3,7 +3,7 @@ import json
 import os
 
 os.chdir("D:\desktop\work\code\IG_NoOp_5\debug")
-MAXLIFESPAN = 1
+MAXLIFESPAN = 4
 def printLifeSpan(string):
     return 
 
@@ -66,7 +66,11 @@ def visualizeSCC(dir:str):
                 if node['arcs'] == None:
                     continue
                 for edge in node['arcs']:
-                    dot.edge(str(node['ID']), str(edge['dstID']))
+                    assert(edge['originEdges'] != None)
+                    label = ""
+                    for originEdge in edge['originEdges']:
+                        label += str(originEdge['src']) + "->" + str(originEdge['dst']) + "\n"
+                    dot.edge(str(node['ID']), str(edge['dstID']), label= label)
             dot.render(filename='graph' + str(i) + '.gv', directory=dir, view=False)
 
 def visualizeAll(dir:str):
