@@ -32,7 +32,7 @@ using namespace std;
 typedef struct Arc {
     int dstID;
     struct Arc* next;
-    set<NodeEdge> originEdgeSet;
+    vector<NodeEdge> originEdgeSet;
 } SCCarc;
 
 typedef struct {
@@ -51,13 +51,19 @@ public:
     SCCGraph(vector<int>& evolvingGraph, SccTable& sccTable, SCCEdgeInfo& sccEdgeInfo, int ts);
     ~SCCGraph();
     
-    int IDexist(int SCCID);
-    int addNode(int SCCID, set<int> originNodeSet);
+    int nodeExist(int SCCID);
+    bool addNode(int SCCID, set<int> originNodeSet);
+    bool addNode(SCCnode node);
     int deleteNode(int SCCID);
+    void deleteEmptyNode(int id);
     
-    int insertEdgeNotExist(int srcID, int dstID, set<NodeEdge> originEdgeSet);
-    int insertEdgeNodeMustExist(int srcID, int dstID, set<NodeEdge> originEdgeSet);
+    int insertEdgeNotExist(int srcID, int dstID, vector<NodeEdge> originEdgeSet);
+    int insertEdgeNodeMustExist(int srcID, int dstID, vector<NodeEdge> originEdgeSet);
     int deleteEdge(int srcID, int dstID, int u, int v);
+    int deleteEdgeAndOriginEdgeSet(int srcID, int dstID);
+
+    bool hasOutcomeEdge(int ID);
+    bool hasIncomeEdge(int ID);
     
     int deleteOutcomeEdge(SCCnode& node, int id);
     int deleteOutcomeEdge(SCCnode& node, vector<int> idVec);
@@ -71,7 +77,7 @@ public:
     pair<int, vector<SCCnode>> findCycles(int SCCIDu, SccTable& st);
     int newNodeID();
     pair<vector<int>, vector<int>> getInAndOutNodes(int SCCID);
-    
+    void SCCIDRemap(map<int, int> m);
     void storeSCCGraphJSON(string path);
 };
 
@@ -102,19 +108,35 @@ SCCGraph::SCCGraph(vector<int>& evolvingGraph, SccTable& sccTable, SCCEdgeInfo& 
         srcID = *it2;
         dstID = *(it2 + 1);
         auto findres = find_if(sccEdgeInfo.begin(), sccEdgeInfo.end(),
-            [&](const SCCEdgeInfoItem& item) { return item.sccEdge.sScc == srcID && item.sccEdge.tScc == dstID; });
+            [&](const SCCEdgeInfoItem& item) { return item.sSCC == srcID && item.dSCC == dstID; });
         assert(findres != sccEdgeInfo.end());
         insertEdgeNodeMustExist(srcID, dstID, findres->nodeEdges);
     }
 }
 
-int SCCGraph::IDexist(int SCCID){
+int SCCGraph::nodeExist(int SCCID) {
     for(auto it = vertices.begin(); it != vertices.end(); it++){
         if(it->SCCID == SCCID){
             return 1;
         }
     }
     return 0;
+}
+
+
+SCCarc* SCCGraph::edgeExist(int srcID, int dstID) {
+    for(auto it = vertices.begin(); it != vertices.end(); it++){
+        if(it->SCCID == srcID){
+            SCCarc *tmp = it->firstArc;
+            while(tmp != NULL){
+                if(tmp->dstID == dstID){
+                    return tmp;
+                }
+                tmp = tmp->next;
+            }
+        }
+    }
+    return NULL;
 }
 
 SCCnode SCCGraph::findSCCnodeFromID(int SCCID) {
@@ -133,27 +155,12 @@ int SCCGraph::findSCCIDNodeFromOriginNodeID(int originNodeID){
             return it->SCCID;
         }
     }
-    return -1;
+    throw "scc node not found";
 }
 
-SCCarc* SCCGraph::edgeExist(int srcID, int dstID){
-    for(auto it = vertices.begin(); it != vertices.end(); it++){
-        if(it->SCCID == srcID){
-            SCCarc *tmp = it->firstArc;
-            while(tmp != NULL){
-                if(tmp->dstID == dstID){
-                    return tmp;
-                }
-                tmp = tmp->next;
-            }
-        }
-    }
-    return NULL;
-}
-
-int SCCGraph::addNode(int SCCID, set<int> originNodeSet) {
-    if(this->IDexist(SCCID)){
-        return 0;
+bool SCCGraph::addNode(int SCCID, set<int> originNodeSet) {
+    if(this->nodeExist(SCCID)){
+        return false;
     }
     else{
         SCCnode newNode;
@@ -161,10 +168,47 @@ int SCCGraph::addNode(int SCCID, set<int> originNodeSet) {
         newNode.firstArc = NULL;
         newNode.originNodeSet = originNodeSet;
         vertices.push_back(newNode);
-        return 1;
+        return true;
     }
 }
-int SCCGraph::insertEdgeNotExist(int srcID, int dstID, set<NodeEdge> originEdgeSet) {
+
+bool SCCGraph::addNode(SCCnode node) {
+    if (this->nodeExist(node.SCCID)) {
+        return false;
+    }
+    else {
+        vertices.push_back(node);
+        return true;
+    }
+}
+
+bool SCCGraph::hasOutcomeEdge(int id) {
+    auto res = findSCCnodeFromID(id);
+    if (res.firstArc == NULL) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+bool SCCGraph::hasIncomeEdge(int id) {
+    if (!nodeExist(id)) {
+        throw "hasIncomeEdge: node not exist";
+    }
+    for (auto it = vertices.begin(); it != vertices.end(); it++) {
+        SCCarc* tmp = it->firstArc;
+        while (tmp != NULL) {
+            if (tmp->dstID == id) {
+                return true;
+            }
+            tmp = tmp->next;
+        }
+    }
+    return false;
+}
+
+int SCCGraph::insertEdgeNotExist(int srcID, int dstID, vector<NodeEdge> originEdgeSet) {
     if (srcID == dstID) throw "insertEdgeMustNotExist: srcID == dstID";
     SCCarc* exist = this->edgeExist(srcID, dstID);
     if (exist != NULL) {
@@ -185,19 +229,19 @@ int SCCGraph::insertEdgeNotExist(int srcID, int dstID, set<NodeEdge> originEdgeS
     }
 }
 
-int SCCGraph::insertEdgeNodeMustExist(int srcID, int dstID, set<NodeEdge> originEdgeSet) {
+int SCCGraph::insertEdgeNodeMustExist(int srcID, int dstID, vector<NodeEdge> originEdgeSet1) {
     if (srcID == dstID) return 0;
     SCCarc* exist = this->edgeExist(srcID, dstID);
     if (exist != NULL) {
         //已经存在这条边，合并边的原始边集
-        exist->originEdgeSet.insert(originEdgeSet.begin(), originEdgeSet.end());
+        exist->originEdgeSet.insert(exist->originEdgeSet.end(), originEdgeSet1.begin(), originEdgeSet1.end());
         return 1;
     }
     else {
-        if (this->IDexist(srcID) && this->IDexist(dstID)) {
+        if (this->nodeExist(srcID) && this->nodeExist(dstID)) {
             SCCarc* newArc = new SCCarc;
             newArc->dstID = dstID;
-            newArc->originEdgeSet = originEdgeSet;
+            newArc->originEdgeSet = originEdgeSet1;
             for (auto it = vertices.begin(); it != vertices.end(); it++) {
                 if (it->SCCID == srcID) {
                     newArc->next = it->firstArc;
@@ -211,6 +255,33 @@ int SCCGraph::insertEdgeNodeMustExist(int srcID, int dstID, set<NodeEdge> origin
     }
 }
 
+int SCCGraph::deleteEdgeAndOriginEdgeSet(int srcID, int dstID) {
+    if (this->edgeExist(srcID, dstID) == NULL)
+        throw "deleteEdge: edge not exist";
+    for (auto it = vertices.begin(); it != vertices.end(); it++) {
+        if (it->SCCID == srcID) {
+            SCCarc *tmp = it->firstArc;
+            SCCarc *pre = NULL;
+            while (tmp != NULL) {
+                if (tmp->dstID == dstID) {
+                    tmp->originEdgeSet.clear();
+                    if (pre == NULL) {
+                        it->firstArc = tmp->next;
+                    }
+                    else {
+                        pre->next = tmp->next;
+                    }
+                    delete tmp;
+                    return 1;
+                }
+                pre = tmp;
+                tmp = tmp->next;
+            }
+        }
+    }
+    throw "deleteEdge: edge not exist";
+}
+
 //返回值: 1 删除成功，0 由于originNodeSet != NULL，没有删除
 int SCCGraph::deleteEdge(int srcID, int dstID, int u, int v) {
     if (this->edgeExist(srcID, dstID) == NULL)
@@ -221,9 +292,14 @@ int SCCGraph::deleteEdge(int srcID, int dstID, int u, int v) {
             SCCarc *pre = NULL;
             while (tmp != NULL) {
                 if (tmp->dstID == dstID) {
-                    int res = tmp->originEdgeSet.erase(NodeEdge(u, v));
-                    if (res == 0) {
-                        throw "deleteEdge: edge not exist";
+                    
+                    auto it2 = tmp->originEdgeSet.begin();
+                    while (it2 != tmp->originEdgeSet.end()) {
+                        if (it2->src == u && it2->dst == v) {
+                            tmp->originEdgeSet.erase(it2);
+                            break;
+                        }
+                        it2++;
                     }
                     //只有原始边集合为空的时候才删除
                     if (tmp->originEdgeSet.size() == 0) {
@@ -284,8 +360,8 @@ int SCCGraph::deleteOutcomeEdge(SCCnode& node, vector<int> idVec) {
 }
 
 int SCCGraph::deleteNode(int SCCID) {
-    if(!this->IDexist(SCCID)){
-        return 0;
+    if(!this->nodeExist(SCCID)){
+        throw "deleteNode: node not exist";
     }
     for (auto it = vertices.begin(); it != vertices.end(); it++) {
         if(it->SCCID == SCCID){
@@ -313,7 +389,22 @@ int SCCGraph::deleteNode(int SCCID) {
     return 1;
 }
 
-int SCCGraph::newNodeID(){
+void SCCGraph::deleteEmptyNode(int id) {
+    bool b1 = hasOutcomeEdge(id);
+    bool b2 = hasIncomeEdge(id);
+    if (b1 || b2) {
+        throw "deleteEmptyNode: node not empty";
+    }
+    for (auto it = vertices.begin(); it != vertices.end(); it++) {
+        if (it->SCCID == id) {
+            vertices.erase(it);
+            return;
+        }
+    }
+    throw "deleteEmptyNode: node not exist";
+}
+
+int SCCGraph::newNodeID() {
     int maxID = 0;
     for(auto it = vertices.begin(); it != vertices.end(); it++){
         if(it->SCCID > maxID){
@@ -430,17 +521,18 @@ int SCCGraph::merge(const vector<SCCnode>& cycle, SccTable& sccTable) {
             Arc* current = it->firstArc;
             while (current != NULL) {
                 if (!sccIncycle(current->dstID, cycle)) {
-                    //插入前检查
+                    //插入前检查, 如果边已经存在，那么就把originEdgeSet合并
                     bool find = false;
                     SCCarc* check = newNode.firstArc;
                     while (check != NULL) {
                         if (check->dstID == current->dstID) {
                             find = true;
-                            check->originEdgeSet.insert(current->originEdgeSet.begin(), current->originEdgeSet.end());
+                            check->originEdgeSet.insert(check->originEdgeSet.end() ,current->originEdgeSet.begin(), current->originEdgeSet.end());
                             break;
                         }
                         check = check->next;
                     }
+                    
                     if (!find) {
                         SCCarc* newarc = new SCCarc;
                         newarc->dstID = current->dstID;
@@ -459,7 +551,7 @@ int SCCGraph::merge(const vector<SCCnode>& cycle, SccTable& sccTable) {
             SCCarc* current = it->firstArc;
             bool flag = false;
             
-            set<NodeEdge> collection;
+            vector<NodeEdge> collection;
             while (current != nullptr) {
                 if (sccIncycle(current->dstID, cycle)) {
                     flag = true;
@@ -471,7 +563,7 @@ int SCCGraph::merge(const vector<SCCnode>& cycle, SccTable& sccTable) {
                     }
                     SCCarc* temp = current;
                     //需要收集原始边
-                    collection.insert(current->originEdgeSet.begin(), current->originEdgeSet.end());
+                    collection.insert(collection.end() , current->originEdgeSet.begin(), current->originEdgeSet.end());
                     current = current->next;
                     delete temp;
                 }
@@ -576,6 +668,17 @@ pair<vector<int>, vector<int>> SCCGraph::getInAndOutNodes(int SCCID) {
         }
     }
     return make_pair(in, out);
+}
+void SCCGraph::SCCIDRemap(map<int, int> m) {
+    for (auto it = vertices.begin(); it != vertices.end(); it++) {
+        it->SCCID = m[it->SCCID];
+        auto edgeit = it->firstArc;
+        while (edgeit != NULL)
+        {
+            edgeit->dstID = m[edgeit->dstID];
+            edgeit = edgeit->next;
+        }
+    }
 }
 
 void SCCGraph::storeSCCGraphJSON(string path) {

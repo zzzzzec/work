@@ -34,7 +34,7 @@ int main() {
     cout << "Starting..." << endl;
 
     vector<updateRecord> updateRecords;
-    updateRecords.push_back(updateRecord(UPDATE_TYPE_DELETE_EDGE, 3, 4, 1));
+    updateRecords.push_back(updateRecord(UPDATE_TYPE_DELETE_EDGE,11, 3, 2));
     //updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 6, 4, 0));
     //updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 6, 4, 1));
     //updateRecords.push_back(updateRecord(UPDATE_TYPE_ADD_EDGE, 7, 11, 2));

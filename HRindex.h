@@ -531,6 +531,7 @@ bool HRindex::singleStepUpdateAddEdge3(int u, int v, int timestamp) {
         //vector<SCCnode> cycle = thisSCCGraph.findCycle(uSCCID);
         //int newSCCID = thisSCCGraph.merge(cycle, sccTable);
         pair<int, vector<SCCnode>> res = thisSCCGraph.findCycles(uSCCID, sccTable);
+        //TODO；无环时
         int newSCCID = res.first;
         vector<SCCnode> cycle = res.second;
         
@@ -768,42 +769,10 @@ bool HRindex::singleStepUpdateAddEdge3(int u, int v, int timestamp) {
 }
 
 
-static SCCEdgeInfo _SCCEdgeInfoRemap(SCCEdgeInfo& s, map<int, int>& remap) {
-    SCCEdgeInfo newS;
+static void _SCCEdgeInfoRemap(SCCEdgeInfo& s, map<int, int>& remap) {
     for (auto it = s.begin(); it != s.end(); ++it) {
-        SCCEdgeInfoItem newItem = *it;
-        newItem.sccEdge.sScc = remap[newItem.sccEdge.sScc];
-        newItem.sccEdge.tScc = remap[newItem.sccEdge.tScc];
-        newS.insert(newItem);
-    }
-    return newS;
-}
-
-typedef struct {
-    int SCCsrc;
-    int SCCdst;
-    int nodeSrc;
-    int nodeDst;
-} _updateSCCEdgeInfoParam;
-typedef vector<_updateSCCEdgeInfoParam> _updateSCCEdgeInfoParamList;
-static void _updateSCCEdgeInfo(SCCEdgeInfo& s, _updateSCCEdgeInfoParamList& paramList) {
-    for (auto it = paramList.begin(); it != paramList.end(); ++it) {
-        int SCCsrc = it->SCCsrc;
-        int SCCdst = it->SCCdst;
-        int nodeSrc = it->nodeSrc;
-        int nodeDst = it->nodeDst;
-        NodeEdge tmp(nodeSrc, nodeDst);
-        for (auto it2 = s.begin(); it2 != s.end(); ++it2) {
-            if (it2->sccEdge.sScc == SCCsrc && it2->sccEdge.tScc == SCCdst) {
-                it2->nodeEdges.insert(tmp);
-                continue;
-            }
-            SCCEdgeInfoItem newItem;
-            newItem.sccEdge.sScc = SCCsrc;
-            newItem.sccEdge.tScc = SCCdst;
-            newItem.nodeEdges.insert(tmp);
-            s.insert(newItem);
-        }
+        it->sSCC = remap[it->sSCC];
+        it->dSCC = remap[it->dSCC];
     }
 }
 /*
@@ -975,7 +944,6 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         IG.rebuildCase3();
     }
     else {
-        /*
         //在同一个SCC内部，先把SCC内部重新分割
         auto findResult = find_if(sccGraphs[timestamp].vertices.begin(), sccGraphs[timestamp].vertices.end(),
             [&uSCCID](SCCnode& sccnode) { return sccnode.SCCID == uSCCID; });
@@ -985,28 +953,32 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         }
         set<int> nodeSet = findResult->originNodeSet;
         //收集此SCC的所有边
-        vector<SCCEdge> in;
-        vector<SCCEdge> out;
+        vector<SCCEdgeInfoItem> in;
+        vector<SCCEdgeInfoItem> out;
         for (auto it = sccGraphs[timestamp].vertices.begin(); it != sccGraphs[timestamp].vertices.end(); ++it) {
             if (it->SCCID == uSCCID) {
                 for (auto arcit = it->firstArc; arcit != NULL; arcit = arcit->next) {
-                    SCCEdge newEdge;
-                    newEdge.sScc = uSCCID;
-                    newEdge.tScc = arcit->dstID;
-                    out.push_back(newEdge);
+                    SCCEdgeInfoItem tmp;
+                    tmp.sSCC = uSCCID;
+                    tmp.dSCC = arcit->dstID;
+                    tmp.nodeEdges = arcit->originEdgeSet;
+                    out.push_back(tmp);
                 }
             }
             else {
                 for (auto arcit = it->firstArc; arcit != NULL; arcit = arcit->next) {
                     if (arcit->dstID == uSCCID) {
-                        SCCEdge newEdge;
-                        newEdge.sScc = it->SCCID;
-                        newEdge.tScc = uSCCID;
-                        in.push_back(newEdge);
+                        SCCEdgeInfoItem tmp;
+                        tmp.sSCC = it->SCCID;
+                        tmp.dSCC = uSCCID;
+                        tmp.nodeEdges = arcit->originEdgeSet;
+                        in.push_back(tmp);
                     }
                 }
             }
         }
+        
+
         //从SCC中的节点重新构建出一个图
         Graph newGraph;
         for (auto nodeit = nodeSet.begin(); nodeit != nodeSet.end(); ++nodeit) {
@@ -1022,86 +994,71 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         vector<int> newEvolvingGraph;
         SCCEdgeInfo newSCCEdgeInfo;
         newSCCTable = GetSCCTableFromOneGraph(timestamp, &newGraph, newEvolvingGraph, newSCCEdgeInfo);
-        auto findRes = find_if(sccTable.begin(), sccTable.end(), [&uSCCID](auto mapItem) { return mapItem.sccID_Life.scc_id == uSCCID; });
-        if (findRes != sccTable.end()) {
-            findRes->sccID_Life.life_time.set(timestamp, false);
-            if (findRes->sccID_Life.life_time.none()) sccTable.erase(findRes);
-        }
-        else assert(false);
+        SCCGraph newSCCGraph = SCCGraph(newEvolvingGraph, newSCCTable, newSCCEdgeInfo, timestamp);
+        
         map<int, int> SCCRemap;
         //把新图中的SCC与原图之中的SCC合并，本来删除的SCC在SCCtable中是唯一的，但是删除以后分裂的SCC有可能已经存在于SCCtable中
+        //加入
         for (auto it = newSCCTable.begin(); it != newSCCTable.end(); ++it) {
             auto res = sccTable.insert(*it);
             if (!res.second) {
                 //重新映射
                 SCCRemap[it->sccID_Life.scc_id] = res.first->sccID_Life.scc_id;
                 res.first->sccID_Life.life_time.set(timestamp, true);
-                sccGraphs[timestamp].addNode(res.first->sccID_Life.scc_id, res.first->nodeGroup);
             }
             else {
                 int newid = newSCCID(this->sccTable);
                 SCCRemap[it->sccID_Life.scc_id] = newid;
                 res.first->sccID_Life.scc_id = newid;
-                sccGraphs[timestamp].addNode(newid, res.first->nodeGroup);
             }
-        }
-        newGraph.NewGraphSCCIDRemap(SCCRemap);
-        newSCCEdgeInfo = _SCCEdgeInfoRemap(newSCCEdgeInfo, SCCRemap);
-        sccGraphs[timestamp].deleteNode(uSCCID);
-        //先加入内部的边
-        for (auto it = newSCCEdgeInfo.begin(); it != newSCCEdgeInfo.end(); ++it) {
-            if (sccGraphs[timestamp].insertEdge(it->sccEdge.sScc, it->sccEdge.tScc) == 0)
-                assert(false);
         }
         
-        //将外部的节点与SCC相连，外部->内部，需要确定内部是哪一个SCC
-        _updateSCCEdgeInfoParamList INparamList;
-        _updateSCCEdgeInfoParamList OUTparamList;
-        SCCEdgeInfo& sccEdgeInfo = sccEdgeInfoSequence[timestamp];
-        for (auto it = in.begin(); it != in.end(); ++it) {
-            auto dstSCCID = it->tScc;
-            auto srcSCCID = it->sScc;
-            auto findResult = find_if(sccEdgeInfo.begin(), sccEdgeInfo.end(), [&](const SCCEdgeInfoItem& item) {return item.sccEdge.sScc == srcSCCID && item.sccEdge.tScc == dstSCCID; });
-            if (findResult != sccEdgeInfo.end()) {
-                for (auto edgeit = findResult->nodeEdges.begin(); edgeit != findResult->nodeEdges.end(); ++edgeit) {
-                    int insideSCCID = newGraph.findSCCIDFromNodeId(edgeit->dst);
-                    if(sccGraphs[timestamp].insertEdge(srcSCCID, insideSCCID) == 0)
-                        assert(false);
-                    INparamList.push_back({ srcSCCID, insideSCCID, edgeit->src, edgeit->dst });
-                }
-            }
+        //删除其在SCCTable中的表项
+        auto findRes = find_if(sccTable.begin(), sccTable.end(), [&uSCCID](const auto & item) { return item.sccID_Life.scc_id == uSCCID; });
+        if (findRes != sccTable.end()) {
+            findRes->sccID_Life.life_time.set(timestamp, false);
+            if (findRes->sccID_Life.life_time.none()) sccTable.erase(findRes);
         }
-        _updateSCCEdgeInfo(sccEdgeInfo, INparamList);
-        //将新的SCC与外部相连, 内部->外部，需要确定内部是哪一个SCC
-        for (auto it = out.begin(); it != out.end(); ++it) {
-            auto dstSCCID = it->tScc;
-            auto srcSCCID = it->sScc;
-            auto findResult2 = find_if(sccEdgeInfo.begin(), sccEdgeInfo.end(), [&](const SCCEdgeInfoItem& item) {return item.sccEdge.sScc == srcSCCID && item.sccEdge.tScc == dstSCCID; });
-            if (findResult2 != sccEdgeInfo.end()) {
-                for (auto edgeit = findResult2->nodeEdges.begin(); edgeit != findResult2->nodeEdges.end(); ++edgeit) {
-                    auto res = sccGraphs[timestamp].findSCCIDNodeFromOriginNodeID(edgeit->src);
-                    assert(res != -1);
-                    int newSCCSrcID = res;
-                    //此边为newSCCSrcID->dstSCCID的边
-                    if (sccGraphs[timestamp].insertEdge(newSCCSrcID, dstSCCID) == 0)
-                        assert(false);
-                    OUTparamList.push_back({ newSCCSrcID, dstSCCID, edgeit->src, edgeit->dst });
-                }
-            }
-            else assert(false);
+        else assert(false);
+        
+        //这里把每个原始节点的所属SCCID更新
+        newGraph.NewGraphSCCIDRemap(SCCRemap);
+        newSCCGraph.SCCIDRemap(SCCRemap);
+        //_SCCEdgeInfoRemap(in, SCCRemap);
+        //_SCCEdgeInfoRemap(out, SCCRemap);
+        //开始处理新节点, 先把新的SCC节点全部加入
+        for (const auto it : newSCCGraph.vertices) {
+            assert(thisSCCGraph.addNode(it));
         }
-        _updateSCCEdgeInfo(sccEdgeInfo, OUTparamList);
-        //删除原本SCC的SCCEdgeinfo
-        for (auto it = sccEdgeInfo.begin(); it != sccEdgeInfo.end();) {
-            if (it->sccEdge.sScc == uSCCID || it->sccEdge.tScc == uSCCID) {
-                it = sccEdgeInfo.erase(it);
+        //处理out节点
+        for (const auto& it : out) {
+            assert(it.sSCC == uSCCID);
+            for (const auto& outedge : it.nodeEdges) {
+                int srcSCCID = newSCCGraph.findSCCIDNodeFromOriginNodeID(outedge.src);
+                vector<NodeEdge> tmp;
+                tmp.push_back(NodeEdge(outedge.src, outedge.dst));
+                thisSCCGraph.insertEdgeNodeMustExist(srcSCCID, it.dSCC, tmp);
             }
-            else ++it;
+            thisSCCGraph.deleteEdgeAndOriginEdgeSet(uSCCID, it.dSCC);
         }
-        int sccEdgeInfoSize = sccEdgeInfo.size();
-        sccEdgeInfo.insert(newSCCEdgeInfo.begin(), newSCCEdgeInfo.end());
-        assert(sccEdgeInfo.size() == sccEdgeInfoSize + newSCCEdgeInfo.size());
+        //处理in节点
+        for (const auto& it : in) {
+            assert(it.dSCC == uSCCID);
+            for (const auto& inedge : it.nodeEdges) {
+                int dstSCCID = newSCCGraph.findSCCIDNodeFromOriginNodeID(inedge.dst);
+                vector<NodeEdge> tmp;
+                tmp.push_back(NodeEdge(inedge.src, inedge.dst));
+                thisSCCGraph.insertEdgeNodeMustExist(it.sSCC, dstSCCID, tmp);
+            }
+            thisSCCGraph.deleteEdgeAndOriginEdgeSet(it.sSCC, uSCCID);
+        }
+        //删除分裂前的节点
+        sccGraphs[timestamp].deleteEmptyNode(uSCCID);
         reconstructEvolvingGraphSequence(timestamp);
+
+        //处理NIT以及IG
+        
+        /*
         getNITable();
         getRefineNITable();
         buildIndexGraph();*/

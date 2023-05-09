@@ -44,31 +44,7 @@ typedef struct NodeEdge{
     int src;
     int dst;
     NodeEdge(int s, int d):src(s), dst(d) {}
-    bool operator<(const NodeEdge& a) const {
-        if (a.src != src) {
-            return a.src > src;
-        }
-        else {
-            return a.dst > dst;
-        }
-    }
-    bool operator==(const NodeEdge& a) const {
-        return a.src == src && a.dst == dst;
-    }
 }NodeEdge;
-
-typedef struct sccEdge {
-    int sScc;
-    int tScc;
-    bool operator<(const sccEdge& a) const {
-        if (a.sScc != sScc) {
-            return a.sScc > sScc;
-        } else {
-            return a.tScc > tScc;
-        }
-    }
-}SCCEdge;
-
 
 OpSccTable BuildOpSccTable(SccTable sccTable);
 

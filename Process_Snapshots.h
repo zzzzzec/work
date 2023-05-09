@@ -19,15 +19,22 @@
 #include "Graph.h"
 #include "SCCTable.h"
 
-//typedef pair<SCCEdge, set<NodeEdge>> SCCEdgeInfoItem;
 typedef struct {
-    SCCEdge sccEdge;
-    mutable set<NodeEdge> nodeEdges;
+    int sSCC;
+    int dSCC;
+    vector<NodeEdge> nodeEdges;
 } SCCEdgeInfoItem;
+
 bool operator<(const SCCEdgeInfoItem& a, const SCCEdgeInfoItem& b) {
-    return a.sccEdge < b.sccEdge;
+    if (a.sSCC != b.sSCC) {
+        return a.sSCC < b.sSCC;
+    }
+    else {
+        return a.dSCC < b.dSCC;
+    }
 }
-typedef set<SCCEdgeInfoItem> SCCEdgeInfo;
+
+typedef vector<SCCEdgeInfoItem> SCCEdgeInfo;
 typedef vector<SCCEdgeInfo> SCCEdgeInfoSequence;
 SccTable GetSCCTable(int timeIntervalLength, Graphs& originGraph, vector<vector<int>>& evolvingGraphSequence, SCCEdgeInfoSequence& sccEdgesSequence, double& buildSccTableTime);
 vector<int> GetFileData1(string fileAddressHead, int timeStamp);
@@ -67,8 +74,8 @@ SccTable GetSCCTable(int timeIntervalLength, Graphs& originGraph, vector<vector<
         SCCEdgeInfo sccEdges = BuildCurDAGEdgesDataSequenceFromIndex(originGraph[timeStamp], st, index_curST, timeStamp);
         vector<int> tmp;
         for (auto it = sccEdges.begin(); it != sccEdges.end(); it++) {
-            tmp.push_back(it->sccEdge.sScc);
-            tmp.push_back(it->sccEdge.tScc);
+            tmp.push_back(it->sSCC);
+            tmp.push_back(it->dSCC);
         }
         evolvingGraphSequence.push_back(tmp);
         sccEdgesSequence.push_back(sccEdges);
@@ -126,8 +133,8 @@ SccTable GetSCCTableFromOneGraph(int timeStamp, Graph* originGraph, vector<int>&
     map<int, int> index_curST = BuildIndexOfCurSccTable(st, timeStamp);
     sccEdgeInfo = BuildCurDAGEdgesDataSequenceFromIndex(*originGraph, st, index_curST, timeStamp);
     for (auto it = sccEdgeInfo.begin(); it != sccEdgeInfo.end(); it++) {
-        evolvingGraph.push_back(it->sccEdge.sScc);
-        evolvingGraph.push_back(it->sccEdge.tScc);
+        evolvingGraph.push_back(it->sSCC);
+        evolvingGraph.push_back(it->dSCC);
     }
     return st;
 }
@@ -273,18 +280,18 @@ SCCEdgeInfo BuildCurDAGEdgesDataSequenceFromIndex(Graph graph, SccTable& st, map
             // 不在同一个SCC中
             if (sourceSccId != -1 && targetSccId != -1 && sourceSccId != targetSccId) {
                 auto res = find_if(sccEdges.begin(), sccEdges.end(),
-                                    [&](const SCCEdgeInfoItem& item){return item.sccEdge.sScc == sourceSccId && item.sccEdge.tScc == targetSccId;} 
+                                    [&](const SCCEdgeInfoItem& item){return item.sSCC == sourceSccId && item.dSCC == targetSccId;} 
                 );
                 NodeEdge e(curSouNodeID, curTarNodeID);
                 if (res != sccEdges.end()) {
-                    res->nodeEdges.insert(e);
+                    res->nodeEdges.push_back(e);
                 }
                 else {
                     SCCEdgeInfoItem item;
-                    item.sccEdge.sScc = sourceSccId;
-                    item.sccEdge.tScc = targetSccId;
-                    item.nodeEdges.insert(e);
-                    sccEdges.insert(item);
+                    item.sSCC = sourceSccId;
+                    item.dSCC = targetSccId;
+                    item.nodeEdges.push_back(e);
+                    sccEdges.push_back(item);
                 }
             }
             p = p->nextarc;
