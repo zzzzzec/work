@@ -457,4 +457,29 @@ void deleteN2(RefineRecordItem& rit) {
     }
 }
 
+void deleteEmptyNIT(NodeInfoTable &nit , RefineNITable & rnit) {
+    auto it = nit.begin();
+    while (it != nit.end()) {
+        if (it->In.empty() && it->Out.empty()) {
+            bool deleteFalg = false;
+            auto it2 = rnit.begin();
+            while (it2 != rnit.end()) {
+                if (it2->node == it->node) {
+                    assert(it2->Out.size() == 0);
+                    deleteFalg = true;
+                    it2 = rnit.erase(it2);
+                }
+                else {
+                    ++it2;
+                }
+            }
+            assert(deleteFalg == true);
+            it = nit.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
+}
+
 #endif

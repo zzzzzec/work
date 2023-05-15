@@ -106,7 +106,7 @@ public:
     int Newuuid();
     
     void InsertEdgeWithoutCheck(int souPos, int tarID, bitset<MNS> tarLife);
-    void InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
+    void InsertEdgeOrCreate(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
     void InsertEdgeOrThrow(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
     void InsertEdgeSrcMustExistOrThrow(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife);
     
@@ -252,7 +252,7 @@ void IGraph::InsertEdgeSrcMustExistOrThrow(int souID, bitset<MNS> souLife, int t
     InsertEdgeWithoutCheck(souPos, tarID, tarLife);
 }
 
-void IGraph::InsertEdge(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife) {
+void IGraph::InsertEdgeOrCreate(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife) {
     int souPos = VerPos(souID, souLife);
     int tarPos = VerPos(tarID, tarLife);
 
@@ -406,10 +406,13 @@ void IGraph::DeleteEdge2(int souPos, int tarPos) {
 }
 
 void IGraph::CreateVertex(int ID, bitset<MNS> t) {
-    int newid = Newuuid();
-    IGnode newVerNode(newid, ID, t);
-    vertices.push_back(newVerNode);
-    vexnum++;
+    int exist = VerPos(ID, t);
+    if (exist == -1) {
+        int newid = Newuuid();
+        IGnode newVerNode(newid, ID, t);
+        vertices.push_back(newVerNode);
+        vexnum++;
+    }
 }
 
 vector<CopyNode> IGraph::FindAllCopyNodes(int souID) {
@@ -440,11 +443,11 @@ void IGraph::ProTarget(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> ta
 
     if (tarPos != -1) {
         //当前IG中存在节点(tarID,tarLife),将(souID,souLife)和(tarID,tarLife)相连构成出边(souID,tarID,t)
-        InsertEdge(souID, souLife, tarID, tarLife);
+        InsertEdgeOrCreate(souID, souLife, tarID, tarLife);
     } else {
         CreateVertex(tarID, tarLife);
         MaintainRelationship(tarID, tarLife);
-        InsertEdge(souID, souLife, tarID, tarLife);
+        InsertEdgeOrCreate(souID, souLife, tarID, tarLife);
     }
 }
 void IGraph::rebuildCase3() {

@@ -27,6 +27,9 @@
 			},
 			{
 				"tarID" : 9
+			},
+			{
+				"tarID" : 4
 			}
 		],
 		"souID" : 3,
@@ -73,12 +76,7 @@
 		"time" : 1
 	},
 	{
-		"arcs" : 
-		[
-			{
-				"tarID" : 5
-			}
-		],
+		"arcs" : null,
 		"souID" : 8,
 		"time" : 1
 	},

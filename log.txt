@@ -1,4 +1,4 @@
-The local date and time is: Mon May 15 16:08:25 2023
+The local date and time is: Mon May 15 22:13:28 2023
 
 starting
 step1:buildOriginGraph(0.00s)
@@ -8,8 +8,8 @@ step4:buildNITable(0.00s)
 step5:buildRefineNITable(0.00s)
 step6:buildIndexGraph(0.01s)
 timeStamp: 0 nodeNum: 8 edgeNum: 9 SCCNum: 3 SCCEdgeNum: 2
-timeStamp: 1 nodeNum: 10 edgeNum: 13 SCCNum: 4 SCCEdgeNum: 4
-timeStamp: 2 nodeNum: 9 edgeNum: 11 SCCNum: 4 SCCEdgeNum: 4
+timeStamp: 1 nodeNum: 10 edgeNum: 12 SCCNum: 7 SCCEdgeNum: 7
+timeStamp: 2 nodeNum: 9 edgeNum: 12 SCCNum: 3 SCCEdgeNum: 2
 timeStamp: 3 nodeNum: 5 edgeNum: 7 SCCNum: 2 SCCEdgeNum: 1
 
 gt construction finished
@@ -18,12 +18,24 @@ step2:buildSccTable(0.00s)
 step3:buildSCCGraph(0.00s)
 step4:buildNITable(0.00s)
 step5:buildRefineNITable(0.00s)
-step6:buildIndexGraph(0.00s)
+step6:buildIndexGraph(0.01s)
 timeStamp: 0 nodeNum: 8 edgeNum: 9 SCCNum: 3 SCCEdgeNum: 2
 timeStamp: 1 nodeNum: 10 edgeNum: 13 SCCNum: 4 SCCEdgeNum: 4
 timeStamp: 2 nodeNum: 9 edgeNum: 12 SCCNum: 3 SCCEdgeNum: 2
 timeStamp: 3 nodeNum: 5 edgeNum: 7 SCCNum: 2 SCCEdgeNum: 1
 
 update 0/1
-singleStepUpdateDeleteEdge(11->3,2)
+singleStepUpdateDeleteEdge(8->5,1)
 step1 : DeleteEdge(0.00ms)
+DeleteEdgeKeepEmptyNode: <1,00000000000000000010> -> <0,00000000000000000010>
+InsertEdgeSrcMustExistOrThrow: <1,00000000000000000010> -> <6,00000000000000000010>
+DeleteEdgeKeepEmptyNode: <3,00000000000000000010> -> <0,00000000000000000010>
+InsertEdgeSrcMustExistOrThrow: <3,00000000000000000010> -> <7,00000000000000000010>
+InsertEdgeSrcMustExistOrThrow: <5,00000000000000000010> -> <6,00000000000000000010>
+InsertEdgeSrcMustExistOrThrow: <6,00000000000000000010> -> <7,00000000000000000010>
+InsertEdgeSrcMustExistOrThrow: <7,00000000000000000010> -> <8,00000000000000000010>
+deleteEmptyNode: delete node 0
+delete edge(8->5)at timeStamp1 success!
+1/1
+
+test construction finished
