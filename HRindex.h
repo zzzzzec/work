@@ -944,6 +944,7 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         IG.rebuildCase3();
     }
     else {
+        //%%%%%%%%%%%%%%%%%%% PART1: 处理节点分裂 %%%%%%%%%%%%%%%%%%%%%%%
         //在同一个SCC内部，先把SCC内部重新分割
         auto findResult = find_if(sccGraphs[timestamp].vertices.begin(), sccGraphs[timestamp].vertices.end(),
             [&uSCCID](SCCnode& sccnode) { return sccnode.SCCID == uSCCID; });
@@ -995,7 +996,8 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         SCCEdgeInfo newSCCEdgeInfo;
         newSCCTable = GetSCCTableFromOneGraph(timestamp, &newGraph, newEvolvingGraph, newSCCEdgeInfo);
         SCCGraph newSCCGraph = SCCGraph(newEvolvingGraph, newSCCTable, newSCCEdgeInfo, timestamp);
-
+        //节点未发生分裂
+        if (newSCCGraph.vertices.size() == 1) return;
         map<int, int> SCCRemap;
         //把新图中的SCC与原图之中的SCC合并，本来删除的SCC在SCCtable中是唯一的，但是删除以后分裂的SCC有可能已经存在于SCCtable中
         //加入
@@ -1024,41 +1026,15 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
         //这里把每个原始节点的所属SCCID更新
         newGraph.NewGraphSCCIDRemap(SCCRemap);
         newSCCGraph.SCCIDRemap(SCCRemap);
+
         
+        //%%%%%%%%%%%%%%%%%%% PART2: 删除旧的节点 %%%%%%%%%%%%%%%%%%%%%%%
         //删除旧的SCC节点
         thisSCCGraph.deleteNode(uSCCID);
-        //开始处理新节点, 先把新的SCC节点全部加入
+        //开始处理新节点, 先把新的SCC节点全部加入,这里内部边已经加入了
         for (const auto it : newSCCGraph.vertices) {
             assert(thisSCCGraph.addNode(it));
         }
-        
-        //处理out节点
-        for (const auto& it : out) {
-            assert(it.sSCC == uSCCID);
-            for (const auto& outedge : it.nodeEdges) {
-                int srcSCCID = newSCCGraph.findSCCIDNodeFromOriginNodeID(outedge.src);
-                vector<NodeEdge> tmp;
-                tmp.push_back(NodeEdge(outedge.src, outedge.dst));
-                thisSCCGraph.insertEdgeNodeMustExist(srcSCCID, it.dSCC, tmp);
-            }
-            thisSCCGraph.deleteEdgeAndOriginEdgeSet(uSCCID, it.dSCC);
-        }
-        //处理in节点
-        for (const auto& it : in) {
-            assert(it.dSCC == uSCCID);
-            for (const auto& inedge : it.nodeEdges) {
-                int dstSCCID = newSCCGraph.findSCCIDNodeFromOriginNodeID(inedge.dst);
-                vector<NodeEdge> tmp;
-                tmp.push_back(NodeEdge(inedge.src, inedge.dst));
-                thisSCCGraph.insertEdgeNodeMustExist(it.sSCC, dstSCCID, tmp);
-            }
-            thisSCCGraph.deleteEdgeAndOriginEdgeSet(it.sSCC, uSCCID);
-        }
-        //删除分裂前的节点
-        sccGraphs[timestamp].deleteEmptyNode(uSCCID);
-        reconstructEvolvingGraphSequence(timestamp);
-
-        //处理NIT以及IG
         //先删掉S_u节点
         auto it = find_if(nodeInfoTable.begin(), nodeInfoTable.end(), [&uSCCID](const auto& item) { return item.node == uSCCID; });
         assert(it != nodeInfoTable.end());
@@ -1145,7 +1121,8 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
                 }
             }
         }
-
+        
+        //%%%%%%%%%%%%%%%%%%% PART3: 处理内部节点与外部节点的连接 %%%%%%%%%%%%%%%%%%%%%%%
         //处理新加入的节点
         for (auto newSCCNode : newSCCGraph.vertices) {
             //先加入所有节点
@@ -1156,23 +1133,241 @@ bool HRindex::singleStepUpdateDeleteEdge(int u, int v, int timestamp) {
                 nodeInfoTable.push_back(newItem);
             }
         }
-        //处理与外部连接的出入边
-        for (const SCCEdgeInfoItem inedge : in) {
-            //(v,u)更改v的值
+        //处理内部与外部之间的关系，这里我们先不处理内部节点，只确保外部节点的正确性
+        //处理out节点,(u,v)，v必然不是新节点，只需要将in中的项改了就行
+        for (const SCCEdgeInfoItem & it : out) {
+            assert(it.sSCC == uSCCID);
             auto vri = find_if(nodeInfoTable.begin(), nodeInfoTable.end(),
-                [&inedge](const auto& item) { return item.node == inedge.sSCC; });
+                [&it](const auto& item) { return item.node == it.dSCC; });
             assert(vri != nodeInfoTable.end());
-            auto vrri = findRefineRecordItem(refineNITable, inedge.sSCC);
-            
+            //删除原来In中的<u,t>，加入新的<k1,t>,<k2,t>...
+            auto findres = find_if(vri->In.begin(), vri->In.end(),
+                [&](const Item& item) { return item.vertexID == uSCCID && item.lifespan.test(timestamp); });
+            assert(findres != vri->In.end());
+            vri->In.erase(findres);
+
+            for (const auto& outedge : it.nodeEdges) {
+                int srcSCCID = newSCCGraph.findSCCIDNodeFromOriginNodeID(outedge.src);
+                vector<NodeEdge> tmp;
+                tmp.push_back(NodeEdge(outedge.src, outedge.dst));
+                thisSCCGraph.insertEdgeNodeMustExist(srcSCCID, it.dSCC, tmp);
+                //处理v节点的in边，加入到In中即可
+                Item newItem;
+                newItem.vertexID = srcSCCID;
+                newItem.lifespan.set(timestamp, true);
+                vri->In.push_back(newItem);
+            }
         }
-        for (const SCCEdgeInfoItem outedge : out) {
+        //处理in节点(v,u)
+        for (const SCCEdgeInfoItem& it : in) {
+            assert(it.dSCC == uSCCID);
+            auto vri = find_if(nodeInfoTable.begin(), nodeInfoTable.end(),
+                [&it](const auto& item) { return item.node == it.sSCC; });
+            assert(vri != nodeInfoTable.end());
+            auto& vrri = findRefineRecordItem(refineNITable, it.sSCC);
+
+            //Sv节点有入边的时刻
+            Lifespan LsubSv;
+            for (const auto init : vri->In) {
+                LsubSv = LsubSv | init.lifespan;
+            }
+            Lifespan Lpsv = _getLpSi(vrri);
+            assert(Lpsv.test(timestamp));
             
+            //删除已经存在的Out项<u,L(u)>
+            bool deleteFlag = false;
+            auto outit = vri->Out.begin();
+            while (outit != vri->Out.end()) {
+                if (outit->vertexID == uSCCID && outit->lifespan.test(timestamp)) {
+                    deleteFlag = true;
+                    outit->lifespan.set(timestamp, false);
+                    if (outit->lifespan.count() == 0) {
+                        outit = vri->Out.erase(outit);
+                    }
+                    else
+                        outit++;
+                }
+                else outit++;
+            }
+            assert(deleteFlag == true);
+            //删除N1或者N2中的节点
+            auto findN1 = find_if(vrri.Out.begin(), vrri.Out.end(),
+                [&](const Item& item) {return item.vertexID == uSCCID && item.lifespan.test(timestamp) && item.partLab == 1;});
+            auto findN2 = find_if(vrri.Out.begin(), vrri.Out.end(),
+                [&](const Item& item) {return item.vertexID == uSCCID && item.lifespan.test(timestamp) && item.partLab == 2;});
+            //只能在一个中找到
+            assert((findN1 != vrri.Out.end() && findN2 == vrri.Out.end()) || (findN1 == vrri.Out.end() && findN2 != vrri.Out.end()));
+            if (findN1 != vrri.Out.end()) {
+                vrri.Out.erase(findN1);
+                IG.DeleteEdgeKeepEmptyNode(vrri.node, tx, uSCCID, tx);
+            }
+            else {
+                //这里不需要更改Lpsv，因为后续必定插入新的边
+                if (findN2->lifespan.count() == 1) {
+                    vrri.Out.erase(findN2);
+                    IG.DeleteEdgeKeepEmptyNode(vrri.node, tx, findN2->vertexID, tx);
+                }
+                else {
+                    IG.DeleteEdgeKeepEmptyNode(vrri.node, Lpsv, findN2->vertexID, findN2->lifespan);
+                    findN2->lifespan.set(timestamp, false);
+                    IG.InsertEdgeSrcMustExistOrThrow(vrri.node, Lpsv, findN2->vertexID, findN2->lifespan);
+                }
+            }
+
+            
+            for (const auto& inedge : it.nodeEdges) {
+                int dstSCCID = newSCCGraph.findSCCIDNodeFromOriginNodeID(inedge.dst);
+                vector<NodeEdge> tmp;
+                tmp.push_back(NodeEdge(inedge.src, inedge.dst));
+                thisSCCGraph.insertEdgeNodeMustExist(it.sSCC, dstSCCID, tmp);
+                //把边加入v的out中
+                auto findInOut = find_if(vri->Out.begin(), vri->Out.end(),
+                    [&](const Item& item) {return item.vertexID == dstSCCID; });
+                if (findInOut != vri->Out.end()) {
+                    findInOut->lifespan.set(timestamp, true);
+                }
+                else {
+                    Item newItem;
+                    newItem.vertexID = dstSCCID;
+                    newItem.lifespan.set(timestamp, true);
+                    vri->Out.push_back(newItem);
+                }
+                
+                if (LsubSv.test(timestamp)) {
+                    //加入到N1中去，必定之前不存在
+                    Item newItem;
+                    newItem.vertexID = dstSCCID;
+                    newItem.lifespan.set(timestamp, true);
+                    newItem.partLab = 1;
+                    vrri.Out.push_back(newItem);
+                    IG.InsertEdgeSrcMustExistOrThrow(vrri.node, tx, dstSCCID, tx);
+                }
+                else {
+                    //加入到N2中去, 先检查之前是存在
+                    auto findN2 = find_if(vrri.Out.begin(), vrri.Out.end(),
+                        [&](const Item& item) {return item.vertexID == dstSCCID && item.partLab == 2; });
+                    if (findN2 != vrri.Out.end()) {
+                        //存在此节点，先删后增
+                        assert(findN2->lifespan.test(timestamp) == false);
+                        IG.DeleteEdgeKeepEmptyNode(vrri.node, Lpsv, findN2->vertexID, findN2->lifespan);
+                        findN2->lifespan.set(timestamp, true);
+                        IG.InsertEdgeSrcMustExistOrThrow(vrri.node, Lpsv, findN2->vertexID, findN2->lifespan);
+                    }
+                    else {
+                        //不存在此节点，按照case2加入
+                        Item newItem;
+                        newItem.vertexID = dstSCCID;
+                        newItem.lifespan.set(timestamp, true);
+                        newItem.partLab = 2;
+                        vrri.Out.push_back(newItem);
+                        IG.InsertEdgeSrcMustExistOrThrow(vrri.node, Lpsv, dstSCCID, tx);
+                    }
+
+                }
+
+            }
+        }
+        //删除分裂前的节点
+        reconstructEvolvingGraphSequence(timestamp);
+
+        //%%%%%%%%%%%%%%%%%%% PART4: 处理内部节点 %%%%%%%%%%%%%%%%%%%%%%%
+        //处理内部节点
+        for (const auto insideNode : newSCCGraph.vertices) {
+            auto _ = thisSCCGraph.getInAndOutNodes(insideNode.SCCID);
+            vector<int> incoming = _.first;
+            vector<int> outgoing = _.second;
+            auto ri = find_if(nodeInfoTable.begin(), nodeInfoTable.end(),
+                [&](const RecordItem& item) {return item.node == insideNode.SCCID; });
+            assert(ri != nodeInfoTable.end());
+            auto& rri = findRefineRecordItem(refineNITable, ri->node);
+            //在t时刻肯定为空
+            //先处理IN
+            for (const auto inid : incoming) {
+                auto exist = find_if(ri->In.begin(), ri->In.end(),
+                    [&](const Item& item) {return item.vertexID == inid; });
+                if (exist != ri->In.end()) {
+                    //存在此in边
+                    exist->lifespan.set(timestamp, true);
+                }
+                else {
+                    //不存在此in边
+                    Item newItem;
+                    newItem.vertexID = inid;
+                    newItem.lifespan.set(timestamp, true);
+                    ri->In.push_back(newItem);
+                }
+            }
+            Lifespan Lsub;
+            for(const auto& _ : ri->In) {
+                Lsub = Lsub | _.lifespan;
+            }
+            for (const auto outid : outgoing) {
+                //放入out中
+                auto findOut = find_if(ri->Out.begin(), ri->Out.end(),
+                    [&](const Item& item) {return item.vertexID == outid; });
+                if (findOut != ri->Out.end()) {
+                    //存在此节点
+                    findOut->lifespan.set(timestamp, true);
+                }
+                else {
+                    //不存在此节点
+                    Item newItem;
+                    newItem.vertexID = outid;
+                    newItem.lifespan.set(timestamp, true);
+                    ri->Out.push_back(newItem);
+                }
+            }
+            //所有出边要么全是N1型要么全是N2型
+            //处理N1型
+            if (Lsub.test(timestamp)) {
+                for (const auto outid : outgoing) {
+                    //放到N1中去,不需要判断存在性
+                    Item newItem;
+                    newItem.vertexID = outid;
+                    newItem.lifespan.set(timestamp, true);
+                    newItem.partLab = 1;
+                    rri.Out.push_back(newItem);
+                    IG.InsertEdgeSrcMustExistOrThrow(rri.node, tx, outid, tx);
+
+                }
+            }
+            //处理N2型，首先需要计算lpsi是否包含了timestamp
+            Lifespan Lp = _getLpSi(rri);
+            assert(!(Lp.test(timestamp)));
+            if (outgoing.size() != 0) {
+                Lifespan newLp = Lp | tx;
+                IG.ModifyNodeOrThrow(rri.node, Lp, newLp);
+                for (const auto outid : outgoing) {
+                    //放到N2中去，首先判断是否已经存在
+                    auto findN2 = find_if(rri.Out.begin(), rri.Out.end(),
+                        [&](const Item& item) {return item.vertexID == outid && item.partLab == 2; });
+                    
+                    if (findN2 != rri.Out.end()) {
+                        //存在此节点，先删后增
+                        assert(findN2->lifespan.test(timestamp) == false);
+                        Lifespan Lp = _getLpSi(rri);
+                        IG.DeleteEdgeKeepEmptyNode(rri.node, newLp, findN2->vertexID, findN2->lifespan);
+                        findN2->lifespan.set(timestamp, true);
+                        IG.InsertEdgeSrcMustExistOrThrow(rri.node, newLp, findN2->vertexID, findN2->lifespan);
+                    }
+                    else {
+                        //不存在此节点，按照case2加入
+                        Item newItem;
+                        newItem.vertexID = outid;
+                        newItem.lifespan.set(timestamp, true);
+                        newItem.partLab = 2;
+                        ri->Out.push_back(newItem);
+                        IG.InsertEdgeSrcMustExistOrThrow(rri.node, newLp, outid, tx);
+                    }
+
+                }
+        }
+
         }
     }
-    /*
-    getNITable();
-    getRefineNITable();
-    buildIndexGraph();*/
+
+
+    
     LOG << "delete edge(" << u << "->" << v << ")at timeStamp" << timestamp << " success!" << endl;
     return true;
 
