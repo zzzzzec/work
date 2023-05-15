@@ -444,4 +444,17 @@ pair<bool, bool> refineNITINsertOrThrow(RefineRecordItem & ritem, const Item& i)
     }
     return make_pair(success, createNew);
 }
+
+void deleteN2(RefineRecordItem& rit) {
+    auto it = rit.Out.begin();
+    while (it != rit.Out.end()) {
+        if (it->partLab == 2) {
+            it = rit.Out.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
+}
+
 #endif

@@ -635,6 +635,10 @@ void IGraph::ModifyNodeOrThrow(int id, Lifespan lifespan, Lifespan newLifespan) 
     auto res = findNode(id, lifespan);
     if (res == nullptr)
         throw "node not exist";
+    if (newLifespan.none()) {
+        deleteNodeOrThrow(*res);
+        return;
+    }
     res->souLifespan = newLifespan;
     for (auto it : vertices) {
         auto edgeit = it.firstArc;
