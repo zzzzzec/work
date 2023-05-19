@@ -3,7 +3,7 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "C/C++: cpp.exe build active file",
+			"label": "C++:build main",
 			"command": "D:\\mingw32\\bin\\g++.exe",
 			"args": [
 				"-std=c++17",
@@ -20,19 +20,19 @@
 			"problemMatcher": [
 				"$gcc"
 			],
-			"group": "build",
+			"group": "build"
 		},
 		{
 			"type": "cppbuild",
-			"label": "WSL: build",
-			"command": "/usr/bin/g++",
+			"label": "C++:build eval",
+			"command": "D:\\mingw32\\bin\\g++.exe",
 			"args": [
 				"-std=c++17",
 				"-g",
-				"${workspaceFolder}/main.cpp",
-				"${workspaceFolder}/json/jsoncpp.cpp",
+				"${workspaceFolder}\\eval.cpp",
+				"${workspaceFolder}\\json\\jsoncpp.cpp",
 				"-o",
-				"${workspaceFolder}/main",
+				"${workspaceFolder}\\eval.exe",
 				"-static"
 			],
 			"options": {
@@ -41,8 +41,29 @@
 			"problemMatcher": [
 				"$gcc"
 			],
-			"group": "build",
-		}
+			"group": "build"
+		},
+		{
+			"type": "cppbuild",
+			"label": "C++:build eval O3",
+			"command": "D:\\mingw32\\bin\\g++.exe",
+			"args": [
+				"-std=c++17",
+				"-o3",
+				"${workspaceFolder}\\eval.cpp",
+				"${workspaceFolder}\\json\\jsoncpp.cpp",
+				"-o",
+				"${workspaceFolder}\\evalO3.exe",
+				"-static"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
 	]
 
 }

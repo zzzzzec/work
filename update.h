@@ -22,7 +22,7 @@ typedef struct updateRecord_t{
     updateRecord_t(int type, int u, int v, int timestamp):type(type), u(u), v(v), timestamp(timestamp) {}
 }updateRecord;
 
-bool readUpdateRecords(vector<updateRecord> &updateRecordVector, string updateFileAddress){
+bool readUpdateRecords(vector<updateRecord>& updateRecordVector, string updateFileAddress) {
     ifstream updateFile(updateFileAddress);
     if(!updateFile.is_open()){
         printf("update file open failed");

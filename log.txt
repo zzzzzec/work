@@ -1,41 +1,2344 @@
-The local date and time is: Mon May 15 22:13:28 2023
+The local date and time is: Fri May 19 11:47:20 2023
 
 starting
-step1:buildOriginGraph(0.00s)
-step2:buildSccTable(0.00s)
-step3:buildSCCGraph(0.00s)
-step4:buildNITable(0.00s)
-step5:buildRefineNITable(0.00s)
-step6:buildIndexGraph(0.01s)
-timeStamp: 0 nodeNum: 8 edgeNum: 9 SCCNum: 3 SCCEdgeNum: 2
-timeStamp: 1 nodeNum: 10 edgeNum: 12 SCCNum: 7 SCCEdgeNum: 7
-timeStamp: 2 nodeNum: 9 edgeNum: 12 SCCNum: 3 SCCEdgeNum: 2
-timeStamp: 3 nodeNum: 5 edgeNum: 7 SCCNum: 2 SCCEdgeNum: 1
+step1:buildOriginGraph(0.63s)
+step2:buildSccTable(0.92s)
+step3:buildSCCGraph(0.20s)
+step4:buildNITable(0.19s)
+step5:buildRefineNITable(0.01s)
+step6:buildIndexGraph(1.83s)
+timeStamp: 0 nodeNum: 342 edgeNum: 975 SCCNum: 237 SCCEdgeNum: 360
+timeStamp: 1 nodeNum: 860 edgeNum: 5314 SCCNum: 341 SCCEdgeNum: 370
+timeStamp: 2 nodeNum: 946 edgeNum: 5650 SCCNum: 282 SCCEdgeNum: 283
+timeStamp: 3 nodeNum: 1053 edgeNum: 5307 SCCNum: 325 SCCEdgeNum: 325
+timeStamp: 4 nodeNum: 834 edgeNum: 2702 SCCNum: 284 SCCEdgeNum: 274
+timeStamp: 5 nodeNum: 138 edgeNum: 102 SCCNum: 138 SCCEdgeNum: 102
+timeStamp: 6 nodeNum: 430 edgeNum: 1010 SCCNum: 172 SCCEdgeNum: 162
+timeStamp: 7 nodeNum: 345 edgeNum: 621 SCCNum: 179 SCCEdgeNum: 168
+timeStamp: 8 nodeNum: 268 edgeNum: 523 SCCNum: 117 SCCEdgeNum: 99
+timeStamp: 9 nodeNum: 257 edgeNum: 449 SCCNum: 123 SCCEdgeNum: 106
+timeStamp: 10 nodeNum: 247 edgeNum: 512 SCCNum: 108 SCCEdgeNum: 92
+timeStamp: 11 nodeNum: 265 edgeNum: 429 SCCNum: 146 SCCEdgeNum: 128
+timeStamp: 12 nodeNum: 227 edgeNum: 406 SCCNum: 112 SCCEdgeNum: 96
+timeStamp: 13 nodeNum: 208 edgeNum: 346 SCCNum: 93 SCCEdgeNum: 77
+timeStamp: 14 nodeNum: 158 edgeNum: 235 SCCNum: 81 SCCEdgeNum: 60
+timeStamp: 15 nodeNum: 176 edgeNum: 198 SCCNum: 135 SCCEdgeNum: 116
+nodeMean: 422 edgeMean: 1548 SCCMean: 179 SCCEdgeMean: 176
 
-gt construction finished
-step1:buildOriginGraph(0.00s)
-step2:buildSccTable(0.00s)
-step3:buildSCCGraph(0.00s)
-step4:buildNITable(0.00s)
-step5:buildRefineNITable(0.00s)
-step6:buildIndexGraph(0.01s)
-timeStamp: 0 nodeNum: 8 edgeNum: 9 SCCNum: 3 SCCEdgeNum: 2
-timeStamp: 1 nodeNum: 10 edgeNum: 13 SCCNum: 4 SCCEdgeNum: 4
-timeStamp: 2 nodeNum: 9 edgeNum: 12 SCCNum: 3 SCCEdgeNum: 2
-timeStamp: 3 nodeNum: 5 edgeNum: 7 SCCNum: 2 SCCEdgeNum: 1
-
-update 0/1
-singleStepUpdateDeleteEdge(8->5,1)
+update 0/500
+singleStepUpdateDeleteEdge(1859->1601,13)
 step1 : DeleteEdge(0.00ms)
-DeleteEdgeKeepEmptyNode: <1,00000000000000000010> -> <0,00000000000000000010>
-InsertEdgeSrcMustExistOrThrow: <1,00000000000000000010> -> <6,00000000000000000010>
-DeleteEdgeKeepEmptyNode: <3,00000000000000000010> -> <0,00000000000000000010>
-InsertEdgeSrcMustExistOrThrow: <3,00000000000000000010> -> <7,00000000000000000010>
-InsertEdgeSrcMustExistOrThrow: <5,00000000000000000010> -> <6,00000000000000000010>
-InsertEdgeSrcMustExistOrThrow: <6,00000000000000000010> -> <7,00000000000000000010>
-InsertEdgeSrcMustExistOrThrow: <7,00000000000000000010> -> <8,00000000000000000010>
-deleteEmptyNode: delete node 0
-delete edge(8->5)at timeStamp1 success!
-1/1
+ u = 1859 uSCCID = 1634
+ v = 1601 vSCCID = 1634
+delete edge(1859->1601)at timeStamp13 success!
+finish(7.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
 
-test construction finished
+update 1/500
+singleStepUpdateDeleteEdge(1878->1730,14)
+step1 : DeleteEdge(0.00ms)
+ u = 1878 uSCCID = 1675
+ v = 1730 vSCCID = 1675
+part1(154.00)ms
+part2(2.00)ms
+part3(5.00)ms
+part4(16.00)ms
+deleteEmptyNode: delete node 1675
+delete edge(1878->1730)at timeStamp14 success!
+finish(177.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 2/500
+singleStepUpdateDeleteEdge(431->561,11)
+step1 : DeleteEdge(0.00ms)
+ u = 431 uSCCID = 1549
+ v = 561 vSCCID = 1549
+delete edge(431->561)at timeStamp11 success!
+finish(6.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 3/500
+singleStepUpdateDeleteEdge(1624->1052,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1624 uSCCID = 1393
+ v = 1052 vSCCID = 1393
+delete edge(1624->1052)at timeStamp8 success!
+finish(11.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 4/500
+singleStepUpdateDeleteEdge(3->32,8)
+step1 : DeleteEdge(0.00ms)
+ u = 3 uSCCID = 1393
+ v = 32 vSCCID = 1393
+delete edge(3->32)at timeStamp8 success!
+finish(10.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 5/500
+singleStepUpdateDeleteEdge(1624->1168,12)
+step1 : DeleteEdge(0.00ms)
+ u = 1624 uSCCID = 1599
+ v = 1168 vSCCID = 1599
+part1(162.00)ms
+part2(2.00)ms
+part3(7.00)ms
+part4(35.00)ms
+deleteEmptyNode: delete node 1599
+delete edge(1624->1168)at timeStamp12 success!
+finish(206.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 6/500
+singleStepUpdateDeleteEdge(1786->1344,9)
+step1 : DeleteEdge(0.00ms)
+ u = 1786 uSCCID = 1447
+ v = 1344 vSCCID = 1447
+delete edge(1786->1344)at timeStamp9 success!
+finish(8.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 7/500
+singleStepUpdateDeleteEdge(1716->1689,5)
+step1 : DeleteEdge(0.00ms)
+ u = 1716 uSCCID = 1099
+ v = 1689 vSCCID = 1050
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 8/500
+singleStepUpdateDeleteEdge(1113->1343,6)
+step1 : DeleteEdge(0.00ms)
+ u = 1113 uSCCID = 1256
+ v = 1343 vSCCID = 1256
+delete edge(1113->1343)at timeStamp6 success!
+finish(35.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 9/500
+singleStepUpdateDeleteEdge(1332->1781,9)
+step1 : DeleteEdge(0.00ms)
+ u = 1332 uSCCID = 1447
+ v = 1781 vSCCID = 1447
+delete edge(1332->1781)at timeStamp9 success!
+finish(18.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 10/500
+singleStepUpdateDeleteEdge(341->1423,3)
+step1 : DeleteEdge(0.00ms)
+ u = 341 uSCCID = 891
+ v = 1423 vSCCID = 891
+delete edge(341->1423)at timeStamp3 success!
+finish(272.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 11/500
+singleStepUpdateDeleteEdge(1585->249,6)
+step1 : DeleteEdge(0.00ms)
+ u = 1585 uSCCID = 1256
+ v = 249 vSCCID = 1256
+delete edge(1585->249)at timeStamp6 success!
+finish(68.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 12/500
+singleStepUpdateDeleteEdge(3->1463,15)
+step1 : DeleteEdge(0.00ms)
+ u = 3 uSCCID = 1115
+ v = 1463 vSCCID = 982
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 13/500
+singleStepUpdateDeleteEdge(1281->140,10)
+step1 : DeleteEdge(0.00ms)
+ u = 1281 uSCCID = 1487
+ v = 140 vSCCID = 1487
+part1(387.00)ms
+part2(1.00)ms
+part3(11.00)ms
+part4(30.00)ms
+deleteEmptyNode: delete node 1487
+deleteEmptyNode: delete node 982
+deleteEmptyNode: delete node 1050
+delete edge(1281->140)at timeStamp10 success!
+finish(429.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 14/500
+singleStepUpdateDeleteEdge(1675->1783,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1675 uSCCID = 1549
+ v = 1783 vSCCID = 1549
+delete edge(1675->1783)at timeStamp11 success!
+finish(33.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 15/500
+singleStepUpdateDeleteEdge(323->48,2)
+step1 : DeleteEdge(0.00ms)
+ u = 323 uSCCID = 681
+ v = 48 vSCCID = 681
+delete edge(323->48)at timeStamp2 success!
+finish(453.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 16/500
+singleStepUpdateDeleteEdge(1387->1312,4)
+step1 : DeleteEdge(0.00ms)
+ u = 1387 uSCCID = 1063
+ v = 1312 vSCCID = 1063
+delete edge(1387->1312)at timeStamp4 success!
+finish(156.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 17/500
+singleStepUpdateDeleteEdge(758->741,2)
+step1 : DeleteEdge(0.00ms)
+ u = 758 uSCCID = 681
+ v = 741 vSCCID = 681
+delete edge(758->741)at timeStamp2 success!
+finish(318.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 18/500
+singleStepUpdateDeleteEdge(102->97,1)
+step1 : DeleteEdge(1.00ms)
+ u = 102 uSCCID = 463
+ v = 97 vSCCID = 463
+delete edge(102->97)at timeStamp1 success!
+finish(255.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 19/500
+singleStepUpdateDeleteEdge(124->802,5)
+step1 : DeleteEdge(0.00ms)
+ u = 124 uSCCID = 1167
+ v = 802 vSCCID = 648
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 20/500
+singleStepUpdateDeleteEdge(281->708,4)
+step1 : DeleteEdge(0.00ms)
+ u = 281 uSCCID = 1063
+ v = 708 vSCCID = 1063
+delete edge(281->708)at timeStamp4 success!
+finish(133.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 21/500
+singleStepUpdateDeleteEdge(220->48,0)
+step1 : DeleteEdge(0.00ms)
+ u = 220 uSCCID = 172
+ v = 48 vSCCID = 172
+delete edge(220->48)at timeStamp0 success!
+finish(7.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 22/500
+singleStepUpdateDeleteEdge(503->1756,10)
+step1 : DeleteEdge(0.00ms)
+ u = 503 uSCCID = 1487
+ v = 1756 vSCCID = 1487
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 23/500
+singleStepUpdateDeleteEdge(398->27,9)
+step1 : DeleteEdge(0.00ms)
+ u = 398 uSCCID = 1447
+ v = 27 vSCCID = 1447
+delete edge(398->27)at timeStamp9 success!
+finish(24.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 24/500
+singleStepUpdateDeleteEdge(1236->176,3)
+step1 : DeleteEdge(0.00ms)
+ u = 1236 uSCCID = 891
+ v = 176 vSCCID = 891
+delete edge(1236->176)at timeStamp3 success!
+finish(181.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 25/500
+singleStepUpdateDeleteEdge(317->315,0)
+step1 : DeleteEdge(0.00ms)
+ u = 317 uSCCID = 128
+ v = 315 vSCCID = 127
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(317->315)at timeStamp0 success!
+finish(2.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 26/500
+singleStepUpdateDeleteEdge(1153->596,2)
+step1 : DeleteEdge(0.00ms)
+ u = 1153 uSCCID = 681
+ v = 596 vSCCID = 681
+delete edge(1153->596)at timeStamp2 success!
+finish(280.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 27/500
+singleStepUpdateDeleteEdge(263->277,0)
+step1 : DeleteEdge(0.00ms)
+ u = 263 uSCCID = 222
+ v = 277 vSCCID = 206
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+deleteEmptyNode: delete node 206
+deleteEmptyNode: delete node 648
+delete edge(263->277)at timeStamp0 success!
+finish(4.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 28/500
+singleStepUpdateDeleteEdge(281->263,3)
+step1 : DeleteEdge(0.00ms)
+ u = 281 uSCCID = 891
+ v = 263 vSCCID = 891
+delete edge(281->263)at timeStamp3 success!
+finish(227.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 29/500
+singleStepUpdateDeleteEdge(1815->1338,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1815 uSCCID = 1515
+ v = 1338 vSCCID = 1515
+part1(318.00)ms
+####################
+update: delete edge failed!
+update 30/500
+singleStepUpdateDeleteEdge(1675->32,9)
+step1 : DeleteEdge(0.00ms)
+ u = 1675 uSCCID = 1447
+ v = 32 vSCCID = 1447
+delete edge(1675->32)at timeStamp9 success!
+finish(4.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 31/500
+singleStepUpdateDeleteEdge(1698->1644,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1698 uSCCID = 1393
+ v = 1644 vSCCID = 1393
+part1(500.00)ms
+part2(1.00)ms
+part3(12.00)ms
+part4(37.00)ms
+deleteEmptyNode: delete node 1393
+delete edge(1698->1644)at timeStamp8 success!
+finish(551.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 32/500
+singleStepUpdateDeleteEdge(1624->1601,13)
+step1 : DeleteEdge(0.00ms)
+ u = 1624 uSCCID = 1634
+ v = 1601 vSCCID = 1634
+delete edge(1624->1601)at timeStamp13 success!
+finish(23.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 33/500
+singleStepUpdateDeleteEdge(48->1655,5)
+step1 : DeleteEdge(0.00ms)
+ u = 48 uSCCID = 1154
+ v = 1655 vSCCID = 1153
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(48->1655)at timeStamp5 success!
+finish(2.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 34/500
+singleStepUpdateDeleteEdge(1624->1557,14)
+step1 : DeleteEdge(0.00ms)
+ u = 1624 uSCCID = 1675
+ v = 1557 vSCCID = 1675
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 35/500
+singleStepUpdateDeleteEdge(19->1313,8)
+step1 : DeleteEdge(0.00ms)
+ u = 19 uSCCID = 1393
+ v = 1313 vSCCID = 1393
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 36/500
+singleStepUpdateDeleteEdge(642->711,6)
+step1 : DeleteEdge(0.00ms)
+ u = 642 uSCCID = 1256
+ v = 711 vSCCID = 1256
+delete edge(642->711)at timeStamp6 success!
+finish(201.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 37/500
+singleStepUpdateDeleteEdge(1405->516,3)
+step1 : DeleteEdge(0.00ms)
+ u = 1405 uSCCID = 891
+ v = 516 vSCCID = 891
+delete edge(1405->516)at timeStamp3 success!
+finish(367.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 38/500
+singleStepUpdateDeleteEdge(1343->1071,5)
+step1 : DeleteEdge(0.00ms)
+ u = 1343 uSCCID = 1130
+ v = 1071 vSCCID = 1084
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(1343->1071)at timeStamp5 success!
+finish(1.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 39/500
+singleStepUpdateDeleteEdge(1716->69,5)
+step1 : DeleteEdge(0.00ms)
+ u = 1716 uSCCID = 1099
+ v = 69 vSCCID = 226
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 40/500
+singleStepUpdateDeleteEdge(652->27,6)
+step1 : DeleteEdge(0.00ms)
+ u = 652 uSCCID = 1256
+ v = 27 vSCCID = 1256
+delete edge(652->27)at timeStamp6 success!
+finish(54.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 41/500
+singleStepUpdateDeleteEdge(8->7,0)
+step1 : DeleteEdge(0.00ms)
+ u = 8 uSCCID = 172
+ v = 7 vSCCID = 165
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(8->7)at timeStamp0 success!
+finish(0.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 42/500
+singleStepUpdateDeleteEdge(1079->983,14)
+step1 : DeleteEdge(0.00ms)
+ u = 1079 uSCCID = 1675
+ v = 983 vSCCID = 1675
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 43/500
+singleStepUpdateDeleteEdge(1406->1748,7)
+step1 : DeleteEdge(0.00ms)
+ u = 1406 uSCCID = 1338
+ v = 1748 vSCCID = 1338
+delete edge(1406->1748)at timeStamp7 success!
+finish(36.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 44/500
+singleStepUpdateDeleteEdge(3->372,2)
+step1 : DeleteEdge(0.00ms)
+ u = 3 uSCCID = 681
+ v = 372 vSCCID = 681
+delete edge(3->372)at timeStamp2 success!
+finish(189.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 45/500
+singleStepUpdateDeleteEdge(95->626,6)
+step1 : DeleteEdge(0.00ms)
+ u = 95 uSCCID = 1256
+ v = 626 vSCCID = 1256
+delete edge(95->626)at timeStamp6 success!
+finish(70.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 46/500
+singleStepUpdateDeleteEdge(492->1181,13)
+step1 : DeleteEdge(0.00ms)
+ u = 492 uSCCID = 1634
+ v = 1181 vSCCID = 1634
+delete edge(492->1181)at timeStamp13 success!
+finish(30.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 47/500
+singleStepUpdateDeleteEdge(214->286,5)
+step1 : DeleteEdge(0.00ms)
+ u = 214 uSCCID = 1094
+ v = 286 vSCCID = 182
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 48/500
+singleStepUpdateDeleteEdge(1756->1346,9)
+step1 : DeleteEdge(0.00ms)
+ u = 1756 uSCCID = 1447
+ v = 1346 vSCCID = 1447
+delete edge(1756->1346)at timeStamp9 success!
+finish(41.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 49/500
+singleStepUpdateDeleteEdge(652->1130,13)
+step1 : DeleteEdge(0.00ms)
+ u = 652 uSCCID = 1634
+ v = 1130 vSCCID = 652
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 50/500
+singleStepUpdateDeleteEdge(1344->1786,9)
+step1 : DeleteEdge(0.00ms)
+ u = 1344 uSCCID = 1447
+ v = 1786 vSCCID = 1447
+part1(373.00)ms
+part2(2.00)ms
+part3(2.00)ms
+part4(51.00)ms
+deleteEmptyNode: delete node 226
+deleteEmptyNode: delete node 182
+deleteEmptyNode: delete node 1447
+deleteEmptyNode: delete node 652
+delete edge(1344->1786)at timeStamp9 success!
+finish(428.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 51/500
+singleStepUpdateDeleteEdge(1->44,12)
+step1 : DeleteEdge(0.00ms)
+ u = 1 uSCCID = 1599
+ v = 44 vSCCID = 1599
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 52/500
+singleStepUpdateDeleteEdge(509->1463,4)
+step1 : DeleteEdge(0.00ms)
+ u = 509 uSCCID = 1063
+ v = 1463 vSCCID = 982
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(509->1463)at timeStamp4 success!
+finish(0.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 53/500
+singleStepUpdateDeleteEdge(1343->9,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1343 uSCCID = 1393
+ v = 9 vSCCID = 1393
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 54/500
+singleStepUpdateDeleteEdge(84->451,4)
+step1 : DeleteEdge(0.00ms)
+ u = 84 uSCCID = 1063
+ v = 451 vSCCID = 606
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(84->451)at timeStamp4 success!
+finish(1.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 55/500
+singleStepUpdateDeleteEdge(1395->341,7)
+step1 : DeleteEdge(0.00ms)
+ u = 1395 uSCCID = 1338
+ v = 341 vSCCID = 1338
+part1(559.00)ms
+part2(3.00)ms
+part3(16.00)ms
+part4(83.00)ms
+deleteEmptyNode: delete node 1338
+delete edge(1395->341)at timeStamp7 success!
+finish(661.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 56/500
+singleStepUpdateDeleteEdge(361->1069,4)
+step1 : DeleteEdge(0.00ms)
+ u = 361 uSCCID = 1063
+ v = 1069 vSCCID = 1063
+delete edge(361->1069)at timeStamp4 success!
+finish(380.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 57/500
+singleStepUpdateDeleteEdge(105->107,0)
+step1 : DeleteEdge(0.00ms)
+ u = 105 uSCCID = 172
+ v = 107 vSCCID = 41
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 58/500
+singleStepUpdateDeleteEdge(152->847,11)
+step1 : DeleteEdge(0.00ms)
+ u = 152 uSCCID = 1549
+ v = 847 vSCCID = 1549
+part1(383.00)ms
+part2(2.00)ms
+part3(13.00)ms
+part4(51.00)ms
+deleteEmptyNode: delete node 1549
+deleteEmptyNode: delete node 41
+delete edge(152->847)at timeStamp11 success!
+finish(449.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 59/500
+singleStepUpdateDeleteEdge(1585->1280,10)
+step1 : DeleteEdge(0.00ms)
+ u = 1585 uSCCID = 1487
+ v = 1280 vSCCID = 1487
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 60/500
+singleStepUpdateDeleteEdge(1750->1881,14)
+step1 : DeleteEdge(0.00ms)
+ u = 1750 uSCCID = 1675
+ v = 1881 vSCCID = 1675
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 61/500
+singleStepUpdateDeleteEdge(1403->95,13)
+step1 : DeleteEdge(0.00ms)
+ u = 1403 uSCCID = 1634
+ v = 95 vSCCID = 1634
+part1(583.00)ms
+part2(2.00)ms
+part3(6.00)ms
+part4(36.00)ms
+deleteEmptyNode: delete node 1634
+delete edge(1403->95)at timeStamp13 success!
+finish(627.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 62/500
+singleStepUpdateDeleteEdge(509->893,4)
+step1 : DeleteEdge(0.00ms)
+ u = 509 uSCCID = 1063
+ v = 893 vSCCID = 327
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(509->893)at timeStamp4 success!
+finish(0.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 63/500
+singleStepUpdateDeleteEdge(823->498,2)
+step1 : DeleteEdge(0.00ms)
+ u = 823 uSCCID = 681
+ v = 498 vSCCID = 681
+delete edge(823->498)at timeStamp2 success!
+finish(451.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 64/500
+singleStepUpdateDeleteEdge(915->654,2)
+step1 : DeleteEdge(0.00ms)
+ u = 915 uSCCID = 681
+ v = 654 vSCCID = 681
+delete edge(915->654)at timeStamp2 success!
+finish(205.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 65/500
+singleStepUpdateDeleteEdge(48->175,0)
+step1 : DeleteEdge(0.00ms)
+ u = 48 uSCCID = 172
+ v = 175 vSCCID = 172
+delete edge(48->175)at timeStamp0 success!
+finish(3.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 66/500
+singleStepUpdateDeleteEdge(1052->1881,14)
+step1 : DeleteEdge(0.00ms)
+ u = 1052 uSCCID = 1675
+ v = 1881 vSCCID = 1675
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 67/500
+singleStepUpdateDeleteEdge(1543->1280,6)
+step1 : DeleteEdge(0.00ms)
+ u = 1543 uSCCID = 1256
+ v = 1280 vSCCID = 1256
+delete edge(1543->1280)at timeStamp6 success!
+finish(86.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 68/500
+singleStepUpdateDeleteEdge(1808->12,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1808 uSCCID = 1549
+ v = 12 vSCCID = 1549
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 69/500
+singleStepUpdateDeleteEdge(1238->1472,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1238 uSCCID = 1393
+ v = 1472 vSCCID = 1393
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 70/500
+singleStepUpdateDeleteEdge(1438->639,3)
+step1 : DeleteEdge(0.00ms)
+ u = 1438 uSCCID = 891
+ v = 639 vSCCID = 891
+delete edge(1438->639)at timeStamp3 success!
+finish(179.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 71/500
+singleStepUpdateDeleteEdge(1231->1168,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1231 uSCCID = 1393
+ v = 1168 vSCCID = 1393
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 72/500
+singleStepUpdateDeleteEdge(67->697,3)
+step1 : DeleteEdge(0.00ms)
+ u = 67 uSCCID = 891
+ v = 697 vSCCID = 891
+delete edge(67->697)at timeStamp3 success!
+finish(268.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 73/500
+singleStepUpdateDeleteEdge(36->221,0)
+step1 : DeleteEdge(0.00ms)
+ u = 36 uSCCID = 229
+ v = 221 vSCCID = 172
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(36->221)at timeStamp0 success!
+finish(0.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 74/500
+singleStepUpdateDeleteEdge(400->429,1)
+step1 : DeleteEdge(0.00ms)
+ u = 400 uSCCID = 463
+ v = 429 vSCCID = 463
+delete edge(400->429)at timeStamp1 success!
+finish(230.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 75/500
+singleStepUpdateDeleteEdge(483->249,9)
+step1 : DeleteEdge(0.00ms)
+ u = 483 uSCCID = 1447
+ v = 249 vSCCID = 1447
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 76/500
+singleStepUpdateDeleteEdge(617->728,1)
+step1 : DeleteEdge(0.00ms)
+ u = 617 uSCCID = 463
+ v = 728 vSCCID = 463
+delete edge(617->728)at timeStamp1 success!
+finish(151.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 77/500
+singleStepUpdateDeleteEdge(48->683,1)
+step1 : DeleteEdge(0.00ms)
+ u = 48 uSCCID = 463
+ v = 683 vSCCID = 463
+delete edge(48->683)at timeStamp1 success!
+finish(146.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 78/500
+singleStepUpdateDeleteEdge(144->1758,8)
+step1 : DeleteEdge(0.00ms)
+ u = 144 uSCCID = 1393
+ v = 1758 vSCCID = 1393
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 79/500
+singleStepUpdateDeleteEdge(1168->1624,13)
+step1 : DeleteEdge(0.00ms)
+ u = 1168 uSCCID = 1634
+ v = 1624 vSCCID = 1634
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 80/500
+singleStepUpdateDeleteEdge(249->779,2)
+step1 : DeleteEdge(0.00ms)
+ u = 249 uSCCID = 681
+ v = 779 vSCCID = 681
+delete edge(249->779)at timeStamp2 success!
+finish(159.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 81/500
+singleStepUpdateDeleteEdge(1497->1158,7)
+step1 : DeleteEdge(0.00ms)
+ u = 1497 uSCCID = 1333
+ v = 1158 vSCCID = 1333
+part1(285.00)ms
+part2(0.00)ms
+part3(5.00)ms
+part4(2.00)ms
+deleteEmptyNode: delete node 1333
+delete edge(1497->1158)at timeStamp7 success!
+finish(292.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 82/500
+singleStepUpdateDeleteEdge(840->1167,2)
+step1 : DeleteEdge(0.00ms)
+ u = 840 uSCCID = 681
+ v = 1167 vSCCID = 681
+delete edge(840->1167)at timeStamp2 success!
+finish(385.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 83/500
+singleStepUpdateDeleteEdge(194->353,3)
+step1 : DeleteEdge(0.00ms)
+ u = 194 uSCCID = 891
+ v = 353 vSCCID = 891
+delete edge(194->353)at timeStamp3 success!
+finish(214.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 84/500
+singleStepUpdateDeleteEdge(1314->1346,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1314 uSCCID = 1393
+ v = 1346 vSCCID = 1393
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 85/500
+singleStepUpdateDeleteEdge(638->482,1)
+step1 : DeleteEdge(0.00ms)
+ u = 638 uSCCID = 463
+ v = 482 vSCCID = 463
+delete edge(638->482)at timeStamp1 success!
+finish(216.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 86/500
+singleStepUpdateDeleteEdge(105->1312,9)
+step1 : DeleteEdge(0.00ms)
+ u = 105 uSCCID = 1447
+ v = 1312 vSCCID = 1447
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 87/500
+singleStepUpdateDeleteEdge(1741->475,14)
+step1 : DeleteEdge(0.00ms)
+ u = 1741 uSCCID = 1664
+ v = 475 vSCCID = 1664
+part1(256.00)ms
+part2(1.00)ms
+part3(0.00)ms
+part4(5.00)ms
+delete edge(1741->475)at timeStamp14 success!
+finish(262.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 88/500
+singleStepUpdateDeleteEdge(1050->1049,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1050 uSCCID = 988
+ v = 1049 vSCCID = 913
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 89/500
+singleStepUpdateDeleteEdge(277->191,0)
+step1 : DeleteEdge(0.00ms)
+ u = 277 uSCCID = 206
+ v = 191 vSCCID = 172
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(277->191)at timeStamp0 success!
+finish(0.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 90/500
+singleStepUpdateDeleteEdge(536->492,14)
+step1 : DeleteEdge(0.00ms)
+ u = 536 uSCCID = 1675
+ v = 492 vSCCID = 1675
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 91/500
+singleStepUpdateDeleteEdge(291->292,0)
+step1 : DeleteEdge(0.00ms)
+ u = 291 uSCCID = 172
+ v = 292 vSCCID = 0
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 92/500
+singleStepUpdateDeleteEdge(1741->784,10)
+step1 : DeleteEdge(0.00ms)
+ u = 1741 uSCCID = 1490
+ v = 784 vSCCID = 413
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 93/500
+singleStepUpdateDeleteEdge(1312->1344,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1312 uSCCID = 1549
+ v = 1344 vSCCID = 1549
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 94/500
+singleStepUpdateDeleteEdge(398->1013,9)
+step1 : DeleteEdge(0.00ms)
+ u = 398 uSCCID = 1447
+ v = 1013 vSCCID = 1447
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 95/500
+singleStepUpdateDeleteEdge(1624->1168,13)
+step1 : DeleteEdge(0.00ms)
+ u = 1624 uSCCID = 1634
+ v = 1168 vSCCID = 1634
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 96/500
+singleStepUpdateDeleteEdge(1784->3,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1784 uSCCID = 1431
+ v = 3 vSCCID = 1115
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(1784->3)at timeStamp11 success!
+finish(1.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 97/500
+singleStepUpdateDeleteEdge(1185->536,4)
+step1 : DeleteEdge(0.00ms)
+ u = 1185 uSCCID = 1063
+ v = 536 vSCCID = 1063
+delete edge(1185->536)at timeStamp4 success!
+finish(283.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 98/500
+singleStepUpdateDeleteEdge(582->598,3)
+step1 : DeleteEdge(0.00ms)
+ u = 582 uSCCID = 891
+ v = 598 vSCCID = 891
+delete edge(582->598)at timeStamp3 success!
+finish(198.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 99/500
+singleStepUpdateDeleteEdge(1346->1314,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1346 uSCCID = 1506
+ v = 1314 vSCCID = 1506
+part1(290.00)ms
+####################
+update: delete edge failed!
+update 100/500
+singleStepUpdateDeleteEdge(9->8,0)
+step1 : DeleteEdge(0.00ms)
+ u = 9 uSCCID = 231
+ v = 8 vSCCID = 172
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(9->8)at timeStamp0 success!
+finish(0.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 101/500
+singleStepUpdateDeleteEdge(1434->298,3)
+step1 : DeleteEdge(0.00ms)
+ u = 1434 uSCCID = 891
+ v = 298 vSCCID = 891
+delete edge(1434->298)at timeStamp3 success!
+finish(377.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 102/500
+singleStepUpdateDeleteEdge(681->109,4)
+step1 : DeleteEdge(0.00ms)
+ u = 681 uSCCID = 1063
+ v = 109 vSCCID = 1063
+delete edge(681->109)at timeStamp4 success!
+finish(157.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 103/500
+singleStepUpdateDeleteEdge(114->770,2)
+step1 : DeleteEdge(0.00ms)
+ u = 114 uSCCID = 681
+ v = 770 vSCCID = 681
+delete edge(114->770)at timeStamp2 success!
+finish(174.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 104/500
+singleStepUpdateDeleteEdge(447->1866,14)
+step1 : DeleteEdge(0.00ms)
+ u = 447 uSCCID = 1675
+ v = 1866 vSCCID = 1675
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 105/500
+singleStepUpdateDeleteEdge(1440->1748,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1440 uSCCID = 1393
+ v = 1748 vSCCID = 1393
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 106/500
+singleStepUpdateDeleteEdge(1543->893,9)
+step1 : DeleteEdge(0.00ms)
+ u = 1543 uSCCID = 1447
+ v = 893 vSCCID = 327
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE NOT EXIST !
+####################
+update: delete edge failed!
+update 107/500
+singleStepUpdateDeleteEdge(1756->8,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1756 uSCCID = 1393
+ v = 8 vSCCID = 1393
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 108/500
+singleStepUpdateDeleteEdge(1644->1079,15)
+step1 : DeleteEdge(0.00ms)
+ u = 1644 uSCCID = 1717
+ v = 1079 vSCCID = 1717
+part1(297.00)ms
+part2(0.00)ms
+part3(4.00)ms
+part4(5.00)ms
+deleteEmptyNode: delete node 0
+deleteEmptyNode: delete node 913
+deleteEmptyNode: delete node 1717
+deleteEmptyNode: delete node 413
+delete edge(1644->1079)at timeStamp15 success!
+finish(306.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 109/500
+singleStepUpdateDeleteEdge(1342->1343,4)
+step1 : DeleteEdge(0.00ms)
+ u = 1342 uSCCID = 1063
+ v = 1343 vSCCID = 1063
+delete edge(1342->1343)at timeStamp4 success!
+finish(284.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 110/500
+singleStepUpdateDeleteEdge(652->1565,14)
+step1 : DeleteEdge(0.00ms)
+ u = 652 uSCCID = 1675
+ v = 1565 vSCCID = 1675
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 111/500
+singleStepUpdateDeleteEdge(593->621,8)
+step1 : DeleteEdge(0.00ms)
+ u = 593 uSCCID = 1387
+ v = 621 vSCCID = 1387
+part1(290.00)ms
+part2(0.00)ms
+part3(4.00)ms
+part4(1.00)ms
+deleteEmptyNode: delete node 1387
+delete edge(593->621)at timeStamp8 success!
+finish(295.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 112/500
+singleStepUpdateDeleteEdge(835->590,1)
+step1 : DeleteEdge(0.00ms)
+ u = 835 uSCCID = 463
+ v = 590 vSCCID = 463
+delete edge(835->590)at timeStamp1 success!
+finish(360.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 113/500
+singleStepUpdateDeleteEdge(1138->1381,3)
+step1 : DeleteEdge(0.00ms)
+ u = 1138 uSCCID = 891
+ v = 1381 vSCCID = 891
+delete edge(1138->1381)at timeStamp3 success!
+finish(171.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 114/500
+singleStepUpdateDeleteEdge(469->1629,14)
+step1 : DeleteEdge(0.00ms)
+ u = 469 uSCCID = 1653
+ v = 1629 vSCCID = 1541
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(469->1629)at timeStamp14 success!
+finish(1.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 115/500
+singleStepUpdateDeleteEdge(38->502,1)
+step1 : DeleteEdge(0.00ms)
+ u = 38 uSCCID = 463
+ v = 502 vSCCID = 463
+delete edge(38->502)at timeStamp1 success!
+finish(208.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 116/500
+singleStepUpdateDeleteEdge(713->1059,10)
+step1 : DeleteEdge(0.00ms)
+ u = 713 uSCCID = 1487
+ v = 1059 vSCCID = 1487
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 117/500
+singleStepUpdateDeleteEdge(1542->1246,10)
+step1 : DeleteEdge(0.00ms)
+ u = 1542 uSCCID = 1487
+ v = 1246 vSCCID = 1487
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 118/500
+singleStepUpdateDeleteEdge(1781->1332,9)
+step1 : DeleteEdge(0.00ms)
+ u = 1781 uSCCID = 1447
+ v = 1332 vSCCID = 1447
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 119/500
+singleStepUpdateDeleteEdge(342->588,9)
+step1 : DeleteEdge(0.00ms)
+ u = 342 uSCCID = 1427
+ v = 588 vSCCID = 837
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(342->588)at timeStamp9 success!
+finish(2.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 120/500
+singleStepUpdateDeleteEdge(561->557,12)
+step1 : DeleteEdge(0.00ms)
+ u = 561 uSCCID = 1599
+ v = 557 vSCCID = 1599
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 121/500
+singleStepUpdateDeleteEdge(336->315,0)
+step1 : DeleteEdge(0.00ms)
+ u = 336 uSCCID = 192
+ v = 315 vSCCID = 127
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(336->315)at timeStamp0 success!
+finish(1.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 122/500
+singleStepUpdateDeleteEdge(204->79,0)
+step1 : DeleteEdge(0.00ms)
+ u = 204 uSCCID = 233
+ v = 79 vSCCID = 172
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(204->79)at timeStamp0 success!
+finish(0.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 123/500
+singleStepUpdateDeleteEdge(234->1412,5)
+step1 : DeleteEdge(0.00ms)
+ u = 234 uSCCID = 31
+ v = 1412 vSCCID = 1126
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(234->1412)at timeStamp5 success!
+finish(1.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 124/500
+singleStepUpdateDeleteEdge(1545->1556,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1545 uSCCID = 1553
+ v = 1556 vSCCID = 1553
+part1(258.00)ms
+part2(0.00)ms
+part3(0.00)ms
+part4(4.00)ms
+delete edge(1545->1556)at timeStamp11 success!
+finish(262.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 125/500
+singleStepUpdateDeleteEdge(1423->1158,4)
+step1 : DeleteEdge(0.00ms)
+ u = 1423 uSCCID = 1063
+ v = 1158 vSCCID = 1063
+delete edge(1423->1158)at timeStamp4 success!
+finish(285.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 126/500
+singleStepUpdateDeleteEdge(1362->1608,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1362 uSCCID = 1510
+ v = 1608 vSCCID = 1510
+part1(288.00)ms
+####################
+update: delete edge failed!
+update 127/500
+singleStepUpdateDeleteEdge(1344->1690,4)
+step1 : DeleteEdge(0.00ms)
+ u = 1344 uSCCID = 1063
+ v = 1690 vSCCID = 1063
+delete edge(1344->1690)at timeStamp4 success!
+finish(293.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 128/500
+singleStepUpdateDeleteEdge(1730->398,13)
+step1 : DeleteEdge(0.00ms)
+ u = 1730 uSCCID = 1634
+ v = 398 vSCCID = 1634
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 129/500
+singleStepUpdateDeleteEdge(36->60,0)
+step1 : DeleteEdge(0.00ms)
+ u = 36 uSCCID = 229
+ v = 60 vSCCID = 172
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(36->60)at timeStamp0 success!
+finish(0.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 130/500
+singleStepUpdateDeleteEdge(1280->768,13)
+step1 : DeleteEdge(0.00ms)
+ u = 1280 uSCCID = 1634
+ v = 768 vSCCID = 1634
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 131/500
+singleStepUpdateDeleteEdge(1644->9,12)
+step1 : DeleteEdge(0.00ms)
+ u = 1644 uSCCID = 1599
+ v = 9 vSCCID = 1599
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 132/500
+singleStepUpdateDeleteEdge(212->368,1)
+step1 : DeleteEdge(0.00ms)
+ u = 212 uSCCID = 463
+ v = 368 vSCCID = 463
+delete edge(212->368)at timeStamp1 success!
+finish(169.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 133/500
+singleStepUpdateDeleteEdge(1781->1624,14)
+step1 : DeleteEdge(0.00ms)
+ u = 1781 uSCCID = 1675
+ v = 1624 vSCCID = 1675
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 134/500
+singleStepUpdateDeleteEdge(809->847,6)
+step1 : DeleteEdge(0.00ms)
+ u = 809 uSCCID = 1256
+ v = 847 vSCCID = 1256
+delete edge(809->847)at timeStamp6 success!
+finish(51.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 135/500
+singleStepUpdateDeleteEdge(950->353,6)
+step1 : DeleteEdge(0.00ms)
+ u = 950 uSCCID = 1256
+ v = 353 vSCCID = 1256
+part1(329.00)ms
+part2(3.00)ms
+part3(19.00)ms
+part4(69.00)ms
+deleteEmptyNode: delete node 1256
+delete edge(950->353)at timeStamp6 success!
+finish(420.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 136/500
+singleStepUpdateDeleteEdge(598->878,3)
+step1 : DeleteEdge(0.00ms)
+ u = 598 uSCCID = 891
+ v = 878 vSCCID = 891
+delete edge(598->878)at timeStamp3 success!
+finish(503.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 137/500
+singleStepUpdateDeleteEdge(1391->1741,13)
+step1 : DeleteEdge(0.00ms)
+ u = 1391 uSCCID = 884
+ v = 1741 vSCCID = 1259
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 138/500
+singleStepUpdateDeleteEdge(1500->144,4)
+step1 : DeleteEdge(0.00ms)
+ u = 1500 uSCCID = 1063
+ v = 144 vSCCID = 1063
+delete edge(1500->144)at timeStamp4 success!
+finish(166.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 139/500
+singleStepUpdateDeleteEdge(1316->1543,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1316 uSCCID = 1550
+ v = 1543 vSCCID = 1549
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE NOT EXIST !
+####################
+update: delete edge failed!
+update 140/500
+singleStepUpdateDeleteEdge(1127->547,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1127 uSCCID = 1393
+ v = 547 vSCCID = 1393
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 141/500
+singleStepUpdateDeleteEdge(95->175,9)
+step1 : DeleteEdge(0.00ms)
+ u = 95 uSCCID = 1447
+ v = 175 vSCCID = 1447
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 142/500
+singleStepUpdateDeleteEdge(823->103,4)
+step1 : DeleteEdge(0.00ms)
+ u = 823 uSCCID = 1063
+ v = 103 vSCCID = 1063
+delete edge(823->103)at timeStamp4 success!
+finish(117.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 143/500
+singleStepUpdateDeleteEdge(687->823,1)
+step1 : DeleteEdge(0.00ms)
+ u = 687 uSCCID = 463
+ v = 823 vSCCID = 463
+delete edge(687->823)at timeStamp1 success!
+finish(142.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 144/500
+singleStepUpdateDeleteEdge(1545->1580,4)
+step1 : DeleteEdge(0.00ms)
+ u = 1545 uSCCID = 1063
+ v = 1580 vSCCID = 1063
+delete edge(1545->1580)at timeStamp4 success!
+finish(109.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 145/500
+singleStepUpdateDeleteEdge(105->1585,10)
+step1 : DeleteEdge(0.00ms)
+ u = 105 uSCCID = 1487
+ v = 1585 vSCCID = 1487
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 146/500
+singleStepUpdateDeleteEdge(1644->1285,6)
+step1 : DeleteEdge(0.00ms)
+ u = 1644 uSCCID = 1256
+ v = 1285 vSCCID = 1256
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 147/500
+singleStepUpdateDeleteEdge(1624->12,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1624 uSCCID = 1549
+ v = 12 vSCCID = 1549
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 148/500
+singleStepUpdateDeleteEdge(3->504,6)
+step1 : DeleteEdge(0.00ms)
+ u = 3 uSCCID = 1115
+ v = 504 vSCCID = 1227
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(3->504)at timeStamp6 success!
+finish(1.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 149/500
+singleStepUpdateDeleteEdge(1713->561,7)
+step1 : DeleteEdge(0.00ms)
+ u = 1713 uSCCID = 1338
+ v = 561 vSCCID = 1338
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 150/500
+singleStepUpdateDeleteEdge(625->437,1)
+step1 : DeleteEdge(0.00ms)
+ u = 625 uSCCID = 463
+ v = 437 vSCCID = 463
+delete edge(625->437)at timeStamp1 success!
+finish(136.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 151/500
+singleStepUpdateDeleteEdge(38->86,0)
+step1 : DeleteEdge(0.00ms)
+ u = 38 uSCCID = 217
+ v = 86 vSCCID = 172
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(38->86)at timeStamp0 success!
+finish(0.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 152/500
+singleStepUpdateDeleteEdge(400->1598,5)
+step1 : DeleteEdge(0.00ms)
+ u = 400 uSCCID = 1155
+ v = 1598 vSCCID = 1152
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(400->1598)at timeStamp5 success!
+finish(2.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 153/500
+singleStepUpdateDeleteEdge(144->9,7)
+step1 : DeleteEdge(0.00ms)
+ u = 144 uSCCID = 1338
+ v = 9 vSCCID = 1338
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 154/500
+singleStepUpdateDeleteEdge(523->1822,11)
+step1 : DeleteEdge(0.00ms)
+ u = 523 uSCCID = 1549
+ v = 1822 vSCCID = 1527
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE NOT EXIST !
+####################
+update: delete edge failed!
+update 155/500
+singleStepUpdateDeleteEdge(1050->1454,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1050 uSCCID = 988
+ v = 1454 vSCCID = 1081
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 156/500
+singleStepUpdateDeleteEdge(372->389,1)
+step1 : DeleteEdge(0.00ms)
+ u = 372 uSCCID = 463
+ v = 389 vSCCID = 463
+delete edge(372->389)at timeStamp1 success!
+finish(122.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 157/500
+singleStepUpdateDeleteEdge(249->503,9)
+step1 : DeleteEdge(0.00ms)
+ u = 249 uSCCID = 1447
+ v = 503 vSCCID = 1447
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 158/500
+singleStepUpdateDeleteEdge(95->63,1)
+step1 : DeleteEdge(0.00ms)
+ u = 95 uSCCID = 463
+ v = 63 vSCCID = 463
+delete edge(95->63)at timeStamp1 success!
+finish(143.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 159/500
+singleStepUpdateDeleteEdge(323->704,3)
+step1 : DeleteEdge(0.00ms)
+ u = 323 uSCCID = 891
+ v = 704 vSCCID = 891
+delete edge(323->704)at timeStamp3 success!
+finish(172.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 160/500
+singleStepUpdateDeleteEdge(1332->1313,9)
+step1 : DeleteEdge(0.00ms)
+ u = 1332 uSCCID = 1447
+ v = 1313 vSCCID = 1447
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 161/500
+singleStepUpdateDeleteEdge(1543->513,15)
+step1 : DeleteEdge(0.00ms)
+ u = 1543 uSCCID = 1709
+ v = 513 vSCCID = 975
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 162/500
+singleStepUpdateDeleteEdge(475->103,2)
+step1 : DeleteEdge(0.00ms)
+ u = 475 uSCCID = 681
+ v = 103 vSCCID = 681
+delete edge(475->103)at timeStamp2 success!
+finish(231.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 163/500
+singleStepUpdateDeleteEdge(1312->1543,10)
+step1 : DeleteEdge(0.00ms)
+ u = 1312 uSCCID = 1487
+ v = 1543 vSCCID = 1487
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 164/500
+singleStepUpdateDeleteEdge(1878->1021,15)
+step1 : DeleteEdge(0.00ms)
+ u = 1878 uSCCID = 1718
+ v = 1021 vSCCID = 1273
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(1878->1021)at timeStamp15 success!
+finish(1.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 165/500
+singleStepUpdateDeleteEdge(595->1101,8)
+step1 : DeleteEdge(0.00ms)
+ u = 595 uSCCID = 1362
+ v = 1101 vSCCID = 907
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 166/500
+singleStepUpdateDeleteEdge(1624->95,12)
+step1 : DeleteEdge(0.00ms)
+ u = 1624 uSCCID = 1599
+ v = 95 vSCCID = 1599
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 167/500
+singleStepUpdateDeleteEdge(312->1626,12)
+step1 : DeleteEdge(0.00ms)
+ u = 312 uSCCID = 1599
+ v = 1626 vSCCID = 1599
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 168/500
+singleStepUpdateDeleteEdge(1346->1314,6)
+step1 : DeleteEdge(0.00ms)
+ u = 1346 uSCCID = 1256
+ v = 1314 vSCCID = 1256
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 169/500
+singleStepUpdateDeleteEdge(1868->1346,13)
+step1 : DeleteEdge(0.00ms)
+ u = 1868 uSCCID = 1634
+ v = 1346 vSCCID = 1634
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 170/500
+singleStepUpdateDeleteEdge(536->1836,14)
+step1 : DeleteEdge(0.00ms)
+ u = 536 uSCCID = 1675
+ v = 1836 vSCCID = 1675
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 171/500
+singleStepUpdateDeleteEdge(67->180,10)
+step1 : DeleteEdge(0.00ms)
+ u = 67 uSCCID = 1487
+ v = 180 vSCCID = 1487
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 172/500
+singleStepUpdateDeleteEdge(1866->868,14)
+step1 : DeleteEdge(0.00ms)
+ u = 1866 uSCCID = 1675
+ v = 868 vSCCID = 1675
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 173/500
+singleStepUpdateDeleteEdge(617->681,2)
+step1 : DeleteEdge(0.00ms)
+ u = 617 uSCCID = 681
+ v = 681 vSCCID = 681
+delete edge(617->681)at timeStamp2 success!
+finish(215.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 174/500
+singleStepUpdateDeleteEdge(1713->233,7)
+step1 : DeleteEdge(0.00ms)
+ u = 1713 uSCCID = 1338
+ v = 233 vSCCID = 1338
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 175/500
+singleStepUpdateDeleteEdge(1675->1543,10)
+step1 : DeleteEdge(0.00ms)
+ u = 1675 uSCCID = 1487
+ v = 1543 vSCCID = 1487
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 176/500
+singleStepUpdateDeleteEdge(398->1624,12)
+step1 : DeleteEdge(0.00ms)
+ u = 398 uSCCID = 1599
+ v = 1624 vSCCID = 1599
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 177/500
+singleStepUpdateDeleteEdge(105->1624,10)
+step1 : DeleteEdge(0.00ms)
+ u = 105 uSCCID = 1487
+ v = 1624 vSCCID = 1487
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 178/500
+singleStepUpdateDeleteEdge(1713->593,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1713 uSCCID = 1393
+ v = 593 vSCCID = 1387
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE NOT EXIST !
+####################
+update: delete edge failed!
+update 179/500
+singleStepUpdateDeleteEdge(1346->950,3)
+step1 : DeleteEdge(0.00ms)
+ u = 1346 uSCCID = 891
+ v = 950 vSCCID = 891
+delete edge(1346->950)at timeStamp3 success!
+finish(214.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 180/500
+singleStepUpdateDeleteEdge(1079->868,15)
+step1 : DeleteEdge(0.00ms)
+ u = 1079 uSCCID = 1717
+ v = 868 vSCCID = 1717
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 181/500
+singleStepUpdateDeleteEdge(1127->997,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1127 uSCCID = 1393
+ v = 997 vSCCID = 1037
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE NOT EXIST !
+####################
+update: delete edge failed!
+update 182/500
+singleStepUpdateDeleteEdge(298->573,4)
+step1 : DeleteEdge(0.00ms)
+ u = 298 uSCCID = 1063
+ v = 573 vSCCID = 1063
+delete edge(298->573)at timeStamp4 success!
+finish(158.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 183/500
+singleStepUpdateDeleteEdge(143->1601,13)
+step1 : DeleteEdge(0.00ms)
+ u = 143 uSCCID = 1634
+ v = 1601 vSCCID = 1634
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 184/500
+singleStepUpdateDeleteEdge(1313->19,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1313 uSCCID = 1393
+ v = 19 vSCCID = 1393
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 185/500
+singleStepUpdateDeleteEdge(1312->12,7)
+step1 : DeleteEdge(0.00ms)
+ u = 1312 uSCCID = 1338
+ v = 12 vSCCID = 1338
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 186/500
+singleStepUpdateDeleteEdge(249->1644,6)
+step1 : DeleteEdge(0.00ms)
+ u = 249 uSCCID = 1256
+ v = 1644 vSCCID = 1256
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 187/500
+singleStepUpdateDeleteEdge(1713->1344,7)
+step1 : DeleteEdge(0.00ms)
+ u = 1713 uSCCID = 1338
+ v = 1344 vSCCID = 1338
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 188/500
+singleStepUpdateDeleteEdge(239->950,2)
+step1 : DeleteEdge(0.00ms)
+ u = 239 uSCCID = 681
+ v = 950 vSCCID = 681
+delete edge(239->950)at timeStamp2 success!
+finish(163.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 189/500
+singleStepUpdateDeleteEdge(1236->1237,15)
+step1 : DeleteEdge(0.00ms)
+ u = 1236 uSCCID = 964
+ v = 1237 vSCCID = 1295
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(1236->1237)at timeStamp15 success!
+finish(1.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 190/500
+singleStepUpdateDeleteEdge(144->1557,5)
+step1 : DeleteEdge(0.00ms)
+ u = 144 uSCCID = 1122
+ v = 1557 vSCCID = 706
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(144->1557)at timeStamp5 success!
+finish(1.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 191/500
+singleStepUpdateDeleteEdge(103->566,2)
+step1 : DeleteEdge(0.00ms)
+ u = 103 uSCCID = 681
+ v = 566 vSCCID = 440
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(103->566)at timeStamp2 success!
+finish(0.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 192/500
+singleStepUpdateDeleteEdge(474->67,8)
+step1 : DeleteEdge(0.00ms)
+ u = 474 uSCCID = 1393
+ v = 67 vSCCID = 1393
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 193/500
+singleStepUpdateDeleteEdge(1780->1255,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1780 uSCCID = 1395
+ v = 1255 vSCCID = 1393
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE NOT EXIST !
+####################
+update: delete edge failed!
+update 194/500
+singleStepUpdateDeleteEdge(429->1700,12)
+step1 : DeleteEdge(0.00ms)
+ u = 429 uSCCID = 1599
+ v = 1700 vSCCID = 1599
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 195/500
+singleStepUpdateDeleteEdge(105->1543,9)
+step1 : DeleteEdge(0.00ms)
+ u = 105 uSCCID = 1447
+ v = 1543 vSCCID = 1447
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 196/500
+singleStepUpdateDeleteEdge(323->298,3)
+step1 : DeleteEdge(0.00ms)
+ u = 323 uSCCID = 891
+ v = 298 vSCCID = 891
+delete edge(323->298)at timeStamp3 success!
+finish(210.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 197/500
+singleStepUpdateDeleteEdge(281->308,2)
+step1 : DeleteEdge(0.00ms)
+ u = 281 uSCCID = 681
+ v = 308 vSCCID = 681
+delete edge(281->308)at timeStamp2 success!
+finish(224.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 198/500
+singleStepUpdateDeleteEdge(1713->987,14)
+step1 : DeleteEdge(0.00ms)
+ u = 1713 uSCCID = 1675
+ v = 987 vSCCID = 601
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE NOT EXIST !
+####################
+update: delete edge failed!
+update 199/500
+singleStepUpdateDeleteEdge(1355->1033,4)
+step1 : DeleteEdge(0.00ms)
+ u = 1355 uSCCID = 1063
+ v = 1033 vSCCID = 1063
+delete edge(1355->1033)at timeStamp4 success!
+finish(146.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 200/500
+singleStepUpdateDeleteEdge(398->1397,11)
+step1 : DeleteEdge(0.00ms)
+ u = 398 uSCCID = 1549
+ v = 1397 vSCCID = 1549
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 201/500
+singleStepUpdateDeleteEdge(1899->1792,15)
+step1 : DeleteEdge(0.00ms)
+ u = 1899 uSCCID = 1710
+ v = 1792 vSCCID = 1663
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 202/500
+singleStepUpdateDeleteEdge(557->1624,13)
+step1 : DeleteEdge(0.00ms)
+ u = 557 uSCCID = 1634
+ v = 1624 vSCCID = 1634
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 203/500
+singleStepUpdateDeleteEdge(704->707,1)
+step1 : DeleteEdge(0.00ms)
+ u = 704 uSCCID = 463
+ v = 707 vSCCID = 453
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(704->707)at timeStamp1 success!
+finish(0.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 204/500
+singleStepUpdateDeleteEdge(224->1644,14)
+step1 : DeleteEdge(0.00ms)
+ u = 224 uSCCID = 1675
+ v = 1644 vSCCID = 1675
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 205/500
+singleStepUpdateDeleteEdge(1756->1312,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1756 uSCCID = 1393
+ v = 1312 vSCCID = 1393
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 206/500
+singleStepUpdateDeleteEdge(105->561,15)
+step1 : DeleteEdge(0.00ms)
+ u = 105 uSCCID = 1709
+ v = 561 vSCCID = 1709
+part1(283.00)ms
+part2(1.00)ms
+part3(5.00)ms
+part4(3.00)ms
+deleteEmptyNode: delete node 1709
+deleteEmptyNode: delete node 1259
+deleteEmptyNode: delete node 1081
+deleteEmptyNode: delete node 907
+deleteEmptyNode: delete node 975
+deleteEmptyNode: delete node 1663
+delete edge(105->561)at timeStamp15 success!
+finish(292.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 207/500
+singleStepUpdateDeleteEdge(3->545,7)
+step1 : DeleteEdge(0.00ms)
+ u = 3 uSCCID = 1338
+ v = 545 vSCCID = 1281
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE NOT EXIST !
+####################
+update: delete edge failed!
+update 208/500
+singleStepUpdateDeleteEdge(415->211,15)
+step1 : DeleteEdge(0.00ms)
+ u = 415 uSCCID = 1702
+ v = 211 vSCCID = 1702
+part1(443.00)ms
+part2(0.00)ms
+part3(1.00)ms
+part4(1.00)ms
+deleteEmptyNode: delete node 1702
+delete edge(415->211)at timeStamp15 success!
+finish(445.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 209/500
+singleStepUpdateDeleteEdge(560->297,3)
+step1 : DeleteEdge(0.00ms)
+ u = 560 uSCCID = 891
+ v = 297 vSCCID = 891
+delete edge(560->297)at timeStamp3 success!
+finish(403.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 210/500
+singleStepUpdateDeleteEdge(1118->1737,12)
+step1 : DeleteEdge(0.00ms)
+ u = 1118 uSCCID = 1572
+ v = 1737 vSCCID = 1571
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(1118->1737)at timeStamp12 success!
+finish(1.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 211/500
+singleStepUpdateDeleteEdge(144->515,2)
+step1 : DeleteEdge(0.00ms)
+ u = 144 uSCCID = 681
+ v = 515 vSCCID = 570
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 212/500
+singleStepUpdateDeleteEdge(1338->1601,14)
+step1 : DeleteEdge(0.00ms)
+ u = 1338 uSCCID = 1670
+ v = 1601 vSCCID = 1670
+part1(307.00)ms
+part2(0.00)ms
+part3(1.00)ms
+part4(5.00)ms
+deleteEmptyNode: delete node 570
+delete edge(1338->1601)at timeStamp14 success!
+finish(313.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 213/500
+singleStepUpdateDeleteEdge(1312->12,9)
+step1 : DeleteEdge(0.00ms)
+ u = 1312 uSCCID = 1447
+ v = 12 vSCCID = 1447
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 214/500
+singleStepUpdateDeleteEdge(783->1705,5)
+step1 : DeleteEdge(0.00ms)
+ u = 783 uSCCID = 1150
+ v = 1705 vSCCID = 1149
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), v.out is empty
+update 215/500
+singleStepUpdateDeleteEdge(1786->1280,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1786 uSCCID = 1549
+ v = 1280 vSCCID = 1549
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 216/500
+singleStepUpdateDeleteEdge(398->1781,12)
+step1 : DeleteEdge(0.00ms)
+ u = 398 uSCCID = 1599
+ v = 1781 vSCCID = 1599
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 217/500
+singleStepUpdateDeleteEdge(509->236,2)
+step1 : DeleteEdge(0.00ms)
+ u = 509 uSCCID = 681
+ v = 236 vSCCID = 681
+delete edge(509->236)at timeStamp2 success!
+finish(372.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 218/500
+singleStepUpdateDeleteEdge(175->810,11)
+step1 : DeleteEdge(0.00ms)
+ u = 175 uSCCID = 1549
+ v = 810 vSCCID = 1549
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 219/500
+singleStepUpdateDeleteEdge(325->760,2)
+step1 : DeleteEdge(0.00ms)
+ u = 325 uSCCID = 681
+ v = 760 vSCCID = 681
+part1(395.00)ms
+part2(13.00)ms
+part3(53.00)ms
+part4(145.00)ms
+deleteEmptyNode: delete node 681
+deleteEmptyNode: delete node 1149
+delete edge(325->760)at timeStamp2 success!
+finish(607.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 220/500
+singleStepUpdateDeleteEdge(847->561,7)
+step1 : DeleteEdge(0.00ms)
+ u = 847 uSCCID = 1338
+ v = 561 vSCCID = 1338
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 221/500
+singleStepUpdateDeleteEdge(1676->1580,4)
+step1 : DeleteEdge(0.00ms)
+ u = 1676 uSCCID = 1063
+ v = 1580 vSCCID = 1063
+delete edge(1676->1580)at timeStamp4 success!
+finish(237.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 222/500
+singleStepUpdateDeleteEdge(361->311,5)
+step1 : DeleteEdge(0.00ms)
+ u = 361 uSCCID = 435
+ v = 311 vSCCID = 774
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !
+process v(u->v), not move
+delete edge(361->311)at timeStamp5 success!
+finish(1.00ms)
+####################
+type = 4 UPDATE_DEL_TYPE_NOTSAMESCC####################
+
+update 223/500
+singleStepUpdateDeleteEdge(878->713,4)
+step1 : DeleteEdge(0.00ms)
+ u = 878 uSCCID = 1063
+ v = 713 vSCCID = 1063
+delete edge(878->713)at timeStamp4 success!
+finish(304.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 224/500
+singleStepUpdateDeleteEdge(1127->1665,8)
+step1 : DeleteEdge(0.00ms)
+ u = 1127 uSCCID = 1393
+ v = 1665 vSCCID = 1236
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE NOT EXIST !
+####################
+update: delete edge failed!
+update 225/500
+singleStepUpdateDeleteEdge(1789->1472,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1789 uSCCID = 1549
+ v = 1472 vSCCID = 1549
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 226/500
+singleStepUpdateDeleteEdge(212->34,0)
+step1 : DeleteEdge(0.00ms)
+ u = 212 uSCCID = 220
+ v = 34 vSCCID = 172
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE STILL EXIST !
+delete edge(212->34)at timeStamp0 success!
+finish(0.00ms)
+####################
+type = 1 UPDATE_DEL_TYPE_KEEPEDGE####################
+
+update 227/500
+singleStepUpdateDeleteEdge(1343->415,10)
+step1 : DeleteEdge(0.00ms)
+ u = 1343 uSCCID = 1487
+ v = 415 vSCCID = 1487
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 228/500
+singleStepUpdateDeleteEdge(1624->398,13)
+step1 : DeleteEdge(0.00ms)
+ u = 1624 uSCCID = 1634
+ v = 398 vSCCID = 1634
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 229/500
+singleStepUpdateDeleteEdge(1246->547,11)
+step1 : DeleteEdge(0.00ms)
+ u = 1246 uSCCID = 1545
+ v = 547 vSCCID = 1545
+part1(332.00)ms
+part2(0.00)ms
+part3(3.00)ms
+part4(1.00)ms
+deleteEmptyNode: delete node 1545
+delete edge(1246->547)at timeStamp11 success!
+finish(336.00ms)
+####################
+type = 3 UPDATE_DEL_TYPE_SPLIT####################
+
+update 230/500
+singleStepUpdateDeleteEdge(342->319,2)
+step1 : DeleteEdge(0.00ms)
+ u = 342 uSCCID = 681
+ v = 319 vSCCID = 681
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 231/500
+singleStepUpdateDeleteEdge(1485->1756,10)
+step1 : DeleteEdge(0.00ms)
+ u = 1485 uSCCID = 1487
+ v = 1756 vSCCID = 1487
+SCC not in SCCGraph
+####################
+update: delete edge failed!
+update 232/500
+singleStepUpdateDeleteEdge(787->1339,3)
+step1 : DeleteEdge(0.00ms)
+ u = 787 uSCCID = 891
+ v = 1339 vSCCID = 891
+delete edge(787->1339)at timeStamp3 success!
+finish(388.00ms)
+####################
+type = 2 UPDATE_DEL_TYPE_NOSPLIT####################
+
+update 233/500
+singleStepUpdateDeleteEdge(601->400,7)
+step1 : DeleteEdge(0.00ms)
+ u = 601 uSCCID = 1033
+ v = 400 vSCCID = 1345
+uSCCID != vSCCID
+SCC DELETE EDGE : EDGE DELETED !

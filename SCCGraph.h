@@ -229,13 +229,18 @@ int SCCGraph::insertEdgeNotExist(int srcID, int dstID, vector<NodeEdge> originEd
     }
 }
 
+/*
+return 1 : edge not exist
+return 2 : edge exist
+exception : srcID or dstID not exist
+*/
 int SCCGraph::insertEdgeNodeMustExist(int srcID, int dstID, vector<NodeEdge> originEdgeSet1) {
     if (srcID == dstID) return 0;
     SCCarc* exist = this->edgeExist(srcID, dstID);
     if (exist != NULL) {
         //已经存在这条边，合并边的原始边集
         exist->originEdgeSet.insert(exist->originEdgeSet.end(), originEdgeSet1.begin(), originEdgeSet1.end());
-        return 1;
+        return 2;
     }
     else {
         if (this->nodeExist(srcID) && this->nodeExist(dstID)) {
@@ -282,10 +287,10 @@ int SCCGraph::deleteEdgeAndOriginEdgeSet(int srcID, int dstID) {
     throw "deleteEdge: edge not exist";
 }
 
-//返回值: 1 删除成功，0 由于originNodeSet != NULL，没有删除
+//返回值: 1 删除成功，0 由于originNodeSet != NULL，没有删除, -1不存在
 int SCCGraph::deleteEdge(int srcID, int dstID, int u, int v) {
     if (this->edgeExist(srcID, dstID) == NULL)
-        throw "deleteEdge: edge not exist";
+        return -1;
     for (auto it = vertices.begin(); it != vertices.end(); it++) {
         if (it->SCCID == srcID) {
             SCCarc *tmp = it->firstArc;
@@ -592,6 +597,10 @@ pair<int, vector<SCCnode>> SCCGraph::findCycles(int SCCIDu, SccTable& st) {
     int oldid, newid;
     int cycleNum = 0;
     auto cycle = findCycle(SCCIDu);
+    if (cycle.size() == 0) {
+        LOG << "no cycle found" << endl;
+        return make_pair(-1, all);
+    }
     while (cycle.size() != 0) {
         cycleNum++;
         newid = merge(cycle, st);

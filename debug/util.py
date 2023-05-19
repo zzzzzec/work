@@ -1,4 +1,5 @@
 import random
+import csv
 UPDATE_TYPE_ADD_NODE = 1
 UPDATE_TYPE_ADD_EDGE = 2
 UPDATE_TYPE_DELETE_NODE = 3
@@ -6,7 +7,7 @@ UPDATE_TYPE_DELETE_EDGE = 4
 DATASETADDR = "./Dataset/sx-mathoverflow/sx-mathoverflow0.txt"
 QUERYFILEADDR = "../QueryFile/testQuery.txt"
 UPDATEFILEADDR = "../updateFile/testUpdate.txt"
-TIMEINTERVAL = 4
+TIMEINTERVAL = 16
 #转为python
 def GenerateRandomAddEdgeUpdate(num, updateFileAddress):
     updateRecords = []
@@ -68,8 +69,66 @@ def GenerateRandomQuery(num, datasetAddr, queryFileAddr):
     for it in queryRecords:
         queryFile.write(str(it[0]) + ' ' + str(it[1]) + ' ' + str(it[2]) + ' ' + str(it[3]) + ' ' + str(it[4]) + '\n')
 
-if __name__ == "__main__" :
-    updateFileAddress = "./updateFile/testUpdate.txt"
-    GenerateRandomAddEdgeUpdate(10, updateFileAddress) 
-    #GenerateRandomDeleteEdgeUpdate(50, updateFileAddress)
-    #GenerateRandomQuery(100, DATASETADDR, "./QueryFile/testQuery.txt")
+def GenerateRandomAddEdgeUpdateFromFile(num, originGraphDir, fileHead):
+    datas = []
+    for i in range(TIMEINTERVAL):
+        data = []
+        filePath = originGraphDir +"\\" + fileHead + str(i) + '.txt'
+        with open(filePath, 'r') as file:
+            for line in file:
+                src, dst, time = line.strip().split(' ')
+                data.append(src)
+                data.append(dst)
+        datas.append(data)
+    updateRecords = []
+    for i in range(num):
+        time = random.randint(0, TIMEINTERVAL - 1)
+        begin = datas[time][random.randint(0, len(datas[time]) - 1)]
+        end = datas[time][random.randint(0, len(datas[time]) - 1)]
+        updateRecords.append([UPDATE_TYPE_ADD_EDGE,begin,end,time])
+    return updateRecords
+
+def GenerateRandomDelEdgeUpdateFromFile(num, originGraphDir, fileHead):
+    datas = []
+    for i in range(TIMEINTERVAL):
+        data = []
+        filePath = originGraphDir +"\\" + fileHead + str(i) + '.txt'
+        with open(filePath, 'r') as file:
+            for line in file:
+                src, dst, time = line.strip().split(' ')
+                data.append([src,dst])
+        datas.append(data)
+    updateRecords = []
+    # 随机的从边里面选就好了
+    for i in range(num):
+        time = random.randint(0, TIMEINTERVAL - 1)
+        index = random.randint(0, len(datas[time]) - 1)
+        src = datas[time][index][0]
+        dst = datas[time][index][1]
+        while ([UPDATE_TYPE_DELETE_EDGE,src,dst,time] in updateRecords ) or (src == dst):
+            time = random.randint(0, TIMEINTERVAL - 1)
+            index = random.randint(0, len(datas[time]) - 1)
+            src = datas[time][index][0]
+            dst = datas[time][index][1]
+        updateRecords.append([UPDATE_TYPE_DELETE_EDGE,src,dst,time])
+        
+    return updateRecords
+
+
+if __name__ == "__main__":
+    #updateFileAddress = "D:\\desktop\\work\\code\\IG_NoOp_5\\Dataset\\wiki-talk-temporal\\update.txt"
+    #updateFileAddress = "D:\\desktop\\work\\code\\IG_NoOp_5\\Dataset\\sx-stackoverflow\\update.txt"
+    #updateFileAddress = "D:\\desktop\\work\\code\\IG_NoOp_5\\Dataset\\sx-askubuntu\\update.txt"
+    #updateFileAddress = "D:\\desktop\\work\\code\\IG_NoOp_5\\Dataset\\CollegeMsg\\update.txt"
+
+    #updateRecords = GenerateRandomAddEdgeUpdateFromFile(500, 'D:\\desktop\\work\\code\\IG_NoOp_5\\Dataset\\sx-mathoverflow', 'sx-mathoverflow')
+
+    #updateFileAddress = "D:\\desktop\\work\\code\\IG_NoOp_5\\Dataset\\sx-mathoverflow\\update-del.txt"
+    #updateFileAddress = "D:\\desktop\\work\\code\\IG_NoOp_5\\Dataset\\sx-stackoverflow\\update-del.txt"
+    #updateFileAddress = "D:\\desktop\\work\\code\\IG_NoOp_5\\Dataset\\sx-askubuntu\\update-del.txt"
+    #updateFileAddress = "D:\\desktop\\work\\code\\IG_NoOp_5\\Dataset\\wiki-talk-temporal\\update-del.txt"
+    updateFileAddress = "D:\\desktop\\work\\code\\IG_NoOp_5\\Dataset\\CollegeMsg\\update-del.txt"
+    updateRecords = GenerateRandomDelEdgeUpdateFromFile(500, 'D:\\desktop\\work\\code\\IG_NoOp_5\\Dataset\\CollegeMsg', 'CollegeMsg')
+    with open(updateFileAddress,'w') as f:
+        for r in updateRecords:
+            f.write(str(r[0]) + ' ' + str(r[1]) + ' ' + str(r[2]) + ' ' + str(r[3]) + '\n')

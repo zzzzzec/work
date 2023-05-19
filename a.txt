@@ -1,0 +1,2365 @@
+The local date and time is: Wed May 17 21:39:50 2023
+
+starting
+step1:buildOriginGraph(6.26s)
+step2:buildSccTable(38.02s)
+step3:buildSCCGraph(6.80s)
+step4:buildNITable(8.22s)
+step5:buildRefineNITable(0.06s)
+step6:buildIndexGraph(29.18s)
+timeStamp: 0 nodeNum: 1886 edgeNum: 16542 SCCNum: 723 SCCEdgeNum: 759
+timeStamp: 1 nodeNum: 2620 edgeNum: 22953 SCCNum: 1002 SCCEdgeNum: 1060
+timeStamp: 2 nodeNum: 3182 edgeNum: 23879 SCCNum: 1284 SCCEdgeNum: 1349
+timeStamp: 3 nodeNum: 3371 edgeNum: 21583 SCCNum: 1431 SCCEdgeNum: 1521
+timeStamp: 4 nodeNum: 3381 edgeNum: 17452 SCCNum: 1598 SCCEdgeNum: 1695
+timeStamp: 5 nodeNum: 3471 edgeNum: 16492 SCCNum: 1622 SCCEdgeNum: 1743
+timeStamp: 6 nodeNum: 3680 edgeNum: 16813 SCCNum: 1747 SCCEdgeNum: 1826
+timeStamp: 7 nodeNum: 3757 edgeNum: 16220 SCCNum: 1883 SCCEdgeNum: 1998
+timeStamp: 8 nodeNum: 4069 edgeNum: 17401 SCCNum: 2028 SCCEdgeNum: 2168
+timeStamp: 9 nodeNum: 3994 edgeNum: 15272 SCCNum: 2173 SCCEdgeNum: 2314
+timeStamp: 10 nodeNum: 4107 edgeNum: 14680 SCCNum: 2324 SCCEdgeNum: 2427
+timeStamp: 11 nodeNum: 4090 edgeNum: 13970 SCCNum: 2344 SCCEdgeNum: 2496
+timeStamp: 12 nodeNum: 3883 edgeNum: 13202 SCCNum: 2261 SCCEdgeNum: 2390
+timeStamp: 13 nodeNum: 3999 edgeNum: 13312 SCCNum: 2343 SCCEdgeNum: 2452
+timeStamp: 14 nodeNum: 4018 edgeNum: 12740 SCCNum: 2458 SCCEdgeNum: 2600
+timeStamp: 15 nodeNum: 4285 edgeNum: 13610 SCCNum: 2631 SCCEdgeNum: 2779
+nodeMean: 3612 edgeMean: 16632 SCCMean: 1865 SCCEdgeMean: 1973
+
+update 0/499
+singleStepUpdateAddEdge: 2926->32332 12
+node : 2926 exists
+node : 32332 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2926at14876)(0.00ms)
+step2.2 : findSCCIDFromNodeId(32332at14876)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 1/499
+singleStepUpdateAddEdge: 35416->2356 2
+node : 35416 exists
+node : 2356 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(35416at2431)(0.00ms)
+step2.2 : findSCCIDFromNodeId(2356at2431)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 2/499
+singleStepUpdateAddEdge: 1450->8039 2
+node : 1450 exists
+node : 8039 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1450at2431)(15.63ms)
+step2.2 : findSCCIDFromNodeId(8039at2363)(0.00ms)
+finish(16.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 3/499
+singleStepUpdateAddEdge: 12705->39212 11
+node : 12705 exists
+node : 39212 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(12705at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(39212at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 4/499
+singleStepUpdateAddEdge: 11540->22051 8
+node : 11540 exists
+node : 22051 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(11540at9631)(0.00ms)
+step2.2 : findSCCIDFromNodeId(22051at9631)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 5/499
+singleStepUpdateAddEdge: 70808->33672 15
+node : 70808 exists
+node : 33672 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(70808at18712)(0.00ms)
+step2.2 : findSCCIDFromNodeId(33672at18712)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 6/499
+singleStepUpdateAddEdge: 14969->5101 11
+node : 14969 exists
+node : 5101 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(14969at2842)(0.00ms)
+step2.2 : findSCCIDFromNodeId(5101at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 7/499
+singleStepUpdateAddEdge: 21051->80050 14
+node : 21051 exists
+node : 80050 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(21051at17358)(0.00ms)
+step2.2 : findSCCIDFromNodeId(80050at16656)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 8/499
+singleStepUpdateAddEdge: 8008->57319 12
+node : 8008 exists
+node : 57319 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(8008at14876)(0.00ms)
+step2.2 : findSCCIDFromNodeId(57319at14744)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 9/499
+singleStepUpdateAddEdge: 33646->8133 11
+node : 33646 exists
+node : 8133 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(33646at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(8133at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 10/499
+singleStepUpdateAddEdge: 20595->12481 7
+node : 20595 exists
+node : 12481 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(20595at8335)(0.00ms)
+step2.2 : findSCCIDFromNodeId(12481at8335)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 11/499
+singleStepUpdateAddEdge: 24274->290 13
+node : 24274 exists
+node : 290 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(24274at15999)(0.00ms)
+step2.2 : findSCCIDFromNodeId(290at16080)(0.00ms)
+cycleNum = 1
+cycle : [16080,15999] -> 18894
+All : [16080,15999]
+new SCC node In size =  442
+new SCC node Out size =  1417
+process new Node (2269.00ms)
+traverse NIT(4090.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(0.00)ms
+delEmptyNode(12775.38ms)
+rebuildCase3(3715.40ms)
+finish(7679.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 12/499
+singleStepUpdateAddEdge: 65985->1946 13
+node : 65985 exists
+node : 1946 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(65985at16025)(0.00ms)
+step2.2 : findSCCIDFromNodeId(1946at18894)(0.00ms)
+cycleNum = 1
+cycle : [18894,16025] -> 18895
+All : [18894,16025]
+new SCC node In size =  442
+new SCC node Out size =  1416
+process new Node (1546.00ms)
+traverse NIT(4279.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(0.00)ms
+delEmptyNode(12917.30ms)
+rebuildCase3(3658.40ms)
+finish(7728.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 13/499
+singleStepUpdateAddEdge: 16556->10400 4
+node : 16556 exists
+node : 10400 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(16556at4791)(0.00ms)
+step2.2 : findSCCIDFromNodeId(10400at4791)(1.00ms)
+finish(1.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 14/499
+singleStepUpdateAddEdge: 16183->25510 14
+node : 16183 exists
+node : 25510 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(16183at17358)(0.00ms)
+step2.2 : findSCCIDFromNodeId(25510at17358)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 15/499
+singleStepUpdateAddEdge: 8212->431 3
+node : 8212 exists
+node : 431 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(8212at3552)(0.00ms)
+step2.2 : findSCCIDFromNodeId(431at3552)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 16/499
+singleStepUpdateAddEdge: 5712->6794 14
+node : 5712 exists
+node : 6794 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(5712at17358)(1.00ms)
+step2.2 : findSCCIDFromNodeId(6794at17358)(0.00ms)
+finish(1.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 17/499
+singleStepUpdateAddEdge: 57804->20597 12
+node : 57804 exists
+node : 20597 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(57804at14876)(0.00ms)
+step2.2 : findSCCIDFromNodeId(20597at14876)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 18/499
+singleStepUpdateAddEdge: 3948->582 3
+node : 3948 exists
+node : 582 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(3948at3552)(1.00ms)
+step2.2 : findSCCIDFromNodeId(582at3552)(0.00ms)
+finish(1.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 19/499
+singleStepUpdateAddEdge: 1459->4974 1
+node : 1459 exists
+node : 4974 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1459at1376)(0.00ms)
+step2.2 : findSCCIDFromNodeId(4974at1376)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 20/499
+singleStepUpdateAddEdge: 763->11765 4
+node : 763 exists
+node : 11765 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(763at4791)(0.00ms)
+step2.2 : findSCCIDFromNodeId(11765at4791)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 21/499
+singleStepUpdateAddEdge: 28104->8183 10
+node : 28104 exists
+node : 8183 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(28104at12299)(1.00ms)
+step2.2 : findSCCIDFromNodeId(8183at3319)(0.00ms)
+finish(1.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 22/499
+singleStepUpdateAddEdge: 1149->3537 1
+node : 1149 exists
+node : 3537 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1149at1376)(0.00ms)
+step2.2 : findSCCIDFromNodeId(3537at1376)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 23/499
+singleStepUpdateAddEdge: 12705->21123 10
+node : 12705 exists
+node : 21123 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(12705at12299)(0.00ms)
+step2.2 : findSCCIDFromNodeId(21123at12299)(1.03ms)
+finish(1.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 24/499
+singleStepUpdateAddEdge: 19432->18529 5
+node : 19432 exists
+node : 18529 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(19432at5609)(0.00ms)
+step2.2 : findSCCIDFromNodeId(18529at5985)(0.00ms)
+cycleNum = 1
+cycle : [5985,5609] -> 18896
+All : [5985,5609]
+new SCC node In size =  318
+new SCC node Out size =  1098
+process new Node (920.00ms)
+traverse NIT(3798.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(4.00)ms
+delEmptyNode(14200.96ms)
+rebuildCase3(3657.55ms)
+finish(6786.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 25/499
+singleStepUpdateAddEdge: 21800->454 9
+node : 21800 exists
+node : 454 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(21800at10926)(0.00ms)
+step2.2 : findSCCIDFromNodeId(454at10926)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 26/499
+singleStepUpdateAddEdge: 9896->1463 3
+node : 9896 exists
+node : 1463 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(9896at3552)(0.00ms)
+step2.2 : findSCCIDFromNodeId(1463at3552)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 27/499
+singleStepUpdateAddEdge: 26935->1516 13
+node : 26935 exists
+node : 1516 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(26935at18895)(0.00ms)
+step2.2 : findSCCIDFromNodeId(1516at9742)(0.00ms)
+cycleNum = 1
+cycle : [9742,18895] -> 18897
+All : [9742,18895]
+new SCC node In size =  441
+new SCC node Out size =  1416
+process new Node (1534.00ms)
+traverse NIT(4302.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(15.67)ms
+deleteEmptyNode: delete node 4306
+delEmptyNode(13909.07ms)
+rebuildCase3(4470.39ms)
+finish(7880.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 28/499
+singleStepUpdateAddEdge: 19399->22758 6
+node : 19399 exists
+node : 22758 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(19399at7105)(0.00ms)
+step2.2 : findSCCIDFromNodeId(22758at7105)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 29/499
+singleStepUpdateAddEdge: 9417->5513 3
+node : 9417 exists
+node : 5513 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(9417at3552)(0.00ms)
+step2.2 : findSCCIDFromNodeId(5513at3552)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 30/499
+singleStepUpdateAddEdge: 1650->4658 1
+node : 1650 exists
+node : 4658 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1650at1376)(0.00ms)
+step2.2 : findSCCIDFromNodeId(4658at1376)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 31/499
+singleStepUpdateAddEdge: 12705->16336 4
+node : 12705 exists
+node : 16336 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(12705at4791)(0.00ms)
+step2.2 : findSCCIDFromNodeId(16336at4791)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 32/499
+singleStepUpdateAddEdge: 58109->2384 12
+node : 58109 exists
+node : 2384 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(58109at14591)(0.00ms)
+step2.2 : findSCCIDFromNodeId(2384at14876)(0.00ms)
+cycleNum = 1
+cycle : [14876,14591] -> 18898
+All : [14876,14591]
+new SCC node In size =  441
+new SCC node Out size =  1373
+process new Node (1521.00ms)
+traverse NIT(4171.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(4.00)ms
+delEmptyNode(13047.12ms)
+rebuildCase3(3718.61ms)
+finish(7959.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 33/499
+singleStepUpdateAddEdge: 2051->5091 6
+node : 2051 exists
+node : 5091 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2051at7105)(0.00ms)
+step2.2 : findSCCIDFromNodeId(5091at7105)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 34/499
+singleStepUpdateAddEdge: 1131->7107 2
+node : 1131 exists
+node : 7107 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1131at2431)(0.00ms)
+step2.2 : findSCCIDFromNodeId(7107at2204)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 35/499
+singleStepUpdateAddEdge: 33757->8133 9
+node : 33757 exists
+node : 8133 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(33757at10926)(0.00ms)
+step2.2 : findSCCIDFromNodeId(8133at10926)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 36/499
+singleStepUpdateAddEdge: 140->6518 4
+node : 140 exists
+node : 6518 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(140at4791)(0.00ms)
+step2.2 : findSCCIDFromNodeId(6518at4791)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 37/499
+singleStepUpdateAddEdge: 6382->19795 5
+node : 6382 exists
+node : 19795 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(6382at5442)(0.00ms)
+step2.2 : findSCCIDFromNodeId(19795at18896)(0.00ms)
+cycleNum = 1
+cycle : [18896,5442] -> 18899
+All : [18896,5442]
+new SCC node In size =  319
+new SCC node Out size =  1097
+process new Node (940.00ms)
+traverse NIT(4055.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(0.00)ms
+delEmptyNode(14910.16ms)
+rebuildCase3(3791.83ms)
+finish(7060.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 38/499
+singleStepUpdateAddEdge: 2290->24891 14
+node : 2290 exists
+node : 24891 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2290at17358)(0.00ms)
+step2.2 : findSCCIDFromNodeId(24891at16583)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 39/499
+singleStepUpdateAddEdge: 8857->25590 13
+node : 8857 exists
+node : 25590 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(8857at8520)(0.00ms)
+step2.2 : findSCCIDFromNodeId(25590at18897)(15.62ms)
+finish(16.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 40/499
+singleStepUpdateAddEdge: 3996->13809 4
+node : 3996 exists
+node : 13809 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(3996at4791)(0.00ms)
+step2.2 : findSCCIDFromNodeId(13809at4791)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 41/499
+singleStepUpdateAddEdge: 9417->6666 8
+node : 9417 exists
+node : 6666 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(9417at9631)(0.00ms)
+step2.2 : findSCCIDFromNodeId(6666at9631)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 42/499
+singleStepUpdateAddEdge: 121->20782 8
+node : 121 exists
+node : 20782 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(121at9631)(0.00ms)
+step2.2 : findSCCIDFromNodeId(20782at8230)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 43/499
+singleStepUpdateAddEdge: 29418->11919 10
+node : 29418 exists
+node : 11919 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(29418at11878)(0.00ms)
+step2.2 : findSCCIDFromNodeId(11919at12299)(0.00ms)
+cycleNum = 1
+cycle : [12299,11878] -> 18900
+All : [12299,11878]
+new SCC node In size =  420
+new SCC node Out size =  1469
+process new Node (1530.00ms)
+traverse NIT(4120.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(0.00)ms
+delEmptyNode(13079.48ms)
+rebuildCase3(3686.25ms)
+finish(8118.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 44/499
+singleStepUpdateAddEdge: 288->1409 0
+node : 288 exists
+node : 1409 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(288at441)(0.00ms)
+step2.2 : findSCCIDFromNodeId(1409at441)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 45/499
+singleStepUpdateAddEdge: 16409->32332 10
+node : 16409 exists
+node : 32332 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(16409at18900)(0.00ms)
+step2.2 : findSCCIDFromNodeId(32332at18900)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 46/499
+singleStepUpdateAddEdge: 2391->9449 2
+node : 2391 exists
+node : 9449 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2391at2431)(0.00ms)
+step2.2 : findSCCIDFromNodeId(9449at2431)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 47/499
+singleStepUpdateAddEdge: 22->37003 9
+node : 22 exists
+node : 37003 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(22at10926)(0.00ms)
+step2.2 : findSCCIDFromNodeId(37003at10083)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 48/499
+singleStepUpdateAddEdge: 4054->360 5
+node : 4054 exists
+node : 360 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(4054at18899)(0.00ms)
+step2.2 : findSCCIDFromNodeId(360at18899)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 49/499
+singleStepUpdateAddEdge: 7666->7460 3
+node : 7666 exists
+node : 7460 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(7666at3552)(0.00ms)
+step2.2 : findSCCIDFromNodeId(7460at3552)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 50/499
+singleStepUpdateAddEdge: 5001->9498 2
+node : 5001 exists
+node : 9498 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(5001at2431)(0.00ms)
+step2.2 : findSCCIDFromNodeId(9498at2431)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 51/499
+singleStepUpdateAddEdge: 10035->23444 15
+node : 10035 exists
+node : 23444 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(10035at18712)(15.63ms)
+step2.2 : findSCCIDFromNodeId(23444at13699)(0.00ms)
+cycleNum = 1
+cycle : [13699,18712] -> 18901
+All : [13699,18712]
+new SCC node In size =  436
+new SCC node Out size =  1623
+process new Node (2551.00ms)
+traverse NIT(5443.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(15.59)ms
+delEmptyNode(15480.07ms)
+rebuildCase3(3767.52ms)
+finish(11874.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 52/499
+singleStepUpdateAddEdge: 51663->59209 13
+node : 51663 exists
+node : 59209 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(51663at18897)(0.00ms)
+step2.2 : findSCCIDFromNodeId(59209at14018)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 53/499
+singleStepUpdateAddEdge: 9025->11100 11
+node : 9025 exists
+node : 11100 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(9025at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(11100at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 54/499
+singleStepUpdateAddEdge: 3681->5091 9
+node : 3681 exists
+node : 5091 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(3681at9828)(0.00ms)
+step2.2 : findSCCIDFromNodeId(5091at10926)(0.00ms)
+no cycle found
+finish(378.00ms)
+####################
+type = 2UPDATE_ADD_TYPE_NOCYCLE
+####################
+
+update 55/499
+singleStepUpdateAddEdge: 1409->5371 1
+node : 1409 exists
+node : 5371 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1409at1376)(0.00ms)
+step2.2 : findSCCIDFromNodeId(5371at1376)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 56/499
+singleStepUpdateAddEdge: 6101->23951 13
+node : 6101 exists
+node : 23951 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(6101at18897)(0.00ms)
+step2.2 : findSCCIDFromNodeId(23951at18897)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 57/499
+singleStepUpdateAddEdge: 25580->450 7
+node : 25580 exists
+node : 450 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(25580at8335)(0.00ms)
+step2.2 : findSCCIDFromNodeId(450at8335)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 58/499
+singleStepUpdateAddEdge: 19902->19938 5
+node : 19902 exists
+node : 19938 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(19902at18899)(0.00ms)
+step2.2 : findSCCIDFromNodeId(19938at18899)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 59/499
+singleStepUpdateAddEdge: 297->6345 1
+node : 297 exists
+node : 6345 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(297at1376)(0.00ms)
+step2.2 : findSCCIDFromNodeId(6345at1098)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 60/499
+singleStepUpdateAddEdge: 32831->45524 12
+node : 32831 exists
+node : 45524 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(32831at18898)(0.00ms)
+step2.2 : findSCCIDFromNodeId(45524at14426)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 61/499
+singleStepUpdateAddEdge: 5810->18692 5
+node : 5810 exists
+node : 18692 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(5810at18899)(0.00ms)
+step2.2 : findSCCIDFromNodeId(18692at18899)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 62/499
+singleStepUpdateAddEdge: 2631->9550 5
+node : 2631 exists
+node : 9550 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2631at18899)(0.00ms)
+step2.2 : findSCCIDFromNodeId(9550at18899)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 63/499
+singleStepUpdateAddEdge: 43952->22277 10
+node : 43952 exists
+node : 22277 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(43952at18900)(0.00ms)
+step2.2 : findSCCIDFromNodeId(22277at18900)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 64/499
+singleStepUpdateAddEdge: 10696->45 1
+node : 10696 exists
+node : 45 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(10696at1376)(0.00ms)
+step2.2 : findSCCIDFromNodeId(45at1376)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 65/499
+singleStepUpdateAddEdge: 1650->22989 11
+node : 1650 exists
+node : 22989 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1650at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(22989at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 66/499
+singleStepUpdateAddEdge: 20364->17637 5
+node : 20364 exists
+node : 17637 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(20364at18899)(0.00ms)
+step2.2 : findSCCIDFromNodeId(17637at18899)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 67/499
+singleStepUpdateAddEdge: 14094->40054 10
+node : 14094 exists
+node : 40054 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(14094at18900)(0.00ms)
+step2.2 : findSCCIDFromNodeId(40054at11763)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 68/499
+singleStepUpdateAddEdge: 6316->13650 6
+node : 6316 exists
+node : 13650 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(6316at7105)(0.00ms)
+step2.2 : findSCCIDFromNodeId(13650at7105)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 69/499
+singleStepUpdateAddEdge: 955->16931 11
+node : 955 exists
+node : 16931 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(955at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(16931at4383)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 70/499
+singleStepUpdateAddEdge: 7460->36707 15
+node : 7460 exists
+node : 36707 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(7460at18901)(0.00ms)
+step2.2 : findSCCIDFromNodeId(36707at18901)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 71/499
+singleStepUpdateAddEdge: 9514->3502 4
+node : 9514 exists
+node : 3502 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(9514at4791)(0.00ms)
+step2.2 : findSCCIDFromNodeId(3502at4791)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 72/499
+singleStepUpdateAddEdge: 349->1532 0
+node : 349 exists
+node : 1532 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(349at441)(0.00ms)
+step2.2 : findSCCIDFromNodeId(1532at441)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 73/499
+singleStepUpdateAddEdge: 3460->4600 10
+node : 3460 exists
+node : 4600 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(3460at18900)(0.00ms)
+step2.2 : findSCCIDFromNodeId(4600at18900)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 74/499
+singleStepUpdateAddEdge: 20174->824 6
+node : 20174 exists
+node : 824 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(20174at7105)(0.00ms)
+step2.2 : findSCCIDFromNodeId(824at7105)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 75/499
+singleStepUpdateAddEdge: 11142->31327 13
+node : 11142 exists
+node : 31327 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(11142at18897)(0.00ms)
+step2.2 : findSCCIDFromNodeId(31327at18897)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 76/499
+singleStepUpdateAddEdge: 20215->18032 5
+node : 20215 exists
+node : 18032 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(20215at18899)(0.00ms)
+step2.2 : findSCCIDFromNodeId(18032at5140)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 77/499
+singleStepUpdateAddEdge: 41666->12481 10
+node : 41666 exists
+node : 12481 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(41666at12120)(0.00ms)
+step2.2 : findSCCIDFromNodeId(12481at18900)(0.00ms)
+cycleNum = 1
+cycle : [18900,12120] -> 18902
+All : [18900,12120]
+new SCC node In size =  420
+new SCC node Out size =  1470
+process new Node (1514.00ms)
+traverse NIT(4360.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(0.00)ms
+delEmptyNode(13213.86ms)
+rebuildCase3(3716.10ms)
+finish(7790.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 78/499
+singleStepUpdateAddEdge: 1946->1384 4
+node : 1946 exists
+node : 1384 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1946at4791)(0.00ms)
+step2.2 : findSCCIDFromNodeId(1384at4791)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 79/499
+singleStepUpdateAddEdge: 26342->38851 10
+node : 26342 exists
+node : 38851 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(26342at11100)(0.00ms)
+step2.2 : findSCCIDFromNodeId(38851at18902)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 80/499
+singleStepUpdateAddEdge: 437->2384 4
+node : 437 exists
+node : 2384 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(437at4791)(15.62ms)
+step2.2 : findSCCIDFromNodeId(2384at4791)(0.00ms)
+finish(16.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 81/499
+singleStepUpdateAddEdge: 25609->2290 7
+node : 25609 exists
+node : 2290 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(25609at8335)(0.38ms)
+step2.2 : findSCCIDFromNodeId(2290at8335)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 82/499
+singleStepUpdateAddEdge: 27611->1310 7
+node : 27611 exists
+node : 1310 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(27611at8335)(0.00ms)
+step2.2 : findSCCIDFromNodeId(1310at8335)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 83/499
+singleStepUpdateAddEdge: 51018->1590 11
+node : 51018 exists
+node : 1590 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(51018at13638)(1.00ms)
+step2.2 : findSCCIDFromNodeId(1590at9708)(0.00ms)
+finish(1.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 84/499
+singleStepUpdateAddEdge: 4556->23078 9
+node : 4556 exists
+node : 23078 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(4556at10926)(0.00ms)
+step2.2 : findSCCIDFromNodeId(23078at10123)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 85/499
+singleStepUpdateAddEdge: 1465->38799 12
+node : 1465 exists
+node : 38799 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1465at18898)(0.00ms)
+step2.2 : findSCCIDFromNodeId(38799at10874)(1.00ms)
+no cycle found
+finish(312.00ms)
+####################
+type = 2UPDATE_ADD_TYPE_NOCYCLE
+####################
+
+update 86/499
+singleStepUpdateAddEdge: 23153->6481 6
+node : 23153 exists
+node : 6481 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(23153at7105)(0.00ms)
+step2.2 : findSCCIDFromNodeId(6481at7105)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 87/499
+singleStepUpdateAddEdge: 9449->431 2
+node : 9449 exists
+node : 431 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(9449at2431)(0.00ms)
+step2.2 : findSCCIDFromNodeId(431at2431)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 88/499
+singleStepUpdateAddEdge: 4304->12120 4
+node : 4304 exists
+node : 12120 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(4304at4791)(0.00ms)
+step2.2 : findSCCIDFromNodeId(12120at4791)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 89/499
+singleStepUpdateAddEdge: 327->38624 11
+node : 327 exists
+node : 38624 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(327at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(38624at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 90/499
+singleStepUpdateAddEdge: 31883->42140 11
+node : 31883 exists
+node : 42140 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(31883at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(42140at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 91/499
+singleStepUpdateAddEdge: 327->440 15
+node : 327 exists
+node : 440 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(327at18901)(0.00ms)
+step2.2 : findSCCIDFromNodeId(440at18901)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 92/499
+singleStepUpdateAddEdge: 66731->85222 15
+node : 66731 exists
+node : 85222 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(66731at18668)(0.00ms)
+step2.2 : findSCCIDFromNodeId(85222at18901)(0.00ms)
+cycleNum = 1
+cycle : [18901,18668] -> 18903
+All : [18901,18668]
+new SCC node In size =  436
+new SCC node Out size =  1622
+process new Node (2007.00ms)
+traverse NIT(4892.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(5.03)ms
+delEmptyNode(14300.22ms)
+rebuildCase3(3683.34ms)
+finish(9022.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 93/499
+singleStepUpdateAddEdge: 2554->18739 9
+node : 2554 exists
+node : 18739 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2554at10926)(0.00ms)
+step2.2 : findSCCIDFromNodeId(18739at10926)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 94/499
+singleStepUpdateAddEdge: 10849->12705 3
+node : 10849 exists
+node : 12705 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(10849at3552)(0.00ms)
+step2.2 : findSCCIDFromNodeId(12705at3552)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 95/499
+singleStepUpdateAddEdge: 1946->7458 11
+node : 1946 exists
+node : 7458 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1946at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(7458at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 96/499
+singleStepUpdateAddEdge: 3272->9714 3
+node : 3272 exists
+node : 9714 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(3272at3552)(0.00ms)
+step2.2 : findSCCIDFromNodeId(9714at3552)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 97/499
+singleStepUpdateAddEdge: 1483->3684 3
+node : 1483 exists
+node : 3684 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1483at432)(0.00ms)
+step2.2 : findSCCIDFromNodeId(3684at3552)(0.00ms)
+cycleNum = 1
+cycle : [3487,3552,432] -> 18904
+All : [3487,3552,432]
+new SCC node In size =  340
+new SCC node Out size =  956
+process new Node (757.00ms)
+traverse NIT(3839.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(6.00)ms
+delEmptyNode(13721.72ms)
+rebuildCase3(4566.23ms)
+finish(6425.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 98/499
+singleStepUpdateAddEdge: 5516->14094 14
+node : 5516 exists
+node : 14094 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(5516at2602)(0.00ms)
+step2.2 : findSCCIDFromNodeId(14094at17358)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 99/499
+singleStepUpdateAddEdge: 8385->454 13
+node : 8385 exists
+node : 454 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(8385at18897)(0.00ms)
+step2.2 : findSCCIDFromNodeId(454at18897)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 100/499
+singleStepUpdateAddEdge: 5743->49027 11
+node : 5743 exists
+node : 49027 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(5743at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(49027at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 101/499
+singleStepUpdateAddEdge: 10503->20729 6
+node : 10503 exists
+node : 20729 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(10503at7105)(0.00ms)
+step2.2 : findSCCIDFromNodeId(20729at7105)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 102/499
+singleStepUpdateAddEdge: 62154->8430 14
+node : 62154 exists
+node : 8430 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(62154at17358)(0.00ms)
+step2.2 : findSCCIDFromNodeId(8430at17358)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 103/499
+singleStepUpdateAddEdge: 801->6794 11
+node : 801 exists
+node : 6794 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(801at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(6794at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 104/499
+singleStepUpdateAddEdge: 66016->76098 14
+node : 66016 exists
+node : 76098 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(66016at17358)(0.00ms)
+step2.2 : findSCCIDFromNodeId(76098at17358)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 105/499
+singleStepUpdateAddEdge: 10001->2906 2
+node : 10001 exists
+node : 2906 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(10001at2431)(0.00ms)
+step2.2 : findSCCIDFromNodeId(2906at2431)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 106/499
+singleStepUpdateAddEdge: 35051->11919 9
+node : 35051 exists
+node : 11919 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(35051at10926)(0.00ms)
+step2.2 : findSCCIDFromNodeId(11919at10926)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 107/499
+singleStepUpdateAddEdge: 1098->4661 1
+node : 1098 exists
+node : 4661 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1098at1376)(0.00ms)
+step2.2 : findSCCIDFromNodeId(4661at1376)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 108/499
+singleStepUpdateAddEdge: 7952->3684 10
+node : 7952 exists
+node : 3684 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(7952at18902)(0.00ms)
+step2.2 : findSCCIDFromNodeId(3684at18902)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 109/499
+singleStepUpdateAddEdge: 6316->6094 3
+node : 6316 exists
+node : 6094 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(6316at18904)(0.00ms)
+step2.2 : findSCCIDFromNodeId(6094at18904)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 110/499
+singleStepUpdateAddEdge: 1384->35336 1
+node : 1384 exists
+node : 35336 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1384at1376)(0.00ms)
+step2.2 : findSCCIDFromNodeId(35336at1526)(0.00ms)
+cycleNum = 1
+cycle : [1526,1376] -> 18905
+All : [1526,1376]
+new SCC node In size =  253
+new SCC node Out size =  678
+process new Node (483.00ms)
+traverse NIT(3569.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(0.00)ms
+delEmptyNode(13057.55ms)
+rebuildCase3(3683.03ms)
+finish(6582.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 111/499
+singleStepUpdateAddEdge: 1190->8381 7
+node : 1190 exists
+node : 8381 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1190at8335)(0.00ms)
+step2.2 : findSCCIDFromNodeId(8381at8335)(0.00ms)
+finish(16.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 112/499
+singleStepUpdateAddEdge: 8176->82685 15
+node : 8176 exists
+node : 82685 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(8176at18903)(0.00ms)
+step2.2 : findSCCIDFromNodeId(82685at18903)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 113/499
+singleStepUpdateAddEdge: 15934->9317 8
+node : 15934 exists
+node : 9317 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(15934at9631)(0.00ms)
+step2.2 : findSCCIDFromNodeId(9317at9631)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 114/499
+singleStepUpdateAddEdge: 83->6666 2
+node : 83 exists
+node : 6666 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(83at2431)(0.00ms)
+step2.2 : findSCCIDFromNodeId(6666at2431)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 115/499
+singleStepUpdateAddEdge: 21146->290 12
+node : 21146 exists
+node : 290 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(21146at18898)(0.00ms)
+step2.2 : findSCCIDFromNodeId(290at18898)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 116/499
+singleStepUpdateAddEdge: 1946->23915 6
+node : 1946 exists
+node : 23915 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1946at7105)(0.00ms)
+step2.2 : findSCCIDFromNodeId(23915at6675)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 117/499
+singleStepUpdateAddEdge: 40120->48208 11
+node : 40120 exists
+node : 48208 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(40120at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(48208at13175)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 118/499
+singleStepUpdateAddEdge: 14450->763 11
+node : 14450 exists
+node : 763 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(14450at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(763at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 119/499
+singleStepUpdateAddEdge: 5015->1465 2
+node : 5015 exists
+node : 1465 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(5015at2431)(0.00ms)
+step2.2 : findSCCIDFromNodeId(1465at2431)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 120/499
+singleStepUpdateAddEdge: 2095->15934 5
+node : 2095 exists
+node : 15934 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2095at18899)(0.00ms)
+step2.2 : findSCCIDFromNodeId(15934at18899)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 121/499
+singleStepUpdateAddEdge: 8012->451 2
+node : 8012 exists
+node : 451 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(8012at2395)(0.00ms)
+step2.2 : findSCCIDFromNodeId(451at2431)(0.00ms)
+cycleNum = 1
+cycle : [2431,2395] -> 18906
+All : [2431,2395]
+new SCC node In size =  297
+new SCC node Out size =  889
+process new Node (658.00ms)
+traverse NIT(3653.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(0.00)ms
+delEmptyNode(14945.55ms)
+rebuildCase3(3656.29ms)
+finish(7134.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 122/499
+singleStepUpdateAddEdge: 398->2554 11
+node : 398 exists
+node : 2554 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(398at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(2554at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 123/499
+singleStepUpdateAddEdge: 46332->8103 10
+node : 46332 exists
+node : 8103 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(46332at11517)(0.00ms)
+step2.2 : findSCCIDFromNodeId(8103at18902)(0.00ms)
+cycleNum = 1
+cycle : [18902,11517] -> 18907
+All : [18902,11517]
+new SCC node In size =  421
+new SCC node Out size =  1469
+process new Node (1531.00ms)
+traverse NIT(4309.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(0.00)ms
+delEmptyNode(13186.32ms)
+rebuildCase3(3726.76ms)
+finish(8934.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 124/499
+singleStepUpdateAddEdge: 41654->15054 11
+node : 41654 exists
+node : 15054 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(41654at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(15054at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 125/499
+singleStepUpdateAddEdge: 4923->10898 15
+node : 4923 exists
+node : 10898 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(4923at18903)(0.00ms)
+step2.2 : findSCCIDFromNodeId(10898at18903)(0.00ms)
+finish(1.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 126/499
+singleStepUpdateAddEdge: 16183->11142 9
+node : 16183 exists
+node : 11142 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(16183at10926)(0.00ms)
+step2.2 : findSCCIDFromNodeId(11142at10926)(1.00ms)
+finish(1.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 127/499
+singleStepUpdateAddEdge: 35353->6976 4
+node : 35353 exists
+node : 6976 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(35353at4791)(0.00ms)
+step2.2 : findSCCIDFromNodeId(6976at4791)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 128/499
+singleStepUpdateAddEdge: 2926->2841 3
+node : 2926 exists
+node : 2841 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2926at18904)(0.00ms)
+step2.2 : findSCCIDFromNodeId(2841at18904)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 129/499
+singleStepUpdateAddEdge: 8106->3847 7
+node : 8106 exists
+node : 3847 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(8106at8335)(0.00ms)
+step2.2 : findSCCIDFromNodeId(3847at8335)(1.08ms)
+finish(1.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 130/499
+singleStepUpdateAddEdge: 703->9072 6
+node : 703 exists
+node : 9072 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(703at7105)(0.00ms)
+step2.2 : findSCCIDFromNodeId(9072at7105)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 131/499
+singleStepUpdateAddEdge: 38200->3205 9
+node : 38200 exists
+node : 3205 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(38200at10926)(0.00ms)
+step2.2 : findSCCIDFromNodeId(3205at3613)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 132/499
+singleStepUpdateAddEdge: 26522->8385 9
+node : 26522 exists
+node : 8385 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(26522at10926)(0.00ms)
+step2.2 : findSCCIDFromNodeId(8385at10926)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 133/499
+singleStepUpdateAddEdge: 4658->5136 1
+node : 4658 exists
+node : 5136 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(4658at18905)(0.00ms)
+step2.2 : findSCCIDFromNodeId(5136at18905)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 134/499
+singleStepUpdateAddEdge: 43006->35840 10
+node : 43006 exists
+node : 35840 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(43006at12275)(0.00ms)
+step2.2 : findSCCIDFromNodeId(35840at18907)(0.00ms)
+cycleNum = 1
+cycle : [18907,12275] -> 18908
+All : [18907,12275]
+new SCC node In size =  421
+new SCC node Out size =  1468
+process new Node (1516.00ms)
+traverse NIT(4279.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(0.00)ms
+delEmptyNode(13674.56ms)
+rebuildCase3(5339.66ms)
+finish(8810.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 135/499
+singleStepUpdateAddEdge: 2391->7607 2
+node : 2391 exists
+node : 7607 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2391at18906)(0.00ms)
+step2.2 : findSCCIDFromNodeId(7607at18906)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 136/499
+singleStepUpdateAddEdge: 7361->2926 5
+node : 7361 exists
+node : 2926 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(7361at1739)(0.00ms)
+step2.2 : findSCCIDFromNodeId(2926at18899)(0.00ms)
+no cycle found
+finish(232.00ms)
+####################
+type = 2UPDATE_ADD_TYPE_NOCYCLE
+####################
+
+update 137/499
+singleStepUpdateAddEdge: 2906->2701 0
+node : 2906 exists
+node : 2701 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2906at441)(0.00ms)
+step2.2 : findSCCIDFromNodeId(2701at441)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 138/499
+singleStepUpdateAddEdge: 1131->12734 3
+node : 1131 exists
+node : 12734 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1131at18904)(0.00ms)
+step2.2 : findSCCIDFromNodeId(12734at18904)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 139/499
+singleStepUpdateAddEdge: 10446->2841 7
+node : 10446 exists
+node : 2841 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(10446at8335)(0.00ms)
+step2.2 : findSCCIDFromNodeId(2841at8335)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 140/499
+singleStepUpdateAddEdge: 21095->22131 9
+node : 21095 exists
+node : 22131 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(21095at10926)(0.00ms)
+step2.2 : findSCCIDFromNodeId(22131at10926)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 141/499
+singleStepUpdateAddEdge: 2614->1592 0
+node : 2614 exists
+node : 1592 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2614at441)(0.00ms)
+step2.2 : findSCCIDFromNodeId(1592at441)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 142/499
+singleStepUpdateAddEdge: 18060->27160 7
+node : 18060 exists
+node : 27160 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(18060at8335)(0.00ms)
+step2.2 : findSCCIDFromNodeId(27160at8324)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 143/499
+singleStepUpdateAddEdge: 1946->62810 15
+node : 1946 exists
+node : 62810 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1946at18903)(0.00ms)
+step2.2 : findSCCIDFromNodeId(62810at18903)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 144/499
+singleStepUpdateAddEdge: 35840->11216 10
+node : 35840 exists
+node : 11216 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(35840at18908)(0.00ms)
+step2.2 : findSCCIDFromNodeId(11216at11726)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 145/499
+singleStepUpdateAddEdge: 7631->6094 11
+node : 7631 exists
+node : 6094 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(7631at13638)(0.00ms)
+step2.2 : findSCCIDFromNodeId(6094at13638)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 146/499
+singleStepUpdateAddEdge: 10265->1946 4
+node : 10265 exists
+node : 1946 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(10265at4791)(0.00ms)
+step2.2 : findSCCIDFromNodeId(1946at4791)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 147/499
+singleStepUpdateAddEdge: 6647->25051 7
+node : 6647 exists
+node : 25051 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(6647at8335)(0.00ms)
+step2.2 : findSCCIDFromNodeId(25051at8335)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 148/499
+singleStepUpdateAddEdge: 4144->53197 13
+node : 4144 exists
+node : 53197 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(4144at18897)(0.00ms)
+step2.2 : findSCCIDFromNodeId(53197at18897)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 149/499
+singleStepUpdateAddEdge: 297->10903 2
+node : 297 exists
+node : 10903 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(297at18906)(0.00ms)
+step2.2 : findSCCIDFromNodeId(10903at18906)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 150/499
+singleStepUpdateAddEdge: 613->1047 0
+node : 613 exists
+node : 1047 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(613at441)(0.00ms)
+step2.2 : findSCCIDFromNodeId(1047at441)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 151/499
+singleStepUpdateAddEdge: 5229->13546 3
+node : 5229 exists
+node : 13546 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(5229at18904)(0.00ms)
+step2.2 : findSCCIDFromNodeId(13546at3518)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 152/499
+singleStepUpdateAddEdge: 2389->2 1
+node : 2389 exists
+node : 2 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2389at18905)(0.00ms)
+step2.2 : findSCCIDFromNodeId(2at18905)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 153/499
+singleStepUpdateAddEdge: 1532->74564 15
+node : 1532 exists
+node : 74564 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1532at18903)(0.00ms)
+step2.2 : findSCCIDFromNodeId(74564at18451)(0.00ms)
+finish(0.00ms)
+####################
+type = 4UPDATE_ADD_TYPE_EDGEEXIST
+####################
+
+update 154/499
+singleStepUpdateAddEdge: 9317->40297 10
+node : 9317 exists
+node : 40297 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(9317at18908)(0.00ms)
+step2.2 : findSCCIDFromNodeId(40297at18908)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 155/499
+singleStepUpdateAddEdge: 3096->3545 1
+node : 3096 exists
+node : 3545 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(3096at18905)(0.00ms)
+step2.2 : findSCCIDFromNodeId(3545at18905)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 156/499
+singleStepUpdateAddEdge: 66->622 0
+node : 66 exists
+node : 622 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(66at441)(0.00ms)
+step2.2 : findSCCIDFromNodeId(622at441)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 157/499
+singleStepUpdateAddEdge: 4661->37661 9
+node : 4661 exists
+node : 37661 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(4661at10926)(0.00ms)
+step2.2 : findSCCIDFromNodeId(37661at10926)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 158/499
+singleStepUpdateAddEdge: 15242->46290 14
+node : 15242 exists
+node : 46290 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(15242at17358)(0.00ms)
+step2.2 : findSCCIDFromNodeId(46290at17358)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 159/499
+singleStepUpdateAddEdge: 3502->19471 7
+node : 3502 exists
+node : 19471 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(3502at8335)(0.00ms)
+step2.2 : findSCCIDFromNodeId(19471at8335)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 160/499
+singleStepUpdateAddEdge: 56995->38468 12
+node : 56995 exists
+node : 38468 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(56995at18898)(0.00ms)
+step2.2 : findSCCIDFromNodeId(38468at18898)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 161/499
+singleStepUpdateAddEdge: 38624->33741 12
+node : 38624 exists
+node : 33741 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(38624at18898)(0.00ms)
+step2.2 : findSCCIDFromNodeId(33741at18898)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 162/499
+singleStepUpdateAddEdge: 84062->10206 15
+node : 84062 exists
+node : 10206 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(84062at18499)(0.00ms)
+step2.2 : findSCCIDFromNodeId(10206at6953)(0.00ms)
+no cycle found
+finish(16.00ms)
+####################
+type = 2UPDATE_ADD_TYPE_NOCYCLE
+####################
+
+update 163/499
+singleStepUpdateAddEdge: 11115->41291 13
+node : 11115 exists
+node : 41291 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(11115at18897)(0.00ms)
+step2.2 : findSCCIDFromNodeId(41291at18897)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 164/499
+singleStepUpdateAddEdge: 84813->28128 15
+node : 84813 exists
+node : 28128 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(84813at18409)(0.00ms)
+step2.2 : findSCCIDFromNodeId(28128at18903)(0.00ms)
+cycleNum = 1
+cycle : [18903,18409] -> 18909
+All : [18903,18409]
+new SCC node In size =  436
+new SCC node Out size =  1621
+process new Node (1937.00ms)
+traverse NIT(4468.00)
+deleteNodeWhichInCycleAndIncludeTimestamp(0.00)ms
+delEmptyNode(13260.40ms)
+rebuildCase3(3665.43ms)
+finish(9847.00ms)
+####################
+type = 3UPDATE_ADD_TYPE_CYCLE
+####################
+
+update 165/499
+singleStepUpdateAddEdge: 11300->2530 3
+node : 11300 exists
+node : 2530 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(11300at18904)(0.00ms)
+step2.2 : findSCCIDFromNodeId(2530at18904)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 166/499
+singleStepUpdateAddEdge: 703->11504 5
+node : 703 exists
+node : 11504 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(703at18899)(0.00ms)
+step2.2 : findSCCIDFromNodeId(11504at18899)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 167/499
+singleStepUpdateAddEdge: 4661->450 3
+node : 4661 exists
+node : 450 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(4661at18904)(0.00ms)
+step2.2 : findSCCIDFromNodeId(450at18904)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 168/499
+singleStepUpdateAddEdge: 18060->14969 7
+node : 18060 exists
+node : 14969 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(18060at8335)(0.00ms)
+step2.2 : findSCCIDFromNodeId(14969at8335)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 169/499
+singleStepUpdateAddEdge: 2191->31310 15
+node : 2191 exists
+node : 31310 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(2191at18909)(0.00ms)
+step2.2 : findSCCIDFromNodeId(31310at18909)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 170/499
+singleStepUpdateAddEdge: 11142->2841 6
+node : 11142 exists
+node : 2841 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(11142at7105)(0.00ms)
+step2.2 : findSCCIDFromNodeId(2841at7105)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 171/499
+singleStepUpdateAddEdge: 16857->18653 5
+node : 16857 exists
+node : 18653 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(16857at18899)(0.00ms)
+step2.2 : findSCCIDFromNodeId(18653at18899)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 172/499
+singleStepUpdateAddEdge: 27714->25989 7
+node : 27714 exists
+node : 25989 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(27714at8335)(0.00ms)
+step2.2 : findSCCIDFromNodeId(25989at8335)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 173/499
+singleStepUpdateAddEdge: 9833->7206 15
+node : 9833 exists
+node : 7206 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(9833at18909)(0.00ms)
+step2.2 : findSCCIDFromNodeId(7206at18909)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 174/499
+singleStepUpdateAddEdge: 1784->382 0
+node : 1784 exists
+node : 382 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(1784at441)(0.00ms)
+step2.2 : findSCCIDFromNodeId(382at441)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 175/499
+singleStepUpdateAddEdge: 3272->8508 14
+node : 3272 exists
+node : 8508 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(3272at17358)(0.00ms)
+step2.2 : findSCCIDFromNodeId(8508at17358)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 176/499
+singleStepUpdateAddEdge: 11260->52824 12
+node : 11260 exists
+node : 52824 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(11260at18898)(0.00ms)
+step2.2 : findSCCIDFromNodeId(52824at18898)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 177/499
+singleStepUpdateAddEdge: 7112->6923 1
+node : 7112 exists
+node : 6923 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(7112at18905)(15.62ms)
+step2.2 : findSCCIDFromNodeId(6923at18905)(0.00ms)
+finish(16.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 178/499
+singleStepUpdateAddEdge: 250->6085 1
+node : 250 exists
+node : 6085 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(250at18905)(0.00ms)
+step2.2 : findSCCIDFromNodeId(6085at18905)(0.51ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 179/499
+singleStepUpdateAddEdge: 84549->8628 15
+node : 84549 exists
+node : 8628 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(84549at18909)(0.00ms)
+step2.2 : findSCCIDFromNodeId(8628at18909)(0.00ms)
+finish(0.00ms)
+####################
+type = 1UPDATE_ADD_TYPE_SAMESCC
+####################
+
+update 180/499
+singleStepUpdateAddEdge: 8699->9072 6
+node : 8699 exists
+node : 9072 exists
+step1 : originGraph insert edge
+step2.1 : findSCCIDFromNodeId(8699at6657)(0.00ms)
+step2.2 : findSCCIDFromNodeId(9072at7105)(1.01ms)
+cycleNum = 1
+cycle : [7105,6657] -> 18910
+All : [7105,6657]
+new SCC node In size =  351
+new SCC node Out size =  1137
+process new Node (984.00ms)

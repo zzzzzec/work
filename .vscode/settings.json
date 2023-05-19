@@ -74,6 +74,7 @@
         "filesystem": "cpp",
         "*.tcc": "cpp",
         "cwctype": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "numeric": "cpp"
     }
 }

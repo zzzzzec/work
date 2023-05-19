@@ -238,7 +238,7 @@ void IGraph::InsertEdgeOrThrow(int souID, bitset<MNS> souLife, int tarID, bitset
 }
 
 void IGraph::InsertEdgeSrcMustExistOrThrow(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife) {
-    LOG << __FUNCTION__ << ": <" << souID << "," << souLife.to_string() << "> -> <" << tarID << "," << tarLife.to_string() << ">" << endl;
+    //LOG << __FUNCTION__ << ": <" << souID << "," << souLife.to_string() << "> -> <" << tarID << "," << tarLife.to_string() << ">" << endl;
     int souPos = VerPos(souID, souLife);
     int tarPos = VerPos(tarID, tarLife);
     if (souPos == -1)
@@ -278,11 +278,12 @@ void IGraph::InsertEdgeOrCreate(int souID, bitset<MNS> souLife, int tarID, bitse
 
 void IGraph::DeleteEdgeKeepEmptyNode(int souID, bitset<MNS> souLife, int tarID, bitset<MNS> tarLife)
 {
-    LOG << __FUNCTION__ << ": <" << souID << "," << souLife.to_string() <<"> -> <" << tarID << "," << tarLife.to_string() << ">" << endl;
+    //LOG << __FUNCTION__ << ": <" << souID << "," << souLife.to_string() <<"> -> <" << tarID << "," << tarLife.to_string() << ">" << endl;
     int souPos = VerPos(souID, souLife);
     int tarPos = VerPos(tarID, tarLife);
 
     if (souPos == -1 || tarPos == -1) {
+        LOG << "Don't exist this sourceNode!" << endl;
         throw "Don't exist this sourceNode!";
     }
     else {
@@ -316,9 +317,11 @@ void IGraph::DeleteEdgeKeepEmptyNode(int souID, bitset<MNS> souLife, int tarID, 
                 }
             }
         }
+        /*
         if (!deleteFlag) {
             throw "Don't exist this edge";
         }
+        */
     }
 }
 
@@ -635,6 +638,10 @@ IGnode* IGraph::findNode(int id , Lifespan Lifespan) {
 }
 
 void IGraph::ModifyNodeOrThrow(int id, Lifespan lifespan, Lifespan newLifespan) {
+    if (lifespan.none()) {
+        CreateVertex(id, newLifespan);
+        return;
+    }
     auto res = findNode(id, lifespan);
     if (res == nullptr)
         throw "node not exist";

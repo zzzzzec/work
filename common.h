@@ -18,6 +18,7 @@
 #include <functional>
 #include <tuple>
 #include <chrono>
+#include <numeric>
 
 #include "json/json-forwards.h"
 #include "json/json.h"

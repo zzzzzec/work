@@ -173,6 +173,9 @@ vector<int> GetFileData1(string fileAddressHead, int timeStamp) {
             dataVector.push_back(data);
         }
     }
+    else {
+        throw "GetFileData1: file opne error";
+    }
     fin.close();
     return dataVector;
 }
@@ -189,6 +192,9 @@ vector<int> GetFileData2(string fileAddressHead, int timeStamp) {
             dataVector.push_back(src);
             dataVector.push_back(dst);
         }
+    }
+    else {
+        throw "GetFileData2: file opne error";
     }
     fin.close();
     return dataVector;

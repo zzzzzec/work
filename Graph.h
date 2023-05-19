@@ -227,8 +227,7 @@ AdjList_Graph Graph::GetVertices() {
 }
 
 int Graph::GetVexNum() {
-    int temp = vexnum;
-    return temp;
+    return vertices.size();
 }
 
 int Graph::GetConnectedCount() {
